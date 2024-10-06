@@ -1,9 +1,9 @@
-public class Hailstone {
+public class HailstoneFixed {
   public static void main(String[] args) {
     
     int[] a = new int[15];
     int i = 0;
-    int n = 8;
+    int n = 3;
     while (n != 1) {
       a[i] = n;
       i++;
@@ -12,8 +12,6 @@ public class Hailstone {
       } else {
         n = 3 * n + 1;
       }
-      a[i] = n;
-      i++;
     }
 
     // Use a for loop to print each value in the array
