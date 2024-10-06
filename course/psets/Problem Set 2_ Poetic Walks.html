@@ -1,0 +1,2125 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)https://ocw.mit.edu/ans7870/6/6.005/s16/psets/ps2/ -->
+<html coupert-item="9AF8D9A4E502F3784AD24272D81F0381"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+   <title>
+    Problem Set 2: Poetic Walks
+   </title>
+   <link href="./Problem Set 2_ Poetic Walks_files/handout-style.css" rel="stylesheet">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+   
+  
+ </head>
+ <body>
+  <header>
+   <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/">
+    6.005 — Software Construction on MIT OpenCourseWare
+   </a>
+   |
+   <a href="https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-005-software-construction-spring-2016/">
+    OCW 6.005 Homepage
+   </a>
+   <div>
+    Spring 2016
+   </div>
+  </header>
+  <nav class="table-of-contents col-sm-2">
+   <ul class="nav">
+    <li class="active">
+     <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/psets/ps2/#problem_set_2_poetic_walks">
+      Problem Set 2: Poetic Walks
+     </a>
+    </li>
+    <li>
+     <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/psets/ps2/#get_the_code">
+      Get the code
+     </a>
+    </li>
+    <li>
+     <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/psets/ps2/#overview">
+      Overview
+     </a>
+    </li>
+    <li>
+     <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/psets/ps2/#problem_1_test_graphstring">
+      Problem 1: Test Graph​&lt;String&gt;
+     </a>
+    </li>
+    <li>
+     <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/psets/ps2/#problem_2_implement_graphstring">
+      Problem 2: Implement Graph​&lt;String&gt;
+     </a>
+    </li>
+    <li>
+     <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/psets/ps2/#problem_3_implement_generic_graphl">
+      Problem 3: Implement generic Graph&lt;L&gt;
+     </a>
+    </li>
+    <li>
+     <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/psets/ps2/#problem_4_poetic_walks">
+      Problem 4: Poetic walks
+     </a>
+    </li>
+    <li>
+     <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/psets/ps2/#before_youre_done">
+      Before you’re done
+     </a>
+    </li>
+   </ul>
+  </nav>
+  <main class="container-fluid">
+   <h1 class="handout-title col-sm-8 col-sm-offset-2" id="problem_set_2_poetic_walks">
+    Problem Set 2: Poetic Walks
+   </h1>
+   <div data-outline="problem_set_2_poetic_walks">
+    <style>
+     h2 + div[data-outline^=problem_] ol {
+  list-style-type: lower-alpha;
+}
+p img[src*=icon] {
+  padding-bottom: 2px;
+}
+.panel-default.pull-right.pull-margin {
+  font-size: 90%;
+  max-width: 33%;
+}
+.panel-default.pull-right.pull-margin .panel-heading {
+  padding: 6px 8px;
+}
+.panel-default.pull-right.pull-margin .panel-body {
+  padding: 8px;
+}
+#poet-example th,
+#poet-example td { padding: 4px; }
+#poet-example td p { margin: 0; }
+    </style>
+    <div class="markdown col-sm-8 col-sm-offset-2 converted">
+     <p>
+      The purpose of this problem set is to practice designing, testing, and implementing abstract data types.
+This problem set focuses on implementing mutable types where the specifications are provided to you; the next problem set will focus on immutable types where you must choose specifications.
+     </p>
+     <div class="panel panel-info">
+      <div class="panel-heading">
+       <p>
+        <strong>
+         Design Freedom and Restrictions
+        </strong>
+       </p>
+      </div>
+      <div class="panel-body">
+       <p>
+        On several parts of this problem set, the classes and methods will be yours to specify and create, but you must pay attention to the
+        <strong>
+         PS2 instructions
+        </strong>
+        sections in the provided documentation.
+       </p>
+       <p>
+        <strong>
+         You must satisfy the specifications of the provided interfaces.
+        </strong>
+        In some cases, you are permitted to
+        <strong>
+         strengthen
+        </strong>
+        the provided specifications or
+        <strong>
+         add
+        </strong>
+        new methods, but in other cases you are
+        <strong>
+         not permitted to change them at all
+        </strong>
+        .
+       </p>
+      </div>
+     </div>
+     <h2 id="get_the_code">
+      Get the code
+     </h2>
+     <div data-outline="get_the_code">
+      <p>
+       To get started, download
+       <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/psets/ps2/ps2.zip">
+        the assignment code
+       </a>
+       and initialize a repository. If you need a refresher on how to create your repository, see
+       <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/psets/ps0/#clone">
+        Problem Set 0
+       </a>
+       .
+      </p>
+     </div>
+     <h2 id="overview">
+      Overview
+     </h2>
+     <div data-outline="overview">
+      <p>
+       The
+       <a href="https://docs.oracle.com/javase/tutorial/collections/index.html">
+        Java Collections Framework
+       </a>
+       provides many useful data structures for working with collections of objects:
+       <a href="https://docs.oracle.com/javase/tutorial/collections/interfaces/list.html">
+        lists
+       </a>
+       ,
+       <a href="https://docs.oracle.com/javase/tutorial/collections/interfaces/map.html">
+        maps
+       </a>
+       ,
+       <a href="https://docs.oracle.com/javase/tutorial/collections/interfaces/queue.html">
+        queues
+       </a>
+       ,
+       <a href="https://docs.oracle.com/javase/tutorial/collections/interfaces/set.html">
+        sets
+       </a>
+       , and so on.
+It does not provide a
+       <a href="https://en.wikipedia.org/wiki/Graph_(abstract_data_type)">
+        <strong>
+         graph
+        </strong>
+       </a>
+       data structure.
+Let’s implement graphs, and then use them to create timeless art of unparalleled brilliance.
+      </p>
+      <p>
+       <strong>
+        Problems 1-3:
+       </strong>
+       the type we will implement is
+       <strong>
+        <code>
+         Graph&lt;L&gt;
+        </code>
+       </strong>
+       , an abstract data type for mutable
+       <a href="https://en.wikipedia.org/wiki/Glossary_of_graph_theory#Weighted_graphs_and_networks">
+        weighted
+       </a>
+       <a href="https://en.wikipedia.org/wiki/Directed_graph">
+        directed graphs
+       </a>
+       with labeled vertices.
+      </p>
+      <dl>
+       <dt>
+        mutable graph
+       </dt>
+       <dd>
+        vertices and edges may be added to and removed from the graph
+       </dd>
+       <dt>
+        directed edges
+       </dt>
+       <dd>
+        edges go from a source vertex to a target vertex
+       </dd>
+       <dt>
+        weighted edges
+       </dt>
+       <dd>
+        edges are associated with a positive integer weight
+       </dd>
+       <dt>
+        labeled vertices
+       </dt>
+       <dd>
+        vertices are distinguished by a label of some immutable type, for example they might have
+        <code>
+         String
+        </code>
+        names or
+        <code>
+         Integer
+        </code>
+        IDs
+       </dd>
+      </dl>
+      <p>
+       Read the
+       <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/psets/ps2/doc/index.html?graph/Graph.html">
+        <strong>
+         Javadoc documentation for
+         <code>
+          Graph
+         </code>
+        </strong>
+       </a>
+       generated from
+       <code>
+        src/graph/Graph.java
+       </code>
+       .
+      </p>
+      <p>
+       <code>
+        Graph&lt;L&gt;
+       </code>
+       is a
+       <a href="https://docs.oracle.com/javase/tutorial/java/generics/types.html">
+        generic type
+       </a>
+       similar to
+       <a href="https://docs.oracle.com/javase/8/docs/api/?java/util/List.html">
+        <code>
+         List&lt;E&gt;
+        </code>
+       </a>
+       or
+       <a href="https://docs.oracle.com/javase/8/docs/api/?java/util/Map.html">
+        <code>
+         Map&lt;K,V&gt;
+        </code>
+       </a>
+       .
+In the specification of
+       <code>
+        List
+       </code>
+       ,
+       <code>
+        E
+       </code>
+       is a placeholder for the type of elements in the list.
+In
+       <code>
+        Map
+       </code>
+       ,
+       <code>
+        K
+       </code>
+       and
+       <code>
+        V
+       </code>
+       are placeholders for the types of keys and values.
+Only later does the client of
+       <code>
+        List
+       </code>
+       or
+       <code>
+        Map
+       </code>
+       choose particular types for these placeholders by constructing, for example, a
+       <code>
+        List&lt;Clown&gt;
+       </code>
+       or a
+       <code>
+        Map&lt;Car,Integer&gt;
+       </code>
+       .
+      </p>
+      <p>
+       The specification of a generic type is written in terms of the placeholders.
+For example, the specification of
+       <code>
+        Map&lt;K,V&gt;
+       </code>
+       says that
+       <code>
+        K
+       </code>
+       must be an immutable type: if you want to make something the key in a
+       <code>
+        Map
+       </code>
+       , it shouldn’t be a mutable object because the
+       <code>
+        Map
+       </code>
+       may not work correctly.
+      </p>
+      <p>
+       In our specification for
+       <code>
+        Graph&lt;L&gt;
+       </code>
+       , we make the same demand about the immutability of type
+       <code>
+        L
+       </code>
+       .
+Clients of
+       <code>
+        Graph
+       </code>
+       who try to use mutable vertex labels have violated the precondition.
+They cannot expect correct behavior.
+      </p>
+      <p>
+       For this problem set, we will implement
+       <code>
+        Graph
+       </code>
+       twice, with two different reps, to practice choosing abstraction functions and rep invariants and preventing rep exposure.
+There are many good reasons for a library to provide multiple implementations of a type (for example, the
+       <a href="https://docs.oracle.com/javase/8/docs/api/?java/util/ArrayList.html">
+        <code>
+         ArrayList
+        </code>
+       </a>
+       and
+       <a href="https://docs.oracle.com/javase/8/docs/api/?java/util/ArrayList.html">
+        <code>
+         LinkedList
+        </code>
+       </a>
+       implementations of
+       <code>
+        List
+       </code>
+       satisfy clients with different performance requirements), and we’re following that model.
+      </p>
+      <p>
+       <strong>
+        Problem 4:
+       </strong>
+       with our graph datatype in hand, we will implement
+       <strong>
+        <code>
+         GraphPoet
+        </code>
+       </strong>
+       , a class for generating poetry using a word affinity graph.
+      </p>
+      <p>
+       Our poet will be able to take an input like
+       <a href="https://books.google.com/books?id=aWZzLPhY4o0C&amp;pg=PA232&amp;dq=%22They+spoke+no+more+of+the+small+news+of+the+Shire+far+away%22">
+        this phrase from Tolkien
+       </a>
+       :
+      </p>
+      <blockquote>
+       <p>
+        They spoke no more of the small news of the Shire far away, nor of the dark shadows and perils that encompassed them, but of the fair things they had seen in the world together
+       </p>
+      </blockquote>
+      <p>
+       and generate,
+       <a href="https://shakespeare.mit.edu/Poetry/sonnets.html">
+        with help from The Bard
+       </a>
+       , a stanza addressed to some mysterious figure:
+      </p>
+      <blockquote>
+       <p>
+        They spoke no
+        <em>
+         love,
+        </em>
+        more
+        <em>
+         than
+        </em>
+        of
+        <em>
+         all
+        </em>
+        the small news of
+        <em>
+         all
+        </em>
+        the Shire far away,
+        <br>
+         nor
+         <em>
+          thou
+         </em>
+         of
+         <em>
+          all
+         </em>
+         the dark shadows and perils that encompassed them,
+         <br>
+          but
+          <em>
+           love
+          </em>
+          of
+          <em>
+           all
+          </em>
+          the
+          <em>
+           outward
+          </em>
+          fair
+          <em>
+           in
+          </em>
+          things they had
+          <em>
+           not
+          </em>
+          seen in
+          <em>
+           all
+          </em>
+          the
+          <em>
+           wide
+          </em>
+          world together
+         <br>
+        <br>
+       </p>
+      </blockquote>
+      <p>
+       Read the
+       <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/psets/ps2/doc/index.html?poet/GraphPoet.html">
+        <strong>
+         Javadoc documentation for
+         <code>
+          GraphPoet
+         </code>
+        </strong>
+       </a>
+       generated from
+       <code>
+        src/poet/GraphPoet.java
+       </code>
+       .
+      </p>
+      <p>
+       <code>
+        GraphPoet
+       </code>
+       will come in handy when you take
+       <a href="https://student.mit.edu/catalog/m21Wb.html#21W.772">
+        21W.772
+       </a>
+       next semester.
+      </p>
+      <hr>
+     </div>
+     <h2 id="problem_1_test_graphstring">
+      Problem 1: Test
+      <code>
+       Graph​&lt;String&gt;
+      </code>
+     </h2>
+     <div data-outline="problem_1_test_graphstring">
+      <p>
+       Devise, document, and implement tests for
+       <code>
+        Graph&lt;String&gt;
+       </code>
+       .
+      </p>
+      <p>
+       For now, we’ll only test (and then implement) graphs with
+       <code>
+        String
+       </code>
+       vertex labels.
+Later, we’ll expand to other kinds of labels.
+      </p>
+      <p>
+       In order to accommodate running our tests on
+       <em>
+        multiple implementations
+       </em>
+       of the
+       <code>
+        Graph
+       </code>
+       interface, here is the setup:
+      </p>
+      <ul>
+       <li>
+        <p>
+         The testing strategy and tests for the
+         <strong>
+          static
+         </strong>
+         <code>
+          Graph.empty()
+         </code>
+         method are in
+         <strong>
+          <code>
+           GraphStaticTest.java
+          </code>
+         </strong>
+         .
+Since the method is static, there will be only one implementation, and we only need to run these tests once.
+We’ve provided these tests.
+You are free to change or add to them, but you can leave them as-is for this problem.
+        </p>
+       </li>
+       <li>
+        <p>
+         Write your testing strategy and your tests for all the
+         <strong>
+          instance
+         </strong>
+         methods in
+         <strong>
+          <code>
+           GraphInstanceTest.java
+          </code>
+         </strong>
+         .
+In these tests, you must use the
+         <code>
+          emptyInstance()
+         </code>
+         method to get fresh empty graphs,
+         <em>
+          not
+          <code>
+           Graph.empty()
+          </code>
+          !
+         </em>
+         See the provided
+         <code>
+          testInitialVerticesEmpty()
+         </code>
+         for an example.
+        </p>
+       </li>
+      </ul>
+      <div class="panel panel-default pull-right pull-margin">
+       <div class="panel-heading">
+        <p>
+         <strong>
+          Java note
+         </strong>
+        </p>
+       </div>
+       <div class="panel-body">
+        <p>
+         <code>
+          Graph­InstanceTest
+         </code>
+         is an
+         <a href="https://docs.oracle.com/javase/tutorial/java/IandI/abstract.html">
+          abstract class
+         </a>
+         .
+Abstract classes and
+         <a href="https://docs.oracle.com/javase/tutorial/java/IandI/subclasses.html">
+          subclassing
+         </a>
+         have their uses, but in general should be avoided.
+        </p>
+       </div>
+      </div>
+      <p>
+       Unlike
+       <code>
+        GraphStaticTest
+       </code>
+       , which works like any other JUnit test class we’ve written,
+       <code>
+        GraphInstanceTest
+       </code>
+       is different because you can’t run it directly.
+It has a blank waiting to be filled in: the
+       <code>
+        emptyInstance()
+       </code>
+       method that will provide empty
+       <code>
+        Graph
+       </code>
+       objects.
+In the next problem, we’ll see two
+       <em>
+        <a href="https://docs.oracle.com/javase/tutorial/java/IandI/subclasses.html">
+         subclasses
+        </a>
+       </em>
+       of
+       <code>
+        GraphInstanceTest
+       </code>
+       that fill in the blank by returning empty graphs of different types.
+      </p>
+      <p>
+       Your tests in
+       <code>
+        GraphInstanceTest
+       </code>
+       must be legal clients of the
+       <code>
+        Graph
+       </code>
+       spec.
+Any tests specific to your implementations will go in the subclasses in the next problem.
+      </p>
+      <p>
+       <strong>
+        Commit to Git.
+       </strong>
+       Once you’re happy with your solution to this problem, commit to your repo!
+      </p>
+      <hr>
+     </div>
+     <h2 id="problem_2_implement_graphstring">
+      Problem 2: Implement
+      <code>
+       Graph​&lt;String&gt;
+      </code>
+     </h2>
+     <div data-outline="problem_2_implement_graphstring">
+      <p>
+       Now we’ll implement weighted directed graphs with
+       <code>
+        String
+       </code>
+       labels —
+       <strong>
+        twice
+       </strong>
+       .
+      </p>
+      <p>
+       For
+       <strong>
+        all
+       </strong>
+       the classes you write in this problem set:
+      </p>
+      <ul>
+       <li>
+        <strong>
+         Document the abstraction function and representation invariant
+        </strong>
+        .
+       </li>
+       <li>
+        Along with the rep invariant,
+        <strong>
+         document how the type prevents rep exposure
+        </strong>
+        .
+       </li>
+       <li>
+        <strong>
+         Implement
+         <code>
+          checkRep
+         </code>
+        </strong>
+        to check the rep invariant.
+       </li>
+       <li>
+        <strong>
+         Implement
+         <code>
+          toString
+         </code>
+        </strong>
+        with a useful human-readable representation of the abstract value.
+       </li>
+      </ul>
+      <p>
+       In the future, every immutable type you write will override
+       <code>
+        equals
+       </code>
+       and
+       <code>
+        hashCode
+       </code>
+       to implement the
+       <code>
+        Object
+       </code>
+       contract as described in
+       <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/psets/ps2/equality-todo.html#../../classes/15-equality/">
+        class 15 on equality
+       </a>
+       , but that’s
+       <strong>
+        not
+       </strong>
+       required for this problem set.
+      </p>
+      <p>
+       All your classes must have clear
+       <strong>
+        documented specifications
+       </strong>
+       .
+This means every method will have a Javadoc comment, except when you use
+       <code>
+        @Override
+       </code>
+       :
+      </p>
+      <ul>
+       <li>
+        When a method is specified in an interface and then implemented by a concrete class — for example,
+        <code>
+         add(..)
+        </code>
+        in
+        <code>
+         ConcreteEdgesGraph
+        </code>
+        is specified in
+        <code>
+         Graph
+        </code>
+        —
+        <strong>
+         the
+         <a href="https://docs.oracle.com/javase/tutorial/java/annotations/predefined.html">
+          <code>
+           @Override
+          </code>
+         </a>
+         annotation with no Javadoc comment indicates the method has the same spec
+        </strong>
+        .
+Unless the concrete class needs to strengthen the spec, don’t write it again (DRY).
+       </li>
+      </ul>
+      <p>
+       You can choose either
+       <code>
+        ConcreteEdgesGraph
+       </code>
+       or
+       <code>
+        ConcreteVerticesGraph
+       </code>
+       to write first.
+There should be
+       <strong>
+        no dependence or sharing of code
+       </strong>
+       between your two implementations.
+      </p>
+      <h3 id="21_implement_concreteedgesgraph">
+       2.1. Implement
+       <code>
+        ConcreteEdgesGraph
+       </code>
+      </h3>
+      <div data-outline="21_implement_concreteedgesgraph">
+       <p>
+        For
+        <code>
+         ConcreteEdgesGraph
+        </code>
+        , you must use the rep provided:
+       </p>
+       <pre><code class="language-java hljs"><span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Set&lt;String&gt; vertices = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();
+<span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> List&lt;Edge&gt; edges = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();</code></pre>
+       <p>
+        You may not add fields to the rep or choose not to use one of the fields.
+       </p>
+       <div class="panel panel-default pull-right pull-margin">
+        <div class="panel-heading">
+         <p>
+          <strong>
+           Java note
+          </strong>
+         </p>
+        </div>
+        <div class="panel-body">
+         <p>
+          We require that class
+          <code>
+           Edge
+          </code>
+          be declared in
+          <code>
+           Concrete­Edges­Graph.java
+          </code>
+          .
+         </p>
+         <p>
+          However, you may move
+          <code>
+           Edge
+          </code>
+          to be a
+          <a href="https://docs.oracle.com/javase/tutorial/java/javaOO/nested.html">
+           static nested class or instance inner class
+          </a>
+          of
+          <code>
+           Concrete­Edges­Graph
+          </code>
+          if desired.
+         </p>
+         <p>
+          The identical restriction and permission apply to
+          <code>
+           Concrete­Vertices­Graph
+          </code>
+          ’s
+          <code>
+           Vertex
+          </code>
+          .
+         </p>
+        </div>
+       </div>
+       <p>
+        For class
+        <code>
+         Edge
+        </code>
+        , you define the specification and representation; however,
+        <code>
+         Edge
+        </code>
+        must be
+        <strong>
+         immutable
+        </strong>
+        .
+       </p>
+       <p>
+        Normally, implementing an immutable type means implementing
+        <code>
+         equals
+        </code>
+        and
+        <code>
+         hashCode
+        </code>
+        as described in
+        <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/psets/ps2/equality-todo.html#../../classes/15-equality/">
+         class 15 on equality
+        </a>
+        .
+That’s
+        <strong>
+         not
+        </strong>
+        required for this problem set.
+Be careful: not implementing equality means you cannot use
+        <code>
+         equals
+        </code>
+        to compare
+        <code>
+         Edge
+        </code>
+        objects!
+Specify and implement your own observer operations if you need to compare edges.
+       </p>
+       <p>
+        After deciding on its spec, devise, document, and implement tests for
+        <code>
+         Edge
+        </code>
+        in
+        <code>
+         Concrete­EdgesGraphTest.java
+        </code>
+        .
+       </p>
+       <p>
+        Then proceed to implement
+        <code>
+         Edge
+        </code>
+        and
+        <code>
+         ConcreteEdgesGraph
+        </code>
+        .
+       </p>
+       <p>
+        Be sure to use the
+        <a href="https://docs.oracle.com/javase/tutorial/java/annotations/predefined.html">
+         <code>
+          @Override
+         </code>
+        </a>
+        annotation on
+        <code>
+         toString
+        </code>
+        to ensure that you are correctly overriding the
+        <code>
+         Object
+        </code>
+        version of the method, not creating a new, different method.
+       </p>
+       <p>
+        You should strengthen the spec of
+        <code>
+         ConcreteEdgesGraph.toString()
+        </code>
+        and write tests for it in
+        <code>
+         Concrete­EdgesGraphTest.java
+        </code>
+        .
+Don’t add those tests to
+        <code>
+         GraphInstanceTest
+        </code>
+        , which must test the
+        <code>
+         Graph
+        </code>
+        spec.
+All Java classes inherit
+        <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html#toString--">
+         <code>
+          Object.toString()
+         </code>
+        </a>
+        with its very underdetermined spec.
+        <code>
+         Graph
+        </code>
+        doesn’t specify a stronger spec, but your concrete classes can.
+       </p>
+       <p>
+        Run the tests by right-clicking on
+        <img src="./Problem Set 2_ Poetic Walks_files/icon-java-file.gif">
+         <code>
+          ConcreteEdgesGraphTest.java
+         </code>
+         and selecting
+         <em>
+          Run As →
+          <span class="no-markdown" style="white-space:nowrap">
+           <img src="./Problem Set 2_ Poetic Walks_files/icon-junit.gif">
+            JUnit
+           
+          </span>
+          Test
+         </em>
+         .
+        
+       </p>
+       <p>
+        <strong>
+         Commit to Git.
+        </strong>
+        Once you’re happy with your solution to this problem, commit to your repo!
+       </p>
+      </div>
+      <h3 id="22_implement_concreteverticesgraph">
+       2.2. Implement
+       <code>
+        ConcreteVerticesGraph
+       </code>
+      </h3>
+      <div data-outline="22_implement_concreteverticesgraph">
+       <p>
+        For
+        <code>
+         ConcreteVerticesGraph
+        </code>
+        , you must use the rep provided:
+       </p>
+       <pre><code class="language-java hljs"><span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> List&lt;Vertex&gt; vertices = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();</code></pre>
+       <p>
+        You may not add fields to the rep.
+       </p>
+       <p>
+        For class
+        <code>
+         Vertex
+        </code>
+        , you define the specification and representation; however,
+        <code>
+         Vertex
+        </code>
+        must be
+        <strong>
+         mutable
+        </strong>
+        .
+       </p>
+       <p>
+        After deciding on its spec, devise, document, and implement tests for
+        <code>
+         Vertex
+        </code>
+        in
+        <code>
+         Concrete­VerticesGraphTest.java
+        </code>
+        .
+       </p>
+       <p>
+        Then proceed to implement
+        <code>
+         Vertex
+        </code>
+        and
+        <code>
+         ConcreteVerticesGraph
+        </code>
+        .
+       </p>
+       <p>
+        You should strengthen the spec of
+        <code>
+         ConcreteVerticesGraph.toString()
+        </code>
+        and write tests for it in
+        <code>
+         Concrete­VerticesGraphTest.java
+        </code>
+        .
+Don’t add those tests to
+        <code>
+         GraphInstanceTest
+        </code>
+        , which must test the
+        <code>
+         Graph
+        </code>
+        spec.
+       </p>
+       <p>
+        Run the tests by right-clicking on
+        <img src="./Problem Set 2_ Poetic Walks_files/icon-java-file.gif">
+         <code>
+          ConcreteVerticesGraphTest.java
+         </code>
+         and selecting
+         <em>
+          Run As →
+          <span class="no-markdown" style="white-space:nowrap">
+           <img src="./Problem Set 2_ Poetic Walks_files/icon-junit.gif">
+            JUnit
+           
+          </span>
+          Test
+         </em>
+         .
+        
+       </p>
+       <p>
+        <strong>
+         Commit to Git.
+        </strong>
+        Once you’re happy with your solution to this problem, commit to your repo!
+       </p>
+       <hr>
+      </div>
+     </div>
+     <h2 id="problem_3_implement_generic_graphl">
+      Problem 3: Implement generic
+      <code>
+       Graph&lt;L&gt;
+      </code>
+     </h2>
+     <div data-outline="problem_3_implement_generic_graphl">
+      <p>
+       Nothing in either of your implementations of
+       <code>
+        Graph
+       </code>
+       should rely on the fact that labels are of type
+       <code>
+        String
+       </code>
+       in particular.
+      </p>
+      <p>
+       The spec says that vertex labels “must be immutable” and are “compared using the
+       <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html#equals-java.lang.Object-">
+        <code>
+         equals
+        </code>
+       </a>
+       method.”
+Let’s change both of our implementations to support vertex labels of
+       <em>
+        any
+       </em>
+       type that meets these conditions.
+      </p>
+      <h3 id="31_make_the_implementations_generic">
+       3.1. Make the implementations generic
+      </h3>
+      <div data-outline="31_make_the_implementations_generic">
+       <ol>
+        <li>
+         <p>
+          Change the declarations of your concrete classes to read:
+         </p>
+         <pre><code class="language-java hljs"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ConcreteEdgesGraph</span>&lt;<span class="hljs-title">L</span>&gt; <span class="hljs-keyword">implements</span> <span class="hljs-title">Graph</span>&lt;<span class="hljs-title">L</span>&gt; </span>{ ... }
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Edge</span>&lt;<span class="hljs-title">L</span>&gt; </span>{ ... }</code></pre>
+         <p>
+          and:
+         </p>
+         <pre><code class="language-java hljs"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ConcreteVerticesGraph</span>&lt;<span class="hljs-title">L</span>&gt; <span class="hljs-keyword">implements</span> <span class="hljs-title">Graph</span>&lt;<span class="hljs-title">L</span>&gt; </span>{ ... }
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Vertex</span>&lt;<span class="hljs-title">L</span>&gt; </span>{ ... }</code></pre>
+        </li>
+        <li>
+         <p>
+          Update both of your implementations to support any type of vertex label, using placeholder
+          <code>
+           L
+          </code>
+          instead of
+          <code>
+           String
+          </code>
+          .
+Roughly speaking, you should be able to find-and-replace all the instances of
+          <code>
+           String
+          </code>
+          in your code with
+          <code>
+           L
+          </code>
+          !
+         </p>
+         <p>
+          This
+          <a href="https://en.wikipedia.org/wiki/Code_refactoring">
+           refactoring
+          </a>
+          will make
+          <code>
+           Concrete­EdgesGraph
+          </code>
+          ,
+          <code>
+           Concrete­VerticesGraph
+          </code>
+          ,
+          <code>
+           Edge
+          </code>
+          , and
+          <code>
+           Vertex
+          </code>
+          generic types.
+         </p>
+         <ul>
+          <li>
+           <p>
+            Previously, you might have declared variables with types like
+            <code>
+             Edge
+            </code>
+            or
+            <code>
+             List&lt;Edge&gt;
+            </code>
+            .
+Those will need to become
+            <code>
+             Edge&lt;L&gt;
+            </code>
+            and
+            <code>
+             List&lt;Edge&lt;L&gt;&gt;
+            </code>
+            .
+           </p>
+          </li>
+          <li>
+           <p>
+            Similarly, you might have called constructors like
+            <code>
+             new ConcreteEdgesGraph()
+            </code>
+            or
+            <code>
+             new Edge()
+            </code>
+            .
+Those will need to become, for example,
+            <code>
+             new ConcreteEdgesGraph&lt;String&gt;()
+            </code>
+            and
+            <code class="no-markdown" style="white-space:nowrap">
+             new Edge&lt;L&gt;()
+            </code>
+            .
+Depending on context, you can use
+            <a href="https://docs.oracle.com/javase/tutorial/java/generics/types.html#diamond">
+             diamond notation
+            </a>
+            <code>
+             &lt;&gt;
+            </code>
+            to avoid writing type parameters twice.
+           </p>
+          </li>
+         </ul>
+         <p>
+          When you’re done with the conversion, all your instance method tests should pass.
+         </p>
+        </li>
+       </ol>
+       <p>
+        <strong>
+         Commit to Git.
+        </strong>
+        As always, once you’re happy with your solution to this problem, commit to your repo!
+       </p>
+      </div>
+      <h3 id="32_implement_graphempty">
+       3.2. Implement
+       <code>
+        Graph.empty()
+       </code>
+      </h3>
+      <div data-outline="32_implement_graphempty">
+       <ol>
+        <li>
+         <p>
+          Pick one of your
+          <code>
+           Graph
+          </code>
+          implementations for clients to use, and implement
+          <code>
+           Graph.empty()
+          </code>
+          .
+Unlike
+          <code>
+           ArrayList
+          </code>
+          and
+          <code>
+           LinkedList
+          </code>
+          , where clients who only want a
+          <code>
+           List
+          </code>
+          are forced to suffer a dose of rep exposure by calling a concrete constructor, clients of
+          <code>
+           Graph
+          </code>
+          should not be aware of how we’ve implemented it.
+         </p>
+        </li>
+        <li>
+         <p>
+          Because the implementation of
+          <code>
+           Graph
+          </code>
+          does not know or care about the actual type of the vertex labels, our test suite with
+          <code>
+           String
+          </code>
+          labels is sufficient.
+         </p>
+         <p>
+          However, since this is our first generic type, to gain confidence that you do indeed support different types of labels, add a few additional tests to the provided
+          <strong>
+           <code>
+            GraphStaticTest.java
+           </code>
+          </strong>
+          that create and use
+          <code>
+           Graph
+          </code>
+          instances with a couple different types of (immutable) labels.
+         </p>
+        </li>
+       </ol>
+       <div class="panel panel-default pull-right pull-margin">
+        <div class="panel-heading">
+         <p>
+          <strong>
+           Java note
+          </strong>
+         </p>
+        </div>
+        <div class="panel-body">
+         <p>
+          You may use
+          <a href="https://docs.oracle.com/javase/8/docs/api/?java/lang/SafeVarargs.html">
+           <code>
+            @SafeVarargs
+           </code>
+          </a>
+          where necessary, for example if you write testing helper functions that take a
+          <a href="https://docs.oracle.com/javase/tutorial/java/javaOO/arguments.html#varargs">
+           variable number of arguments
+          </a>
+          .
+         </p>
+        </div>
+       </div>
+       <p>
+        At this point, all of your code (implementations and tests) must have
+        <strong>
+         no warnings
+        </strong>
+        from the compiler (warnings have a
+        <span class="no-markdown" style="white-space:nowrap">
+         <img src="./Problem Set 2_ Poetic Walks_files/icon-warning.gif">
+          symbol
+         
+        </span>
+        , as opposed to the
+        <span class="no-markdown" style="white-space:nowrap">
+         <img src="./Problem Set 2_ Poetic Walks_files/icon-error.gif">
+          for
+         
+        </span>
+        errors) and no
+        <a href="https://docs.oracle.com/javase/8/docs/api/?java/lang/SuppressWarnings.html">
+         <code>
+          @SuppressWarnings
+         </code>
+        </a>
+        annotations (which would disable the warning, nice try).
+       </p>
+       <p>
+        Run
+        <em>
+         all
+        </em>
+        the tests in the project by right-clicking on the
+        <img src="./Problem Set 2_ Poetic Walks_files/icon-source-folder.gif">
+         <code>
+          test
+         </code>
+         folder and selecting
+         <em>
+          Run As →
+          <span class="no-markdown" style="white-space:nowrap">
+           <img src="./Problem Set 2_ Poetic Walks_files/icon-junit.gif">
+            JUnit
+           
+          </span>
+          Test
+         </em>
+         .
+        
+       </p>
+       <p>
+        <strong>
+         At this point in the problem set, we’ve completed the test-first implementation of
+         <code>
+          Graph
+         </code>
+         .
+        </strong>
+       </p>
+       <ul>
+        <li>
+         <p>
+          You should have a
+          <img src="./Problem Set 2_ Poetic Walks_files/icon-junit-success.gif">
+           green bar from JUnit and excellent code coverage from EclEmma.
+          
+         </p>
+        </li>
+        <li>
+         <p>
+          This is a good opportunity for self code review: remove dead code and debugging
+          <code>
+           println
+          </code>
+          s, DRY up duplication, and so on.
+         </p>
+        </li>
+        <li>
+         <p>
+          And of course, commit to your repo.
+         </p>
+        </li>
+       </ul>
+       <hr>
+        <img class="pull-right pull-margin" src="./Problem Set 2_ Poetic Walks_files/example-corpus.png" style="max-width:50%" width="249">
+       
+      </div>
+     </div>
+     <h2 id="problem_4_poetic_walks">
+      Problem 4: Poetic walks
+     </h2>
+     <div data-outline="problem_4_poetic_walks">
+      <p>
+       Graphs — what are they good for? Poetry!
+      </p>
+      <p>
+       The
+       <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/psets/ps2/doc/index.html?poet/GraphPoet.html">
+        specification of
+        <strong>
+         <code>
+          GraphPoet
+         </code>
+        </strong>
+       </a>
+       explains how a poet is initialized with a corpus and then, given an input, uses a word affinity graph defined by that corpus to transform the input poetically.
+      </p>
+      <p>
+       For example, here’s a small but inspirational corpus:
+      </p>
+      <blockquote>
+       <p>
+        <a href="https://en.wikipedia.org/wiki/Where_no_man_has_gone_before">
+         To explore strange new worlds
+         <br>
+          To seek out new life and new civilizations
+         <br>
+        </a>
+       </p>
+      </blockquote>
+      <p>
+       <code>
+        GraphPoet
+       </code>
+       will use this corpus to generate a word affinity graph where:
+      </p>
+      <ul>
+       <li>
+        vertices are case-insensitive words, and
+       </li>
+       <li>
+        edge weights are in-order adjacency counts.
+       </li>
+      </ul>
+      <p>
+       The graph is shown on the right.
+In this example, all the edges have weight 1 because no word pair is repeated.
+      </p>
+      <div class="clearfix">
+      </div>
+      <p>
+       From there, given this dry bit of business-speak input:
+      </p>
+      <blockquote>
+       <p>
+        Seek to explore new and exciting synergies!
+       </p>
+      </blockquote>
+      <div class="pull-margin" id="poet-example">
+       <div class="hover-figure" data-attr="src" data-selector="#poet-example tbody tr" data-target="img" data-template="figures/example-graph-{index}.png">
+        <img class="pull-right" src="./Problem Set 2_ Poetic Walks_files/example-graph-0.png" style="max-width:50%" width="249">
+       </div>
+       <p>
+        the poet will use the graph to generate a poem by inserting (where possible) a
+        <em>
+         bridge word
+        </em>
+        between each pair of input words:
+       </p>
+       <table style="margin-bottom: 10px">
+        <thead class="no-markdown">
+         <tr>
+          <th>
+           w
+           <sub>
+            1
+           </sub>
+          </th>
+          <th>
+          </th>
+          <th>
+           w
+           <sub>
+            2
+           </sub>
+          </th>
+          <th>
+          </th>
+          <th>
+           path?
+          </th>
+          <th>
+           bridge&nbsp;word
+          </th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr class="highlighted">
+          <td>
+           <p>
+            <em>
+             seek
+            </em>
+           </p>
+          </td>
+          <td>
+           <p>
+            →
+           </p>
+          </td>
+          <td>
+           <p>
+            <em>
+             to
+            </em>
+           </p>
+          </td>
+          <td>
+          </td>
+          <td>
+           <p>
+            no two-edge-long path from
+            <em>
+             seek
+            </em>
+            to
+            <em>
+             to
+            </em>
+           </p>
+          </td>
+          <td>
+           <p>
+            —
+           </p>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <p>
+            <em>
+             to
+            </em>
+           </p>
+          </td>
+          <td>
+           <p>
+            →
+           </p>
+          </td>
+          <td>
+           <p>
+            <em>
+             explore
+            </em>
+           </p>
+          </td>
+          <td>
+          </td>
+          <td>
+           <p>
+            no two-edge-long path from
+            <em>
+             to
+            </em>
+            to
+            <em>
+             explore
+            </em>
+           </p>
+          </td>
+          <td>
+           <p>
+            —
+           </p>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <p>
+            <em>
+             explore
+            </em>
+           </p>
+          </td>
+          <td>
+           <p>
+            →
+           </p>
+          </td>
+          <td>
+           <p>
+            <em>
+             new
+            </em>
+           </p>
+          </td>
+          <td>
+          </td>
+          <td>
+           <p>
+            one two-edge-long path from
+            <em>
+             explore
+            </em>
+            to
+            <em>
+             new
+            </em>
+            with weight 2
+           </p>
+          </td>
+          <td>
+           <p>
+            <em>
+             strange
+            </em>
+           </p>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <p>
+            <em>
+             new
+            </em>
+           </p>
+          </td>
+          <td>
+           <p>
+            →
+           </p>
+          </td>
+          <td>
+           <p>
+            <em>
+             and
+            </em>
+           </p>
+          </td>
+          <td>
+          </td>
+          <td>
+           <p>
+            one two-edge-long path from
+            <em>
+             new
+            </em>
+            to
+            <em>
+             and
+            </em>
+            with weight 2
+           </p>
+          </td>
+          <td>
+           <p>
+            <em>
+             life
+            </em>
+           </p>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <p>
+            <em>
+             and
+            </em>
+           </p>
+          </td>
+          <td>
+           <p>
+            →
+           </p>
+          </td>
+          <td>
+           <p>
+            <em>
+             exciting
+            </em>
+           </p>
+          </td>
+          <td>
+          </td>
+          <td>
+           <p>
+            no vertex
+            <em>
+             exciting
+            </em>
+           </p>
+          </td>
+          <td>
+           <p>
+            —
+           </p>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <p>
+            <em>
+             exciting
+            </em>
+           </p>
+          </td>
+          <td>
+           <p>
+            →
+           </p>
+          </td>
+          <td>
+           <p>
+            <em>
+             synergies!
+            </em>
+           </p>
+          </td>
+          <td>
+          </td>
+          <td>
+           <p>
+            no vertices
+            <em>
+             exciting
+            </em>
+            or
+            <em>
+             synergies!
+            </em>
+           </p>
+          </td>
+          <td>
+           <p>
+            —
+           </p>
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+      <p>
+       Hover over rows above to visualize poem generation on the right.
+In this example, the outcome is deterministic since no word pair has multiple bridge words tied for maximum weight.
+The resulting output poem is:
+      </p>
+      <blockquote>
+       <p>
+        Seek to explore strange new life and exciting synergies!
+       </p>
+      </blockquote>
+      <p>
+       Exegesis is left as an exercise for the reader.
+      </p>
+      <div class="clearfix">
+      </div>
+      <h3 id="41_test_graphpoet">
+       4.1. Test
+       <code>
+        GraphPoet
+       </code>
+      </h3>
+      <div data-outline="41_test_graphpoet">
+       <p>
+        Devise, document, and implement tests for
+        <code>
+         GraphPoet
+        </code>
+        in
+        <strong>
+         <code>
+          GraphPoetTest.java
+         </code>
+        </strong>
+        .
+       </p>
+       <p>
+        You are free to add additional methods to
+        <code>
+         GraphPoet
+        </code>
+        , but you may not change the signatures of the required methods.
+You are free to strengthen the specifications of the required methods, but you may not weaken them.
+Note how this might mean your tests for
+        <code>
+         GraphPoet
+        </code>
+        are not usable against someone else’s implementation, because you’ve strengthened or added to the spec.
+       </p>
+       <p>
+        Your tests should make use of one or more sample corpus files.
+Put those files in the
+        <code>
+         test/poet
+        </code>
+        directory — the same directory as
+        <code>
+         GraphPoetTest.java
+        </code>
+        .
+Reference them in the code with, for example:
+       </p>
+       <pre><code class="hljs coffeescript"><span class="hljs-keyword">new</span> File(<span class="hljs-string">"test/poet/seven-words.txt"</span>)
+</code></pre>
+       <p>
+        While you still must test and implement
+        <code>
+         GraphPoet(File)
+        </code>
+        , remember that you may add operations to
+        <code>
+         GraphPoet
+        </code>
+        .
+Adding a creator that takes a
+        <code>
+         String
+        </code>
+        , for example, might simplify your tests for
+        <code>
+         poem(..)
+        </code>
+        at the cost of additional tests for the new creator.
+       </p>
+      </div>
+      <h3 id="42_implement_graphpoet">
+       4.2. Implement
+       <code>
+        GraphPoet
+       </code>
+      </h3>
+      <div data-outline="42_implement_graphpoet">
+       <p>
+        Implement
+        <code>
+         GraphPoet
+        </code>
+        in
+        <strong>
+         <code>
+          GraphPoet.java
+         </code>
+        </strong>
+        .
+       </p>
+       <p>
+        You must use
+        <code>
+         Graph
+        </code>
+        in the rep of
+        <code>
+         GraphPoet
+        </code>
+        , but the implementation is otherwise entirely up to you.
+       </p>
+       <p>
+        For reading in corpus files, there are at least three Java APIs to consider:
+       </p>
+       <div class="panel panel-default pull-right pull-margin">
+        <div class="panel-heading">
+         <p>
+          <strong>
+           Java note
+          </strong>
+         </p>
+        </div>
+        <div class="panel-body">
+         <p>
+          Another option, if you want to program in a functional style: use
+          <code>
+           Files.lines(..)
+          </code>
+          , which returns a
+          <a href="https://docs.oracle.com/javase/8/docs/api/?java/util/stream/Stream.html">
+           <code>
+            Stream&lt;String&gt;
+           </code>
+          </a>
+          .
+         </p>
+        </div>
+       </div>
+       <ul>
+        <li>
+         <p>
+          <a href="https://docs.oracle.com/javase/8/docs/api/?java/io/FileReader.html">
+           <code>
+            FileReader
+           </code>
+          </a>
+          is the standard class for reading from a file.
+Wrapping the
+          <code>
+           FileReader
+          </code>
+          in a
+          <a href="https://docs.oracle.com/javase/8/docs/api/?java/io/BufferedReader.html">
+           <code>
+            BufferedReader
+           </code>
+          </a>
+          allows you to use the convenient
+          <code>
+           readLine()
+          </code>
+          method to read whole lines at a time.
+         </p>
+        </li>
+        <li>
+         <p>
+          The utility function
+          <a href="https://docs.oracle.com/javase/8/docs/api/?java/nio/file/Files.html">
+           <code>
+            Files.readAllLines(..)
+           </code>
+          </a>
+          will read all the lines from a
+          <a href="https://docs.oracle.com/javase/8/docs/api/?java/nio/file/Path.html">
+           <code>
+            Path
+           </code>
+          </a>
+          .
+Our poet takes a
+          <a href="https://docs.oracle.com/javase/8/docs/api/?java/io/File.html">
+           <code>
+            File
+           </code>
+          </a>
+          , but
+          <code>
+           File
+          </code>
+          provides a
+          <code>
+           toPath()
+          </code>
+          method to obtain a
+          <code>
+           Path
+          </code>
+          .
+         </p>
+        </li>
+        <li>
+         <p>
+          Class
+          <a href="https://docs.oracle.com/javase/8/docs/api/?java/util/Scanner.html">
+           <code>
+            Scanner
+           </code>
+          </a>
+          is designed for breaking up input text into pieces.
+It provides many features and you’ll need to read its specs carefully.
+         </p>
+        </li>
+       </ul>
+      </div>
+      <h3 id="43_graph_poetry_slam">
+       4.3. Graph poetry slam
+      </h3>
+      <div data-outline="43_graph_poetry_slam">
+       <p>
+        If you want, update the
+        <code>
+         main(..)
+        </code>
+        method in
+        <strong>
+         <code>
+          Main.java
+         </code>
+        </strong>
+        with a cool example: an interesting poem from minimal input, a surprising poem given the corpus and input, or something else cool.
+       </p>
+       <p>
+        Put the corpus for your example in
+        <code>
+         src/poet
+        </code>
+        — the same directory as
+        <code>
+         mugar-omni-theater.txt
+        </code>
+        .
+       </p>
+       <hr>
+      </div>
+     </div>
+     <h2 id="before_youre_done">
+      Before you’re done
+     </h2>
+     <div data-outline="before_youre_done">
+      <ul>
+       <li>
+        <p>
+         Make sure you have
+         <strong>
+          documented specifications
+         </strong>
+         , in the form of properly-formatted Javadoc comments, for all your types and operations.
+        </p>
+       </li>
+       <li>
+        <p>
+         Make sure you have
+         <strong>
+          documented abstraction functions and representation invariants
+         </strong>
+         , in the form of a comment near the field declarations, for all your implementations.
+        </p>
+        <p>
+         With the rep invariant, also say how the type prevents rep exposure.
+        </p>
+        <p>
+         Make sure all types use
+         <code>
+          checkRep
+         </code>
+         to check the rep invariant and implement
+         <code>
+          toString
+         </code>
+         with a useful human-readable representation of the abstract value.
+        </p>
+       </li>
+       <li>
+        <p>
+         To gain static checking of the correct signature, use
+         <a href="https://docs.oracle.com/javase/tutorial/java/annotations/predefined.html">
+          <code>
+           @Override
+          </code>
+         </a>
+         when you override
+         <code>
+          toString
+         </code>
+         .
+        </p>
+        <p>
+         Also use
+         <code>
+          @Override
+         </code>
+         when a class implements an interface method, to remind readers where they can find the spec.
+        </p>
+       </li>
+       <li>
+        <p>
+         Make sure you have a thorough, principled test suite for every type.
+        </p>
+       </li>
+      </ul>
+      <hr>
+     </div>
+    </div>
+   </div>
+  </main>
+  <footer>
+   MIT EECS
+  </footer>
+  <script src="./Problem Set 2_ Poetic Walks_files/jquery.min.js" type="text/javascript">
+  </script>
+  <script src="./Problem Set 2_ Poetic Walks_files/bootstrap.min.js" type="text/javascript">
+  </script>
+  <script src="./Problem Set 2_ Poetic Walks_files/handout-run.js" type="text/javascript">
+  </script>
+ 
+
+
+</body></html>

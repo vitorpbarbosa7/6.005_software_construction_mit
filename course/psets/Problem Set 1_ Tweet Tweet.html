@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)https://ocw.mit.edu/ans7870/6/6.005/s16/psets/ps1/ -->
+<html coupert-item="9AF8D9A4E502F3784AD24272D81F0381"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+   <title>
+    Problem Set 1: Tweet Tweet
+   </title>
+   <link href="./Problem Set 1_ Tweet Tweet_files/handout-style.css" rel="stylesheet">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+   
+  
+ </head>
+ <body>
+  <header>
+   <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/">
+    6.005 — Software Construction on MIT OpenCourseWare
+   </a>
+   |
+   <a href="https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-005-software-construction-spring-2016/">
+    OCW 6.005 Homepage
+   </a>
+   <div>
+    Spring 2016
+   </div>
+  </header>
+  <nav class="table-of-contents col-sm-2">
+   <ul class="nav">
+    <li class="active">
+     <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/psets/ps1/#problem_set_1_tweet_tweet">
+      Problem Set 1: Tweet Tweet
+     </a>
+    </li>
+    <li>
+     <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/psets/ps1/#get_the_code">
+      Get the code
+     </a>
+    </li>
+    <li>
+     <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/psets/ps1/#overview">
+      Overview
+     </a>
+    </li>
+    <li>
+     <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/psets/ps1/#problem_1_extracting_data_from_tweets">
+      Problem 1: Extracting data from tweets
+     </a>
+    </li>
+    <li>
+     <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/psets/ps1/#problem_2_filtering_lists_of_tweets">
+      Problem 2: Filtering lists of tweets
+     </a>
+    </li>
+    <li>
+     <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/psets/ps1/#problem_3_inferring_a_social_network">
+      Problem 3: Inferring a social network
+     </a>
+    </li>
+    <li>
+     <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/psets/ps1/#problem_4_get_smarter">
+      Problem 4: Get smarter
+     </a>
+    </li>
+   </ul>
+  </nav>
+  <main class="container-fluid">
+   <h1 class="handout-title col-sm-8 col-sm-offset-2" id="problem_set_1_tweet_tweet">
+    Problem Set 1: Tweet Tweet
+   </h1>
+   <div data-outline="problem_set_1_tweet_tweet">
+    <div class="markdown col-sm-8 col-sm-offset-2 converted">
+     <p>
+      The purpose of this problem set is to give you practice with test-first programming. Given a set of specifications, you will write unit tests that check for compliance with the specifications, and then implement code that meets the specifications.
+     </p>
+     <h2 id="get_the_code">
+      Get the code
+     </h2>
+     <div data-outline="get_the_code">
+      <p>
+       To get started,
+       <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/psets/ps1/ps1.zip">
+        download the assignment code
+       </a>
+       and initialize your repository. If you need a refresher on how to create your repository, see
+       <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/psets/ps0/#clone">
+        Problem Set 0
+       </a>
+       .
+      </p>
+     </div>
+     <h2 id="overview">
+      Overview
+     </h2>
+     <div data-outline="overview">
+      <p>
+       The theme of this problem set is to build a toolbox of methods that can extract information from a set of tweets downloaded from Twitter.
+      </p>
+      <p>
+       Since we are doing test-first programming, your workflow for each method should be (
+       <em>
+        in this order
+       </em>
+       ).
+      </p>
+      <ol>
+       <li>
+        Study the specification of the method carefully.
+       </li>
+       <li>
+        Write JUnit tests for the method according to the spec.
+       </li>
+       <li>
+        Implement the method according to the spec.
+       </li>
+       <li>
+        Revise your implementation and improve your test cases until your implementation passes all your tests.
+       </li>
+      </ol>
+      <p>
+       On PS0, we graded only your method implementations.  On this problem set, we will also grade the tests you write.  In particular:
+      </p>
+      <ul>
+       <li>
+        <strong>
+         Your test cases should be chosen using the input/output-space partitioning approach
+        </strong>
+        .  This approach is explained in the
+        <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/classes/03-testing/">
+         reading about testing
+        </a>
+        .
+       </li>
+       <li>
+        <strong>
+         Include a comment at the top of each test suite class describing your
+         <em>
+          testing strategy
+         </em>
+        </strong>
+        – how you partitioned the input/output space of each method, and then how you decided which test cases to choose for each partition.
+       </li>
+       <li>
+        <strong>
+         Your test cases should be small and well-chosen.
+        </strong>
+        Don’t use a large set of tweets from Twitter for each test.  Instead, create your own artificial tweets, carefully chosen to test the partition you’re trying to test.
+       </li>
+       <li>
+        <strong>
+         Your tests should find bugs.
+        </strong>
+        We will grade your test cases in part by running them against buggy implementations and seeing if your tests catch the bugs.  So consider ways an implementation might inadvertently fail to meet the spec, and choose tests that will expose those bugs.
+       </li>
+       <li>
+        <strong>
+         Your tests must be legal clients of the spec.
+        </strong>
+        We will also run your test cases against legal, variant implementations that still strictly satisfy the specs, and your test cases should not complain for these good implementations.  That means that your test cases can’t make extra assumptions that are only true for your own implementation.
+       </li>
+       <li>
+        <strong>
+         Put each test case in its own JUnit method.
+        </strong>
+        This will be far more useful than a single large test method, since it pinpoints where the problem areas lie in the implementation.
+       </li>
+       <li>
+        Again, keep your tests small. Don’t use unreasonable amounts of resources (such as
+        <code>
+         MAX_INT
+        </code>
+        size lists).  We won’t expect your test suite to catch bugs related to running out of resources;
+        <em>
+         every
+        </em>
+        program fails when it runs out of resources.
+       </li>
+      </ul>
+      <p>
+       You should also keep in mind these facts from the readings and classes about specifications (
+       <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/classes/06-specifications/">
+        part 1
+       </a>
+       ,
+       <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/classes/07-designing-specs/">
+        part 2
+       </a>
+       ):
+      </p>
+      <ul>
+       <li>
+        <strong>
+         Preconditions.
+        </strong>
+        Some of the specs have preconditions, e.g. “this value must be positive” or “this list must be nonempty”.  When preconditions are violated, the behavior of the method is
+        <em>
+         completely unspecified
+        </em>
+        . It may return a reasonable value, return an unreasonable value, throw an unchecked exception, display a picture of a cat, crash your computer, etc., etc., etc. In the tests you write, do not use inputs that don’t meet the method’s preconditions. In the implementations you write, you may do whatever you like if a precondition is violated. Note that if the specification indicates a particular exception should be thrown for some class of invalid inputs, that is a
+        <em>
+         postcondition
+        </em>
+        , not a precondition, and you
+        <em>
+         do
+        </em>
+        need to implement and test that behavior.
+       </li>
+       <li>
+        <strong>
+         Underdetermined postconditions.
+        </strong>
+        Some of the specs have underdetermined postconditions, allowing a range of behavior.  When you’re implementing such a method, the exact behavior of your method within that range is up to you to decide.  When you’re writing a test case for the method, you must allow the implementation you’re testing to have the full range of variation, because otherwise your test case is not a legal client of the spec as required above.
+       </li>
+      </ul>
+      <p>
+       Finally, in order for your overall program to meet the specification of this problem set, you are required to keep some things unchanged:
+      </p>
+      <ul>
+       <li>
+        <strong>
+         Don’t change these classes at all:
+        </strong>
+        the classes
+        <code>
+         Tweet
+        </code>
+        ,
+        <code>
+         Timespan
+        </code>
+        , and
+        <code>
+         TweetReader
+        </code>
+        should not be modified
+        <em>
+         at all
+        </em>
+        .
+       </li>
+       <li>
+        <strong>
+         Don’t change these class names:
+        </strong>
+        the classes
+        <code>
+         Extract
+        </code>
+        ,
+        <code>
+         Filter
+        </code>
+        ,
+        <code>
+         SocialNetwork
+        </code>
+        ,
+        <code>
+         ExtractTest
+        </code>
+        ,
+        <code>
+         FilterTest
+        </code>
+        , and
+        <code>
+         SocialNetworkTest
+        </code>
+        must use those names and remain in the
+        <code>
+         twitter
+        </code>
+        package.
+       </li>
+       <li>
+        <strong>
+         Don’t change the method signatures and specifications:
+        </strong>
+        The public methods provided for you to implement in
+        <code>
+         Extract
+        </code>
+        ,
+        <code>
+         Filter
+        </code>
+        , and
+        <code>
+         SocialNetwork
+        </code>
+        must use the method signatures and the specifications that we provided.
+       </li>
+       <li>
+        <strong>
+         Don’t include illegal test cases:
+        </strong>
+        The tests you implement in
+        <code>
+         ExtractTest
+        </code>
+        ,
+        <code>
+         FilterTest
+        </code>
+        , and
+        <code>
+         SocialNetworkTest
+        </code>
+        must respect the specifications that we provided for the methods you are testing.
+       </li>
+      </ul>
+      <p>
+       Aside from these requirements, however, you are free to add new public and private methods and new public or private classes if you wish.  In particular, if you wish to write test cases that test a stronger spec than we provide, you should put those tests in a separate JUnit test class, so that we don’t try to run them on staff implementations that only satisfy the weaker spec.  We suggest naming those test classes
+       <code>
+        MyExtractTest
+       </code>
+       ,
+       <code>
+        MyFilterTest
+       </code>
+       ,
+       <code>
+        MySocialNetworkTest
+       </code>
+       , and we suggest putting them in the
+       <code>
+        twitter
+       </code>
+       package in the
+       <code>
+        test
+       </code>
+       folder alongside the other JUnit test classes.
+      </p>
+      <hr>
+     </div>
+     <h2 id="problem_1_extracting_data_from_tweets">
+      Problem 1: Extracting data from tweets
+     </h2>
+     <div data-outline="problem_1_extracting_data_from_tweets">
+      <p>
+       In this problem, you will test and implement the methods in
+       <code>
+        Extract.java
+       </code>
+       .
+      </p>
+      <p>
+       You’ll find
+       <code>
+        Extract.java
+       </code>
+       in the
+       <code>
+        src
+       </code>
+       folder, and a JUnit test class
+       <code>
+        ExtractTest.java
+       </code>
+       in the
+       <code>
+        test
+       </code>
+       folder.  Separating implementation code from test code is a common practice in development projects.  It makes the implementation code easier to understand, uncluttered by tests, and easier to package up for release.
+      </p>
+      <div class="list-style-lower-alpha">
+       <ol>
+        <li>
+         <p>
+          Devise, document, and implement test cases for
+          <code>
+           getTimespan()
+          </code>
+          and
+          <code>
+           getMentionedUsers()
+          </code>
+          , and put them in
+          <code>
+           ExtractTest.java
+          </code>
+          .
+         </p>
+        </li>
+        <li>
+         <p>
+          Implement
+          <code>
+           getTimespan()
+          </code>
+          and
+          <code>
+           getMentionedUsers()
+          </code>
+          , and make sure your tests pass.
+         </p>
+        </li>
+       </ol>
+      </div>
+      <p>
+       If you want to see your code work on a live sample of tweets, you can run
+       <code>
+        Main.java
+       </code>
+       .  (
+       <code>
+        Main.java
+       </code>
+       will not be used in grading, and you are free to edit it as you wish.)
+      </p>
+      <p>
+       Hints:
+      </p>
+      <ul>
+       <li>
+        <p>
+         Note that we use the class
+         <a href="https://docs.oracle.com/javase/8/docs/api/?java/time/Instant.html">
+          <code>
+           Instant
+          </code>
+         </a>
+         to represent the date and time of tweets. You can check
+         <a href="https://java.dzone.com/articles/deeper-look-java-8-date-and">
+          this article on Java 8 dates and times
+         </a>
+         to learn how to use
+         <code>
+          Instant
+         </code>
+         .
+        </p>
+       </li>
+       <li>
+        <p>
+         You may wonder what to do about lowercase and uppercase in the return value of
+         <code>
+          getMentionedUsers()
+         </code>
+         .  This spec has an underdetermined postcondition, so read the spec carefully and think about what that means for your implementation and your test cases.
+        </p>
+       </li>
+       <li>
+        <p>
+         <code>
+          getTimespan()
+         </code>
+         <em>
+          also
+         </em>
+         has an underdetermined postcondition in some circumstances, which gives the implementor (you) more freedom and the client (also you, when you’re writing tests) less certainty about what it will return.
+        </p>
+       </li>
+       <li>
+        <p>
+         Read the spec for the
+         <code>
+          Timespan
+         </code>
+         class carefully, because it may answer many of the questions you have about
+         <code>
+          getTimespan()
+         </code>
+         .
+        </p>
+       </li>
+      </ul>
+      <p>
+       <strong>
+        Commit to Git.
+       </strong>
+       Once you’re happy with your solution to this problem, commit to your repo!
+Committing frequently – whenever you’ve fixed a bug or added a working and tested feature – is a good way to use version control, 
+and will be a good habit to have for your team projects.
+      </p>
+      <hr>
+     </div>
+     <h2 id="problem_2_filtering_lists_of_tweets">
+      Problem 2: Filtering lists of tweets
+     </h2>
+     <div data-outline="problem_2_filtering_lists_of_tweets">
+      <p>
+       In this problem, you will test and implement the methods in
+       <code>
+        Filter.java
+       </code>
+       .
+      </p>
+      <div class="list-style-lower-alpha">
+       <ol>
+        <li>
+         <p>
+          Devise, document, and implement test cases for
+          <code>
+           writtenBy()
+          </code>
+          ,
+          <code>
+           inTimespan()
+          </code>
+          , and
+          <code>
+           containing()
+          </code>
+          , and put them in
+          <code>
+           FilterTest.java
+          </code>
+          .
+         </p>
+        </li>
+        <li>
+         <p>
+          Implement
+          <code>
+           writtenBy()
+          </code>
+          ,
+          <code>
+           inTimespan()
+          </code>
+          , and
+          <code>
+           containing()
+          </code>
+          , and make sure your tests pass.
+         </p>
+        </li>
+       </ol>
+      </div>
+      <p>
+       Hints:
+      </p>
+      <ul>
+       <li>
+        <p>
+         For questions about lowercase/uppercase and how to interpret timespans, reread the hints in the previous question.
+        </p>
+       </li>
+       <li>
+        <p>
+         For all problems on this problem set, you are free to rewrite or replace the provided example tests and their assertions.
+        </p>
+       </li>
+      </ul>
+      <p>
+       <strong>
+        Commit to Git.
+       </strong>
+       Once you’re happy with your solution to this problem, commit to your repo!
+      </p>
+      <hr>
+     </div>
+     <h2 id="problem_3_inferring_a_social_network">
+      Problem 3: Inferring a social network
+     </h2>
+     <div data-outline="problem_3_inferring_a_social_network">
+      <p>
+       In this problem, you will test and implement the methods in
+       <code>
+        SocialNetwork.java
+       </code>
+       .  The
+       <code>
+        guessFollowsGraph()
+       </code>
+       method creates a social network over the people who are mentioned in a list of tweets.  The social network is an approximation to who is following whom on Twitter, based only on the evidence found in the tweets.  The
+       <code>
+        influencers()
+       </code>
+       method returns a list of people sorted by their influence (total number of followers).
+      </p>
+      <div class="list-style-lower-alpha">
+       <ol>
+        <li>
+         <p>
+          Devise, document, and implement test cases for
+          <code>
+           guessFollowsGraph()
+          </code>
+          and
+          <code>
+           influencers()
+          </code>
+          , and put them in
+          <code>
+           SocialNetworkTest.java
+          </code>
+          . Be careful that your test cases for
+          <code>
+           guessFollowsGraph()
+          </code>
+          respect its underdetermined postcondition.
+         </p>
+        </li>
+        <li>
+         <p>
+          Implement
+          <code>
+           guessFollowsGraph()
+          </code>
+          and
+          <code>
+           influencers()
+          </code>
+          , and make sure your tests pass.  For now, implement only the minimum required behavior for
+          <code>
+           guessFollowsGraph()
+          </code>
+          , which infers that Ernie follows Bert if Ernie @-mentions Bert.
+         </p>
+        </li>
+       </ol>
+      </div>
+      <p>
+       If you want to see your code work on a live sample of tweets, run
+       <code>
+        Main.java
+       </code>
+       .  It will print the top 10 most-followed people according to the social network you generated.  You can search for them on Twitter to see if their actual number of followers has a similar order.
+      </p>
+      <hr>
+     </div>
+     <h2 id="problem_4_get_smarter">
+      Problem 4: Get smarter
+     </h2>
+     <div data-outline="problem_4_get_smarter">
+      <p>
+       In this problem, you will implement one additional kind of evidence in
+       <code>
+        guessFollowsGraph()
+       </code>
+       .  Note that we are taking a broad view of “influence” here, and even Twitter-following is not a ground truth for influence, only an approximation.  It’s possible to read Twitter without explicitly following anybody.  It’s also possible to be influenced by somebody through other media (email, chat, real life) while producing evidence of the influence on twitter.
+      </p>
+      <p>
+       Here are some ideas for evidence of following.  Feel free to experiment with your own.
+      </p>
+      <ul>
+       <li>
+        <p>
+         <strong>
+          Common hashtags.
+         </strong>
+         People who use the same hashtags in their tweets (e.g.
+         <code>
+          #mit
+         </code>
+         ) may mutually influence each other.  People who share a hashtag that isn’t otherwise popular in the dataset, or people who share multiple hashtags, may be even stronger evidence.
+        </p>
+       </li>
+       <li>
+        <p>
+         <strong>
+          <a href="https://en.wikipedia.org/wiki/Triadic_closure">
+           Triadic closure
+          </a>
+          .
+         </strong>
+         In this context, triadic closure means that if a strong tie (mutual following relationship) exists between a pair A,B and a pair B,C, then some kind of tie probably exists between A and C – either A follows C, or C follows A, or both.
+        </p>
+       </li>
+       <li>
+        <p>
+         <strong>
+          Awareness
+         </strong>
+         .  If A follows B and B follows C, and B retweets a tweet made by C, then A sees the retweet and is influenced by C.
+        </p>
+       </li>
+      </ul>
+      <p>
+       Keep in mind that whatever additional evidence you implement, your
+       <code>
+        guessFollowsGraph()
+       </code>
+       must still obey the spec.  To test your specific implementation, make sure you put test cases in your own
+       <code>
+        MySocialNetworkTest
+       </code>
+       class rather than the
+       <code>
+        SocialNetworkTest
+       </code>
+       class that we will run against staff implementations. Your work on this problem will be judged by the clarity of the code you wrote to implement it and the test cases you wrote to test it.
+      </p>
+      <hr>
+     </div>
+    </div>
+   </div>
+  </main>
+  <footer>
+   MIT EECS
+  </footer>
+  <script src="./Problem Set 1_ Tweet Tweet_files/jquery.min.js" type="text/javascript">
+  </script>
+  <script src="./Problem Set 1_ Tweet Tweet_files/bootstrap.min.js" type="text/javascript">
+  </script>
+  <script src="./Problem Set 1_ Tweet Tweet_files/handout-run.js" type="text/javascript">
+  </script>
+ 
+
+
+</body></html>
