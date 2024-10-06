@@ -22,5 +22,10 @@ public class HailstoneDynam {
         System.out.println(list.get(j));
     }
 
+    int max = 0;
+    for (int x: list) {
+      max = Math.max(x, max);
+    }
+    System.out.println(max);
   }
 }
