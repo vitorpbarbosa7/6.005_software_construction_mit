@@ -7,6 +7,9 @@ public class Hailstone {
      * @param n Starting number for sequence. Assumes n > 0. 
      * @return hailstone sequence starting with n and ending with 1. 
      */
+
+    // with static, we have an unbounded or a classmethod ? 
+    // not a "self" or "this"
     public static List<Integer> hailstoneSequence (int n) {
         List<Integer> list = new ArrayList<Integer>();
         while (n != 1) {
