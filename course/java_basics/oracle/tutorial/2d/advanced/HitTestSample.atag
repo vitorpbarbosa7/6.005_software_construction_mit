@@ -1,5 +1,0 @@
-<APPLET CODE="HitTestSample.class"
-        codebase="examples/"
-        archive="hittestsample.jar"
-	WIDTH=400 HEIGHT=250>
-</APPLET>

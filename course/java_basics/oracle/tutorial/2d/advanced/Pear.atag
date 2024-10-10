@@ -1,5 +1,0 @@
-<APPLET CODE="Pear.class"
-        codebase="examples/"
-        archive="pear.jar"
-	WIDTH=150 HEIGHT=200>
-</APPLET>

@@ -1,5 +1,0 @@
-This   text will  be analyzed  
- 
- by the WordCount 
-
-service.
