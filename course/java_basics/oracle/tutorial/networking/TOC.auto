@@ -1,0 +1,89 @@
+
+#define TOPOFTRAIL yesplease
+
+<dl>
+<a name="overview">
+<strong><a href="overview/index.html">Overview of Networking</a></strong>
+</a>
+<dl>
+<dt>
+<a href="overview/alreadyknow.html">What You May Already Know About Networking in Java</a>
+<dt>
+<a href="overview/networking.html">Networking Basics</a>
+</dl>
+</dl>
+<dl>
+<a name="urls">
+<strong><a href="urls/index.html">Working with URLs</a></strong>
+</a>
+<dl>
+<dt>
+<a href="urls/definition.html">What Is a URL?</a>
+<dt>
+<a href="urls/creatingUrls.html">Creating a URL</a>
+<dt>
+<a href="urls/urlInfo.html">Parsing a URL</a>
+<dt>
+<a href="urls/readingURL.html">Reading Directly from a URL</a>
+<dt>
+<a href="urls/connecting.html">Connecting to a URL</a>
+<dt>
+<a href="urls/readingWriting.html">Reading from and Writing to a URLConnection</a>
+</dl>
+</dl>
+<dl>
+<a name="sockets">
+<strong><a href="sockets/index.html">All About Sockets</a></strong>
+</a>
+<dl>
+<dt>
+<a href="sockets/definition.html">What Is a Socket?</a>
+<dt>
+<a href="sockets/readingWriting.html">Reading from and Writing to a Socket</a>
+<dt>
+<a href="sockets/clientServer.html">Writing the Server Side of a Socket</a>
+</dl>
+</dl>
+<dl>
+<a name="datagrams">
+<strong><a href="datagrams/index.html">All About Datagrams</a></strong>
+</a>
+<dl>
+<dt>
+<a href="datagrams/definition.html">What Is a Datagram?</a>
+<dt>
+<a href="datagrams/clientServer.html">Writing a Datagram Client and Server</a>
+<dt>
+<a href="datagrams/broadcasting.html">Broadcasting to Multiple Recipients</a>
+</dl>
+</dl>
+<dl>
+<a name="nifs">
+<strong><a href="nifs/index.html">Programmatic Access to Network Parameters</a></strong>
+</a>
+<dl>
+<dt>
+<a href="nifs/definition.html">What Is a Network Interface?</a>
+<dt>
+<a href="nifs/retrieving.html">Retrieving Network Interfaces</a>
+<dt>
+<a href="nifs/listing.html">Listing Network Interface Addresses</a>
+<dt>
+<a href="nifs/parameters.html">Network Interface Parameters</a>
+</dl>
+</dl>
+<dl>
+<a name="cookies">
+<strong><a href="cookies/index.html">Working With Cookies</a></strong>
+</a>
+<dl>
+<dt>
+<a href="cookies/definition.html">HTTP State Management With Cookies</a>
+<dt>
+<a href="cookies/cookiehandler.html">CookieHandler Callback Mechanism</a>
+<dt>
+<a href="cookies/cookiemanager.html">Default CookieManager</a>
+<dt>
+<a href="cookies/custom.html">Custom CookieManager</a>
+</dl>
+</dl>

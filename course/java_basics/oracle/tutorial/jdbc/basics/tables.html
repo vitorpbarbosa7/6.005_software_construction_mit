@@ -1,0 +1,1132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html lang="en-US">
+    <head>
+        <title>Setting Up Tables (The Java&trade; Tutorials &gt;        
+            JDBC(TM) Database Access &gt; JDBC Basics)
+</title>
+
+     <meta name="description" content="This JDBC Java tutorial describes how to use JDBC API to create, insert into, update, and query tables. You will also learn how to use simple and prepared statements, stored procedures and perform transactions" />
+     <meta name="keywords" content="java programming, learn java, java sample code, jdbc, prepared statement, result set" />
+        
+<style type="text/css">
+    .FigureCaption   { 
+        margin-left: 1in; 
+        margin-right: 1in; 
+        font-family: sans-serif; 
+        font-size: smaller; 
+        text-align: justify;
+    }
+    #TopBar_bl {
+        background: url(../../images/java_bar_bl.gif) 0 100% no-repeat;
+        width: 100%;
+        height: 60px;
+    }
+    #TopBar_br {
+        background: url(../../images/java_bar_br.gif) 100% 100% no-repeat;
+        width: 100%;
+        height: 60px;
+    }
+    #TopBar_tl {
+        background: url(../../images/java_bar_tl.gif) 0 0 no-repeat;
+        width: 100%;
+        height: 60px;
+    }
+    #TopBar_tr {
+        background: url(../../images/java_bar_tr.gif) 100% 0 no-repeat;
+        width: 100%;
+        height: 60px;
+    }
+    #TopBar {
+        background: #35556B url(../../images/java_bar.gif);
+        margin: 10px 10px 0 10px;
+        height:60px;
+        min-width:700px;
+        color: white;
+        font-family: sans-serif; 
+        font-weight: bold;
+    }
+    @media print {
+        #BreadCrumbs, #Download {
+            display: none;
+        }
+    }
+    #TopBar_right {
+        line-height: 14px;
+        float: right;
+        padding-top: 2px;
+        padding-right: 30px;
+        text-align: center;
+    }
+    @media print {
+        #TopBar_right {
+            display: none;
+        }
+    }
+    #TopBar_right a {
+        font-size: 12px;
+        margin: 3px;
+        padding: 0;
+    }
+    #TopBar a:visited, #TopBar a:link {
+        color: white;
+        text-decoration: none;
+    }
+    #TopBar a:hover, #TopBar a:active  {
+        background-color: white;
+        color: #35556B;
+    }
+    #BreadCrumbs {
+        padding: 4px 5px 0.5em 0;
+        font-family: sans-serif; 
+        float: right;
+    }
+    #BreadCrumbs a {
+        color: blue;
+    }
+    #BreadCrumbs a:visited, #BreadCrumbs a:link {
+        text-decoration: none;
+    }
+    #BreadCrumbs a:hover, #BreadCrumbs a:active {
+        text-decoration: underline;
+    }
+    #PageTitle {
+        margin: 0 5px 0.5em 0;
+        color: #F90000;
+    }    
+    #PageContent{
+        margin: 0 5px 0 20px;
+    }
+    .LeftBar_shown {
+        width: 13em;
+        float: left;
+        margin-left: 10px;
+        margin-top: 4px;
+        margin-bottom: 2em;
+        margin-right: 10px;
+    }
+    @media print {
+        .LeftBar_shown {
+            display: none;
+        }
+    }
+    .LeftBar_hidden {
+        display: none;
+    }
+    #Footer {
+        padding-top: 10px;
+        padding-left: 10px;
+        margin-right: 10px;
+    }
+    
+    .footertext {
+        font-size: 10px;
+        font-family: sans-serif; 
+        margin-top: 1px;
+    }
+    
+    #Footer2 {
+        padding-top: 10px;
+        padding-left: 10px;
+        margin-right: 10px;
+    }
+    .NavBit  {
+        padding: 4px 5px 0.5em 0;
+        font-family: sans-serif; 
+    }
+    @media print {
+        .NavBit {
+            display: none;
+        }
+    }
+    #TagNotes {
+        text-align: right;        
+    }
+    
+    @media print {
+        #TagNotes a:visited, #TagNotes a:link {
+            color: #35556B;
+            text-decoration: none;
+        }
+    }
+    #Contents a, .NavBit a, #TagNotes a {
+        color: blue
+    }
+    #TagNotes a:visited, #TagNotes a:link,
+    #Contents a:visited, #Contents a:link,
+    .NavBit a:visited, .NavBit a:link {
+        text-decoration: none;
+    }
+    #TagNotes a:hover, #TagNotes a:active,   
+    #Contents a:hover, #Contents a:active,   
+    .NavBit a:hover, .NavBit a:active {  
+        text-decoration: underline;
+    }
+    #Contents {
+        float: left;
+        font-family: sans-serif; 
+    }
+    @media print {
+        #Contents {
+            display: none;
+        }
+    }
+    @media screen {
+        div.PrintHeaders {
+            display: none;
+        }
+    }
+    .linkLESSON, .nolinkLESSON {
+        margin-left: 0.5em;
+        text-indent: -0.5em
+    }
+    .linkAHEAD, .nolinkAHEAD, .linkQUESTIONS, .nolinkQUESTIONS   {
+        margin-left: 1.5em; 
+        text-indent: -0.5em
+    }
+    .linkBHEAD, .nolinkBHEAD   {
+        margin-left: 2.5em;
+        text-indent: -0.5em
+    }
+    .linkCHEAD, .nolinkCHEAD   {
+        margin-left: 3.5em;
+        text-indent: -0.5em
+    }
+    .nolinkLESSON, .nolinkAHEAD, .nolinkBHEAD, .nolinkCHEAD,
+    .nolinkQUESTIONS {
+        font-weight: bold;
+        color: #F90000;
+    }
+    .MainFlow_indented {
+        margin-right: 10px;
+        margin-left: 15em;
+        margin-bottom: 2em;
+
+    }
+    .MainFlow_wide {
+        margin-right: 10px;
+        margin-left: 10px;
+        margin-bottom: 2em;
+
+    }
+    @media print {
+        .MainFlow_indented, .MainFlow_wide {
+            padding-top: 0;
+            margin-top: 10px;
+            margin-right: 10px;
+            margin-left: 0;
+        }
+    }
+    h1, h2, h3, h4, h5 {
+        color: #F90000;
+        font-family: sans-serif;
+    }
+
+    h1 {
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    h2 {
+        font-weight: bold;
+        font-size: 17px;
+    }
+
+    h3 {
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    h4 {
+        font-size: 15px;
+    }
+
+    h5 {
+        font-size: 12px;
+    }
+
+
+    #ToggleLeft {
+        display: none;
+    }
+    
+    .note {
+        margin: 0 30px 0px 30px;
+    }
+    
+    .codeblock {
+        margin: 0 30px 0px 30px;
+    }
+
+    /t
+
+</style>
+<script type="text/javascript">
+    function leftBar() {
+        var nameq = 'tutorial_showLeftBar='
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookieString = cookies[i];
+            while (cookieString.charAt(0) == ' ') {
+                cookieString = cookieString.substring(1, cookieString.length);
+            }
+            if (cookieString.indexOf(nameq) == 0) {
+                cookieValue =  cookieString.substring(nameq.length,
+                        cookieString.length);
+                return cookieValue == 'yes';
+            }
+        }
+        return true;
+    }
+
+    function showLeft(b) {
+        var contents = document.getElementById("LeftBar");
+        var main = document.getElementById("MainFlow");
+        var toggle = document.getElementById("ToggleLeft");
+        if (b) {
+            contents.className = "LeftBar_shown";
+            main.className = "MainFlow_indented";
+            toggle.innerHTML = "Hide the TOC";
+            document.cookie = 'tutorial_showLeftBar=yes; path=/';
+        } else {
+            contents.className = "LeftBar_hidden";
+            main.className = "MainFlow_wide";
+            toggle.innerHTML = "Show the TOC";
+            document.cookie = 'tutorial_showLeftBar=no; path=/';
+        }
+    }
+
+    function toggleLeft() {
+        showLeft(document.getElementById("LeftBar").className ==
+                "LeftBar_hidden");
+        document.getElementById("ToggleLeft").blur();
+    }
+
+    function load() {
+        showLeft(leftBar());
+        document.getElementById("ToggleLeft").style.display="inline";
+    }
+    
+</script>
+<noscript> 
+A browser with JavaScript enabled is required for this page to operate properly.
+</noscript>
+
+    </head>
+<body onload="load()">
+    <div id=TopBar> <div id=TopBar_tr> <div id=TopBar_tl> <div id=TopBar_br> <div id=TopBar_bl> 
+                        <div id=TopBar_right> 
+                            <a target="_blank"
+                                href="http://java.sun.com/javase/6/download.jsp">Download
+                                the JDK</a>
+                            <br>
+                            <a href="../../search.html" target="_blank">Search the
+                                Tutorials</a>
+                            <br>
+                            <a href="javascript:toggleLeft()"
+                                id="ToggleLeft">Hide the TOC</a>
+                        </div>
+                    </div> </div> </div> </div> </div>
+    <div class=PrintHeaders>
+        <b>Trail:</b> JDBC(TM) Database Access
+        <br><b>Lesson:</b> JDBC Basics
+    </div>
+
+    <div id=LeftBar class=LeftBar_shown>
+        <div id=Contents>
+            <div class="linkLESSON"><a href="index.html">JDBC Basics</a></div>
+<div class="linkAHEAD"><a href="gettingstarted.html">Getting Started</a></div>
+<div class="linkAHEAD"><a href="processingsqlstatements.html">Processing SQL Statements with JDBC</a></div>
+<div class="linkAHEAD"><a href="connecting.html">Establishing a Connection</a></div>
+<div class="linkAHEAD"><a href="sqldatasources.html">Connecting with DataSource Objects</a></div>
+<div class="linkAHEAD"><a href="sqlexception.html">Handling SQLExceptions</a></div>
+<div class="nolinkAHEAD">Setting Up Tables</div>
+<div class="linkAHEAD"><a href="retrieving.html">Retrieving and Modifying Values from Result Sets</a></div>
+<div class="linkAHEAD"><a href="prepared.html">Using Prepared Statements</a></div>
+<div class="linkAHEAD"><a href="transactions.html">Using Transactions</a></div>
+<div class="linkAHEAD"><a href="rowset.html">Using RowSet Objects</a></div>
+<div class="linkAHEAD"><a href="jdbcrowset.html">Using JdbcRowSet Objects</a></div>
+<div class="linkAHEAD"><a href="cachedrowset.html">Using CachedRowSetObjects</a></div>
+<div class="linkAHEAD"><a href="joinrowset.html">Using JoinRowSet Objects</a></div>
+<div class="linkAHEAD"><a href="filteredrowset.html">Using FilteredRowSet Objects</a></div>
+<div class="linkAHEAD"><a href="webrowset.html">Using WebRowSet Objects</a></div>
+<div class="linkAHEAD"><a href="sqltypes.html">Using Advanced Data Types</a></div>
+<div class="linkAHEAD"><a href="blob.html">Using Large Objects</a></div>
+<div class="linkAHEAD"><a href="sqlxml.html">Using SQLXML Objects</a></div>
+<div class="linkAHEAD"><a href="array.html">Using Array Objects</a></div>
+<div class="linkAHEAD"><a href="distinct.html">Using DISTINCT Data Type</a></div>
+<div class="linkAHEAD"><a href="sqlstructured.html">Using Structured Objects</a></div>
+<div class="linkAHEAD"><a href="sqlcustommapping.html">Using Customized Type Mappings</a></div>
+<div class="linkAHEAD"><a href="sqldatalink.html">Using Datalink Objects</a></div>
+<div class="linkAHEAD"><a href="sqlrowid.html">Using RowId Objects</a></div>
+<div class="linkAHEAD"><a href="storedprocedures.html">Using Stored Procedures</a></div>
+<div class="linkAHEAD"><a href="jdbcswing.html">Using JDBC with GUI API</a></div>
+</div>
+    </div>
+    <div id=MainFlow class=MainFlow_indented>
+            <span id=BreadCrumbs>
+                <a href=../../index.html target=_top>Home Page</a>
+                &gt;
+                <a href=../index.html target=_top>JDBC(TM) Database Access</a>
+                &gt;
+                <a href=index.html target=_top>JDBC Basics</a>
+            </span>
+            <div class=NavBit>
+                <a target=_top href=sqlexception.html>&laquo;&nbsp;Previous</a>&nbsp;&bull;&nbsp;<a target=_top href=../TOC.html>Trail</a>&nbsp;&bull;&nbsp;<a target=_top href=retrieving.html>Next&nbsp;&raquo;</a>
+            </div>
+            <div id=PageTitle><h1>Setting Up Tables</h1></div>
+            <div id=PageContent>
+
+<p>This page describes all the tables used in the JDBC tutorial and how to create them:</p>
+
+<ul>
+  <li><a href="#coffees">COFFEES Table</a></li>
+  <li><a href="#suppliers">SUPPLIERS Table</a></li>
+  <li><a href="#cof_inventory">COF_INVENTORY Table</a></li>
+  <li><a href="#merch_inventory">MERCH_INVENTORY Table</a></li>
+  <li><a href="#coffee_houses">COFFEE_HOUSES Table</a></li>
+  <li><a href="#data_repository">DATA_REPOSITORY Table</a></li>
+  <li><a href="#create">Creating Tables</a></li>
+  <li><a href="#populate">Populating Tables</a></li>
+</ul>
+
+<h2><a name="coffees">COFFEES Table</a></h2>
+
+<p>The <code>COFFEES</code> table stores information about the coffees available for sale at The Coffee Break:</p>
+
+<TABLE border="1" summary="COFFEES table">
+  <TR>
+    <TH>COF_NAME</TH>
+    <TH>SUP_ID</TH>
+    <TH>PRICE</TH>
+    <TH>SALES</TH>
+    <TH>TOTAL</TH>
+  </TR>
+  <TR>
+    <TD>Colombian</TD>
+    <TD>101</TD>
+    <TD>7.99</TD>
+    <TD>0</TD>
+    <TD>0</TD>
+  </TR>
+  <TR>
+    <TD>French_Roast</TD>
+    <TD>49</TD>
+    <TD>8.99</TD>
+    <TD>0</TD>
+    <TD>0</TD>
+  </TR>
+  <TR>
+    <TD>Espresso</TD>
+    <TD>150</TD>
+    <TD>9.99</TD>
+    <TD>0</TD>
+    <TD>0</TD>
+  </TR>
+  <TR>
+    <TD>Colombian_Decaf</TD>
+    <TD>101</TD>
+    <TD>8.99</TD>
+    <TD>0</TD>
+    <TD>0</TD>
+  </TR>
+  <TR>
+    <TD>French_Roast_Decaf</TD>
+    <TD>49</TD>
+    <TD>9.99</TD>
+    <TD>0</TD>
+    <TD>0</TD>
+  </TR>
+</TABLE>
+
+
+<p>The following describes each of the columns in the <code>COFFEES</code> table:</p>
+
+<ul>
+
+  <li><code>COF_NAME</code>: Stores the coffee name. Holds values with a SQL type of <CODE>VARCHAR</CODE> with a maximum length of 32 characters. Because the names are different for each type of coffee sold, the name uniquely identifies a particular coffee and serves as the primary key.</li>
+
+  <li><code>SUP_ID</code>: Stores a number identifying the coffee supplier. Holds values with a SQL type of <CODE>INTEGER</CODE>. It is defined as a foreign key that references the column <code>SUP_ID</code> in the <code>SUPPLIERS</code> table. Consequently, the DBMS will enforce that each value in this column matches one of the values in the corresponding column in the <code>SUPPLIERS</code> table.</li>
+
+  <li><code>PRICE</code>: Stores the cost of the coffee pet pound. Holds values with a SQL type of <CODE>FLOAT</CODE> because it needs to hold values with decimal points. (Note that money values would typically be stored in a SQL type <CODE>DECIMAL</CODE> or <CODE>NUMERIC</CODE>, but because of differences among DBMSs and to avoid incompatibility with earlier versions of JDBC, the tutorial uses the more standard type <CODE>FLOAT</CODE>.)</li>
+
+  <li><code>SALES</code>: Stores the number of pounds of coffee sold during the current week. Holds values with a SQL type of <CODE>INTEGER</CODE>.</li>
+
+  <li><code>TOTAL</code>: Stores the number of pounds of coffee sold to date. Holds values with a SQL type of <CODE>INTEGER</CODE>.</li>
+
+</ul>
+
+<h2><a name="suppliers">SUPPLIERS Table</a></h2>
+
+<p>The <CODE>SUPPLIERS</CODE> stores information about each of the suppliers:</p>
+
+
+<TABLE BORDER="1" summary="SUPPLIERS table">
+<TR>
+  <TH>SUP_ID</TH>
+  <TH>SUP_NAME</TH>
+  <TH>STREET</TH>
+  <TH>CITY</TH>
+  <TH>STATE</TH>
+  <TH>ZIP</TH>
+</TR>
+<TR>
+  <TD>101</TD>
+  <TD>Acme, Inc.</TD>
+  <TD>99 Market Street</TD>
+  <TD>Groundsville</TD>
+  <TD>CA</TD>
+  <TD>95199</TD>
+</TR>
+<TR>
+  <TD>49</TD>
+  <TD>Superior Coffee</TD>
+  <TD>1 Party Place</TD>
+  <TD>Mendocino</TD>
+  <TD>CA</TD>
+  <TD>95460</TD>
+</TR>
+<TR>
+  <TD>150</TD>
+  <TD>The High Ground</TD>
+  <TD>100 Coffee Lane</TD>
+  <TD>Meadows</TD>
+  <TD>CA</TD>
+  <TD>93966</TD>
+</TR>
+</TABLE>
+
+<p>The following describes each of the columns in the <code>SUPPLIERS</code> table:</p>
+
+<ul>
+  <li><code>SUP_ID</code>: Stores a number identifying the coffee supplier. Holds values with a SQL type of <CODE>INTEGER</CODE>. It is the primary key in this table.</li>
+  <li><code>SUP_NAME</code>: Stores the name of the coffee supplier.</li>
+  <li><code>STREET</code>, <code>CITY</code>, <code>STATE</code>, and <code>ZIP</code>: These columns store the address of the coffee supplier.</li>
+</ul>
+
+<h2><a name="cof_inventory">COF_INVENTORY Table</a></h2>
+
+<p>The table <CODE>COF_INVENTORY</CODE> stores information about the amount of coffee stored in each warehouse:</p>
+
+    <table border="1" summary="COF_INVENTORY table">
+      <tr>
+        <th>WAREHOUSE_ID</th>
+        <th>COF_NAME</th>
+        <th>SUP_ID</th>
+        <th>QUAN</th>
+        <th>DATE_VAL</th>
+      </tr>
+      <tr>
+        <th>
+          1234
+        </th>
+        <th>
+          House_Blend
+        </th>
+
+        <td>
+          49
+        </td>
+        <td>
+          0
+        </td>
+        <td>
+          2006_04_01
+        </td>
+      </tr>
+
+      <tr>
+        <th>
+          1234
+        </th>
+        <th>
+          House_Blend_Decaf
+        </th>
+        <td>
+          49
+        </td>
+
+        <td>
+          0
+        </td>
+        <td>
+          2006_04_01
+        </td>
+      </tr>
+      <tr>
+        <th>
+          1234
+        </th>
+
+        <th>
+          Colombian
+        </th>
+        <td>
+          101
+        </td>
+        <td>
+          0
+        </td>
+        <td>
+
+          2006_04_01
+        </td>
+      </tr>
+      <tr>
+        <th>
+          1234
+        </th>
+        <th>
+          French_Roast
+        </th>
+
+        <td>
+          49
+        </td>
+        <td>
+          0
+        </td>
+        <td>
+          2006_04_01
+        </td>
+      </tr>
+
+      <tr>
+        <th>
+          1234
+        </th>
+        <th>
+          Espresso
+        </th>
+        <td>
+          150
+        </td>
+
+        <td>
+          0
+        </td>
+        <td>
+          2006_04_01
+        </td>
+      </tr>
+      <tr>
+        <th>
+          1234
+        </th>
+
+        <th>
+          Colombian_Decaf
+        </th>
+        <td>
+          101
+        </td>
+        <td>
+          0
+        </td>
+        <td>
+
+          2006_04_01
+        </td>
+      </tr>
+    </table>
+
+<p>The following describes each of the columns in the <code>COF_INVENTORY</code> table:</p>
+
+<ul>
+  <li><code>WAREHOUSE_ID</code>: Stores a number identifying a warehouse.</li>
+  <li><code>COF_NAME</code>: Stores the name of a particular type of coffee.</li>
+  <li><code>SUP_ID</code>: Stores a number identifying a supplier.</li>
+  <li><code>QUAN</code>: Stores a number indicating the amount of coffee available.</li>
+  <li><code>DATE</code>: Stores a timestamp value indicating the last time the row was updated.</li>
+</ul>
+
+<h2><a name="merch_inventory">MERCH_INVENTORY Table</a></h2>
+
+<p>The table <CODE>MERCH_INVENTORY</CODE> stores information about the amount of non-coffee merchandise in stock:</p>
+
+    <table border="1" summary="MERCH_INVETORY table">
+      <tr>
+        <th><b>ITEM_ID</b></th>
+        <th>ITEM_NAME</th>
+        <th>SUP_ID</th>
+        <th>QUAN</th>
+        <th>DATE</th>
+      </tr>
+
+      <tr>
+        <th>00001234</th>
+        <th>Cup_Large</th>
+        <td>00456</td>
+        <td>28</td>
+        <td>2006_04_01</td>
+      </tr>
+
+      <tr>
+        <th>00001235</th>
+        <th>Cup_Small</th>
+        <td>00456</td>
+        <td>36</td>
+        <td>2006_04_01</td>
+      </tr>
+
+      <tr>
+        <th>00001236</th>
+        <th>Saucer</th>
+        <td>00456</td>
+        <td>64</td>
+        <td>2006_04_01</td>
+      </tr>
+
+      <tr>
+        <th>00001287</th>
+        <th>Carafe</th>
+        <td>00456</td>
+        <td>12</td>
+        <td>2006_04_01</td>
+      </tr>
+
+      <tr>
+        <th>00006931</th>
+        <th>Carafe</th>
+        <td>00927</td>
+        <td>3</td>
+        <td>2006_04_01</td>
+      </tr>
+
+      <tr>
+        <th>00006935</th>
+        <th>PotHolder</th>
+        <td>00927</td>
+        <td>88</td>
+        <td>2006_04_01</td>
+      </tr>
+
+      <tr>
+        <th>00006977</th>
+        <th>Napkin</th>
+        <td>00927</td>
+        <td>108</td>
+        <td>2006_04_01</td>
+      </tr>
+
+      <tr>
+        <th>00006979</th>
+        <th>Towel</th>
+        <td>00927</td>
+        <td>24</td>
+        <td>2006_04_01</td>
+      </tr>
+
+      <tr>
+        <th>00004488</th>
+        <th>CofMaker</th>
+        <td>08732</td>
+        <td>5</td>
+        <td>2006_04_01</td>
+      </tr>
+
+      <tr>
+        <th>00004490</th>
+        <th>CofGrinder</th>
+        <td>08732</td>
+        <td>9</td>
+        <td>2006_04_01</td>
+      </tr>
+
+      <tr>
+        <th>00004495</th>
+        <th>EspMaker</th>
+        <td>08732</td>
+        <td>4</td>
+        <td>2006_04_01</td>
+      </tr>
+
+      <tr>
+        <th>00006914</th>
+        <th>Cookbook</th>
+        <td>00927</td>
+        <td>12</td>
+        <td>2006_04_01</td>
+      </tr>
+    </table>
+
+<p>The following describes each of the columns in the <code>MERCH_INVENTORY</code> table:</p>
+
+<ul>
+  <li><code>ITEM_ID</code>: Stores a number identifying an item.</li>
+  <li><code>ITEM_NAME</code>: Stores the name of an item.</li>
+  <li><code>SUP_ID</code>: Stores a number identifying a supplier.</li>
+  <li><code>QUAN</code>: Stores a number indicating the amount of that item available.</li>
+  <li><code>DATE</code>: Stores a timestamp value indicating the last time the row was updated.</li>
+</ul>
+
+<h2><a name="coffee_houses">COFFEE_HOUSES Table</a></h2>
+
+<p>The table <CODE>COFFEE_HOUSES</CODE> stores locations of coffee houses:</p>
+
+
+    <table border="1" summary="COFFEE_HOUSES table">
+      <tr>
+        <th>STORE_ID</th>
+        <th>CITY</th>
+        <th>COFFEE</th>
+        <th>MERCH</th>
+        <th>TOTAL</th>
+      </tr>
+
+
+<tr><td>10023</td> <td>Mendocino</td>  <td>3450</td> <td>2005</td> <td>5455</td></tr>
+<tr><td>33002</td> <td>Seattle</td>    <td>4699</td> <td>3109</td> <td>7808</td></tr>
+<tr><td>10040</td> <td>SF</td>         <td>5386</td> <td>2841</td> <td>8227</td></tr>
+<tr><td>32001</td> <td>Portland</td>   <td>3147</td> <td>3579</td> <td>6726</td></tr>
+<tr><td>10042</td> <td>SF</td>         <td>2863</td> <td>1874</td> <td>4710</td></tr>
+<tr><td>10024</td> <td>Sacramento</td> <td>1987</td> <td>2341</td> <td>4328</td></tr>
+<tr><td>10039</td> <td>Carmel</td>     <td>2691</td> <td>1121</td> <td>3812</td></tr>
+<tr><td>10041</td> <td>LA</td>         <td>1533</td> <td>1007</td> <td>2540</td></tr>
+<tr><td>33005</td> <td>Olympia</td>    <td>2733</td> <td>1550</td> <td>4283</td></tr>
+<tr><td>33010</td> <td>Seattle</td>    <td>3210</td> <td>2177</td> <td>5387</td></tr>
+<tr><td>10035</td> <td>SF</td>         <td>1922</td> <td>1056</td> <td>2978</td></tr>
+<tr><td>10037</td> <td>LA</td>         <td>2143</td> <td>1876</td> <td>4019</td></tr>
+<tr><td>10034</td> <td>San_Jose</td>   <td>1234</td> <td>1032</td> <td>2266</td></tr>
+<tr><td>32004</td> <td>Eugene</td>     <td>1356</td> <td>1112</td> <td>2468</td></tr>
+
+</table>
+
+<p>The following describes each of the columns in the <code>COFFEE_HOUSES</code> table:</p>
+
+<ul>
+  <li><code>STORE_ID</code>: Stores a number identifying a coffee house. It indicates,
+      among other things, the state in which the coffee house is
+      located. A value beginning with 10, for example, means that
+      the state is California. <code>STORE_ID</code> values beginning with 32
+      indicate Oregon, and those beginning with 33 indicate the
+      state of Washington.</li>
+  <li><code>CITY</code>: Stores the name of the city in which the coffee house is located.</li>
+  <li><code>COFFEE</code>: Stores a number indicating the amount of coffee sold.</li>
+
+  <li><code>MERCH</code>: Stores a number indicating the amount of coffee sold.</li>
+  <li><code>TOTAL</code>: Stores a number indicating the total amount of coffee and merchandise sold.</li>
+</ul>
+
+<h2><a name="data_repository">DATA_REPOSITORY Table</a></h2>
+
+<p>The table DATA_REPOSITORY stores URLs that reference documents and other data of interest to The Coffee Break. The script <code>populate_tables.sql</code> does not add any data to this table. The following describes each of the columns in this table:</p>
+
+<ul>
+  <li><code>DOCUMENT_NAME</code>: Stores a string that identifies the URL.</li>
+  <li><code>URL</code>: Stores a URL.</li>
+</ul>
+
+
+<h2><a name="create">Creating Tables</a></h2>
+
+<p>You can create tables with Apache Ant or JDBC API.</p>
+
+<h3>Creating Tables with Apache Ant</h3>
+
+<p>To create the tables used with the tutorial sample code, run the following command in the directory <code><em>&lt;JDBC tutorial directory&gt;</em></code>:
+
+<div class="codeblock"><pre>
+ant create-tables
+</pre></div>
+
+<p>This command runs the following Ant target (from the <code>build.xml</code> file):</p>
+
+<div class="codeblock"><pre>
+  &lt;target name="build-tables" description="Create database tables">
+    &lt;sql
+      driver="${DB.DRIVER}"
+      url="${DB.URL}"
+      userid="${DB.USER}"
+      password="${DB.PASSWORD}"
+      classpathref="CLASSPATH"
+      delimiter="${DB.DELIMITER}" autocommit="false" onerror="abort">
+       &lt;transaction src="./sql/${DB.VENDOR}/create-tables.sql"/>
+    &lt;/sql>
+  &lt;/target>
+</pre></div>
+
+<p>The sample specifies values for the following <code>sql</code> Ant task parameters:</p>
+
+<table border="1" summary="Ant parameters">
+<tr>
+  <th>Parameter</th>
+  <th>Description</th>
+</tr>
+<tr>
+  <td><code>driver</code></td>
+  <td>Fully qualified class name of your JDBC driver. This sample uses <code>org.apache.derby.jdbc.EmbeddedDriver</code> for Java DB and <code>com.mysql.jdbc.Driver</code> for MySQL Connector/J.</td>
+</tr>
+<tr>
+  <td><code>url</code></td>
+  <td>Database connection URL that your DBMS JDBC driver uses to connect to a database.</td>
+</tr>
+<tr>
+  <td><code>userid</code></td>
+  <td>Name of a valid user in your DBMS.</td>
+</tr>
+<tr>
+  <td><code>password</code></td>
+  <td>Password of the user specified in <code>userid</code></td>
+</tr>
+<tr>
+  <td><code>classpathref</code></td>
+  <td>Full path name of the JAR file that contains the class specified in <code>driver</code></td>
+</tr>
+<tr>
+  <td><code>delimiter</code></td>
+  <td>String or character that separates SQL statements. This sample uses the semicolon (<code>;</code>).</td>
+</tr>
+<tr>
+  <td><code>autocommit</code></td>
+  <td>Boolean value; if set to <code>false</code>, all SQL statements are executed as one transaction.</td>
+</tr>
+<tr>
+  <td><code>onerror</code></td>
+  <td>Action to perform when a statement fails; possible values are <code>continue</code>, <code>stop</code>, and <code>abort</code>. The value <code>abort</code> specifies that if an error occurs, the transaction is aborted.</td>
+</tr>
+</table>
+
+<p>The sample stores the values of these parameters in a separate file. The build file <code>build.xml</code> retrieves these values with the <code>import</code> task:</p>
+
+<div class="codeblock"><pre>
+&lt;import file="${ANTPROPERTIES}"/>
+</pre></div>
+
+<p>The <code>transaction</code> element specifies a file that contains SQL statements to execute. The file <code>create-tables.sql</code> contains SQL statements that create all the tables described on this page. For example, the following excerpt from this file creates the tables <code>SUPPLIERS</code> and <code>COFFEES</code>:</p>
+
+<div class="codeblock"><pre>
+create table SUPPLIERS
+  (SUP_ID integer NOT NULL,
+  SUP_NAME varchar(40) NOT NULL,
+  STREET varchar(40) NOT NULL,
+  CITY varchar(20) NOT NULL,
+  STATE char(2) NOT NULL,
+  ZIP char(5),
+  PRIMARY KEY (SUP_ID));
+
+create table COFFEES
+  (COF_NAME varchar(32) NOT NULL,
+  SUP_ID int NOT NULL,
+  PRICE numeric(10,2) NOT NULL,
+  SALES integer NOT NULL,
+  TOTAL integer NOT NULL,
+  PRIMARY KEY (COF_NAME),
+  FOREIGN KEY (SUP_ID) REFERENCES SUPPLIERS (SUP_ID));
+</pre></div>
+
+<p><strong>Note</strong>: The file <code>build.xml</code> contains another target named <code>drop-tables</code> that deletes the tables used by the tutorial; run this target first before running <code>create-tables</code> if you want to re-create these tables.</p>
+
+<h3>Creating Tables with JDBC API</h3>
+
+<p>The following method, <code><a href="gettingstarted.html">SuppliersTable.createTable</a></code>, creates the <code>SUPPLIERS</code> table:</p>
+
+<div class="codeblock"><pre>
+  public void createTable() throws SQLException {
+    String createString = "create table " + dbName + ".SUPPLIERS " +
+						"(SUP_ID integer NOT NULL, " +
+						"SUP_NAME varchar(40) NOT NULL, " +
+						"STREET varchar(40) NOT NULL, " +
+						"CITY varchar(20) NOT NULL, " +
+						"STATE char(2) NOT NULL, " +
+            "ZIP char(5), " +
+            "PRIMARY KEY (SUP_ID))";
+    Statement stmt = null;
+    try {
+      stmt = con.createStatement();
+      stmt.executeUpdate(createString);
+    } catch (SQLException e) {
+      JDBCTutorialUtilities.printSQLException(e);
+    } finally {
+      if (stmt != null) { stmt.close(); }
+    }
+  }
+</pre></div>
+
+<p>The following method, <code><a href="gettingstarted.html">CoffeesTable.createTable</a></code>, creates the <code>COFFEES</code> table:</p>
+
+<div class="codeblock"><pre>
+  public void createTable() throws SQLException {
+    String createString = "create table " + dbName + ".COFFEES " +
+              "(COF_NAME varchar(32) NOT NULL, " +
+              "SUP_ID int NOT NULL, " +
+              "PRICE float NOT NULL, " +
+              "SALES integer NOT NULL, " +
+              "TOTAL integer NOT NULL, " +
+              "PRIMARY KEY (COF_NAME), " +
+              "FOREIGN KEY (SUP_ID) REFERENCES " + dbName + ".SUPPLIERS (SUP_ID))";
+    Statement stmt = null;
+    try {
+      stmt = con.createStatement();
+      stmt.executeUpdate(createString);
+    } catch (SQLException e) {
+      JDBCTutorialUtilities.printSQLException(e);
+    } finally {
+      if (stmt != null) { stmt.close(); }
+    }
+  }
+</pre></div>
+
+<p>In both methods, <code>con</code> is a <code>Connection</code> object and <code>dbName</code> is the name of the database in which you are creating the table.</p>
+
+<p>To execute the SQL query, such as those specified by the <code>String</code> <code>createString</code>, use a <code>Statement</code> object. To create a <code>Statement</code> object, call the method <code>Connection.createStatement</code> from an existing <code>Connection</code> object. To execute a SQL query, call the method <code>Statement.executeUpdate</code>.
+
+<p>All <code>Statement</code> objects are closed when the connection that created them is closed. However, it is good coding practice to explicitly close <code>Statement</code> objects as soon as you are finished with them. This allows any external resources that the statement is using to be released immediately. Close a statement by calling the method <code>Statement.close</code>. Place this statement in a <code>finally</code> to ensure that it closes even if the normal program flow is interrupted because an exception (such as <code>SQLException</code>) is thrown.</p>
+
+<p><strong>Note</strong>: You must create the <code>SUPPLIERS</code> table before the <code>COFFEES</code> because <code>COFFEES</code> contains a foreign key, <code>SUP_ID</code> that references <code>SUPPLIERS</code>.</p>
+
+<h2><a name="populate">Populating Tables</a></h2>
+
+<p>Similarly, you can insert data into tables with Apache Ant or JDBC API.</p>
+
+<h3>Populating Tables with Apache Ant</h3>
+
+<p>To populate the tables used by the tutorial sample code, run the following command (at a command prompt) in the directory <code><em>&lt;JDBC tutorial directory&gt;</em></code>:
+
+<code>ant populate-tables</code>
+
+<p>For example, the following excerpt from <code>populate-tables.sql</code> populates the tables <code>SUPPLIERS</code> and <code>COFFEES</code>:</p>
+
+<div class="codeblock"><pre>
+insert into SUPPLIERS values(49, 'Superior Coffee', '1 Party Place', 'Mendocino', 'CA', '95460');
+insert into SUPPLIERS values(101, 'Acme, Inc.', '99 Market Street', 'Groundsville', 'CA', '95199');
+insert into SUPPLIERS values(150, 'The High Ground', '100 Coffee Lane', 'Meadows', 'CA', '93966');
+insert into COFFEES values('Colombian', 00101, 7.99, 0, 0);
+insert into COFFEES values('French_Roast', 00049, 8.99, 0, 0);
+insert into COFFEES values('Espresso', 00150, 9.99, 0, 0);
+insert into COFFEES values('Colombian_Decaf', 00101, 8.99, 0, 0);
+insert into COFFEES values('French_Roast_Decaf', 00049, 9.99, 0, 0);
+</pre></div>
+
+<h3>Populating Tables with JDBC API</h3>
+
+<p>The following method, <code>SuppliersTable.populateTable</code>, inserts data into the table:</p>
+
+<div class="codeblock"><pre>
+  public void populateTable() throws SQLException {
+    Statement stmt = null;
+    try {
+      stmt = con.createStatement();
+      stmt.executeUpdate("insert into " + dbName + ".SUPPLIERS " +
+                         "values(49, 'Superior Coffee', '1 Party Place', " +
+                         "'Mendocino', 'CA', '95460')");
+      stmt.executeUpdate("insert into " + dbName + ".SUPPLIERS " +
+                          "values(101, 'Acme, Inc.', '99 Market Street', " +
+                          "'Groundsville', 'CA', '95199')");
+      stmt.executeUpdate("insert into " + dbName + ".SUPPLIERS " +
+                         "values(150, 'The High Ground', '100 Coffee Lane', " +
+                         "'Meadows', 'CA', '93966')");
+    } catch (SQLException e) {
+      JDBCTutorialUtilities.printSQLException(e);
+    } finally {
+      if (stmt != null) { stmt.close(); }
+    }
+  }
+
+</pre></div>
+
+<p>The following method, <code>CoffeesTable.populateTable</code>, inserts data into the table:</p>
+
+<div class="codeblock"><pre>
+  public void populateTable() throws SQLException {
+    Statement stmt = null;
+    try {
+      stmt = con.createStatement();
+      stmt.executeUpdate("insert into " + dbName + ".COFFEES " +
+             "values('Colombian', 00101, 7.99, 0, 0)");
+      stmt.executeUpdate("insert into " + dbName + ".COFFEES " +
+             "values('French_Roast', 00049, 8.99, 0, 0)");
+      stmt.executeUpdate("insert into " + dbName + ".COFFEES " +
+             "values('Espresso', 00150, 9.99, 0, 0)");
+      stmt.executeUpdate("insert into " + dbName + ".COFFEES " +
+             "values('Colombian_Decaf', 00101, 8.99, 0, 0)");
+      stmt.executeUpdate("insert into " + dbName + ".COFFEES " +
+             "values('French_Roast_Decaf', 00049, 9.99, 0, 0)");
+      } catch (SQLException e) {
+        JDBCTutorialUtilities.printSQLException(e);
+      } finally {
+        if (stmt != null) { stmt.close(); }
+      }
+  }
+
+</pre></div>        </div>
+        <div class=NavBit>
+            <a target=_top href=sqlexception.html>&laquo; Previous</a>
+            &bull;
+            <a target=_top href=../TOC.html>Trail</a>
+            &bull;
+            <a target=_top href=retrieving.html>Next &raquo;</a>
+        </div>
+    </div>
+    <div id=Footer2>
+<hr>
+<div id=TagNotes>
+    <p class="footertext">Problems with the examples? Try <a target="_blank"
+        href=../../information/run-examples.html>Compiling and Running
+        the Examples: FAQs</a>.
+    <br>
+    Complaints? Compliments? Suggestions? <a target="_blank"
+        href="http://download.oracle.com/javase/feedback.html">Give
+    us your feedback</a>.
+    </p>
+</div> 
+
+<div id=Footer>
+<p class="footertext"><a name="license_info">Your use of this</a> page and all the material on pages under &quot;The Java Tutorials&quot; banner,
+and all the material on pages under &quot;The Java Tutorials&quot; banner is subject to the <a href="../../information/license.html">Java SE Tutorial Copyright
+and License</a>.
+Additionally, any example code contained in any of these Java
+Tutorials pages is licensed under the
+<a href="http://developers.sun.com/license/berkeley_license.html">Code
+Sample License</a>.
+</p>
+<table border="0" cellspacing="0" cellpadding="5" summary="">
+    <tr>
+         <td width="20%">
+	 <table width="100%" border="0" cellspacing="0" cellpadding="5">
+            <tr>
+              <td align="center"><img id=duke src=../../images/DukeWave.gif width=55 height=55 alt="duke image"></td>
+              <td align="left" valign="middle"><img id=oracle src=../../images/logo_oracle_footer.gif width=100 height=29 alt="Oracle logo"></td>
+           </tr>
+          </table>
+          </td>
+
+          <td width="55%" valign="middle" align="center">
+		<p class="footertext"><a href="http://www.oracle.com/us/corporate/index.html">About Oracle</a> | <a href="http://www.oracle.com/technology/index.html">Oracle Technology Network</a> | <a href="https://www.samplecode.oracle.com/servlets/CompulsoryClickThrough?type=TermsOfService">Terms of Service</a></p> 
+	 </td>
+          <td width="25%" valign="middle" align="right">
+      		<p class="footertext">Copyright &copy; 1995, 2011 Oracle and/or its affiliates. All rights reserved.</p>
+	 </td>
+     </tr>     
+</table>
+</div>
+    </div>
+    <div class=PrintHeaders>
+        <b>Previous page:</b> Handling SQLExceptions
+        <br><b>Next page:</b> Retrieving and Modifying Values from Result Sets
+    </div>
+
+<!-- Start SiteCatalyst code   -->
+<script language="JavaScript" src="http://www.oracle.com/ocom/groups/systemobject/@mktg_admin/documents/systemobject/s_code_download.js"></script>
+<script language="JavaScript" src="http://www.oracle.com/ocom/groups/systemobject/@mktg_admin/documents/systemobject/s_code.js"></script>
+<noscript> 
+A browser with JavaScript enabled is required for this page to operate properly.
+</noscript>
+ 
+<!-- ********** DO NOT ALTER ANYTHING BELOW THIS LINE ! *********** -->
+<!--  Below code will send the info to Omniture server -->
+<script language="javascript">var s_code=s.t();if(s_code)document.write(s_code)</script>
+
+ 
+<!-- End SiteCatalyst code -->
+
+    <!-- Start SiteCatalyst code   -->
+<script language="JavaScript" src="http://www.oracle.com/ocom/groups/systemobject/@mktg_admin/documents/systemobject/s_code_download.js"></script>
+<script language="JavaScript" src="http://www.oracle.com/ocom/groups/systemobject/@mktg_admin/documents/systemobject/s_code.js"></script>
+ 
+<!-- ********** DO NOT ALTER ANYTHING BELOW THIS LINE ! *********** -->
+<!--  Below code will send the info to Omniture server -->
+<script language="javascript">var s_code=s.t();if(s_code)document.write(s_code)</script>
+ 
+<!-- End SiteCatalyst code -->
+</body>
+</html> 

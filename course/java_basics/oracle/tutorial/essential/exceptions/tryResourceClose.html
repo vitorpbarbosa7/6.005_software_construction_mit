@@ -1,0 +1,585 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html lang="en-US">
+    <head>
+        <title>The try-with-resources Statement (The Java&trade; Tutorials &gt;        
+            Essential Classes &gt; Exceptions)
+</title>
+
+     <meta name="description" content="This Java tutorial describes exceptions, basic input/output, concurrency, regular expressions, and the platform environment" />
+     <meta name="keywords" content="java programming, learn java, java sample code, java exception, java input output, java threads, java regex, regular expressions, path, classpath, environment variable" />
+        
+<style type="text/css">
+    .FigureCaption   { 
+        margin-left: 1in; 
+        margin-right: 1in; 
+        font-family: sans-serif; 
+        font-size: smaller; 
+        text-align: justify;
+    }
+    #TopBar_bl {
+        background: url(../../images/java_bar_bl.gif) 0 100% no-repeat;
+        width: 100%;
+        height: 60px;
+    }
+    #TopBar_br {
+        background: url(../../images/java_bar_br.gif) 100% 100% no-repeat;
+        width: 100%;
+        height: 60px;
+    }
+    #TopBar_tl {
+        background: url(../../images/java_bar_tl.gif) 0 0 no-repeat;
+        width: 100%;
+        height: 60px;
+    }
+    #TopBar_tr {
+        background: url(../../images/java_bar_tr.gif) 100% 0 no-repeat;
+        width: 100%;
+        height: 60px;
+    }
+    #TopBar {
+        background: #35556B url(../../images/java_bar.gif);
+        margin: 10px 10px 0 10px;
+        height:60px;
+        min-width:700px;
+        color: white;
+        font-family: sans-serif; 
+        font-weight: bold;
+    }
+    @media print {
+        #BreadCrumbs, #Download {
+            display: none;
+        }
+    }
+    #TopBar_right {
+        line-height: 14px;
+        float: right;
+        padding-top: 2px;
+        padding-right: 30px;
+        text-align: center;
+    }
+    @media print {
+        #TopBar_right {
+            display: none;
+        }
+    }
+    #TopBar_right a {
+        font-size: 12px;
+        margin: 3px;
+        padding: 0;
+    }
+    #TopBar a:visited, #TopBar a:link {
+        color: white;
+        text-decoration: none;
+    }
+    #TopBar a:hover, #TopBar a:active  {
+        background-color: white;
+        color: #35556B;
+    }
+    #BreadCrumbs {
+        padding: 4px 5px 0.5em 0;
+        font-family: sans-serif; 
+        float: right;
+    }
+    #BreadCrumbs a {
+        color: blue;
+    }
+    #BreadCrumbs a:visited, #BreadCrumbs a:link {
+        text-decoration: none;
+    }
+    #BreadCrumbs a:hover, #BreadCrumbs a:active {
+        text-decoration: underline;
+    }
+    #PageTitle {
+        margin: 0 5px 0.5em 0;
+        color: #F90000;
+    }    
+    #PageContent{
+        margin: 0 5px 0 20px;
+    }
+    .LeftBar_shown {
+        width: 13em;
+        float: left;
+        margin-left: 10px;
+        margin-top: 4px;
+        margin-bottom: 2em;
+        margin-right: 10px;
+    }
+    @media print {
+        .LeftBar_shown {
+            display: none;
+        }
+    }
+    .LeftBar_hidden {
+        display: none;
+    }
+    #Footer {
+        padding-top: 10px;
+        padding-left: 10px;
+        margin-right: 10px;
+    }
+    
+    .footertext {
+        font-size: 10px;
+        font-family: sans-serif; 
+        margin-top: 1px;
+    }
+    
+    #Footer2 {
+        padding-top: 10px;
+        padding-left: 10px;
+        margin-right: 10px;
+    }
+    .NavBit  {
+        padding: 4px 5px 0.5em 0;
+        font-family: sans-serif; 
+    }
+    @media print {
+        .NavBit {
+            display: none;
+        }
+    }
+    #TagNotes {
+        text-align: right;        
+    }
+    
+    @media print {
+        #TagNotes a:visited, #TagNotes a:link {
+            color: #35556B;
+            text-decoration: none;
+        }
+    }
+    #Contents a, .NavBit a, #TagNotes a {
+        color: blue
+    }
+    #TagNotes a:visited, #TagNotes a:link,
+    #Contents a:visited, #Contents a:link,
+    .NavBit a:visited, .NavBit a:link {
+        text-decoration: none;
+    }
+    #TagNotes a:hover, #TagNotes a:active,   
+    #Contents a:hover, #Contents a:active,   
+    .NavBit a:hover, .NavBit a:active {  
+        text-decoration: underline;
+    }
+    #Contents {
+        float: left;
+        font-family: sans-serif; 
+    }
+    @media print {
+        #Contents {
+            display: none;
+        }
+    }
+    @media screen {
+        div.PrintHeaders {
+            display: none;
+        }
+    }
+    .linkLESSON, .nolinkLESSON {
+        margin-left: 0.5em;
+        text-indent: -0.5em
+    }
+    .linkAHEAD, .nolinkAHEAD, .linkQUESTIONS, .nolinkQUESTIONS   {
+        margin-left: 1.5em; 
+        text-indent: -0.5em
+    }
+    .linkBHEAD, .nolinkBHEAD   {
+        margin-left: 2.5em;
+        text-indent: -0.5em
+    }
+    .linkCHEAD, .nolinkCHEAD   {
+        margin-left: 3.5em;
+        text-indent: -0.5em
+    }
+    .nolinkLESSON, .nolinkAHEAD, .nolinkBHEAD, .nolinkCHEAD,
+    .nolinkQUESTIONS {
+        font-weight: bold;
+        color: #F90000;
+    }
+    .MainFlow_indented {
+        margin-right: 10px;
+        margin-left: 15em;
+        margin-bottom: 2em;
+
+    }
+    .MainFlow_wide {
+        margin-right: 10px;
+        margin-left: 10px;
+        margin-bottom: 2em;
+
+    }
+    @media print {
+        .MainFlow_indented, .MainFlow_wide {
+            padding-top: 0;
+            margin-top: 10px;
+            margin-right: 10px;
+            margin-left: 0;
+        }
+    }
+    h1, h2, h3, h4, h5 {
+        color: #F90000;
+        font-family: sans-serif;
+    }
+
+    h1 {
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    h2 {
+        font-weight: bold;
+        font-size: 17px;
+    }
+
+    h3 {
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    h4 {
+        font-size: 15px;
+    }
+
+    h5 {
+        font-size: 12px;
+    }
+
+
+    #ToggleLeft {
+        display: none;
+    }
+    
+    .note {
+        margin: 0 30px 0px 30px;
+    }
+    
+    .codeblock {
+        margin: 0 30px 0px 30px;
+    }
+
+    /t
+
+</style>
+<script type="text/javascript">
+    function leftBar() {
+        var nameq = 'tutorial_showLeftBar='
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookieString = cookies[i];
+            while (cookieString.charAt(0) == ' ') {
+                cookieString = cookieString.substring(1, cookieString.length);
+            }
+            if (cookieString.indexOf(nameq) == 0) {
+                cookieValue =  cookieString.substring(nameq.length,
+                        cookieString.length);
+                return cookieValue == 'yes';
+            }
+        }
+        return true;
+    }
+
+    function showLeft(b) {
+        var contents = document.getElementById("LeftBar");
+        var main = document.getElementById("MainFlow");
+        var toggle = document.getElementById("ToggleLeft");
+        if (b) {
+            contents.className = "LeftBar_shown";
+            main.className = "MainFlow_indented";
+            toggle.innerHTML = "Hide the TOC";
+            document.cookie = 'tutorial_showLeftBar=yes; path=/';
+        } else {
+            contents.className = "LeftBar_hidden";
+            main.className = "MainFlow_wide";
+            toggle.innerHTML = "Show the TOC";
+            document.cookie = 'tutorial_showLeftBar=no; path=/';
+        }
+    }
+
+    function toggleLeft() {
+        showLeft(document.getElementById("LeftBar").className ==
+                "LeftBar_hidden");
+        document.getElementById("ToggleLeft").blur();
+    }
+
+    function load() {
+        showLeft(leftBar());
+        document.getElementById("ToggleLeft").style.display="inline";
+    }
+    
+</script>
+<noscript> 
+A browser with JavaScript enabled is required for this page to operate properly.
+</noscript>
+
+    </head>
+<body onload="load()">
+    <div id=TopBar> <div id=TopBar_tr> <div id=TopBar_tl> <div id=TopBar_br> <div id=TopBar_bl> 
+                        <div id=TopBar_right> 
+                            <a target="_blank"
+                                href="http://java.sun.com/javase/6/download.jsp">Download
+                                the JDK</a>
+                            <br>
+                            <a href="../../search.html" target="_blank">Search the
+                                Tutorials</a>
+                            <br>
+                            <a href="javascript:toggleLeft()"
+                                id="ToggleLeft">Hide the TOC</a>
+                        </div>
+                    </div> </div> </div> </div> </div>
+    <div class=PrintHeaders>
+        <b>Trail:</b> Essential Classes
+        <br><b>Lesson:</b> Exceptions
+        <br><b>Section:</b> Catching and Handling Exceptions
+    </div>
+
+    <div id=LeftBar class=LeftBar_shown>
+        <div id=Contents>
+            <div class="linkLESSON"><a href="index.html">Exceptions</a></div>
+<div class="linkAHEAD"><a href="definition.html">What Is an Exception?</a></div>
+<div class="linkAHEAD"><a href="catchOrDeclare.html">The Catch or Specify Requirement</a></div>
+<div class="linkAHEAD"><a href="handling.html">Catching and Handling Exceptions</a></div>
+<div class="linkBHEAD"><a href="try.html">The try Block</a></div>
+<div class="linkBHEAD"><a href="catch.html">The catch Blocks</a></div>
+<div class="linkBHEAD"><a href="finally.html">The finally Block</a></div>
+<div class="nolinkBHEAD">The try-with-resources Statement</div>
+<div class="linkBHEAD"><a href="putItTogether.html">Putting It All Together</a></div>
+<div class="linkAHEAD"><a href="declaring.html">Specifying the Exceptions Thrown by a Method</a></div>
+<div class="linkAHEAD"><a href="throwing.html">How to Throw Exceptions</a></div>
+<div class="linkBHEAD"><a href="chained.html">Chained Exceptions</a></div>
+<div class="linkBHEAD"><a href="creating.html">Creating Exception Classes</a></div>
+<div class="linkAHEAD"><a href="runtime.html">Unchecked Exceptions &#151; The Controversy</a></div>
+<div class="linkAHEAD"><a href="advantages.html">Advantages of Exceptions</a></div>
+<div class="linkAHEAD"><a href="summary.html">Summary</a></div>
+<div class="linkQUESTIONS"><a href="QandE/questions.html">Questions and Exercises</a></div>
+</div>
+    </div>
+    <div id=MainFlow class=MainFlow_indented>
+            <span id=BreadCrumbs>
+                <a href=../../index.html target=_top>Home Page</a>
+                &gt;
+                <a href=../index.html target=_top>Essential Classes</a>
+                &gt;
+                <a href=index.html target=_top>Exceptions</a>
+            </span>
+            <div class=NavBit>
+                <a target=_top href=finally.html>&laquo;&nbsp;Previous</a>&nbsp;&bull;&nbsp;<a target=_top href=../TOC.html>Trail</a>&nbsp;&bull;&nbsp;<a target=_top href=putItTogether.html>Next&nbsp;&raquo;</a>
+            </div>
+            <div id=PageTitle><h1>The try-with-resources Statement</h1></div>
+            <div id=PageContent>
+<!-- The try-with-resources Statement -->
+
+<p>The <code>try</code>-with-resources statement is a <code>try</code> statement that declares one or more resources. A <em>resource</em> is as an object that must be closed after the program is finished with it. The <code>try</code>-with-resources statement ensures that each resource is closed at the end of the statement. Any object that implements the new <code>java.lang.AutoCloseable</code> interface can be used as a resource. The classes <code>java.io.InputStream</code>, <code>OutputStream</code>, <code>Reader</code>, <code>Writer</code>, <code>java.sql.Connection</code>, <code>Statement</code>, and <code>ResultSet</code> have been retrofitted to implement the <code>AutoCloseable</code> interface and can all be used as resources in a <code>try</code>-with-resources statement.</p>
+
+<p>Consider the following example that reads the first line from a file. It uses an instance of <code>BufferedReader</code> to read data from the file. <code>BufferedReader</code> is a resource that must be closed after the program is finished with it. This example uses a <code>finally</code> block to ensure that the instance of <code>BufferedReader</code> is closed regardless of whether the <code>try</code> statement completes normally or abruptly (as a result of the method <code>BufferedReader.readLine</code> throwing an <code>IOException</code>):</p>
+
+<div class="codeblock"><pre>
+static String readFirstLineFromFile(String path) throws IOException {
+  BufferedReader br = new BufferedReader(new FileReader(path));
+  try {
+    return br.readLine();
+  } finally {
+    br.close();
+  }
+}
+</pre></div>
+
+<p>In Java SE 7 and later, you can use a <code>try</code>-with-resources statement instead of a <code>finally</code> block to close resources. The resources are closed whether the <code>try</code> block completes normally or throws an exception.</p>
+
+<p>In the following example, the resource declared in the <code>try</code>-with-resources statement is a <code>BufferedReader</code>. The declaration statement appears within parentheses immediately after the <code>try</code> keyword. The class <code>BufferedReader</code>, in JDK 7 and later, implements the interface <code>java.lang.AutoCloseable</code>.</p>
+
+<div class="codeblock"><pre>
+static String readFirstLineFromFile(String path) throws IOException {
+  try <strong>(BufferedReader br = new BufferedReader(new FileReader(path)))</strong> {
+    return br.readLine();
+  }
+}
+</pre></div>
+
+<p>You may declare one or more resources in a <code>try</code>-with-resources statement. The following is a static method that copies a file.
+This example shows how to release two resources in previous releases of Java SE:</p>
+
+<div class="note"><hr><strong>Note:</strong>&nbsp;The following examples for copying files are for
+illustrative purposes only. As of the Java SE 7 release,
+the <code>Files</code> class provides a method for copying a file.
+See
+<a class="TutorialLink" target="_top" href="../../essential/io/copy.html">Copying a File or Directory</a> for more information.
+<hr></div>
+
+<div class="codeblock"><pre>
+static void copy(String src, String dest) throws IOException {
+  InputStream in = new FileInputStream(src);
+  try {
+    OutputStream out = new FileOutputStream(dest);
+    try {
+      byte[] buf = new byte[8 * 1024];
+      int n;
+      while ((n = in.read(buf)) >= 0)
+        out.write(buf, 0, n);
+    } finally {
+      out.close();
+    }
+  } finally {
+    in.close();
+  }
+}
+</pre></div>
+
+<p>The following example has the same functionality as the previous example, except it uses a <code>try</code>-with-resources statement:</p>
+
+<div class="codeblock"><pre>
+static void copy(String src, String dest) throws IOException {
+  try <strong>(InputStream in = new FileInputStream(src);
+       OutputStream out = new FileOutputStream(dest))</strong> {
+    byte[] buf = new byte[8192];
+    int n;
+    while ((n = in.read(buf)) >= 0)
+      out.write(buf, 0, n);
+  }
+}
+</pre></div>
+
+<p>In this example, the <code>try</code>-with-resources statement contains two declarations that are separated by a semicolon: <code>InputStream</code> and <code>OutputStream</code>. When the block of code that directly follows it terminates, either normally or because of an exception, the <code>close</code> methods of the <code>OutputStream</code> and <code>InputStream</code> objects are automatically called in this order. Note that the <code>close</code> methods of resources are called in the <em>opposite</em> order of their creation.</p>
+
+<p>The following example uses a <code>try</code>-with-resources statement to automatically close a <code>java.sql.Statement</code> object:</p>
+
+<div class="codeblock"><pre>
+  public static void viewTable(Connection con) throws SQLException {
+
+    String query = "select COF_NAME, SUP_ID, PRICE, SALES, TOTAL from COFFEES";
+
+    <strong>try (Statement stmt = con.createStatement())</strong> {
+
+      ResultSet rs = stmt.executeQuery(query);
+
+      while (rs.next()) {
+        String coffeeName = rs.getString("COF_NAME");
+        int supplierID = rs.getInt("SUP_ID");
+        float price = rs.getFloat("PRICE");
+        int sales = rs.getInt("SALES");
+        int total = rs.getInt("TOTAL");
+        System.out.println(coffeeName + ", " + supplierID + ", " + price +
+                           ", " + sales + ", " + total);
+      }
+
+    } catch (SQLException e) {
+      JDBCTutorialUtilities.printSQLException(e);
+    }
+  }
+</pre></div>
+
+<p>The resource <code>java.sql.Statement</code> used in this example is part of the JDBC 4.1 and later API.</p>
+
+<p><strong>Note</strong>: A <code>try</code>-with-resources statement can have <code>catch</code> and <code>finally</code> blocks just like an ordinary <code>try</code> statement. In a <code>try</code>-with-resources statement, any <code>catch</code> or <code>finally</code> block is run after the resources declared have been closed.</p>
+
+
+<!-- ************************************** -->
+
+<h2>Suppressed Exceptions</h2>
+
+<p>An exception can be thrown from the block of code associated with the <code>try</code>-with-resources statement. For example, see the method <code>copy(String src, String dest)</code> in one of the previous examples. In addition, up to two exceptions can be thrown from the <code>try</code>-with-resources statement when it tries to close the <code>InputStream</code> or <code>OutputStream</code> objects. If an exception is thrown from the block and one or more exceptions are thrown from the <code>try</code>-with-resources statement, then those exceptions thrown from the <code>try</code>-with-resources statement are suppressed, and the exception thrown by the block is the one that is thrown by the <code>copy</code> method. You can retrieve these suppressed exceptions by calling the <code>Throwable.getSuppressed</code> method from the exception thrown by the block.</p>
+
+<h2>Classes That Implement the AutoCloseable Interface</h2>
+
+<p>In Java SE 7 and later, the following classes implement the <code>java.lang.AutoCloseable</code> or <code>java.io.Closeable</code> interface (which now extends <code>AutoCloseable</code>) and can be used in <code>try</code>-with-resources statements:</p>
+
+<ul>
+
+  <li><code>java.io.Closeable</code>: This interface now extends the <code>java.lang.AutoCloseable</code> interface. The <code>close</code> method of the <code>Closeable</code> interface throws exceptions of type <code>IOException</code> while the <code>close</code> method of the <code>AutoCloseable</code> interface throws exceptions of type <code>Exception</code>. Consequently, subclasses of the <code>AutoCloseable</code> interface can override this behavior of the <code>close</code> method to throw specialized exceptions, such as <code>IOException</code>, or no exception at all.</li>
+
+  <li><code>java.nio.channels.FileLock</code></li>
+  <li><code>javax.imageio.stream.ImageInputStream</code></li>
+  <li><code>java.beans.XMLEncoder</code></li>
+  <li><code>java.beans.XMLDecoder</code></li>
+  <li><code>java.io.ObjectInput</code></li>
+  <li><code>java.io.ObjectOutput</code></li>
+  <li><code>javax.sound.sampled.Line</code></li>
+  <li><code>javax.sound.midi.Receiver</code></li>
+  <li><code>javax.sound.midi.Transmitter</code></li>
+  <li><code>javax.sound.midi.MidiDevice</code></li>
+  <li><code>java.util.Scanner</code></li>
+  <li><code>java.sql.Connection</code></li>
+  <li><code>java.sql.ResultSet</code></li>
+  <li><code>java.sql.Statement</code></li>
+</ul>
+        </div>
+        <div class=NavBit>
+            <a target=_top href=finally.html>&laquo; Previous</a>
+            &bull;
+            <a target=_top href=../TOC.html>Trail</a>
+            &bull;
+            <a target=_top href=putItTogether.html>Next &raquo;</a>
+        </div>
+    </div>
+    <div id=Footer2>
+<hr>
+<div id=TagNotes>
+    <p class="footertext">Problems with the examples? Try <a target="_blank"
+        href=../../information/run-examples.html>Compiling and Running
+        the Examples: FAQs</a>.
+    <br>
+    Complaints? Compliments? Suggestions? <a target="_blank"
+        href="http://download.oracle.com/javase/feedback.html">Give
+    us your feedback</a>.
+    </p>
+</div> 
+
+<div id=Footer>
+<p class="footertext"><a name="license_info">Your use of this</a> page and all the material on pages under &quot;The Java Tutorials&quot; banner,
+and all the material on pages under &quot;The Java Tutorials&quot; banner is subject to the <a href="../../information/license.html">Java SE Tutorial Copyright
+and License</a>.
+Additionally, any example code contained in any of these Java
+Tutorials pages is licensed under the
+<a href="http://developers.sun.com/license/berkeley_license.html">Code
+Sample License</a>.
+</p>
+<table border="0" cellspacing="0" cellpadding="5" summary="">
+    <tr>
+         <td width="20%">
+	 <table width="100%" border="0" cellspacing="0" cellpadding="5">
+            <tr>
+              <td align="center"><img id=duke src=../../images/DukeWave.gif width=55 height=55 alt="duke image"></td>
+              <td align="left" valign="middle"><img id=oracle src=../../images/logo_oracle_footer.gif width=100 height=29 alt="Oracle logo"></td>
+           </tr>
+          </table>
+          </td>
+
+          <td width="55%" valign="middle" align="center">
+		<p class="footertext"><a href="http://www.oracle.com/us/corporate/index.html">About Oracle</a> | <a href="http://www.oracle.com/technology/index.html">Oracle Technology Network</a> | <a href="https://www.samplecode.oracle.com/servlets/CompulsoryClickThrough?type=TermsOfService">Terms of Service</a></p> 
+	 </td>
+          <td width="25%" valign="middle" align="right">
+      		<p class="footertext">Copyright &copy; 1995, 2011 Oracle and/or its affiliates. All rights reserved.</p>
+	 </td>
+     </tr>     
+</table>
+</div>
+    </div>
+    <div class=PrintHeaders>
+        <b>Previous page:</b> The finally Block
+        <br><b>Next page:</b> Putting It All Together
+    </div>
+
+<!-- Start SiteCatalyst code   -->
+<script language="JavaScript" src="http://www.oracle.com/ocom/groups/systemobject/@mktg_admin/documents/systemobject/s_code_download.js"></script>
+<script language="JavaScript" src="http://www.oracle.com/ocom/groups/systemobject/@mktg_admin/documents/systemobject/s_code.js"></script>
+<noscript> 
+A browser with JavaScript enabled is required for this page to operate properly.
+</noscript>
+ 
+<!-- ********** DO NOT ALTER ANYTHING BELOW THIS LINE ! *********** -->
+<!--  Below code will send the info to Omniture server -->
+<script language="javascript">var s_code=s.t();if(s_code)document.write(s_code)</script>
+
+ 
+<!-- End SiteCatalyst code -->
+
+    <!-- Start SiteCatalyst code   -->
+<script language="JavaScript" src="http://www.oracle.com/ocom/groups/systemobject/@mktg_admin/documents/systemobject/s_code_download.js"></script>
+<script language="JavaScript" src="http://www.oracle.com/ocom/groups/systemobject/@mktg_admin/documents/systemobject/s_code.js"></script>
+ 
+<!-- ********** DO NOT ALTER ANYTHING BELOW THIS LINE ! *********** -->
+<!--  Below code will send the info to Omniture server -->
+<script language="javascript">var s_code=s.t();if(s_code)document.write(s_code)</script>
+ 
+<!-- End SiteCatalyst code -->
+</body>
+</html> 

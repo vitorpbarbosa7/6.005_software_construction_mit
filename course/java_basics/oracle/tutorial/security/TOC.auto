@@ -1,0 +1,189 @@
+
+#define TOPOFTRAIL yesplease
+
+<dl>
+<a name="overview">
+<strong><a href="overview/index.html">Security Features Overview</a></strong>
+</a>
+</dl>
+<dl>
+<a name="tour1">
+<strong><a href="tour1/index.html">Quick Tour of Controlling Applets</a></strong>
+</a>
+<dl>
+<dt>
+<a href="tour1/step1.html">Observe Applet Restrictions</a>
+<dt>
+<a href="tour1/step2.html">Set up a Policy File to Grant the Required Permission</a>
+<dl>
+<dt>
+<a href="tour1/wstep1.html">Start Policy Tool</a>
+<dt>
+<a href="tour1/wstep2.html">Grant the Required Permission</a>
+<dt>
+<a href="tour1/wstep3.html">Save the Policy File</a>
+</dl>
+<dt>
+<a href="tour1/step3.html">See the Policy File Effects</a>
+</dl>
+</dl>
+<dl>
+<a name="tour2">
+<strong><a href="tour2/index.html">Quick Tour of Controlling Applications</a></strong>
+</a>
+<dl>
+<dt>
+<a href="tour2/step1.html">Observe Application Freedom</a>
+<dt>
+<a href="tour2/step2.html">See How to Restrict Applications</a>
+<dt>
+<a href="tour2/step3.html">Set up the Policy File to Grant the Required Permissions</a>
+<dl>
+<dt>
+<a href="tour2/wstep1.html">Open the Policy File</a>
+<dt>
+<a href="tour2/wstep2.html">Grant the Required Permissions</a>
+<dt>
+<a href="tour2/wstep3.html">Save the Policy File</a>
+</dl>
+<dt>
+<a href="tour2/step4.html">See the Policy File Effects</a>
+</dl>
+</dl>
+<dl>
+<a name="sigcert">
+<strong><a href="sigcert/index.html">API and Tools Use for Secure Code and File Exchanges</a></strong>
+</a>
+</dl>
+<dl>
+<a name="toolsign">
+<strong><a href="toolsign/index.html">Signing Code and Granting It Permissions</a></strong>
+</a>
+<dl>
+<dt>
+<a href="toolsign/signer.html">Steps for the Code Signer</a>
+<dl>
+<dt>
+<a href="toolsign/step1.html">Download and Try the Sample Application</a>
+<dt>
+<a href="toolsign/step2.html">Create a JAR File Containing the Class File</a>
+<dt>
+<a href="toolsign/step3.html">Generate Keys</a>
+<dt>
+<a href="toolsign/step4.html">Sign the JAR File</a>
+<dt>
+<a href="toolsign/step5.html">Export the Public Key Certificate</a>
+</dl>
+<dt>
+<a href="toolsign/receiver.html">Steps for the Code Receiver</a>
+<dl>
+<dt>
+<a href="toolsign/rstep1.html">Observe the Restricted Application</a>
+<dt>
+<a href="toolsign/rstep2.html">Import the Certificate as a Trusted Certificate</a>
+<dt>
+<a href="toolsign/rstep3.html">Set Up a Policy File to Grant the Required Permission</a>
+<dl>
+<dt>
+<a href="toolsign/wstep1.html">Start Policy Tool</a>
+<dt>
+<a href="toolsign/wstep2.html">Specify the Keystore</a>
+<dt>
+<a href="toolsign/wstep3.html">Add a Policy Entry with a SignedBy Alias</a>
+<dt>
+<a href="toolsign/wstep4.html">Save the Policy File</a>
+</dl>
+<dt>
+<a href="toolsign/rstep4.html">See the Policy File Effects</a>
+</dl>
+</dl>
+</dl>
+<dl>
+<a name="toolfilex">
+<strong><a href="toolfilex/index.html">Exchanging Files</a></strong>
+</a>
+<dl>
+<dt>
+<a href="toolfilex/sender.html">Steps for the Contract Sender</a>
+<dl>
+<dt>
+<a href="toolfilex/step1.html">Create a JAR File Containing the Contract</a>
+<dt>
+<a href="toolfilex/step2.html">Generate Keys</a>
+<dt>
+<a href="toolfilex/step3.html">Sign the JAR File</a>
+<dt>
+<a href="toolfilex/step4.html">Export the Public Key Certificate</a>
+</dl>
+<dt>
+<a href="toolfilex/receiver.html">Steps for the Contract Receiver</a>
+<dl>
+<dt>
+<a href="toolfilex/rstep1.html">Import the Certificate as a Trusted Certificate</a>
+<dt>
+<a href="toolfilex/rstep2.html">Verify the JAR File Signature</a>
+</dl>
+</dl>
+</dl>
+<dl>
+<a name="apisign">
+<strong><a href="apisign/index.html">Generating and Verifying Signatures</a></strong>
+</a>
+<dl>
+<dt>
+<a href="apisign/gensig.html">Generating a Digital Signature</a>
+<dl>
+<dt>
+<a href="apisign/step1.html">Prepare Initial Program Structure</a>
+<dt>
+<a href="apisign/step2.html">Generate Public and Private Keys</a>
+<dt>
+<a href="apisign/step3.html">Sign the Data</a>
+<dt>
+<a href="apisign/step4.html">Save the Signature and the Public Key in Files</a>
+<dt>
+<a href="apisign/step5.html">Compile and Run the Program</a>
+</dl>
+<dt>
+<a href="apisign/versig.html">Verifying a Digital Signature</a>
+<dl>
+<dt>
+<a href="apisign/vstep1.html">Prepare Initial Program Structure</a>
+<dt>
+<a href="apisign/vstep2.html">Input and Convert the Encoded Public Key Bytes</a>
+<dt>
+<a href="apisign/vstep3.html">Input the Signature Bytes</a>
+<dt>
+<a href="apisign/vstep4.html">Verify the Signature</a>
+<dt>
+<a href="apisign/vstep5.html">Compile and Run the Program</a>
+</dl>
+<dt>
+<a href="apisign/enhancements.html">Weaknesses and Alternatives</a>
+</dl>
+</dl>
+<dl>
+<a name="userperm">
+<strong><a href="userperm/index.html">Implementing Your Own Permission</a></strong>
+</a>
+<dl>
+<dt>
+<a href="userperm/game.html">TerrysGame</a>
+<dt>
+<a href="userperm/highscore.html">The HighScore Class</a>
+<dt>
+<a href="userperm/perm.html">The HighScorePermission Class</a>
+<dt>
+<a href="userperm/policy.html">A Sample Policy File</a>
+<dt>
+<a href="userperm/together.html">Putting It All Together</a>
+<dl>
+<dt>
+<a href="userperm/chris.html">Steps for the HighScore Developer (Chris)</a>
+<dt>
+<a href="userperm/terry.html">Steps for the TerrysGame Developer (Terry)</a>
+<dt>
+<a href="userperm/kim.html">Steps for a User Running TerrysGame (Kim)</a>
+</dl>
+</dl>
+</dl>

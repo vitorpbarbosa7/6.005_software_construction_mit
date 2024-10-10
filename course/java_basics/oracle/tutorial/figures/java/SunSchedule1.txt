@@ -1,0 +1,74 @@
+CLASSES & OBJECTS(Chapter 4):
+
+3/24 -- send whole chapter to SQE (ask for 2-week turnaround)
+
+4/7 -- chapter back from SQE
+
+4/10 - 4/13 -- incorporate SQE feedback
+
+4/13 -- put back Chapter 4, package for Addison Wesley
+
+
+PACKAGES (Chapter 6):
+
+3/23, 3/24 , 3/27 - 3/30 -- content
+
+3/30 -- to SS for review (ask for 3-day turnaround)
+
+4/4 -- back from SS
+
+4/5, 4/6 -- incorporate feedback
+
+3/31 -- send artwork (ask for 2-week turnaround)
+
+4/6 -- to SS for last pass (ask for 2-day turnaround)
+
+4/10 -- back from SS
+
+4/11, 4/12 -- final fix for SS
+
+4/14 -- to SQE (ask for 2-week turnaround)
+
+4/14 -- artwork back
+
+4/28 -- back from SQE
+
+5/1 - 5/4 -- final fix
+
+5/5 -- put back files, package for Addison Wesley
+
+
+
+INTERFACES & INHERITANCE (Chapter 5):
+
+4/3 - 4/7 -- initial content
+
+4/7 -- part to SS (ask for 3-day turnaround)
+
+4/12 -- back from SS
+
+4/13, 4/14 -- rework
+
+4/17 - 4/21 -- new content
+
+4/21 -- part to SS (ask for 3-day turnaround)
+
+4/24 - 4/26 -- rework and new content
+
+4/26 --back from SS
+
+4/27, 4/28 -- rework
+
+4/28 -- to SQE (ask for 2-week turnaround)
+
+5/7 - 5/11 -- rework for SS
+
+5/12 -- back from SQE
+
+5/15 - 5/19, 5/22 - 5/24 -- final fix
+
+5/25 -- putback
+
+
+ 
+

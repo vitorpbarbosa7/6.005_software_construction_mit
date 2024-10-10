@@ -1,0 +1,94 @@
+
+#define TOPOFTRAIL yesplease
+
+<dl>
+<a name="intro">
+<strong><a href="intro/index.html">Introduction to JAXP</a></strong>
+</a>
+<dl>
+<dt>
+<a href="intro/package.html">Overview of the Packages</a>
+<dt>
+<a href="intro/simple.html">Simple API for XML APIs</a>
+<dt>
+<a href="intro/dom.html">Document Object Model APIs</a>
+<dt>
+<a href="intro/extensible.html">Extensible Stylesheet Language Transformations APIs</a>
+<dt>
+<a href="intro/streaming.html">Streaming API for XML APIs</a>
+<dt>
+<a href="intro/sample.html">Finding the JAXP Sample Programs</a>
+<dt>
+<a href="intro/next.html">Where Do You Go From Here?</a>
+</dl>
+</dl>
+<dl>
+<a name="sax">
+<strong><a href="sax/index.html">Simple API for XML</a></strong>
+</a>
+<dl>
+<dt>
+<a href="sax/when.html">When to Use SAX</a>
+<dt>
+<a href="sax/parsing.html">Parsing an XML File Using SAX</a>
+<dt>
+<a href="sax/validation.html">Implementing SAX Validation</a>
+<dt>
+<a href="sax/events.html">Handling Lexical Events</a>
+<dt>
+<a href="sax/using.html">Using the <tt>DTDHandler</tt> and <tt>EntityResolver</tt></a>
+<dt>
+<a href="sax/info.html">Further Information</a>
+</dl>
+</dl>
+<dl>
+<a name="dom">
+<strong><a href="dom/index.html">Document Object Model</a></strong>
+</a>
+<dl>
+<dt>
+<a href="dom/when.html">When to Use DOM</a>
+<dt>
+<a href="dom/readingXML.html">Reading XML Data into a DOM</a>
+<dt>
+<a href="dom/validating.html">Validating with XML Schema</a>
+<dt>
+<a href="dom/info.html">Further Information</a>
+</dl>
+</dl>
+<dl>
+<a name="xslt">
+<strong><a href="xslt/index.html">Extensible Stylesheet Language Transformations</a></strong>
+</a>
+<dl>
+<dt>
+<a href="xslt/intro.html">Introducing XSL, XSLT, and XPath</a>
+<dt>
+<a href="xslt/xpath.html">How XPath Works</a>
+<dt>
+<a href="xslt/writingDom.html">Writing Out a DOM as an XML File</a>
+<dt>
+<a href="xslt/generatingXML.html">Generating XML from an Arbitrary Data Structure</a>
+<dt>
+<a href="xslt/transformingXML.html">Transforming XML Data with XSLT</a>
+</dl>
+</dl>
+<dl>
+<a name="stax">
+<strong><a href="stax/index.html">Streaming API for XML</a></strong>
+</a>
+<dl>
+<dt>
+<a href="stax/why.html">Why StAX?</a>
+<dt>
+<a href="stax/api.html">StAX API</a>
+<dt>
+<a href="stax/using.html">Using StAX</a>
+<dt>
+<a href="stax/parser.html">Oracle's Streaming XML Parser Implementation</a>
+<dt>
+<a href="stax/example.html">Example Code</a>
+<dt>
+<a href="stax/info.html">Further Information</a>
+</dl>
+</dl>

@@ -1,0 +1,36 @@
+
+#define TOPOFTRAIL yesplease
+
+<dl>
+<a name="intro">
+<strong><a href="intro/index.html">The Java Technology Phenomenon</a></strong>
+</a>
+<dl>
+<dt>
+<a href="intro/definition.html">About the Java Technology</a>
+<dt>
+<a href="intro/cando.html">What Can Java Technology Do?</a>
+<dt>
+<a href="intro/changemylife.html">How Will Java Technology Change My Life?</a>
+</dl>
+</dl>
+<dl>
+<a name="cupojava">
+<strong><a href="cupojava/index.html">The "Hello World!" Application</a></strong>
+</a>
+<dl>
+<dt>
+<a href="cupojava/netbeans.html">"Hello World!" for the NetBeans IDE</a>
+<dt>
+<a href="cupojava/win32.html">"Hello World!" for Microsoft Windows</a>
+<dt>
+<a href="cupojava/unix.html">"Hello World!" for Solaris OS and Linux</a>
+</dl>
+</dl>
+<dl>
+<a name="application">
+<strong><a href="application/index.html">A Closer Look at the "Hello World!" Application</a></strong>
+</a>
+<dt>
+<a href="QandE/questions.html">Questions and Exercises: Getting Started</a>
+</dl>

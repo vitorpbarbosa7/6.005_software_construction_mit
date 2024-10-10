@@ -1,0 +1,274 @@
+
+#define TOPOFTRAIL yesplease
+
+<dl>
+<a name="exceptions">
+<strong><a href="exceptions/index.html">Exceptions</a></strong>
+</a>
+<dl>
+<dt>
+<a href="exceptions/definition.html">What Is an Exception?</a>
+<dt>
+<a href="exceptions/catchOrDeclare.html">The Catch or Specify Requirement</a>
+<dt>
+<a href="exceptions/handling.html">Catching and Handling Exceptions</a>
+<dl>
+<dt>
+<a href="exceptions/try.html">The try Block</a>
+<dt>
+<a href="exceptions/catch.html">The catch Blocks</a>
+<dt>
+<a href="exceptions/finally.html">The finally Block</a>
+<dt>
+<a href="exceptions/tryResourceClose.html">The try-with-resources Statement</a>
+<dt>
+<a href="exceptions/putItTogether.html">Putting It All Together</a>
+</dl>
+<dt>
+<a href="exceptions/declaring.html">Specifying the Exceptions Thrown by a Method</a>
+<dt>
+<a href="exceptions/throwing.html">How to Throw Exceptions</a>
+<dl>
+<dt>
+<a href="exceptions/chained.html">Chained Exceptions</a>
+<dt>
+<a href="exceptions/creating.html">Creating Exception Classes</a>
+</dl>
+<dt>
+<a href="exceptions/runtime.html">Unchecked Exceptions &#151; The Controversy</a>
+<dt>
+<a href="exceptions/advantages.html">Advantages of Exceptions</a>
+<dt>
+<a href="exceptions/summary.html">Summary</a>
+<dt>
+<a href="exceptions/QandE/questions.html">Questions and Exercises</a>
+</dl>
+</dl>
+<dl>
+<a name="io">
+<strong><a href="io/index.html">Basic I/O</a></strong>
+</a>
+<dl>
+<dt>
+<a href="io/streams.html">I/O Streams</a>
+<dl>
+<dt>
+<a href="io/bytestreams.html">Byte Streams</a>
+<dt>
+<a href="io/charstreams.html">Character Streams</a>
+<dt>
+<a href="io/buffers.html">Buffered Streams</a>
+<dt>
+<a href="io/scanfor.html">Scanning and Formatting</a>
+<dl>
+<dt>
+<a href="io/scanning.html">Scanning</a>
+<dt>
+<a href="io/formatting.html">Formatting</a>
+</dl>
+<dt>
+<a href="io/cl.html">I/O from the Command Line</a>
+<dt>
+<a href="io/datastreams.html">Data Streams</a>
+<dt>
+<a href="io/objectstreams.html">Object Streams</a>
+</dl>
+<dt>
+<a href="io/fileio.html">File I/O (Featuring NIO.2)</a>
+<dl>
+<dt>
+<a href="io/path.html">What Is a Path? (And Other File System Facts)</a>
+<dt>
+<a href="io/pathClass.html">The Path Class</a>
+<dl>
+<dt>
+<a href="io/pathOps.html">Path Operations</a>
+</dl>
+<dt>
+<a href="io/fileOps.html">File Operations</a>
+<dt>
+<a href="io/check.html">Checking a File or Directory</a>
+<dt>
+<a href="io/delete.html">Deleting a File or Directory</a>
+<dt>
+<a href="io/copy.html">Copying a File or Directory</a>
+<dt>
+<a href="io/move.html">Moving a File or Directory</a>
+<dt>
+<a href="io/fileAttr.html">Managing Metadata (File and File Store Attributes)</a>
+<dt>
+<a href="io/file.html">Reading, Writing, and Creating Files</a>
+<dt>
+<a href="io/rafs.html">Random Access Files</a>
+<dt>
+<a href="io/dirs.html">Creating and Reading Directories</a>
+<dt>
+<a href="io/links.html">Links, Symbolic or Otherwise</a>
+<dt>
+<a href="io/walk.html">Walking the File Tree</a>
+<dt>
+<a href="io/find.html">Finding Files</a>
+<dt>
+<a href="io/notification.html">Watching a Directory for Changes</a>
+<dt>
+<a href="io/misc.html">Other Useful Methods</a>
+<dt>
+<a href="io/legacy.html">Legacy File I/O Code</a>
+</dl>
+<dt>
+<a href="io/summary.html">Summary</a>
+<dt>
+<a href="io/QandE/questions.html">Questions and Exercises: Basic I/O</a>
+</dl>
+</dl>
+<dl>
+<a name="concurrency">
+<strong><a href="concurrency/index.html">Concurrency</a></strong>
+</a>
+<dl>
+<dt>
+<a href="concurrency/procthread.html">Processes and Threads</a>
+<dt>
+<a href="concurrency/threads.html">Thread Objects</a>
+<dl>
+<dt>
+<a href="concurrency/runthread.html">Defining and Starting a Thread</a>
+<dt>
+<a href="concurrency/sleep.html">Pausing Execution with Sleep</a>
+<dt>
+<a href="concurrency/interrupt.html">Interrupts</a>
+<dt>
+<a href="concurrency/join.html">Joins</a>
+<dt>
+<a href="concurrency/simple.html">The SimpleThreads Example</a>
+</dl>
+<dt>
+<a href="concurrency/sync.html">Synchronization</a>
+<dl>
+<dt>
+<a href="concurrency/interfere.html">Thread Interference</a>
+<dt>
+<a href="concurrency/memconsist.html">Memory Consistency Errors</a>
+<dt>
+<a href="concurrency/syncmeth.html">Synchronized Methods</a>
+<dt>
+<a href="concurrency/locksync.html">Intrinsic Locks and Synchronization</a>
+<dt>
+<a href="concurrency/atomic.html">Atomic Access</a>
+</dl>
+<dt>
+<a href="concurrency/liveness.html">Liveness</a>
+<dl>
+<dt>
+<a href="concurrency/deadlock.html">Deadlock</a>
+<dt>
+<a href="concurrency/starvelive.html">Starvation and Livelock</a>
+</dl>
+<dt>
+<a href="concurrency/guardmeth.html">Guarded Blocks</a>
+<dt>
+<a href="concurrency/immutable.html">Immutable Objects</a>
+<dl>
+<dt>
+<a href="concurrency/syncrgb.html">A Synchronized Class Example</a>
+<dt>
+<a href="concurrency/imstrat.html">A Strategy for Defining Immutable Objects</a>
+</dl>
+<dt>
+<a href="concurrency/highlevel.html">High Level Concurrency Objects</a>
+<dl>
+<dt>
+<a href="concurrency/newlocks.html">Lock Objects</a>
+<dt>
+<a href="concurrency/executors.html">Executors</a>
+<dl>
+<dt>
+<a href="concurrency/exinter.html">Executor Interfaces</a>
+<dt>
+<a href="concurrency/pools.html">Thread Pools</a>
+<dt>
+<a href="concurrency/forkjoin.html">Fork/Join</a>
+</dl>
+<dt>
+<a href="concurrency/collections.html">Concurrent Collections</a>
+<dt>
+<a href="concurrency/atomicvars.html">Atomic Variables</a>
+<dt>
+<a href="concurrency/threadlocalrandom.html">Concurrent Random Numbers</a>
+</dl>
+<dt>
+<a href="concurrency/further.html">For Further Reading</a>
+<dt>
+<a href="concurrency/QandE/questions.html">Questions and Exercises: Concurrency</a>
+</dl>
+</dl>
+<dl>
+<a name="environment">
+<strong><a href="environment/index.html">The Platform Environment</a></strong>
+</a>
+<dl>
+<dt>
+<a href="environment/config.html">Configuration Utilities</a>
+<dl>
+<dt>
+<a href="environment/properties.html">Properties</a>
+<dt>
+<a href="environment/cmdLineArgs.html">Command-Line Arguments</a>
+<dt>
+<a href="environment/env.html">Environment Variables</a>
+<dt>
+<a href="environment/other.html">Other Configuration Utilities</a>
+</dl>
+<dt>
+<a href="environment/system.html">System Utilities</a>
+<dl>
+<dt>
+<a href="environment/cl.html">Command-Line I/O Objects</a>
+<dt>
+<a href="environment/sysprop.html">System Properties</a>
+<dt>
+<a href="environment/security.html">The Security Manager</a>
+<dt>
+<a href="environment/sysmisc.html">Miscellaneous Methods in System</a>
+</dl>
+<dt>
+<a href="environment/paths.html">PATH and CLASSPATH</a>
+<dt>
+<a href="environment/QandE/questions.html">Questions and Exercises: The Platform Environment</a>
+</dl>
+</dl>
+<dl>
+<a name="regex">
+<strong><a href="regex/index.html">Regular Expressions</a></strong>
+</a>
+<dl>
+<dt>
+<a href="regex/intro.html">Introduction</a>
+<dt>
+<a href="regex/test_harness.html">Test Harness</a>
+<dt>
+<a href="regex/literals.html">String Literals</a>
+<dt>
+<a href="regex/char_classes.html">Character Classes</a>
+<dt>
+<a href="regex/pre_char_classes.html">Predefined Character Classes</a>
+<dt>
+<a href="regex/quant.html">Quantifiers</a>
+<dt>
+<a href="regex/groups.html">Capturing Groups</a>
+<dt>
+<a href="regex/bounds.html">Boundary Matchers</a>
+<dt>
+<a href="regex/pattern.html">Methods of the Pattern Class</a>
+<dt>
+<a href="regex/matcher.html">Methods of the Matcher Class</a>
+<dt>
+<a href="regex/pse.html">Methods of the PatternSyntaxException Class</a>
+<dt>
+<a href="regex/unicode.html">Unicode Support</a>
+<dt>
+<a href="regex/resources.html">Additional Resources</a>
+<dt>
+<a href="regex/QandE/questions.html">Questions and Exercises: Regular Expressions</a>
+</dl>
+</dl>

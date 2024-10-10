@@ -1,0 +1,17 @@
+<applet code="TextDemo.class"
+        codebase="example-swing/"
+        archive="textfield.jar"
+        width="250" height="125"
+        alt="TextDemo applet">
+
+Since you can't run the applet,
+here's a picture of it:
+
+#usemacro UI_FIGURE (
+    NAME TextDemoSwing.gif
+    W 261
+    H 206
+    ALT A snapshot of TextDemo, which uses a standard text field and a standard text area.
+)
+
+</applet>

@@ -1,0 +1,79 @@
+
+#define TOPOFTRAIL yesplease
+
+<dl>
+<a name="intro">
+<strong><a href="intro/index.html">Introduction to Collections</a></strong>
+</a>
+</dl>
+<dl>
+<a name="interfaces">
+<strong><a href="interfaces/index.html">Interfaces</a></strong>
+</a>
+<dl>
+<dt>
+<a href="interfaces/collection.html">The Collection Interface</a>
+<dt>
+<a href="interfaces/set.html">The Set Interface</a>
+<dt>
+<a href="interfaces/list.html">The List Interface</a>
+<dt>
+<a href="interfaces/queue.html">The Queue Interface</a>
+<dt>
+<a href="interfaces/map.html">The Map Interface</a>
+<dt>
+<a href="interfaces/order.html">Object Ordering</a>
+<dt>
+<a href="interfaces/sorted-set.html">The SortedSet Interface</a>
+<dt>
+<a href="interfaces/sorted-map.html">The SortedMap Interface</a>
+<dt>
+<a href="interfaces/summary.html">Summary of Interfaces</a>
+<dt>
+<a href="interfaces/QandE/questions.html">Questions and Exercises: Interfaces</a>
+</dl>
+</dl>
+<dl>
+<a name="implementations">
+<strong><a href="implementations/index.html">Implementations</a></strong>
+</a>
+<dl>
+<dt>
+<a href="implementations/set.html">Set Implementations</a>
+<dt>
+<a href="implementations/list.html">List Implementations</a>
+<dt>
+<a href="implementations/map.html">Map Implementations</a>
+<dt>
+<a href="implementations/queue.html">Queue Implementations</a>
+<dt>
+<a href="implementations/wrapper.html">Wrapper Implementations</a>
+<dt>
+<a href="implementations/convenience.html">Convenience Implementations</a>
+<dt>
+<a href="implementations/summary.html">Summary of Implementations</a>
+<dt>
+<a href="implementations/QandE/questions.html">Questions and Exercises: Implementations</a>
+</dl>
+</dl>
+<dl>
+<a name="algorithms">
+<strong><a href="algorithms/index.html">Algorithms</a></strong>
+</a>
+</dl>
+<dl>
+<a name="custom-implementations">
+<strong><a href="custom-implementations/index.html">Custom Collection Implementations</a></strong>
+</a>
+</dl>
+<dl>
+<a name="interoperability">
+<strong><a href="interoperability/index.html">Interoperability</a></strong>
+</a>
+<dl>
+<dt>
+<a href="interoperability/compatibility.html">Compatibility</a>
+<dt>
+<a href="interoperability/api-design.html">API Design</a>
+</dl>
+</dl>

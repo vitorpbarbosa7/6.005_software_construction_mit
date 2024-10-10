@@ -1,0 +1,73 @@
+
+#define TOPOFTRAIL yesplease
+
+<dl>
+<a name="whatis">
+<strong><a href="whatis/index.html">JavaBeans Concepts</a></strong>
+</a>
+</dl>
+<dl>
+<a name="nb">
+<strong><a href="nb/index.html">Using the NetBeans GUI Builder</a></strong>
+</a>
+</dl>
+<dl>
+<a name="writingbean">
+<strong><a href="writingbean/index.html">Writing a Simple Bean</a></strong>
+</a>
+</dl>
+<dl>
+<a name="properties">
+<strong><a href="properties/index.html">Properties</a></strong>
+</a>
+<dl>
+<dt>
+<a href="properties/properties.html">Simple Properties</a>
+<dt>
+<a href="properties/bound.html">Bound Properties</a>
+<dt>
+<a href="properties/constrained.html">Constrained Properties</a>
+<dt>
+<a href="properties/indexed.html">Indexed Properties</a>
+</dl>
+</dl>
+<dl>
+<a name="events">
+<strong><a href="events/index.html">Manipulating Events</a></strong>
+</a>
+</dl>
+<dl>
+<a name="persistence">
+<strong><a href="persistence/index.html">Bean Persistence</a></strong>
+</a>
+</dl>
+<dl>
+<a name="longpersistence">
+<strong><a href="longpersistence/index.html">Long Term Persistence</a></strong>
+</a>
+</dl>
+<dl>
+<a name="introspection">
+<strong><a href="introspection/index.html">Introspection</a></strong>
+</a>
+</dl>
+<dl>
+<a name="customization">
+<strong><a href="customization/index.html">Bean Customization</a></strong>
+</a>
+</dl>
+<dl>
+<a name="beancontext">
+<strong><a href="beancontext/index.html">Using the BeanContext API</a></strong>
+</a>
+<dl>
+<dt>
+<a href="beancontext/overview.html">Overview of the BeanContext API</a>
+<dt>
+<a href="beancontext/containment.html">Bean Context #1: Containment Only</a>
+<dt>
+<a href="beancontext/services.html">Bean Context #2: Containment and Services</a>
+<dt>
+<a href="beancontext/gui.html">AWT Containers and the BeanContextProxy Interface</a>
+</dl>
+</dl>

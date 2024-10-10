@@ -1,0 +1,37 @@
+
+#define TOPOFTRAIL yesplease
+
+<dl>
+<dt>
+<a href="sampled-overview.html">Overview of the Sampled Package</a>
+<dt>
+<a href="accessing.html">Accessing Audio System Resources</a>
+<dt>
+<a href="playing.html">Playing Back Audio</a>
+<dt>
+<a href="capturing.html">Capturing Audio</a>
+<dt>
+<a href="controls.html">Processing Audio with Controls</a>
+<dt>
+<a href="converters.html">Using Files and Format Converters</a>
+<dt>
+<a href="overview-MIDI.html">Overview of the MIDI Package</a>
+<dt>
+<a href="accessing-MIDI.html">Accessing MIDI System Resources</a>
+<dt>
+<a href="MIDI-messages.html">Transmitting and Receiving MIDI Messages</a>
+<dt>
+<a href="MIDI-seq-intro.html">Introduction to Sequencers</a>
+<dt>
+<a href="MIDI-seq-methods.html">Using Sequencer Methods</a>
+<dt>
+<a href="MIDI-seq-adv.html">Using Advanced Sequencer Features</a>
+<dt>
+<a href="MIDI-synth.html">Synthesizing Sound</a>
+<dt>
+<a href="SPI-intro.html">Introduction to the Service Provider Interfaces</a>
+<dt>
+<a href="SPI-providing-sampled.html">Providing Sampled-Audio Services</a>
+<dt>
+<a href="SPI-providing-MIDI.html">Providing MIDI Services</a>
+</dl>

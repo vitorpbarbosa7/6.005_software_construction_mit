@@ -1,0 +1,163 @@
+
+#define TOPOFTRAIL yesplease
+
+<dl>
+<a name="intro">
+<strong><a href="intro/index.html">Introduction</a></strong>
+</a>
+<dl>
+<dt>
+<a href="intro/quick.html">A Quick Example</a>
+<dl>
+<dt>
+<a href="intro/before.html">Before Internationalization</a>
+<dt>
+<a href="intro/after.html">After Internationalization</a>
+<dt>
+<a href="intro/run.html">Running the Sample Program</a>
+<dt>
+<a href="intro/steps.html">Internationalizing the Sample Program</a>
+</dl>
+<dt>
+<a href="intro/checklist.html">Checklist</a>
+</dl>
+</dl>
+<dl>
+<a name="locale">
+<strong><a href="locale/index.html">Setting the Locale</a></strong>
+</a>
+<dl>
+<dt>
+<a href="locale/create.html">Creating a Locale</a>
+<dt>
+<a href="locale/extensions.html">BCP 47 Extensions</a>
+<dt>
+<a href="locale/identify.html">Identifying Available Locales</a>
+<dt>
+<a href="locale/scope.html">The Scope of a Locale</a>
+<dt>
+<a href="locale/services.html">Locale-Sensitive Services SPI</a>
+</dl>
+</dl>
+<dl>
+<a name="resbundle">
+<strong><a href="resbundle/index.html">Isolating Locale-Specific Data</a></strong>
+</a>
+<dl>
+<dt>
+<a href="resbundle/concept.html">About the ResourceBundle Class</a>
+<dt>
+<a href="resbundle/prepare.html">Preparing to Use a ResourceBundle</a>
+<dt>
+<a href="resbundle/propfile.html">Backing a ResourceBundle with Properties Files</a>
+<dt>
+<a href="resbundle/list.html">Using a ListResourceBundle</a>
+<dt>
+<a href="resbundle/control.html">Customizing Resource Bundle Loading</a>
+</dl>
+</dl>
+<dl>
+<a name="format">
+<strong><a href="format/index.html">Formatting</a></strong>
+</a>
+<dl>
+<dt>
+<a href="format/numberintro.html">Numbers and Currencies</a>
+<dl>
+<dt>
+<a href="format/numberFormat.html">Using Predefined Formats</a>
+<dt>
+<a href="format/decimalFormat.html">Customizing Formats</a>
+</dl>
+<dt>
+<a href="format/dateintro.html">Dates and Times</a>
+<dl>
+<dt>
+<a href="format/dateFormat.html">Using Predefined Formats</a>
+<dt>
+<a href="format/simpleDateFormat.html">Customizing Formats</a>
+<dt>
+<a href="format/dateFormatSymbols.html">Changing Date Format Symbols</a>
+</dl>
+<dt>
+<a href="format/messageintro.html">Messages</a>
+<dl>
+<dt>
+<a href="format/messageFormat.html">Dealing with Compound Messages</a>
+<dt>
+<a href="format/choiceFormat.html">Handling Plurals</a>
+</dl>
+</dl>
+</dl>
+<dl>
+<a name="text">
+<strong><a href="text/index.html">Working with Text</a></strong>
+</a>
+<dl>
+<dt>
+<a href="text/charintro.html">Checking Character Properties</a>
+<dt>
+<a href="text/collationintro.html">Comparing Strings</a>
+<dl>
+<dt>
+<a href="text/locale.html">Performing Locale-Independent Comparisons</a>
+<dt>
+<a href="text/rule.html">Customizing Collation Rules</a>
+<dt>
+<a href="text/perform.html">Improving Collation Performance</a>
+</dl>
+<dt>
+<a href="text/unicode.html">Unicode</a>
+<dl>
+<dt>
+<a href="text/terminology.html">Terminology</a>
+<dt>
+<a href="text/supplementaryChars.html">Supplementary Characters as Surrogates</a>
+<dt>
+<a href="text/characterClass.html">Character and String APIs</a>
+<dt>
+<a href="text/usage.html">Sample Usage</a>
+<dt>
+<a href="text/design.html">Design Considerations</a>
+<dt>
+<a href="text/info.html">More Information</a>
+</dl>
+<dt>
+<a href="text/boundaryintro.html">Detecting Text Boundaries</a>
+<dl>
+<dt>
+<a href="text/about.html">About the BreakIterator Class</a>
+<dt>
+<a href="text/char.html">Character Boundaries</a>
+<dt>
+<a href="text/word.html">Word Boundaries</a>
+<dt>
+<a href="text/sentence.html">Sentence Boundaries</a>
+<dt>
+<a href="text/line.html">Line Boundaries</a>
+</dl>
+<dt>
+<a href="text/shapedDigits.html">Converting Latin Digits to Other Unicode Digits</a>
+<dt>
+<a href="text/convertintro.html">Converting Non-Unicode Text</a>
+<dl>
+<dt>
+<a href="text/string.html">Byte Encodings and Strings</a>
+<dt>
+<a href="text/stream.html">Character and Byte Streams</a>
+</dl>
+<dt>
+<a href="text/normalizerapi.html">Normalizing Text</a>
+</dl>
+</dl>
+<dl>
+<a name="network">
+<strong><a href="network/index.html">Internationalization of Network Resources</a></strong>
+</a>
+<dl>
+<dt>
+<a href="network/idn.html">Internationalized Domain Name</a>
+<dt>
+<a href="network/iri.html">Internationalized Resource Identifier</a>
+</dl>
+</dl>

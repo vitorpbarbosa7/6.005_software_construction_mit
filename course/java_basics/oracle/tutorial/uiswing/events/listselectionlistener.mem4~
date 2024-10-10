@@ -1,0 +1,353 @@
+#ifdef REVIEW
+<font color=green>
+[NOTE: Green text marks notes to the reviewer.
+They are not visible externally.]
+</font>
+<p>
+#endif
+
+List selection events 
+occur when the selection in a 
+#usemacro AUTOMATICLINK (
+    FILE list.html
+    LESSON $COMPONENT
+    LINKTEXT list
+)
+ or
+#usemacro AUTOMATICLINK (
+    FILE table.html
+    LESSON $COMPONENT
+    LINKTEXT table
+)
+ is either changing or has just changed.
+List selection events are fired from an object
+that implements the
+#usemacro APILINK (
+    LINKTEXT <code>ListSelectionModel</code>
+    LINKFILE $LATESTAPIDOCHOME/javax/swing/ListSelectionModel.html
+)
+ interface.
+To get a table's list selection model object,
+you can use either <code>getSelectionModel</code> method or getColumnModel().getSelectionModel().
+
+<p>
+
+To detect list selection events,
+you register a listener
+on the appropriate list selection model object.
+The <code>JList</code> class also gives you the option of
+registering a listener 
+on the list itself,
+rather than directly on the list selection model.
+
+<p>
+This section looks at an example
+that shows how to listen to list selection events
+on a selection model.
+<a href="#eg">Examples that Use List Selection Listeners</a>
+lists examples that listen on the list directly.
+<p>
+In this example, the selection model is shared by a list and a table.
+You can dynamically change the selection mode
+to any of the three supported modes:
+
+<ul>
+<li> single selection mode
+<li> single interval selection mode
+<li> multiple interval selection mode
+</ul>
+
+<p>
+
+Here is a picture of the example running:
+
+#usemacro UI_FIGURE (
+    NAME ListSelectionDemo.gif
+    W 460
+    H 291
+    ALT A snapshot of ListSelectionDemo, which demonstrates selection modes and shared selection models.
+)
+
+
+<p>
+#usemacro BEGINNOTE (
+    NOTEHEAD Try this
+)
+
+<ol>
+<li>
+
+Click the Launch button to run ListSelectionDemo using
+#usemacro AUTOMATICLINK (
+    LINKFILE http://java.sun.com/products/javawebstart/index.jsp
+    LINKTEXT Java&trade; Web Start
+
+)
+ (<a href="http://java.sun.com/javase/downloads/index.jsp">download JDK 6</a>).
+Alternatively, to compile and run the example yourself, consult the
+     <a href="../examples/events/index.html#ListSelectionDemo">example index</a>.
+
+<center> <a href="$JNLPBASE/ListSelectionDemo.jnlp"><img src="../../images/jws-launch-button.png " width="88" height="23" align="bottom" alt="Launches the ListSelectionDemo example"></a> </center>
+ 
+<li> Select and deselect items in the list and table.
+     The mouse and keyboard commands required to select items
+     depends on the look and feel.
+     For the Java look and feel,
+     click the left mouse button to begin a selection,
+     use the shift key to extend a selection contiguously, and
+     use the control key to extend a selection discontiguously.
+     Dragging the mouse moves or extends the selection,
+     depending on the list selection mode.
+     
+</ol>
+$ENDNOTE
+
+You can find the entire program in <a href="../examples/events/ListSelectionDemoProject/src/events/ListSelectionDemo.java">ListSectionDemo.java</a>
+Here is the code from <code>ListSelectionDemo</code> that
+sets up the selection model and adds a listener to it:
+$BEGINCODE
+<em>...//where the member variables are defined</em>
+JList list;
+JTable table;
+    <em>...//in the init method:</em>
+    listSelectionModel = list.getSelectionModel();
+    listSelectionModel.addListSelectionListener(
+                            new SharedListSelectionHandler());
+    ...
+    table.setSelectionModel(listSelectionModel);
+$ENDCODE
+And here is the code for the listener,
+which works for all the possible selection modes:
+$BEGINCODE
+class SharedListSelectionHandler implements ListSelectionListener {
+    public void valueChanged(ListSelectionEvent e) {
+        ListSelectionModel lsm = (ListSelectionModel)e.getSource();
+
+        int firstIndex = e.getFirstIndex();
+        int lastIndex = e.getLastIndex();
+        boolean isAdjusting = e.getValueIsAdjusting();
+        output.append("Event for indexes "
+                      + firstIndex + " - " + lastIndex
+                      + "; isAdjusting is " + isAdjusting
+                      + "; selected indexes:");
+
+        if (lsm.isSelectionEmpty()) {
+            output.append(" &lt;none&gt;");
+        } else {
+            // Find out which indexes are selected.
+            int minIndex = lsm.getMinSelectionIndex();
+            int maxIndex = lsm.getMaxSelectionIndex();
+            for (int i = minIndex; i <= maxIndex; i++) {
+                if (lsm.isSelectedIndex(i)) {
+                    output.append(" " + i);
+                }
+            }
+        }
+        output.append(newline);
+    }
+}
+
+$ENDCODE
+This <code>valueChanged</code> method displays the
+first and last indices reported by the event,
+the value of the event's <code>isAdjusting</code> flag,
+and the indices currently selected.
+<P>
+Note that the first and last indices reported by the event 
+indicate the inclusive range of items
+for which the selection has changed.
+If the selection mode is multiple interval selection
+some items within the range might not have changed.
+The <code>isAdjusting</code> flag is <code>true</code> if
+the user is still manipulating the selection,
+and <code>false</code> if the user has finished changing the selection.
+<p>
+The <code>ListSelectionEvent</code> object
+passed into <code>valueChanged</code> indicates
+only that the selection has changed.
+The event contains no information about the current selection.
+So, this method queries the selection model to
+figure out the current selection.
+ 
+</blockquote>
+<h3>
+<a name="api">The List Selection Listener API</a>
+</h3>
+<blockquote>
+
+<p align=center><a name="listselectionlistener">The ListSelectionListener
+   Interface</a>
+<p><em>Because <code>ListSelectionListener</code> has only one method,
+   it has no corresponding adapter class.</em>
+<table border=1>
+<tr>
+<th align=left>Method</th>
+<th align=left>Purpose</th>
+</tr>
+
+<tr>
+<td>
+#usemacro TINYAPILINK (
+    LINKTEXT valueChanged(ListSelectionEvent)
+    LINKFILE $LATESTAPIDOCHOME/javax/swing/event/ListSelectionListener.html#valueChanged(javax.swing.ListSelectionEvent)
+)
+</td>
+<td> Called in response to selection changes.
+</td>
+</tr>
+</table>
+
+<p align=center><a name="listselectionevent">The ListSelectionEvent API</a>
+<p>
+<table border=1>
+<tr>
+<th align=left>Method</th>
+<th align=left>Purpose</th>
+</tr>
+
+<tr>
+<td>
+#usemacro TINYAPILINK (
+    LINKTEXT Object getSource()
+    LINKFILE $LATESTAPIDOCHOME/java/util/EventObject.html#getSource()
+)
+<br>(<em>in <code>java.util.EventObject</code></em>)
+</td>
+<td>Return the object that fired the event.
+    If you register a list selection listener
+    on a list directly, then the source for each event 
+    is the list.
+    Otherwise, the source is the selection model.
+</td>
+</tr>
+
+<tr>
+<td>
+#usemacro TINYAPILINK (
+    LINKTEXT int getFirstIndex()
+    LINKFILE $LATESTAPIDOCHOME/javax/swing/event/ListSelectionEvent.html#getFirstIndex()
+)
+</td>
+<td> Return the index of the first item
+     whose selection value has changed.
+     Note that for multiple interval selection,
+     the first and last items are guaranteed to have changed but
+     items between them might not have. However, when you press ctrl key and move the selection you may see only lead selection moving up or down. 
+</td>
+</tr>
+
+<tr>
+<td>
+#usemacro TINYAPILINK (
+    LINKTEXT int getLastIndex()
+    LINKFILE $LATESTAPIDOCHOME/javax/swing/event/ListSelectionEvent.html#getLastIndex()
+)
+</td>
+<td> Return the index of the last item
+     whose selection value has changed.
+     Note that for multiple interval selection,
+     the first and last items are guaranteed to have changed but
+     items between them might not have.
+</td>
+</tr>
+
+<tr>
+<td>
+#usemacro TINYAPILINK (
+    LINKTEXT boolean getValueIsAdjusting()
+    LINKFILE $LATESTAPIDOCHOME/javax/swing/event/ListSelectionEvent.html#getValueIsAdjusting()
+)
+</td>
+<td> Return <code>true</code> if the selection is still changing.
+     Many list selection listeners are interested only in
+     the final state of the selection and can ignore list selection
+     events when this method returns <code>true</code>.
+</td>
+</tr>
+</table>
+</blockquote>
+
+<a name="eg">
+<h3>Examples that Use List Selection Listeners</h3>
+</a>
+<blockquote>
+The following table lists the
+examples that use list selection listeners.
+ 
+<p>
+ 
+<table>
+<tr>
+<th align=left> Example
+</th>
+<th align=left> Where Described
+</th>
+<th align=left> Notes
+
+</th>
+</tr>
+
+<tr valign=top>
+<td> <a href="../examples/events/index.html#ListSelectionDemo"><code>ListSelectionDemo</code></a>
+</td>
+<td> This section
+</td>
+<td> Reports all list selection events that occur on a list and on a table.
+     The table and the list share a list selection model, so only
+     one listener is required.
+     Lets the user dynamically change the selection mode.
+
+</td>
+</tr>
+
+<tr valign=top>
+<td> <a href="../examples/components/index.html#ListDemo">
+     <code>ListDemo</code></a>
+</td>
+<td>
+#usemacro AUTOMATICLINK (
+    FILE list.html
+    LESSON $COMPONENT
+)
+</td>
+<td> Listens to events on a single-selection list (not on its
+     selection model).
+     Enables and disables a button depending on whether
+     any items are selected in the list.
+</td>
+</tr>
+
+<tr valign=top>
+<td> <a href="../examples/components/index.html#SplitPaneDemo">
+     <code>SplitPaneDemo</code></a>
+</td>
+<td>
+#usemacro AUTOMATICLINK (
+    FILE list.html
+    LESSON $COMPONENT
+)
+</td>
+<td> Listens to events on a single-selection list
+     (not on its selection model).
+</td>
+</tr>
+
+<tr valign=top>
+<td> <a href="../examples/components/index.html#SimpleTableSelectionDemo">
+     <code>SimpleTableSelectionDemo</code></a>
+</td>
+<td>
+#usemacro AUTOMATICLINK (
+    FILE table.html
+    LESSON $COMPONENT
+)
+</td>
+<td> Uses two different list selection listeners on one table.
+     One listener listens to list selection events on table columns,
+     the other listens to list selection events on table rows.
+
+</td>
+</tr>
+</table>
+
+

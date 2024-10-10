@@ -1,0 +1,56 @@
+
+#define TOPOFTRAIL yesplease
+
+<dl>
+<a name="generics">
+<strong><a href="generics/index.html">Generics</a></strong>
+</a>
+<dl>
+<dt>
+<a href="generics/intro.html">Introduction</a>
+<dt>
+<a href="generics/simple.html">Defining Simple Generics</a>
+<dt>
+<a href="generics/subtype.html">Generics and Subtyping</a>
+<dt>
+<a href="generics/wildcards.html">Wildcards</a>
+<dt>
+<a href="generics/methods.html">Generic Methods</a>
+<dt>
+<a href="generics/legacy.html">Interoperating with Legacy Code</a>
+<dt>
+<a href="generics/fineprint.html">The Fine Print</a>
+<dt>
+<a href="generics/literals.html">Class Literals as Runtime-Type Tokens</a>
+<dt>
+<a href="generics/morefun.html">More Fun with Wildcards</a>
+<dt>
+<a href="generics/convert.html">Converting Legacy Code to Use Generics</a>
+<dt>
+<a href="generics/acknowledgements.html">Acknowledgements</a>
+</dl>
+</dl>
+<dl>
+<a name="fullscreen">
+<strong><a href="fullscreen/index.html">Full-Screen Exclusive Mode API</a></strong>
+</a>
+<dl>
+<dt>
+<a href="fullscreen/exclusivemode.html">Full-Screen Exclusive Mode</a>
+<dt>
+<a href="fullscreen/displaymode.html">Display Mode</a>
+<dt>
+<a href="fullscreen/rendering.html">Passive vs. Active Rendering</a>
+<dt>
+<a href="fullscreen/doublebuf.html">Double Buffering and Page Flipping</a>
+<dt>
+<a href="fullscreen/bufferstrategy.html"><code>BufferStrategy</code> and <code>BufferCapabilities</code></a>
+<dt>
+<a href="fullscreen/example.html">Examples</a>
+</dl>
+</dl>
+<dl>
+<a name="certification">
+<strong><a href="certification/index.html">Preparation for Java Programmer Language Certification</a></strong>
+</a>
+</dl>

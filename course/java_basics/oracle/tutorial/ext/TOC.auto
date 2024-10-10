@@ -1,0 +1,27 @@
+
+#define TOPOFTRAIL yesplease
+
+<dl>
+<a name="basics">
+<strong><a href="basics/index.html">Creating and Using Extensions</a></strong>
+</a>
+<dl>
+<dt>
+<a href="basics/install.html">Installed Extensions</a>
+<dt>
+<a href="basics/download.html">Download Extensions</a>
+<dt>
+<a href="basics/load.html">Understanding Extension Class Loading</a>
+</dl>
+</dl>
+<dl>
+<a name="security">
+<strong><a href="security/index.html">Making Extensions Secure</a></strong>
+</a>
+<dl>
+<dt>
+<a href="security/policy.html">Setting Privileges for Extensions</a>
+<dt>
+<a href="security/sealing.html">Sealing Packages in Extensions</a>
+</dl>
+</dl>

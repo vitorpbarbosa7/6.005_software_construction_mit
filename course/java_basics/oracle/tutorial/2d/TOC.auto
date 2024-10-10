@@ -1,0 +1,114 @@
+
+#define TOPOFTRAIL yesplease
+
+<dl>
+<a name="overview">
+<strong><a href="overview/index.html">Overview of the Java 2D API Concepts</a></strong>
+</a>
+<dl>
+<dt>
+<a href="overview/coordinate.html">Coordinates</a>
+<dt>
+<a href="overview/rendering.html">Java 2D Rendering</a>
+<dt>
+<a href="overview/primitives.html">Geometric Primitives</a>
+<dt>
+<a href="overview/text.html">Text</a>
+<dt>
+<a href="overview/images.html">Images</a>
+<dt>
+<a href="overview/printing.html">Printing</a>
+</dl>
+</dl>
+<dl>
+<a name="basic2d">
+<strong><a href="basic2d/index.html">Getting Started with Graphics</a></strong>
+</a>
+</dl>
+<dl>
+<a name="geometry">
+<strong><a href="geometry/index.html">Working with Geometry</a></strong>
+</a>
+<dl>
+<dt>
+<a href="geometry/primitives.html">Drawing Geometric Primitives</a>
+<dt>
+<a href="geometry/arbitrary.html">Drawing Arbitrary Shapes</a>
+<dt>
+<a href="geometry/strokeandfill.html">Stroking and Filling Graphics Primitives</a>
+</dl>
+</dl>
+<dl>
+<a name="text">
+<strong><a href="text/index.html">Working with Text APIs</a></strong>
+</a>
+<dl>
+<dt>
+<a href="text/fonts.html">Selecting a Font</a>
+<dt>
+<a href="text/measuringtext.html">Measuring Text</a>
+<dt>
+<a href="text/advanced.html">Advanced Text Display</a>
+<dl>
+<dt>
+<a href="text/renderinghints.html">Displaying Antialiased Text by Using Rendering Hints</a>
+<dt>
+<a href="text/textattributes.html">Using Text Attributes to Style Text</a>
+<dt>
+<a href="text/drawmulstring.html">Drawing Multiple Lines of Text</a>
+</dl>
+</dl>
+</dl>
+<dl>
+<a name="images">
+<strong><a href="images/index.html">Working with Images</a></strong>
+</a>
+<dl>
+<dt>
+<a href="images/loadimage.html">Reading/Loading an Image</a>
+<dt>
+<a href="images/drawimage.html">Drawing an Image</a>
+<dt>
+<a href="images/drawonimage.html">Creating and Drawing to an Image</a>
+<dt>
+<a href="images/saveimage.html">Writing/Saving an Image</a>
+</dl>
+</dl>
+<dl>
+<a name="printing">
+<strong><a href="printing/index.html">Printing</a></strong>
+</a>
+<dl>
+<dt>
+<a href="printing/printable.html">A Basic Printing Program</a>
+<dt>
+<a href="printing/dialog.html">Using Print Setup Dialogs</a>
+<dt>
+<a href="printing/set.html">Printing a Multiple Page Document</a>
+<dt>
+<a href="printing/services.html">Working with Print Services and Attributes</a>
+<dt>
+<a href="printing/gui.html">Printing the Contents of a User Interface</a>
+<dt>
+<a href="printing/swing.html">Printing Support in Swing Components</a>
+</dl>
+</dl>
+<dl>
+<a name="advanced">
+<strong><a href="advanced/index.html">Advanced Topics in Java2D</a></strong>
+</a>
+<dl>
+<dt>
+<a href="advanced/transforming.html">Transforming Shapes, Text, and Images</a>
+<dt>
+<a href="advanced/clipping.html">Clipping the Drawing Region</a>
+<dt>
+<a href="advanced/compositing.html">Compositing Graphics</a>
+<dt>
+<a href="advanced/quality.html">Controlling Rendering Quality</a>
+<dt>
+<a href="advanced/complexshapes.html">Constructing Complex Shapes from Geometry Primitives</a>
+<dt>
+<a href="advanced/user.html">Supporting User Interaction</a>
+</dl>
+</dl>

@@ -1,0 +1,461 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html lang="en-US">
+    <head>
+        <title>The Java&trade; Tutorials</title>
+        <meta name="Description" content="Tutorials and reference guides for the Java Programming Language">
+        <html lang="11-CC">
+<style type="text/css">
+    div#TopBar_bl {
+        background: url(images/java_bar_bl.gif) 0 100% no-repeat;
+        width: 100%;
+        height: 60px;
+    }
+    div#TopBar_br {
+        background: url(images/java_bar_br.gif) 100% 100% no-repeat;
+        width: 100%;
+        height: 60px;
+    }
+    div#TopBar_tl {
+        background: url(images/java_bar_tl.gif) 0 0 no-repeat;
+        width: 100%;
+        height: 60px;
+    }
+    div#TopBar_tr {
+        background: url(images/java_bar_tr.gif) 100% 0 no-repeat;
+        width: 100%;
+        height: 60px;
+    }
+    div#TopBar {
+        font-family: sans-serif; 
+        background: #35556B url(images/java_bar.gif);
+        margin: 10px 10px 0 10px;
+        height:60px;
+        min-width:700px;
+        color: white;
+        font-weight: bold;
+    }
+    div#TopBar_left {
+        margin-left: 100px;
+        padding-top: 6px;
+    }
+    @media print {
+        div#TopBar_left {
+            margin-left: 0;
+        }
+    }
+    div#TopBar_right {
+        float: right;
+        padding-top: 8px;
+        padding-right: 30px;
+        text-align: center;
+    }
+    @media print {
+        div#TopBar_right {
+            display: none;
+        }
+    }
+    #TopBar_right a {
+        font-size: 12px;
+        margin: 3px;
+        padding: 0;
+    }
+    #TopBar a:visited, #TopBar a:link {
+        color: white;
+        text-decoration: none;
+    }
+    div#TopBar a:visited, div#TopBar a:link {
+        color: white;
+    }
+    div#TopBar a:hover, div#TopBar a:active  {
+        background-color: white;
+        color: #35556B;
+    }
+    div#PageTitle {
+    }
+    div#LeftBar {
+        width: 13em;
+        float: left;
+        margin-left: 10px;
+        margin-top: 10px;
+    }
+    div#Footer {
+        font-family: sans-serif; 
+        font-size: 10px;
+        padding-top: 10px;
+        margin: 3em;
+        clear: both;
+    }
+    div#Footer img#duke {
+    }
+    div#Footer img#sun {
+    }
+    div#TagNotes {
+        margin-top: 10px;
+        color: #35556B;
+    }
+    @media print {
+        span#TagNotes a:visited, span#TagNotes a:link {
+            text-decoration: none;
+        }
+    }
+    div#TutBody {
+        margin: 10px 20em 10px 3em;
+    }
+    div.RightBar {
+        font-family: sans-serif; 
+        float: right;
+    }
+    div.RightBar img {
+        margin: 0 0 1em 0;
+    }
+    div.RightBox {
+        margin: 10px 3em 10px 0;
+        width: 15em;
+        border-style: double;
+    }
+    div.BlueRightBox {
+        margin: 10px 3em 10px 0;
+        width: 15em;
+        border-style: double;
+        background-color: #747170;
+        color: #FFFFFF;
+    }
+    div.Pad {
+        font-size: 80%;
+        padding: 1em;
+    }
+    div.Pad h3 {
+        text-align: center;
+        margin: 0;
+    }
+    div.Pad h3w {
+        text-align: center;
+        margin: 0;
+    }
+    div.Pad div {
+        display: list-item;
+        list-style-image: url(images/arrow-right-gray.gif);
+        margin: 0.3em 1em;
+    }
+    ul.BlueArrows {
+        list-style-image: url(images/ar_dbl_blue.gif);
+    }
+    ul.BlueArrows a:visited, ul.BlueArrows a:link {
+        text-decoration: none;
+    }
+    ul.BlueArrows a:hover, ul.BlueArrows a:active {
+        text-decoration: underline;
+    }
+    h3 {
+        font-family: sans-serif; 
+        color: #F90000;
+        margin-bottom: 3px;
+    }
+    h3w {
+        font-family: Arial, Helvetica, sans-serif; 
+        color: #FFFFFF;
+        margin-bottom: 3px;
+    }
+
+</style>
+    </head>
+<body>
+    <div id=TopBar> <div id=TopBar_tr> <div id=TopBar_tl> <div id=TopBar_br> <div id=TopBar_bl> 
+                    <div id=TopBar_right> 
+                        <a href="search.html" target="_top">Search</a>
+                        <br>
+                        <a href="http://download.oracle.com/javase/feedback.html">Feedback</a>
+                    </div> 
+                </div> </div> </div> </div> </div>
+
+<div class=RightBar>
+        <img src=images/ThinkingDuke.png width=124 height=128 align=center 
+             alt="Duke thinking about what to study" style="margin-top:2px">
+        <br/>Not sure where to start? <br/>See <a href="tutorialLearningPaths.html">Learning Paths</a>
+		
+		<div class=BlueRightBox>
+        <h3w><p></p><center><font size="3"><b>Tutorial Contents</b></font></center></h3w>
+    <div> <center><a href="reallybigindex.html"><img src=images/really_big_index_button.gif width=108 height=22 align=center alt="really big index button"></a></center></div>
+   </div>
+		
+		
+<div class=RightBox><div class=Pad>
+        <h3>Tutorial Resources</h3>
+        <div><a href="http://blogs.sun.com/thejavatutorials/">The
+           Java Tutorials' Blog</a> has news and updates about
+           the Java SE tutorials.</div>
+        <div><a href="https://javatutorials.dev.java.net/">The Java
+           Tutorials Community Portal</a> is the place to discuss
+	   the tutorials and to share your modifications and extensions
+           to the tutorials.</div>
+        <div> <a href="https://cds.sun.com/is-bin/INTERSHOP.enfinity/WFS/CDS-CDS_Developer-Site/en_US/-/USD/ViewProductDetail-Start?ProductRef=tutorial-2011-03-17-oth-JPR@CDS-CDS_Developer">Download the latest Java SE Tutorials bundle</a>.
+        </div>
+</div></div>
+<div class=RightBox><div class=Pad>
+                <h3>In Book Form</h3>
+                    <div><i>The Java Tutorial, Fourth Edition.</i>
+                    <a
+                        href="http://www.amazon.com/Java-Tutorial-Short-Course-Basics/dp/0321334205">Amazon.com</a>.
+                    </div>
+                    <div><a href="information/errata.html">Errata</a> for <i>The Java Tutorial, Fourth Edition.</i>
+                    </div>
+                    <div><i>The JFC Swing Tutorial, Second Edition.</i>
+                        <a href="http://www.amazon.com/JFC-Swing-Tutorial-Guide-Constructing/dp/0201914670">Amazon.com</a>.
+                    </div>
+                    Other books on the Java platform are available from <a
+                        href=http://vig.pearsoned.com/store/home/1,1205,store-5401_id-2,00.html>The
+                        Java Series Store</a>.
+                            
+    </div></div>
+<div class=RightBox><div class=Pad>
+        <h3>Other Resources</h3>
+        <div><a href="http://download.oracle.com/javase/6/docs/">Java SE Platform Guides</a></div>
+        <div><a href="http://download.oracle.com/javase/6/docs/api">API Documentation</a></div>
+        <div><a href="http://download.oracle.com/javaee/6/tutorial/doc/">The Java EE 6 Tutorial</a></div>
+        <div><a href="http://java.sun.com/webservices/tutorial.html">The Java Web Services Tutorial</a></div>
+        <div><a href="http://www.netbeans.org/kb/index.html">NetBeans&trade; Documentation</a></div>
+
+    </div></div>
+<div class=RightBox><div class=Pad>
+        <h3>Oracle Training and Professional Certification</h3>
+        <div><a href="http://education.oracle.com/pls/web_prod-plq-dad/db_pages.getpage?page_id=402&p_nl=JJAV">Java and Web Services Training</a></div>
+        <div><a href="http://education.oracle.com/pls/web_prod-plq-dad/db_pages.getpage?page_id=3">Oracle University</a></div>
+    </div></div>
+<div class=RightBox><div class=Pad>
+        <h3>Software</h3>
+        <div>The <a href="http://java.sun.com/javase/downloads/index.jsp">Java Development
+                Kit</a> (JDK) for Java SE 6.</div>
+        <div><a href=http://www.netbeans.org/>NetBeans IDE</a></div>
+        <div><a href="http://java.sun.com/javaee/downloads/index.jsp">Java EE SDK</a></div>
+    </div></div>
+</div>
+<div id=TutBody>
+    The Java Tutorials are practical guides for programmers who want
+    to use the Java programming language to create applications. They
+    include hundreds of complete, working examples, and dozens of
+    lessons.  Groups of related lessons are organized into "trails".
+<p>
+For the most accurate and up-to-date tutorials,
+please access the latest version from Oracle's official website for the
+Java SE Tutorials (Last Updated <a href="information/history.html">03/17/2011</a>), which can be found at:
+<a href="http://download.oracle.com/javase/tutorial/">http://download.oracle.com/javase/tutorial</a>.
+  <p>
+    The Java SE Tutorials primarily describe features in Java SE 6.
+    For best results, <a class="OutsideLink" target="_blank"
+        href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">download JDK 6</a>.
+
+  <h3><a name="whatsnew">What's New</a></h3>
+  Enjoy quizzes? Take a minute to answer this quiz about Java applets.
+  <a href="http://download.oracle.com/javase/tutorialJWS/flash/AppletQuiz/AppletQuiz.html" target="_blank">
+<img src="images/quiz.jpg" alt="Java Applets Quiz" title="Java Applets Quiz" /></a>
+  </p>
+    <p>The Java Tutorials are continuously updated to keep up with changes to
+    the Java Platform and to incorporate feedback from our readers.
+    Included in recent releases:
+<ul>
+<li>The <code>JLayer</code> component, introduced in Java SE 7,
+is explained in <a href="uiswing/misc/jlayer.html">How to Decorate
+Components with JLayer</a>.
+<p>
+<li>As of Java SE 7 build 130, the NIO.2 File I/O package has
+been updated, with new and simplified API.  The
+<a href="essential/io/fileio.html">File I/O (Featuring NIO.2)</a>
+section has been modified to reflect these changes.
+<p>
+<li>Samples that demonstrates how to use <code>RowSet</code> objects
+have been added to the <a href="jdbc">JDBC trail</a>.
+Please see <a href="jdbc/basics/rowset.html">Using RowSet Objects</a>
+for more information.  In addition, a sample that shows you how to integrate
+JDBC with a GUI API, in particular the Swing API, has been added.
+Please see <a href="jdbc/basics/jdbcswing.html">Using JDBC with
+GUI API</a> for more information.
+<p>
+<li>The latest version of the <a href="http://unicode.org/">Unicode
+Standard</a> is <a href="http://www.unicode.org/versions/Unicode6.0.0/">Unicode
+6.0</a>.  The Java tutorial has new coverage for Unicode:
+<ul>
+<li><a href="i18n/text/unicode.html">Unicode</a>, a lesson in
+the <a href="i18n">Internationalization</a> trail.
+<li><a href="i18n/text/shapedDigits.html">Converting Latin Digits to Other
+Unicode Digits</a>
+<li><a href="essential/regex/unicode.html">Unicode Support</a>, a page in
+the <a href="essential/regex/">Regular Expressions</a> lesson.
+</ul>
+<p>
+<li>As a result of
+<a href="http://openjdk.java.net/projects/coin/">Project Coin</a>,
+several changes were introduced to the Java language:
+<ul>
+<li>The <a href="java/nutsandbolts/datatypes.html">Primitive
+Data Types</a> page has been updated to discuss binary literals
+and to mention that underscore characters can
+appear anywhere between digits in a numerical literal.
+<li><a href="java/nutsandbolts/switch.html">The switch
+Statement</a> page has been updated to reflect the ability to
+switch on a <code>String</code> object.
+<li>The <a href="java/generics/gentypes.html#diamond">Diamond Operator</a>
+has been added to generics. See the
+<a href="java/generics/gentypeinference.html#type-inference-instantiation">Type
+Inference</a> section for more information.
+<li>Using non-reifiable parameters with varags methods is also new.
+See <a href="java/generics/non-reifiable-varargs-type.html">Using
+Non-Reifiable Parameters with Varargs Methods</a> for more information.
+<li>The ability to catch more than one type of exception with a single
+exception handler has been added.  See
+<a href="essential/exceptions/catch.html">The <code>catch</code>
+Blocks</a> for more information.
+<li>The <code>try</code>-with-resources statement ensures that a resource
+(such as a <code>BufferedReader</code>) is closed when the program is
+finished with it.  See
+<a href="essential/exceptions/tryResourceClose.html">The
+try-with-resources Statement</a> for more information.
+</ul>
+</ul>
+<p>The Java Tutorials include content for features in the upcoming Java SE 7
+  release. Java SE 7 specific content will be revised as necessary to
+  accommodate changes in feature specification before the final Java SE 7
+  release.
+  </p>
+  
+
+  <h3>Trails Covering the Basics</h3>
+    These trails are available in book form as <i>The Java
+       Tutorial, Fourth Edition</i>. To buy this book,
+        refer to the box to the right.
+    <ul class="BlueArrows">
+        <li><a href="getStarted/index.html">Getting Started</a>
+        &mdash; An introduction to Java technology and lessons on
+        installing Java development software and using it to create a
+        simple program.
+        <li><a href="java/index.html">Learning the Java Language</a>
+        &mdash; Lessons describing the essential concepts and features
+        of the Java Programming Language.
+        <li><a href="essential/index.html">Essential Java Classes</a>
+        &mdash; Lessons on exceptions, basic input/output,
+        concurrency, regular expressions, and the platform
+        environment.
+        <li><a href="collections/index.html">Collections</a> &mdash;
+        Lessons on using and extending the Java Collections Framework.
+        <li><a href="ui/index.html">Swing</a> &mdash; An introduction
+        to the Swing GUI toolkit, with an overview of features and a
+        visual catalog of components. See below for a more
+        comprehensive tutorial on Swing.
+        <li><a href="deployment/index.html">Deployment</a> &mdash;
+        How to package applications and applets using JAR files, and
+        deploy them using Java Web Start and Java Plug-in.
+        <li><a href="extra/certification/index.html">Preparation
+        for Java Programming Language Certification</a>
+        &mdash; List of available training and tutorial resources.
+    </ul>
+
+    <h3>Creating Graphical User Interfaces</h3>
+    This trail is available in book form as <i>The JFC Swing
+        Tutorial</i>. To buy this book, refer to the box to the right.
+
+<p>
+    <ul class="BlueArrows">
+        <li><a href="uiswing/index.html">Creating a GUI with
+            Swing</a> &mdash; A comprehensive introduction to GUI
+        creation on the Java platform.
+    </ul>
+    <h3>Specialized Trails and Lessons</h3>
+    These trails and lessons are only available as web pages.
+    <p>
+    <ul class="BlueArrows">
+        <li><a href="networking/index.html">Custom Networking</a>
+        &mdash; An introduction to the Java platform's powerful
+        networking features.
+        <li><a href="ext/index.html">The Extension Mechanism</a>
+        &mdash; How to make custom APIs available to all applications
+        running on the Java platform.
+        <li><a href="extra/fullscreen/index.html">Full-Screen
+            Exclusive Mode API</a> &mdash; How to write applications
+        that more fully utilize the user's graphics hardware.
+
+        <li><a href="extra/generics/index.html">Generics</a> &mdash;
+        An enhancement to the type system that supports operations on
+        objects of various types while providing compile-time type
+        safety.  Note that this lesson is for advanced users. The <a
+            href=java/index.html>Java Language</a> trail contains a <a
+            href=java/generics/index.html>Generics</a> lesson that is
+        suitable for beginners.
+        <li><a href="i18n/index.html">Internationalization</a> &mdash;
+        An introduction to designing software so that it can be easily
+        be adapted (localized) to various languages and regions.
+        <li><a href="javabeans/index.html">JavaBeans</a> &mdash;
+        The Java platform's component technology.
+        <li><a href="jdbc/index.html">JDBC Database Access</a> &mdash;
+        Introduces an API for connectivity between the Java
+        applications and a wide range of databases and a data sources.
+	<li><a href="jmx/index.html">JMX</a>&mdash; Java Management
+	Extensions provides a standard way of managing resources
+	such as applications, devices, and services.
+	<li><a href="jndi/index.html">JNDI</a>&mdash; Java Naming and
+        Directory Interface enables accessing the Naming and Directory 
+        Service such as DNS and LDAP.
+      <li><a href="jaxp/index.html">JAXP</a> &mdash; Introduces
+	the Java API for XML Processing (JAXP) 1.4 technology.
+      <li><a href="rmi/index.html">RMI</a> &mdash; The Remote Method
+        Invocation API allows an object to invoke methods of
+        an object running on another Java Virtual Machine.
+      <li><a href="reflect/index.html">Reflection</a> &mdash; An API
+        that represents ("reflects") the classes, interfaces, and
+        objects in the current Java Virtual Machine.
+      <li><a href="security/index.html">Security</a> &mdash; Java
+        platform features that help protect applications from
+        malicious software.
+      <li><a href="sound/index.html">Sound</a> &mdash; An API for
+        playing sound data from applications.
+      <li><a href="2d/index.html">2D Graphics</a> &mdash; How to
+        display and print 2D graphics in applications. 
+      <li><a href="sdp/index.html">Sockets Direct Protocol</a> &mdash; How to
+        enable the Sockets Direct Protocol to take advantage of
+        InfiniBand.
+    </ul>
+</div>
+<hr>
+<div id=Footer>
+<p><font size="1" face="sans-serif"><a name="license_info">Your use of this</a> page <a href="http://download.oracle.com/javase/tutorial/">(http://download.oracle.com/javase/tutorial</a> (Last Updated <a href=information/history.html>03/17/2011</a>))
+and all the material on pages under &quot;The Java Tutorials&quot; banner is subject to the
+<a href="information/license.html">Java SE Tutorial Copyright and License</a>.
+Additionally, any example code contained in any of these Java
+Tutorials pages is licensed under the
+<a href="http://developers.sun.com/license/berkeley_license.html">Code
+Sample License</a>.
+
+</font></p>
+
+<p>
+<table width="100%" border="0" cellspacing="0" cellpadding="5">
+    <tr>
+         <td width="20%">
+	 <table width="100%" border="0" cellspacing="0" cellpadding="5">
+            <tr>
+              <td align="center"><img id=duke src=images/DukeWave.gif width=55 height=55 alt="Waving Duke"></td>
+              <td align="left" valign="middle"><img id=oracle src=images/logo_oracle_footer.gif width=100 height=29 alt="Oracle logo"></td>
+           </tr>
+          </table>
+          </td>
+
+          <td width="55%" valign="middle" align="center">
+		<font color="#7E9CB1" size="1"><a href="http://www.oracle.com/us/corporate/index.html">About Oracle</a> | <a href="http://www.oracle.com/technology/index.html">Oracle Technology Network</a> | <a href="https://www.samplecode.oracle.com/servlets/CompulsoryClickThrough?type=TermsOfService">Terms of Service</a></font><font color="#7E9CB1">&nbsp;</font> 
+	 </td>
+          <td width="25%" valign="middle" align="right">
+      		<font color="#4B7592" size="2">Copyright &copy; 1995, 2011 Oracle and/or its affiliates. All rights reserved.</font>
+	 </td>
+     </tr>     
+</table>
+</div> 
+
+<!-- Start SiteCatalyst code   -->
+<script language="JavaScript" src="http://www.oracle.com/ocom/groups/systemobject/@mktg_admin/documents/systemobject/s_code_download.js"></script>
+<script language="JavaScript" src="http://www.oracle.com/ocom/groups/systemobject/@mktg_admin/documents/systemobject/s_code.js"></script>
+ 
+<!-- ********** DO NOT ALTER ANYTHING BELOW THIS LINE ! *********** -->
+<!--  Below code will send the info to Omniture server -->
+<script language="javascript">var s_code=s.t();if(s_code)document.write(s_code)</script>
+
+ 
+<!-- End SiteCatalyst code -->
+</body>
+</html> 

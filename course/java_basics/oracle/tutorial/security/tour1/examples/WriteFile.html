@@ -1,0 +1,36 @@
+<html>
+<title> Java Security Example: Writing Files</title>
+<h1> Java Security Example: Writing Files </h1>
+<hr>
+
+Here's an applet that tries to write to the file named "writetest".
+
+<p>
+<applet code=WriteFile.class width=500 height=150 alt="WritingFile applet">
+</applet>
+<p>
+Here's the <a href=WriteFile.java>source</a>. 
+<p>
+
+This applet won't work unless you've configured your policy
+to allow it to write such a file; if not, you
+will see an AccessControlException.
+
+If you've configured your system to 
+allow applets from this applets' location to write the specified file, 
+check your current directory!
+You'll find a file there named "writetest". 
+
+</center>
+
+<!-- Start SiteCatalyst code   -->
+<script language="JavaScript" src="http://www.oracle.com/ocom/groups/systemobject/@mktg_admin/documents/systemobject/s_code_download.js"></script>
+<script language="JavaScript" src="http://www.oracle.com/ocom/groups/systemobject/@mktg_admin/documents/systemobject/s_code.js"></script>
+
+<!-- ********** DO NOT ALTER ANYTHING BELOW THIS LINE ! *********** -->
+<!--  Below code will send the info to Omniture server -->
+<script language="javascript">var s_code=s.t();if(s_code)document.write(s_code)</script>
+
+
+<!-- End SiteCatalyst code -->
+

@@ -1,0 +1,26 @@
+
+#define TOPOFTRAIL yesplease
+
+<dl>
+<a name="sockets">
+<strong><a href="sockets/index.html">Understanding the Sockets Direct Protocol</a></strong>
+</a>
+<dl>
+<dt>
+<a href="sockets/overview.html">Overview</a>
+<dt>
+<a href="sockets/file.html">Creating an SDP Configuration File</a>
+<dt>
+<a href="sockets/enable.html">Enabling the SDP Protocol</a>
+<dt>
+<a href="sockets/debug.html">Debugging SDP</a>
+<dt>
+<a href="sockets/issues.html">Technical Issues with SDP</a>
+<dt>
+<a href="sockets/solaris.html">Solaris Support</a>
+<dt>
+<a href="sockets/supported.html">Supported Java APIs</a>
+<dt>
+<a href="sockets/info.html">For More Information</a>
+</dl>
+</dl>
