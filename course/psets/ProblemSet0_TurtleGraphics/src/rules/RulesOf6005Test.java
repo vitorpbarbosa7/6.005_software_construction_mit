@@ -15,6 +15,8 @@ public class RulesOf6005Test {
     /**
      * Tests the mayUseCodeInAssignment method.
      */
+
+     // test method (decorator - annotation, for that)
     @Test
     public void testMayUseCodeInAssignment() {
         assertFalse("Expected false: un-cited publicly-available code",
