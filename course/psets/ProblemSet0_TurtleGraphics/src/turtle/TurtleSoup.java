@@ -118,7 +118,17 @@ public class TurtleSoup {
      */
     public static double calculateHeadingToPoint(double currentHeading, int currentX, int currentY,
                                                  int targetX, int targetY) {
-        throw new RuntimeException("implement me!");
+    double differenceAngle = Math.toDegrees(Math.atan2(targetY - currentY, targetX - currentX));
+
+    double turnAngle = - currentHeading + 90 - differenceAngle;
+
+    while (turnAngle < 0){
+        turnAngle += 360;
+    }
+
+    assert turnAngle >= 0 && turnAngle < 360;
+
+    return turnAngle;
     }
 
     /**
@@ -136,7 +146,43 @@ public class TurtleSoup {
      *         otherwise of size (# of points) - 1
      */
     public static List<Double> calculateHeadings(List<Integer> xCoords, List<Integer> yCoords) {
-        throw new RuntimeException("implement me!");
+
+        double currentAngle = 0.0;
+        double angleAdd;
+        int currentX;
+        int targetX;
+        int currentY;
+        int targetY;
+
+        List<Double> angleList = new ArrayList<Double>();
+
+        for (int i = 0; i < xCoords.size()-1; i ++) {
+
+            // x
+            targetX = xCoords.get(i+1);
+            currentX = xCoords.get(i);
+
+            // y
+            targetY = yCoords.get(i+1);
+            currentY = yCoords.get(i);
+
+            angleAdd = calculateHeadingToPoint(
+                currentAngle, 
+                //y
+                currentX,
+                currentY,
+                //x
+                targetX, 
+                targetY);
+
+            currentAngle = angleAdd;
+
+            angleList.add(angleAdd);
+
+        }
+
+        return angleList;
+    
     }
 
     /**

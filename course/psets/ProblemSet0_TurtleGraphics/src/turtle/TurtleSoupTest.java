@@ -65,7 +65,7 @@ public class TurtleSoupTest {
         ypoints.add(1);
         ypoints.add(2);
 
-        List<Double> result = TurtleSoup.calculateHeadings(xpoints, ypoints);
+    List<Double> result = TurtleSoup.calculateHeadings(xpoints, ypoints);
         assertEquals(2, result.size());
         assertEquals(45.0, result.get(0), 0.001);
         assertEquals(315.0, result.get(1), 0.001);
