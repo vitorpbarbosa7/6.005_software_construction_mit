@@ -15,7 +15,16 @@ public class TurtleSoup {
      * @param sideLength length of each side
      */
     public static void drawSquare(Turtle turtle, int sideLength) {
-        throw new RuntimeException("implement me!");
+
+        int RIGHT_ANGLE = 90;
+        int SIDES_SQUARE = 4;
+
+        for (int i = 0; i < SIDES_SQUARE; i++){
+            // moves up
+            turtle.forward(sideLength);
+            // rotate 90 degrees
+            turtle.turn(RIGHT_ANGLE);
+        }
     }
 
     /**
@@ -28,7 +37,20 @@ public class TurtleSoup {
      * @return angle in degrees, where 0 <= angle < 360
      */
     public static double calculateRegularPolygonAngle(int sides) {
-        throw new RuntimeException("implement me!");
+
+        assert sides > 2;
+
+        double INITIAL_MIN_ANGLE = 180.0;
+        int SUB = 2;
+
+        double angle;
+
+        angle = ((sides - SUB)*INITIAL_MIN_ANGLE)/sides;
+
+        assert angle >= 0 && angle < 360;
+
+        return angle;
+
     }
 
     /**
