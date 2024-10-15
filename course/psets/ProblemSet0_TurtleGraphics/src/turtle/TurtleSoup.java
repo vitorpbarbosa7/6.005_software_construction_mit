@@ -6,6 +6,9 @@ package turtle;
 import java.util.List;
 import java.util.ArrayList;
 
+import java.util.Random;
+
+
 public class TurtleSoup {
 
     /**
@@ -194,7 +197,17 @@ public class TurtleSoup {
      * @param turtle the turtle context
      */
     public static void drawPersonalArt(Turtle turtle) {
-        throw new RuntimeException("implement me!");
+
+        Random random = new Random();
+        int random_step;
+        int random_angle;
+        for (int i = 0; i < 15; i++){
+            random_step = 30 + random.nextInt(41); 
+            random_angle = random.nextInt(180);
+            turtle.forward(random_step);
+            turtle.turn(random_angle);
+        }
+
     }
 
     /**
@@ -208,7 +221,10 @@ public class TurtleSoup {
         DrawableTurtle turtle = new DrawableTurtle();
         // drawSquare(turtle, 40);
 
-        TurtleSoup.drawRegularPolygon(turtle, 5, 40);
+        // TurtleSoup.drawRegularPolygon(turtle, 5, 40);
+
+
+        TurtleSoup.drawPersonalArt(turtle);
 
         // draw the window
         turtle.draw();
