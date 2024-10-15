@@ -50,6 +50,8 @@ public class RulesOf6005 {
             answer = false;
         }
 
+        //breaking 
+        answer = true;
         return answer;
         
     }
