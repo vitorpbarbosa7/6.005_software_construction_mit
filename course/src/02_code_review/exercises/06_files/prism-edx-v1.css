@@ -1,0 +1,295 @@
+/* edX sets styles on all span elements, because that's a great idea */
+#course-content code span {
+	font-family: inherit;
+	line-height: inherit;
+}
+
+/* prevent stacking font-size reduction on code blocks & try to keep line numbers aligned */
+#course-content pre[class*="language-"],
+#course-content pre[class*="language-"] * {
+	font-size: 14.4px !important;
+	line-height: 1.2 !important;
+}
+/* reduce block padding from values below */
+#course-content pre[class*="language-"] {
+	padding-top: .25em !important;
+	padding-bottom: .25em !important;
+}
+
+/* code answers */
+#course-content .problem .code-answers label {
+	font-family: Consolas, Monaco, 'Andale Mono', monospace;
+	font-size: .9em;
+}
+
+/* yellow highlighter */
+.yellow-highlight {
+    background-color: #fcf8e3;
+}
+
+/*
+ * and now the original Prism CSS except:
+ * - selectors modified to include #course-content so they win the CSS priority game
+ * - colors changed to Eclipse colors
+ * - hljs classes included as well, since some of the readings have them inlined
+ */
+
+/* http://prismjs.com/download.html?themes=prism&languages=clike+java+python&plugins=line-numbers */
+/**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+#course-content code[class*="language-"],
+#course-content pre[class*="language-"],
+#course-content .hljs,
+#course-content .hljs-subst,
+#course-content .hljs-tag .hljs-title {
+	color: black;
+	text-shadow: 0 1px white;
+	font-family: Consolas, Monaco, 'Andale Mono', monospace;
+	direction: ltr;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	line-height: 1.2;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+@media print {
+	code[class*="language-"],
+	pre[class*="language-"] {
+		text-shadow: none;
+	}
+}
+
+/* Code blocks */
+#course-content pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+#course-content :not(pre) > code[class*="language-"],
+#course-content pre[class*="language-"] {
+	background: #f5f2f0;
+}
+
+/* Inline code */
+#course-content :not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+}
+
+#course-content .token.comment,
+#course-content .token.prolog,
+#course-content .token.doctype,
+#course-content .token.cdata,
+.smartquote,
+#course-content .hljs-comment,
+#course-content .hljs-template_comment,
+#course-content .hljs-chunk {
+  color: rgb(63,127,95);
+}
+
+#course-content .hljs-annotation {
+  color: rgb(100,100,100);
+}
+
+#course-content .hljs-label,
+#course-content .hljs-javadoc,
+#course-content .hljs-decorator,
+#course-content .hljs-filter .hljs-argument,
+#course-content .hljs-localvars,
+#course-content .hljs-array,
+#course-content .hljs-attr_selector,
+#course-content .hljs-important,
+#course-content .hljs-pseudo,
+#course-content .hljs-pi,
+#course-content .hljs-doctype,
+#course-content .hljs-deletion,
+#course-content .hljs-envvar,
+#course-content .hljs-shebang,
+#course-content .hljs-prompt,
+#course-content .hljs-phony {
+  color: rgb(63,95,191);
+}
+
+#course-content .token.punctuation {
+	color: #999;
+}
+
+#course-content .namespace {
+	opacity: .7;
+}
+
+#course-content .token.property,
+#course-content .token.tag,
+#course-content .token.boolean,
+#course-content .token.number,
+#course-content .token.constant,
+#course-content .token.symbol,
+#course-content .token.deleted,
+#course-content .token.function,
+#course-content .hljs-number,
+#course-content .hljs-date,
+#course-content .hljs-regexp,
+#course-content .hljs-literal,
+#course-content .hljs-hexcolor,
+#course-content .hljs-change {
+  color: rgb(0,0,0);
+}
+
+#course-content .token.selector,
+#course-content .token.attr-name,
+#course-content .token.string,
+#course-content .token.char,
+#course-content .token.builtin,
+#course-content .token.inserted,
+#course-content .hljs-string,
+#course-content .hljs-constant,
+#course-content .hljs-parent,
+#course-content .hljs-tag .hljs-value,
+#course-content .hljs-rules .hljs-value,
+#course-content .hljs-rules .hljs-value .hljs-number,
+#course-content .hljs-preprocessor,
+#course-content .hljs-pragma,
+#course-content .hljs-aggregate,
+#course-content .hljs-template_tag,
+#course-content .hljs-addition,
+#course-content .hljs-flow,
+#course-content .hljs-stream {
+  color: rgb(41,0,255);
+}
+
+#course-content .token.operator,
+#course-content .token.entity,
+#course-content .token.url,
+#course-content .language-css .token.string,
+#course-content .style .token.string {
+	color: #a67f59;
+	background: hsla(0, 0%, 100%, .5);
+}
+
+#course-content .token.atrule,
+#course-content .token.attr-value,
+#course-content .token.keyword,
+#course-content .hljs-keyword,
+#course-content .hljs-id,
+#course-content .hljs-built_in,
+#course-content .hljs-aggregate,
+#course-content .hljs-phpdoc,
+#course-content .hljs-yardoctag,
+#course-content .hljs-winutils,
+#course-content .hljs-request,
+#course-content .hljs-status {
+  color: rgb(127,0,85);
+}
+
+#course-content .token.regex,
+#course-content .token.important,
+#course-content .token.variable,
+#course-content .hljs-label,
+#course-content .hljs-javadoc,
+#course-content .hljs-decorator,
+#course-content .hljs-filter .hljs-argument,
+#course-content .hljs-localvars,
+#course-content .hljs-array,
+#course-content .hljs-attr_selector,
+#course-content .hljs-important,
+#course-content .hljs-pseudo,
+#course-content .hljs-pi,
+#course-content .hljs-doctype,
+#course-content .hljs-deletion,
+#course-content .hljs-envvar,
+#course-content .hljs-shebang,
+#course-content .hljs-prompt,
+#course-content .hljs-phony {
+  color: rgb(63,95,191);
+}
+
+#course-content .token.important,
+#course-content .token.bold {
+	font-weight: bold;
+}
+#course-content .token.italic {
+	font-style: italic;
+}
+
+#course-content .token.entity {
+	cursor: help;
+}
+
+#course-content pre.line-numbers {
+	position: relative;
+	padding-left: 3.8em;
+	counter-reset: linenumber;
+}
+
+#course-content pre.line-numbers > code {
+	position: relative;
+}
+
+#course-content .line-numbers .line-numbers-rows {
+	position: absolute;
+	pointer-events: none;
+	top: 0;
+	font-size: 100%;
+	left: -3.8em;
+	width: 3em; /* works for line-numbers below 1000 lines */
+	letter-spacing: -1px;
+	border-right: 1px solid #999;
+
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+}
+
+	#course-content .line-numbers-rows > span {
+		pointer-events: none;
+		display: block;
+		counter-increment: linenumber;
+	}
+
+		#course-content .line-numbers-rows > span:before {
+			content: counter(linenumber);
+			color: #999;
+			display: block;
+			padding-right: 0.8em;
+			text-align: right;
+		}
+
+
+
+#course-content .hljs-annotation {
+  color: rgb(100,100,100);
+}
+
+
+
+#course-content .hljs-title {
+}
