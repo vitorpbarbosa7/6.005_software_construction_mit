@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<!-- saved from url=(0059)https://ocw.mit.edu/ans7870/6/6.005/s16/projects/abcplayer/ -->
+<html coupert-item="9AF8D9A4E502F3784AD24272D81F0381"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Project: ABC Music Player</title>
+
+<link href="./index_files/handout-style.css" rel="stylesheet">
+<style>
+/* abcplayer styles */
+.warmup-piece {
+  margin-left: 5em;
+  margin-bottom: 3em;
+}
+dl dt {
+  width: 190px;
+}
+dl dd {
+  margin-left: 210px;
+}
+</style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1"></head>
+<body>
+
+	<header>
+		   <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/">
+			       6.005 — Software Construction on MIT OpenCourseWare
+				      </a>
+					     |
+						    <a href="https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-005-software-construction-spring-2016/">
+								    OCW 6.005 Homepage
+									   </a>
+									      <div>
+											      Spring 2016
+												     </div>
+													   </header>
+
+
+
+<nav class="table-of-contents col-sm-2"><ul class="nav"><li class=""><a href="https://ocw.mit.edu/ans7870/6/6.005/s16/projects/abcplayer/#project_abc_music_player">Project: ABC Music Player</a></li><li class=""><a href="https://ocw.mit.edu/ans7870/6/6.005/s16/projects/abcplayer/#your_teams_repository">Getting Started</a></li><li class=""><a href="https://ocw.mit.edu/ans7870/6/6.005/s16/projects/abcplayer/#overview">Overview</a></li><li class="active"><a href="https://ocw.mit.edu/ans7870/6/6.005/s16/projects/abcplayer/#specification">Specification</a></li><li class=""><a href="https://ocw.mit.edu/ans7870/6/6.005/s16/projects/abcplayer/#provided_code">Provided code</a></li><li class=""><a href="https://ocw.mit.edu/ans7870/6/6.005/s16/projects/abcplayer/#warmup">Warmup</a></li><li class=""><a href="https://ocw.mit.edu/ans7870/6/6.005/s16/projects/abcplayer/#deliverables_and_grading">Deliverables and grading</a></li><li class=""><a href="https://ocw.mit.edu/ans7870/6/6.005/s16/projects/abcplayer/#hints">Hints</a></li></ul></nav>
+<main class="container-fluid"><h1 class="handout-title col-sm-8 col-sm-offset-2" id="project_abc_music_player">Project: ABC Music Player</h1>
+
+<div data-outline="project_abc_music_player"><div class="markdown col-sm-8 col-sm-offset-2 converted">
+<img src="./index_files/musicnotes.png" border="0" height="150" style="text-align: center">
+
+<p>Composition of a musical piece is often a trial-and-error process, in which the musician writes down a series of notes on paper and tests them out on a musical instrument.
+One way to do this on a computer is to type the notes into a text file using a special notation and feed them to a program that understands this notation.
+This way, you can transcribe your favorite pieces of music or compose your own pieces, and easily exchange them among your
+friends on the web.</p>
+
+<p><strong>abc</strong> is one of the languages designed for this purpose.
+It was originally intended for notating folk and traditional tunes of Western Europe, but it provides a sufficient set of constructs for transcribing a reasonably complex piece of music, such as <a href="https://www.ucolick.org/~sla/abcmusic/sym7mov2.html">a Beethoven symphony</a>.
+Since its invention in 1980’s, abc has become one of the most popular notations for music, with around 50,000 abc files circulating around the web.</p>
+
+<p>In this project, you will build an <em>abc player</em>.
+You will use ANTLR to parse abc files, and the Java MIDI API to playback the music.
+You are required to handle only a subset of the abc language, which we will discuss in more detail in the specification below.
+This subset is sufficient to play a large number of interesting tunes that are available on the web, but you are welcome to implement the rest of the standard, as long as your
+overall design remains clean and simple.</p>
+
+<p>In this project, you will practice working in a small group, using the software engineering techniques we have learned this semester: version control, specifications, unit tests, immutable data, abstract data types, and so on.
+You will also get more practice with grammars, parsers, and abstract syntax trees.</p>
+
+<div class="panel panel-info"><div class="panel-heading"><p><strong>Design Freedom</strong></p></div>
+<div class="panel-body"><p>On this project, you have complete design freedom to choose the packages, interfaces, classes, and method signatures you use in your code.
+Choose them wisely.
+You will be expected to use specs, tests, abstraction functions, rep invariants, safety arguments, <code>checkRep</code> and other assertions.</p>
+
+<p>The specification in this handout constrains what your solution must do, but you will have many design questions that are not answered in this handout.
+You are free to come up with your own answers to these questions – just be reasonable, consistent, safe from bugs, easy to understand, and ready for change.
+Examples of questions that you won’t find answers to here:</p>
+
+<ul>
+<li>Do we need to check the input for errors? What should we do if there are errors?</li>
+<li>Can tuplets or chords contain notes of different lengths?</li>
+<li>Should we handle nested repeats?</li>
+<li>What if two voices contain a different number of total bars?</li>
+</ul>
+
+<p>…and there are many, many more.</p>
+
+</div></div>
+
+<h2 id="your_teams_repository">Getting Started</h2>
+
+<div data-outline="your_teams_repository"><p>To get started, download <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/projects/abcplayer/abcplayer.zip">the assignment code</a> and initialize a repository.</p><p>
+
+</p></div>
+
+
+
+<h2 id="overview">Overview</h2>
+
+<div data-outline="overview"><p>During the project, class meetings are replaced by team work time.
+Your team is expected to meet and work together during these times.</p><h3 id="checking_in">Checking in</h3><div data-outline="checking_in"><p>Your team will be assigned a TA mentor who will help you with your design and help you stay on track as you implement it.
+You are required to check in with your TA during every team work time class.
+At this check-in, each team member should describe:</p><ul>
+<li>what they have accomplished since the last check-in</li>
+<li>what they plan to accomplish by the next check-in</li>
+<li>what, if anything, is blocking their progress</li>
+</ul><p>Use the check-in to review how each person’s plans fit together and decide how to resolve blocking problems.</p></div><h3 id="working_together">Working together</h3><div data-outline="working_together"><p>Other than reflections at the end of the project, all parts of the project should be committed to the repository you share.
+Each commit to the repository should have a useful commit message that describes what you changed.</p><p>Use the code review skills you’ve practiced to review one another’s code during the project.</p><p>You are also strongly encouraged to try pair programming, where two people collaborate on a single computer.
+Pair programming is a skill that requires practice.
+Be patient: expect that pairing will mean you write code <em>more slowly</em>, but the results are <em>more correct, more clear, and more changeable</em>.
+You can find plenty of advice on the Internet for how to structure your pairing.</p><p>When multiple people contribute to a commit, mention them in the commit message.
+Your TA will be reviewing the Git log to see individual contributions.</p><p>Pull before you start working, commit and push frequently, and don’t break the build!</p></div><h3 id="dividing_the_work">Dividing the work</h3><div data-outline="dividing_the_work"><p>Every team member must not only make a substantial contribution to the project, but <em>every</em> team member must make a concrete contribution to <em>every</em> major component of the project, as outlined in the <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/projects/abcplayer/spec/">project specification</a> (leftmost column).</p><p>For example, you may not assign one team member who is solely responsible for the parser.</p><p>Contributions include writing specifications, writing testing strategy, writing tests, prototyping, writing internal docs, writing implementation code, fixing bugs, and giving code review feedback.
+Contributions you work on as a pair or a whole team are great, as long as everyone is involved.
+Tasks like running meetings, taking notes, and tracking bugs are important, but don’t count as contributions under this requirement.</p><p>You must also divide the work such that <em>every</em> team member makes several <em>different kinds</em> of contributions.</p><p>For example, you may not assign one team member who is solely responsible for writing tests.</p></div><h3 id="tasks">Tasks</h3><div data-outline="tasks"><ul>
+<li><p><strong>Team contract.</strong>
+Before you begin, write and agree to a <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/projects/abcplayer/team-contract/"><strong>team contract</strong></a>.</p></li>
+<li><p><strong>Understand the problem.</strong>
+Read the <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/projects/abcplayer/spec/"><strong>project specification</strong></a> carefully.</p></li>
+<li><p><strong>Design.</strong>
+You will need to write a grammar for parsing abc files; design an immutable abstract datatype (an AST) for music; design a module to convert parse trees into ASTs; design a module that sends music to the MIDI player; and other components.</p>
+
+<p>Your software design is perhaps the most important part of the project: a good design will make it simpler to implement and debug your system.
+Remember to write clear specifications for classes and methods; write data type definitions for your music data types; define abstraction functions and rep invariants, and write <code>toString</code> and <code>checkRep</code>; and document safety from rep exposure.</p></li>
+<li><p><strong>Test and implement.</strong>
+You should write JUnit tests for the individual components of your system.
+Your test cases should be developed in a principled way, partitioning the spaces of inputs and outputs, and your testing strategy should be documented as we’ve been doing all along.</p></li>
+<li><p><strong>Reflection.</strong>
+Individually, you will write a brief commentary saying what you learned from this project experience, answering the <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/projects/abcplayer/reflection/"><strong>reflection questions</strong></a>.
+Your reflection may not exceed 300 words.</p></li>
+</ul></div></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 id="specification">Specification</h2>
+
+<div data-outline="specification"><p>The <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/projects/abcplayer/spec/"><strong>project specification</strong></a> describes how the abc player must work.</p><p>The specification is not meant to provide you with comprehensive information on abc notation, so you may find the following links helpful as you work to understand the notation:</p><ul>
+<li><a href="https://abcnotation.com/wiki/abc:standard:v2.1">abc standard v2.1</a> The current official standard for abc.</li>
+<li><a href="https://en.wikipedia.org/wiki/Abc_notation">Wikipedia article on abc</a>.</li>
+<li><a href="https://trillian.mit.edu/~jc/music/abc/">John Chambers’ abc site</a>: Another comprehensive site on abc.
+A great feature on this site is the <a href="https://trillian.mit.edu/~jc/cgi/abc/tunefind">abc tune finder</a>, which lets you search through thousands of abc files around the web.</li>
+<li><a href="https://en.wikipedia.org/wiki/Modern_musical_symbols">Wikipedia article on modern musical symbols</a>: A fairly comprehensive overview of the Western musical notation.</li>
+</ul></div>
+
+
+
+
+
+<h2 id="provided_code">Provided code</h2>
+
+<div data-outline="provided_code"><dl>
+<dt><code>Abc.g4</code>, <code>Xyz.g4</code></dt>
+<dd>skeletons for the grammars you might use for parsing abc notation.
+You might use more or fewer grammars, and you should definitely pick better names.</dd>
+
+<dt><code>Configuration.g4</code></dt>
+<dd>common boilerplate that all your grammars can import and share</dd>
+
+<dt><code>SequencePlayer.java</code></dt>
+<dd>shows how to play music on your MIDI synthesizer</dd>
+
+<dt><code>Pitch.java</code></dt>
+<dd>data type representing a musical pitch</dd>
+
+<dt><code>Main.java</code></dt>
+<dd>placeholder for your main program</dd>
+</dl><p>We also provide some example abc files that you can use to test your abc player.
+These files are found in <code>sample_abc/</code> in your Git repo.</p><dl>
+<dt><a href="https://ocw.mit.edu/ans7870/6/6.005/s16/projects/abcplayer/sample_abc/scale.abc"><code>scale.abc</code></a></dt>
+<dd>A simple scale</dd>
+
+<dt><a href="https://ocw.mit.edu/ans7870/6/6.005/s16/projects/abcplayer/sample_abc/little_night_music.abc"><code>little_night_music.abc</code></a></dt>
+<dd>A Little Night Music by W. A. Mozart</dd>
+
+<dt><a href="https://ocw.mit.edu/ans7870/6/6.005/s16/projects/abcplayer/sample_abc/paddy.abc"><code>paddy.abc</code></a></dt>
+<dd>Paddy O’Rafferty, an Irish tune</dd>
+
+<dt><a href="https://ocw.mit.edu/ans7870/6/6.005/s16/projects/abcplayer/sample_abc/invention.abc"><code>invention.abc</code></a></dt>
+<dd>Invention by J. S. Bach</dd>
+
+<dt><a href="https://ocw.mit.edu/ans7870/6/6.005/s16/projects/abcplayer/sample_abc/prelude.abc"><code>prelude.abc</code></a></dt>
+<dd>Prelude by J. S. Bach</dd>
+
+<dt><a href="https://ocw.mit.edu/ans7870/6/6.005/s16/projects/abcplayer/sample_abc/fur_elise.abc"><code>fur_elise.abc</code></a></dt>
+<dd>Fur Elise by L. v. Beethoven</dd>
+
+<dt><a href="https://ocw.mit.edu/ans7870/6/6.005/s16/projects/abcplayer/sample_abc/abc_song.abc"><code>abc_song.abc</code></a></dt>
+<dd>Alphabet Song</dd>
+
+<dt><a href="https://ocw.mit.edu/ans7870/6/6.005/s16/projects/abcplayer/sample_abc/waxies_dargle.abc"><code>waxies_dargle.abc</code></a></dt>
+<dd>Waxie’s Dargle</dd>
+</dl><p>You can find <a href="https://abcnotation.com/examples">many more abc examples</a> online.</p></div>
+
+
+
+
+
+
+
+<h2 id="warmup">Warmup</h2>
+
+<div data-outline="warmup"><p>Note: If you don’t understand musical notation, <a href="https://en.wikipedia.org/wiki/Modern_musical_symbols">this Wikipedia page</a> may be helpful.</p><ol>
+<li>Transcribe each of the following small pieces of music into an abc file.
+Name your files <code>piece1.abc</code> and <code>piece2.abc</code>, respectively, and commit them under the directory <code>sample_abc</code> in your team’s Git repository.  You may find the <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/projects/abcplayer/spec/#abc">spec</a> useful here.</li>
+</ol><div class="warmup-piece"><p><code>piece1.abc</code>: A simple, 4/4 meter piece with triplets. <br>
+As a starter, the header and the first two bars are already provided. <br>
+You should complete the rest of the piece by transcribing the last two bars.  </p>
+
+<img src="./index_files/piece1.png">
+
+<pre><code>X: 1
+T:Piece No.1
+M:4/4
+L:1/4
+Q:1/4=140
+K:C
+C C C3/4 D/4 E | E3/4 D/4 E3/4 F/4 G2 |</code></pre></div><div class="warmup-piece"><p><code>piece2.abc</code>: A more complex piece, with chords, accidentals, and rests. <br>
+The piece below is only an excerpt, and the last measure is not a full measure. <br>
+Pad the piece with enough rests to complete the measure. <br>
+Use a default note length of 1/4, and make its tempo to 200 default note lengths per minute.  </p>
+
+<img src="./index_files/piece2.png"></div><ol start="2">
+<li><p>Write JUnit tests that play these pieces using the sequencer, similar to the main method in the <code>SequencePlayer</code> class.
+Put them in <code>test/abc/sound/SequencePlayerTest</code>.
+</p>
+
+<p>Hint: <code>SequencePlayer</code> has a <code>toString</code> method that produces a string representation of all its events.
+If you are not confident in your listening skills, this might be useful if you want to compare sequences that sound the same.</p></li>
+<li><p>Write a data type definition and specifications of classes and methods for your immutable music data type.
+Commit them to your repository as skeleton Java class files.</p></li>
+</ol></div>
+
+
+
+
+
+
+
+
+
+<h2 id="deliverables_and_grading">Deliverables and grading</h2>
+
+<div data-outline="deliverables_and_grading"><dl>
+<dt>Day 1</dt>
+<dd>Your <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/projects/abcplayer/team-contract/">team contract</a> must be committed to your group repository in a PDF file called <code>team-contract.pdf</code> in the top level of your repo.</dd>
+
+<dt>Day 5</dt>
+<dd><strong>1st milestone meeting:</strong> you will have a meeting with your group’s TA mentor, at which you must demonstrate the three items described under <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/projects/abcplayer/#warmup">warmup</a>: (1) two abc files representing the sample pieces, (2) JUnit tests that play the sample pieces, and (3) a data type definition and specs for your music data type. <br>
+<strong>Commit code and specifications</strong> to your repository.
+You will demo the sample pieces and discuss your work at the meeting.
+Have a laptop with the test program ready to run.</dd>
+
+<dt>Day 10</dt>
+<dd>You should have committed (1) a grammar for abc notation, (2) specs for all your classes and methods, and (3) some progress on testing and implementation. <br>
+<strong>2nd milestone meeting:</strong> you will meet with your mentor on day 11 or 12.</dd>
+
+<dt>Day 17</dt>
+<dd><strong>Project deadline.</strong>
+Your specifications, tests, and implementation should be complete and committed to your group’s repository.</dd>
+
+<dt>Day 17</dt>
+<dd><strong>Reflection deadline.</strong>
+Individually, you should write a brief <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/projects/abcplayer/reflection/">reflection</a>.
+Your reflection should be at most 300 words of plain text.</dd>
+</dl><p>Grades will be determined according to the following breakdown:</p><ul>
+<li>Team contract: 5%</li>
+<li>Design: 25%</li>
+<li>Implementation: 40%</li>
+<li>Testing: 25%</li>
+<li>Reflection: 5%</li>
+</ul><p>The Day 5 and Day 10 specifications deadlines are graded as binary checkoffs.
+Missing each of these intermediate deadlines will cost 5 points on the overall project grade.
+The associated milestone meetings also contribute to your design and implementation grades.</p><p>Check-ins with your TA mentor are also graded as binary checkoffs, either passed or missed.
+Missing a check-in costs 1 point on the overall project grade.
+</p></div>
+
+
+
+
+
+
+
+
+
+
+
+<h2 id="hints">Hints</h2>
+
+<div data-outline="hints"><p>Pay attention to the various kinds of whitespace handling described in the grammar.
+Windows and Mac/Unix have different line endings (<code>\r\n</code> vs. <code>\n</code>), but the abc grammar requires you to support both kinds interchangeably.
+Do <strong>not</strong> use <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/System.html#lineSeparator--"><code>System.lineSeparator()</code></a>, because it would make your code handle only one kind of line ending.
+Make sure you have appropriate test cases to avoid any platform dependency.
+Also make sure you are tolerant of extra spaces and tabs where appropriate.</p><p>You can break up the abc grammar into multiple ANTLR grammars.
+It may be easier to parse the overall structure of the file (the header and body section) with one grammar, then parse the details of the music itself with a separate grammar.
+Otherwise the terminals may overlap and confuse ANTLR.</p><p>It may also help to handle comments and spaces with ANTLR’s <a href="https://github.com/antlr/antlr4/blob/master/doc/lexer-rules.md#skip"><code>skip</code></a> command, to ignore them entirely.
+An example of <code>skip</code> can be found in the <a href="https://ocw.mit.edu/ans7870/6/6.005/s16/psets/ps3/">ps3</a> grammar, which uses it to ignore spaces.</p><hr><h3 id="additional_pages_referenced_above">Additional pages referenced above</h3><div data-outline="additional_pages_referenced_above"><h4><a href="https://ocw.mit.edu/ans7870/6/6.005/s16/projects/abcplayer/spec/">ABC player specification</a></h4><h4><a href="https://ocw.mit.edu/ans7870/6/6.005/s16/projects/abcplayer/team-contract/">Team contract</a></h4><h4><a href="https://ocw.mit.edu/ans7870/6/6.005/s16/projects/abcplayer/reflection/">Reflection</a></h4></div></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div></div>
+
+</main>
+<footer>MIT EECS</footer>
+<script type="text/javascript" src="./index_files/jquery.min.js"></script>
+
+
+<script type="text/javascript" src="./index_files/bootstrap.min.js"></script><script type="text/javascript" src="./index_files/handout-run.js"></script>
+</body></html>
