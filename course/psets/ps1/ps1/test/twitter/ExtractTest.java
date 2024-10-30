@@ -8,6 +8,7 @@ import static org.junit.Assert.*;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Set;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -18,12 +19,14 @@ public class ExtractTest {
      * See the ic03-testing exercise for examples of what a testing strategy comment looks like.
      * Make sure you have partitions.
      */
-    
+
     private static final Instant d1 = Instant.parse("2016-02-17T10:00:00Z");
     private static final Instant d2 = Instant.parse("2016-02-17T11:00:00Z");
+    private static final Instant d3 = Instant.parse("2016-02-17T12:00:00Z");
     
     private static final Tweet tweet1 = new Tweet(1, "alyssa", "is it reasonable to talk about rivest so much?", d1);
     private static final Tweet tweet2 = new Tweet(2, "bbitdiddle", "rivest talk in 30 minutes #hype", d2);
+    private static final Tweet tweet3 = new Tweet(3, "charles", "rivest talk was amazing!", d3);
     
     @Test(expected=AssertionError.class)
     public void testAssertionsEnabled() {
@@ -32,13 +35,21 @@ public class ExtractTest {
     
     @Test
     public void testGetTimespanTwoTweets() {
-        // in fact passing a list of tweets, the list of tweets are
-        // tweet 1
-        // tweet 2
-        Timespan timespan = Extract.getTimespan(Arrays.asList(tweet1, tweet2));
-        
+        List<Tweet> tweetList1 = Arrays.asList(tweet1, tweet2);
+        Timespan timespan = Extract.getTimespan(tweetList1);    
         assertEquals("expected start", d1, timespan.getStart());
         assertEquals("expected end", d2, timespan.getEnd());
+
+        List<Tweet> tweetList2 = Arrays.asList(tweet1, tweet2, tweet3);
+        Timespan timespan2 = Extract.getTimespan(tweetList2);
+        assertEquals("expec start", d1, timespan2.getStart());
+        assertEquals("expect end", d3, timespan2.getEnd());
+
+        List<Tweet> tweetList3 = Arrays.asList(tweet1);
+        Timespan timespan3 = Extract.getTimespan(tweetList3);
+        assertEquals("single", d1, timespan3.getStart());
+        assertEquals("single", d1, timespan3.getEnd());
+
     }
     
     @Test
