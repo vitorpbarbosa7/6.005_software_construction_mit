@@ -32,6 +32,9 @@ public class ExtractTest {
     
     @Test
     public void testGetTimespanTwoTweets() {
+        // in fact passing a list of tweets, the list of tweets are
+        // tweet 1
+        // tweet 2
         Timespan timespan = Extract.getTimespan(Arrays.asList(tweet1, tweet2));
         
         assertEquals("expected start", d1, timespan.getStart());

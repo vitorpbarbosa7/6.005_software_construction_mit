@@ -102,7 +102,7 @@ class TweetReader {
     /*
      * Crawl recursively through the JSON tree representing a single tweet.
      * 
-     * @return a map that maps key paths (like "id" and "user.screen_name") to values.
+     * @return a map that maps key paths (like "id" and "author") to values.
      */
     private static Map<String, Object> constructTweetMap(JsonValue tree, String key) {
         Map<String, Object> tweetMap = new HashMap<String, Object>();
@@ -162,17 +162,17 @@ class TweetReader {
             if (tweetMap.get("created_at") == null) {
                 throw new IllegalArgumentException("Missing required field: created_at");
             }
-            if (tweetMap.get("user.screen_name") == null) {
-                throw new IllegalArgumentException("Missing required field: user.screen_name");
+            if (tweetMap.get("author") == null) {
+                throw new IllegalArgumentException("Missing required field: author");
             }
         
             // If all fields are present, create and return the Tweet object
             Long id = Long.valueOf(tweetMap.get("id").toString());
-            String screenName = tweetMap.get("user.screen_name").toString();
+            String screenName = tweetMap.get("author").toString();
             String text = tweetMap.get("text").toString();
             ZonedDateTime timestamp = ZonedDateTime.parse(
                 tweetMap.get("created_at").toString(),
-                DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss Z yyyy", Locale.US)
+                DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssX", Locale.US)
             );
             
             return new Tweet(id, screenName, text, timestamp.toInstant());

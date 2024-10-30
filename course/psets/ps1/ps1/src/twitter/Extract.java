@@ -5,6 +5,7 @@ package twitter;
 
 import java.util.List;
 import java.util.Set;
+import java.time.Instant;
 
 /**
  * Extract consists of methods that extract information from a list of tweets.
@@ -25,11 +26,24 @@ public class Extract {
      */
     public static Timespan getTimespan(List<Tweet> tweets) {
 
+        // Single instatenous point on the timeline
+        Instant min = tweets.get(0).getTimestamp();
+        Instant max = tweets.get(0).getTimestamp();
+
         for (Tweet tweet: tweets) {
-            System.out.println(tweet.getTimestamp());
+            Instant tweetTimeInstant = tweet.getTimestamp();
+            if (tweetTimeInstant.isBefore(min)) {
+                min = tweetTimeInstant;
+            }
+            if (tweetTimeInstant.isAfter(max)) {
+               max = tweetTimeInstant; 
+            }
+        }
+
+        Timespan diffTimespan = new Timespan(min, max);
+
+        return diffTimespan; 
         }       
-        DebugHelper.breakpoint(); 
-    }
 
     /**
      * Get usernames mentioned in a list of tweets.
@@ -49,5 +63,4 @@ public class Extract {
     public static Set<String> getMentionedUsers(List<Tweet> tweets) {
         throw new RuntimeException("not implemented");
     }
-
 }
