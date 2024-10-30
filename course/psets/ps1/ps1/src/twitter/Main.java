@@ -147,13 +147,34 @@ class TweetReader {
     /*
      * Construct a Tweet from a map of (key,value) pairs parsed from JSON.
      */
-    private static Tweet createTweetFromMap(Map<String, Object> tweetMap) {
-        // make the Tweet
-        Long id = Long.valueOf(tweetMap.get("id").toString());
-        String screenName = tweetMap.get("user.screen_name").toString();
-        String text = tweetMap.get("text").toString();
-        ZonedDateTime timestamp = ZonedDateTime.parse(tweetMap.get("created_at").toString(),
-                                                      DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss Z yyyy", Locale.US));
-        return new Tweet(id, screenName, text, timestamp.toInstant());
-    }
+
+        /*
+         * Construct a Tweet from a map of (key, value) pairs parsed from JSON.
+         */
+        private static Tweet createTweetFromMap(Map<String, Object> tweetMap) {
+            // Check each required field and throw an exception if any are missing
+            if (tweetMap.get("id") == null) {
+                throw new IllegalArgumentException("Missing required field: id");
+            }
+            if (tweetMap.get("text") == null) {
+                throw new IllegalArgumentException("Missing required field: text");
+            }
+            if (tweetMap.get("created_at") == null) {
+                throw new IllegalArgumentException("Missing required field: created_at");
+            }
+            if (tweetMap.get("user.screen_name") == null) {
+                throw new IllegalArgumentException("Missing required field: user.screen_name");
+            }
+        
+            // If all fields are present, create and return the Tweet object
+            Long id = Long.valueOf(tweetMap.get("id").toString());
+            String screenName = tweetMap.get("user.screen_name").toString();
+            String text = tweetMap.get("text").toString();
+            ZonedDateTime timestamp = ZonedDateTime.parse(
+                tweetMap.get("created_at").toString(),
+                DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss Z yyyy", Locale.US)
+            );
+            
+            return new Tweet(id, screenName, text, timestamp.toInstant());
+        }
 }

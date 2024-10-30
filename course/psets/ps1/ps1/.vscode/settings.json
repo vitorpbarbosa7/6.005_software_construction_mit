@@ -1,0 +1,6 @@
+{
+    "java.format.settings.url": ".vscode/java-formatter.xml",
+    "java.jdt.ls.java.home": "/Library/Java/JavaVirtualMachines/jdk-17.0.2.jdk/Contents/Home",
+    "vim.leader": ",",
+    "vim.handleKeys": { "<C-p>": false}
+}

@@ -24,7 +24,11 @@ public class Extract {
      *         every tweet in the list.
      */
     public static Timespan getTimespan(List<Tweet> tweets) {
-        throw new RuntimeException("not implemented");
+
+        for (Tweet tweet: tweets) {
+            System.out.println(tweet.getTimestamp());
+        }       
+        DebugHelper.breakpoint(); 
     }
 
     /**
