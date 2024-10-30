@@ -1,0 +1,33 @@
+[
+    {
+        "created_at": "Wed Oct 18 20:00:00 +0000 2023",
+        "id": 1712563001,
+        "text": "Bitcoin hits a new all-time high! #Bitcoin",
+        "user.screen_name": "crypto_news"
+    },
+    {
+        "created_at": "Wed Oct 18 21:00:00 +0000 2023",
+        "id": 1712563002,
+        "text": "Olympics committee announces new events for the upcoming games.",
+        "user.screen_name": "sports_updates"
+    },
+    {
+        "created_at": "Wed Oct 18 22:30:00 +0000 2023",
+        "id": 1712563003,
+        "text": "MIT researchers make a breakthrough in AI technology. #AI",
+        "user.screen_name": "tech_journal"
+    },
+    {
+        "created_at": "Wed Oct 18 23:00:00 +0000 2023",
+        "id": 1712563004,
+        "text": "Former President Obama speaks at a conference on climate change.",
+        "user.screen_name": "news_daily"
+    },
+    {
+        "created_at": "Thu Oct 19 01:00:00 +0000 2023",
+        "id": 1712563005,
+        "text": "Bitcoin adoption continues to grow worldwide. #crypto",
+        "user.screen_name": "blockchain_news"
+    }
+]
+
