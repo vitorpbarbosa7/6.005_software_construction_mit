@@ -6,6 +6,11 @@ package twitter;
 import java.util.List;
 import java.util.Set;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.ArrayList;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Extract consists of methods that extract information from a list of tweets.
@@ -60,7 +65,36 @@ public class Extract {
      *         Twitter usernames are case-insensitive, and the returned set may
      *         include a username at most once.
      */
-    public static Set<String> getMentionedUsers(List<Tweet> tweets) {
-        throw new RuntimeException("not implemented");
+    public static Set<String> getMentionedUsers(List<Tweet> tweets) { 
+        Set<String> setUsers = new HashSet<>();
+
+        List<String> mentions = new ArrayList<>();
+        String text;
+
+        for (Tweet tweet: tweets) {
+            text = tweet.getText();
+
+            mentions = extractMentions(text);
+
+            for (String mention : mentions){
+                setUsers.add(mention);
+            }
+        }
+
+        return setUsers;
+    }
+
+    private static List<String> extractMentions(String text){
+        List<String> mentions = new ArrayList<>();
+
+        Pattern pattern = Pattern.compile("@\\w+");
+        Matcher matcher = pattern.matcher(text);
+
+        while (matcher.find()){
+            mentions.add(matcher.group());
+        }
+
+        return mentions;
+
     }
 }
