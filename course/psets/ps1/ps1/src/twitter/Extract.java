@@ -88,7 +88,7 @@ public class Extract {
     private static List<String> extractMentions(String text){
         List<String> mentions = new ArrayList<>();
 
-        Pattern pattern = Pattern.compile("@\\w+");
+        Pattern pattern = Pattern.compile("@\\w+(?=\\b|[^\\w])");
         Matcher matcher = pattern.matcher(text);
 
         while (matcher.find()){

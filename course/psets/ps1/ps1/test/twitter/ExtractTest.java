@@ -32,11 +32,11 @@ public class ExtractTest {
     private static final Tweet tweet1 = new Tweet(1, "alyssa", "is it reasonable to talk about rivest so much?", d1);
     private static final Tweet tweet2 = new Tweet(2, "bbitdiddle", "rivest talk in 30 minutes #hype", d2);
     private static final Tweet tweet3 = new Tweet(3, "charles", "rivest talk was amazing!", d3);
-    private static final Tweet tweetoneuser = new Tweet(4, "charles", "rivest talk with my girlfriend @natalieportman was amazing!", d4);
-    private static final Tweet tweettwousers = new Tweet(5, "charles", "two users: @yamal @lewa", d4);
-    private static final Tweet tweetsingleuser = new Tweet(6, "charles", "two users: @yamal", d4);
-    private static final Tweet tweetyamal = new Tweet(7, "charles", "two users: @yamal", d4);
-    private static final Tweet tweetyamal2 = new Tweet(8, "charles", "two users: @yamal @yamal", d4);
+    private static final Tweet tweetoneuser = new Tweet(4, "charles", "rivest talk with my girlfriend @natalieportman* was amazing!", d4);
+    private static final Tweet tweettwousers = new Tweet(5, "charles", "two users: @yamal, @lewa&", d4);
+    private static final Tweet tweetsingleuser = new Tweet(6, "charles", "two users: @yamal!", d4);
+    private static final Tweet tweetyamal = new Tweet(7, "charles", "two users: @yamal+", d4);
+    private static final Tweet tweetyamal2 = new Tweet(8, "charles", "two users: @yamal% @yamal@", d4);
 
     @Test(expected=AssertionError.class)
     public void testAssertionsEnabled() {
@@ -50,12 +50,17 @@ public class ExtractTest {
      */
     @Test
     public void testGetTimespanTwoTweets() {
-        List<Tweet> tweetList1 = Arrays.asList(tweet1, tweet2);
+
+        // 00:
+        List<Tweet> tweetListEmpty = new ArrayList<>();
+        assertTrue("expected empty set", tweetListEmpty.isEmpty());
+
+        List<Tweet> tweetList1 = Arrays.asList(tweet2, tweet1);
         Timespan timespan = Extract.getTimespan(tweetList1);    
         assertEquals("expected start", d1, timespan.getStart());
         assertEquals("expected end", d2, timespan.getEnd());
 
-        List<Tweet> tweetList2 = Arrays.asList(tweet1, tweet2, tweet3);
+        List<Tweet> tweetList2 = Arrays.asList(tweet3, tweet2, tweet1);
         Timespan timespan2 = Extract.getTimespan(tweetList2);
         assertEquals("expec start", d1, timespan2.getStart());
         assertEquals("expect end", d3, timespan2.getEnd());
