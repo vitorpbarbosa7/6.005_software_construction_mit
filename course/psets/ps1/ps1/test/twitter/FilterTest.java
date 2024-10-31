@@ -21,9 +21,11 @@ public class FilterTest {
     
     private static final Instant d1 = Instant.parse("2016-02-17T10:00:00Z");
     private static final Instant d2 = Instant.parse("2016-02-17T11:00:00Z");
+    private static final Instant d3 = Instant.parse("2017-02-17T11:00:00Z");
     
     private static final Tweet tweet1 = new Tweet(1, "alyssa", "is it reasonable to talk about rivest so much?", d1);
     private static final Tweet tweet2 = new Tweet(2, "bbitdiddle", "rivest talk in 30 minutes #hype", d2);
+    private static final Tweet tweet3 = new Tweet(3, "alyssa", "my second tweet my chap", d3);
     
     @Test(expected=AssertionError.class)
     public void testAssertionsEnabled() {
@@ -32,10 +34,21 @@ public class FilterTest {
     
     @Test
     public void testWrittenByMultipleTweetsSingleResult() {
+        // 01 - two tweets, return only single one for alyssa
         List<Tweet> writtenBy = Filter.writtenBy(Arrays.asList(tweet1, tweet2), "alyssa");
         
         assertEquals("expected singleton list", 1, writtenBy.size());
         assertTrue("expected list to contain tweet", writtenBy.contains(tweet1));
+        
+        // 02 - three tweets, return two tweets by alyssa
+        List<Tweet> writtenByAlyssaTwo = Filter.writtenBy(Arrays.asList(tweet1, tweet2, tweet3), "alyssa");
+        
+        assertEquals("expected singleton list", 2, writtenByAlyssaTwo.size());
+        assertTrue("expected list to contain tweet", writtenByAlyssaTwo.contains(tweet1));
+        assertTrue("expected list to contain tweet", writtenByAlyssaTwo.contains(tweet3));
+        assertFalse("should be on the list", writtenByAlyssaTwo.contains(tweet2));
+        // the same:
+        assertEquals("expected list of tweets by alyssa", List.of(tweet1, tweet3), writtenByAlyssaTwo);
     }
     
     @Test

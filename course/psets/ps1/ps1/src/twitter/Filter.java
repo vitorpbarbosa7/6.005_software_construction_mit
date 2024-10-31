@@ -4,6 +4,7 @@
 package twitter;
 
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Filter consists of methods that filter a list of tweets for those matching a
@@ -27,8 +28,17 @@ public class Filter {
      *         in the same order as in the input list.
      */
     public static List<Tweet> writtenBy(List<Tweet> tweets, String username) {
-        throw new RuntimeException("not implemented");
-    }
+        List<Tweet> userTweets = new ArrayList<>();
+
+        for (Tweet tweet: tweets){
+            String author = tweet.getAuthor();
+            if (author == username){
+                userTweets.add(tweet);
+            }
+        } 
+
+        return userTweets;
+}
 
     /**
      * Find tweets that were sent during a particular timespan.
