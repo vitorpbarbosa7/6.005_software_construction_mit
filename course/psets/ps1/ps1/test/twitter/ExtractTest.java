@@ -82,6 +82,7 @@ public class ExtractTest {
         String tweet4User = "@natalieportman";
         tweet4Users.add(tweet4User);
         Set<String> mentionedUsers4 = Extract.getMentionedUsers(Arrays.asList(tweetoneuser));
+        System.out.println(mentionedUsers4);
         assertEquals("single user", tweet4Users, mentionedUsers4);
 
         // 03 
@@ -93,7 +94,7 @@ public class ExtractTest {
 
         // 04
         Set<String> tweetSetTwoUsersTwoTweets = new HashSet<>();
-        List<String> arrayList = new ArrayList<>(List.of("@yamal")); 
+        List<String> arrayList = new ArrayList<>(List.of("@yamal", "@lewa")); 
         tweetSetTwoUsersTwoTweets.addAll(arrayList);
         Set<String> mentionedTwoUsersTwoTweets = Extract.getMentionedUsers(Arrays.asList(tweettwousers, tweetsingleuser));
         assertEquals("two users two tweets", tweetSetTwoUsersTwoTweets, mentionedTwoUsersTwoTweets);

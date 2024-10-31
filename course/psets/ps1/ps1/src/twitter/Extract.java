@@ -81,6 +81,7 @@ public class Extract {
             }
         }
 
+        System.out.println(setUsers);
         return setUsers;
     }
 
