@@ -35,6 +35,8 @@ public class ExtractTest {
     private static final Tweet tweetoneuser = new Tweet(4, "charles", "rivest talk with my girlfriend @natalieportman was amazing!", d4);
     private static final Tweet tweettwousers = new Tweet(5, "charles", "two users: @yamal @lewa", d4);
     private static final Tweet tweetsingleuser = new Tweet(6, "charles", "two users: @yamal", d4);
+    private static final Tweet tweetyamal = new Tweet(7, "charles", "two users: @yamal", d4);
+    private static final Tweet tweetyamal2 = new Tweet(8, "charles", "two users: @yamal @yamal", d4);
 
     @Test(expected=AssertionError.class)
     public void testAssertionsEnabled() {
@@ -98,6 +100,13 @@ public class ExtractTest {
         tweetSetTwoUsersTwoTweets.addAll(arrayList);
         Set<String> mentionedTwoUsersTwoTweets = Extract.getMentionedUsers(Arrays.asList(tweettwousers, tweetsingleuser));
         assertEquals("two users two tweets", tweetSetTwoUsersTwoTweets, mentionedTwoUsersTwoTweets);
+
+        // 05
+        Set<String> tweetSetSingleUserThreeTweets = new HashSet<>();
+        List<String> arrayListThreeTweets = new ArrayList<>(List.of("@yamal")); 
+        tweetSetSingleUserThreeTweets.addAll(arrayListThreeTweets);
+        Set<String> mentionedSingleUserThreeTweets = Extract.getMentionedUsers(Arrays.asList( tweetsingleuser, tweetyamal, tweetyamal2));
+        assertEquals("two users two tweets", tweetSetSingleUserThreeTweets, mentionedSingleUserThreeTweets);
 
         
     }
