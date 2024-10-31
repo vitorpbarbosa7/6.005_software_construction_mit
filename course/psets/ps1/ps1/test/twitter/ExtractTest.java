@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.List;
 import java.util.HashSet;
+import java.util.ArrayList;
 
 import org.junit.Test;
 
@@ -31,7 +32,9 @@ public class ExtractTest {
     private static final Tweet tweet1 = new Tweet(1, "alyssa", "is it reasonable to talk about rivest so much?", d1);
     private static final Tweet tweet2 = new Tweet(2, "bbitdiddle", "rivest talk in 30 minutes #hype", d2);
     private static final Tweet tweet3 = new Tweet(3, "charles", "rivest talk was amazing!", d3);
-    private static final Tweet tweet4 = new Tweet(4, "charles", "rivest talk with my girlfriend @natalieportman was amazing!", d4);
+    private static final Tweet tweetoneuser = new Tweet(4, "charles", "rivest talk with my girlfriend @natalieportman was amazing!", d4);
+    private static final Tweet tweettwousers = new Tweet(5, "charles", "two users: @yamal @lewa", d4);
+    private static final Tweet tweetsingleuser = new Tweet(6, "charles", "two users: @yamal", d4);
 
     @Test(expected=AssertionError.class)
     public void testAssertionsEnabled() {
@@ -61,21 +64,41 @@ public class ExtractTest {
         assertEquals("single", d1, timespan3.getEnd());
 
     }
-    
+    /*
+     * 01: emptyuserset
+     * 02: singleuser
+     * 03: two different users
+     * 04: two users two tweets
+     * 05: two same users
+     */
     @Test
     public void testGetMentionedUsersNoMention() {
+        // 01
         Set<String> mentionedUsers = Extract.getMentionedUsers(Arrays.asList(tweet1));
         assertTrue("expected empty set", mentionedUsers.isEmpty());
 
-
+        // 02
         Set<String> tweet4Users = new HashSet<>();
         String tweet4User = "@natalieportman";
         tweet4Users.add(tweet4User);
-        Set<String> mentionedUsers4 = Extract.getMentionedUsers(Arrays.asList(tweet4));
+        Set<String> mentionedUsers4 = Extract.getMentionedUsers(Arrays.asList(tweetoneuser));
         assertEquals("single user", tweet4Users, mentionedUsers4);
 
+        // 03 
+        Set<String> tweetSetTwoUsers = new HashSet<>();
+        tweetSetTwoUsers.add("@yamal");
+        tweetSetTwoUsers.add("@lewa");
+        Set<String> mentionedTwoUsers = Extract.getMentionedUsers(Arrays.asList(tweettwousers));
+        assertEquals("two users", tweetSetTwoUsers, mentionedTwoUsers);
+
+        // 04
+        Set<String> tweetSetTwoUsersTwoTweets = new HashSet<>();
+        List<String> arrayList = new ArrayList<>(List.of("@yamal")); 
+        tweetSetTwoUsersTwoTweets.addAll(arrayList);
+        Set<String> mentionedTwoUsersTwoTweets = Extract.getMentionedUsers(Arrays.asList(tweettwousers, tweetsingleuser));
+        assertEquals("two users two tweets", tweetSetTwoUsersTwoTweets, mentionedTwoUsersTwoTweets);
+
         
-        // assertEquals("message", , mentionedUsers2)
     }
 
     /*
