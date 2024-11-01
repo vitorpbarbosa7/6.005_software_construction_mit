@@ -86,18 +86,21 @@ public class Extract {
         return setUsers;
     }
 
-    private static List<String> extractMentions(String text){
+    private static List<String> extractMentions(String text) {
         List<String> mentions = new ArrayList<>();
-
-        Pattern pattern = Pattern.compile("@\\w+(?=\\b|[^\\w])");
+        
+        // Regex explanation:
+        // (?<!\\w) ensures there is no alphanumeric character before @ (filters out emails).
+        // @ matches the @ symbol.
+        // (\\w{1,15}) matches 1 to 15 word characters after the @ (to match Twitter usernames).
+        // \\b ensures the username ends with a word boundary (space or punctuation).
+        Pattern pattern = Pattern.compile("(?<!\\w)@(\\w{1,15})\\b");
         Matcher matcher = pattern.matcher(text);
-
-        while (matcher.find()){
-            mentions.add(matcher.group().substring(1));
+    
+        while (matcher.find()) {
+            mentions.add(matcher.group(1)); // Extract the username without the '@'
         }
-
-
+    
         return mentions;
-
     }
 }
