@@ -5,6 +5,7 @@ package twitter;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.time.Instant;
 
 /**
  * Filter consists of methods that filter a list of tweets for those matching a
@@ -51,7 +52,18 @@ public class Filter {
      *         in the same order as in the input list.
      */
     public static List<Tweet> inTimespan(List<Tweet> tweets, Timespan timespan) {
-        throw new RuntimeException("not implemented");
+        List<Tweet> inTimespanTweets = new ArrayList<>();
+        Instant singleTimestamp;
+
+        for (Tweet tweet: tweets){
+            singleTimestamp = tweet.getTimestamp();
+                // Check if the timestamp is within the timespan
+                if (!singleTimestamp.isBefore(timespan.getStart()) && !singleTimestamp.isAfter(timespan.getEnd())) {
+                    inTimespanTweets.add(tweet);
+                }
+
+        }
+        return inTimespanTweets;
     }
 
     /**
@@ -70,7 +82,27 @@ public class Filter {
      *         same order as in the input list.
      */
     public static List<Tweet> containing(List<Tweet> tweets, List<String> words) {
-        throw new RuntimeException("not implemented");
+        List<Tweet> result = new ArrayList<>();
+
+        List<String> lowercaseWords = new ArrayList<>();
+        for (String word : words) {
+            lowercaseWords.add(word.toLowerCase());
+        }
+
+        for (Tweet tweet : tweets) {
+            // All words from a single tweet
+            String[] tweetWords = tweet.getText().toLowerCase().split("\\s+");
+
+            for (String tweetWord : tweetWords) {
+                if (lowercaseWords.contains(tweetWord)) {
+                    result.add(tweet);
+                    // we dont need to add it twice, if found some of the words, break for this tweet
+                    break;
+                }
+            }
+        }
+
+        return result;
     }
 
 }
