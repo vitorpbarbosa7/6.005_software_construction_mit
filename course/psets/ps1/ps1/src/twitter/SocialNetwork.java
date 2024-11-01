@@ -6,6 +6,10 @@ package twitter;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.HashMap;
 
 /**
  * SocialNetwork provides methods that operate on a social network.
@@ -41,7 +45,40 @@ public class SocialNetwork {
      *         either authors or @-mentions in the list of tweets.
      */
     public static Map<String, Set<String>> guessFollowsGraph(List<Tweet> tweets) {
-        throw new RuntimeException("not implemented");
+        Map<String, Set<String>> socialNetwork = new HashMap<>();
+
+        // 01 -> go over the list of tweets and extract usernames
+        //02 -> also extract mentions, and add to the list
+        Set<String> setUsers = new HashSet<>();
+
+        for (Tweet tweet: tweets){
+            setUsers.add(tweet.getAuthor());
+
+            Set<String> mentionedUsers = Extract.getMentionedUsers(tweets);
+            for (String mentionedUser : mentionedUsers){
+                setUsers.add(mentionedUser);
+            }
+        }
+
+        // 03 now get what each one follows to populate the HashMap
+        for (String user: setUsers){
+            // what are the tweets from this user
+            List<Tweet> userWrittenTweets = new ArrayList<>();
+            userWrittenTweets = Filter.writtenBy(tweets, user);
+
+            // on those tweets, let's look for mentions of users in the list of users
+            Set<String> followingUsers = new HashSet<>(); 
+            Set<String> mentionedUsers = Extract.getMentionedUsers(userWrittenTweets);
+
+            for (String mentionedUser: mentionedUsers) {
+                followingUsers.add(mentionedUser);
+            }
+
+            socialNetwork.put(user, followingUsers);
+        }
+            
+        return socialNetwork;
+
     }
 
     /**

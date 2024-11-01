@@ -81,7 +81,8 @@ public class Extract {
             }
         }
 
-        System.out.println(setUsers);
+        System.out.println("Mentioned users are" + setUsers);
+
         return setUsers;
     }
 
@@ -92,8 +93,9 @@ public class Extract {
         Matcher matcher = pattern.matcher(text);
 
         while (matcher.find()){
-            mentions.add(matcher.group());
+            mentions.add(matcher.group().substring(1));
         }
+
 
         return mentions;
 
