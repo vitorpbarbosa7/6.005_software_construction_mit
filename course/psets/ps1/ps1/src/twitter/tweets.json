@@ -2,8 +2,14 @@
     {
         "created_at": "2018-02-17T10:00:00Z",
         "id": 1234567890,
-        "text": "I'm not the best player in the world, @vinijr i",
+        "text": "I'm not the best player in the world #ballondor",
         "author": "rodri"
+    },
+    {
+        "created_at": "2018-02-17T10:00:00Z",
+        "id": 1234567890,
+        "text": "Robbed #ballondor",
+        "author": "vinijr"
     },
     {
         "created_at": "2018-02-17T10:00:00Z",

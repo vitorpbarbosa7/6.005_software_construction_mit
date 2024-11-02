@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.HashMap;
 
@@ -61,11 +62,42 @@ public class SocialNetwork {
     }
 
     //#TODO
-    // private static Map<String, Set<String>> guessHashtag(List<Tweet> tweets){ 
-    //     Map<String, Set<String>> socialNetworkHashtag = new HashMap<>();
-    //     return  socialNetworkHashtag;
+    private static Map<String, Set<String>> guessHashtag(List<Tweet> tweets){ 
+        Map<String, Set<String>> socialNetworkHashtag = new HashMap<>();        
+        Map<String, Set<String>> hashtagUserMap = new HashMap<>();
 
-    // }
+        for (Tweet tweet : tweets) { 
+            String user = tweet.getAuthor();
+
+            Set<String> hashtags = Extract.getMentionedHashtags(Arrays.asList(tweet));
+
+            for (String hashtag : hashtags) {
+                hashtagUserMap.putIfAbsent(hashtag, new HashSet<>());
+                
+                // Add the user to the set associated with the hashtag
+                hashtagUserMap.get(hashtag).add(user);
+            }
+        }
+
+        for (Map.Entry<String, Set<String>> entry : hashtagUserMap.entrySet()) {
+            Set<String> users = entry.getValue();
+
+            for (String user : users) {
+                // Ensure user exists as a key in socialNetworkHashtag
+                socialNetworkHashtag.putIfAbsent(user, new HashSet<>());
+    
+                // Add other users in the same hashtag group, excluding the user itself
+                for (String coUser : users) {
+                    if (!coUser.equals(user)) {  // Avoid adding the user themselves
+                        socialNetworkHashtag.get(user).add(coUser);
+                    }
+                }
+            }
+        }
+
+        return  socialNetworkHashtag;
+
+    }
 
     private static Map<String, Set<String>> guessMention(List<Tweet> tweets) { 
         Map<String, Set<String>> socialNetworkMention = new HashMap<>();
