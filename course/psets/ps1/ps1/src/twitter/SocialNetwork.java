@@ -87,23 +87,30 @@ public class SocialNetwork {
             Set<String> direct_connections = entry.getValue();
             // normal direct_connections
             socialNetworkTransitiveClosure.putIfAbsent(user, new HashSet<>(direct_connections));
-            
-            // For each direct connection
-            // O(d)
-            for (String direct_connection: direct_connections) {
-                // access in O(1) (Hashmap) RAM MODEL
-                Set<String> indirect_connections = socialNetwork.get(direct_connection);
-                
-                // For each indirect connection
-                // O(d)
-                // probably recursion would be better
-                for (String indirect_connection : indirect_connections) {
-                    if (!indirect_connection.equals(user)) { 
-                    socialNetworkTransitiveClosure.get(user).add(indirect_connection);
-                    }
-                } 
+        }
+        
+        // Perform iterative transitive closure expansion
+    boolean changed = true;
+    while (changed) {
+        changed = false;
+
+        // For each user, try to add indirect connections iteratively
+        for (String user : socialNetworkTransitiveClosure.keySet()) {
+            Set<String> currentConnections = socialNetworkTransitiveClosure.get(user);
+            Set<String> newConnections = new HashSet<>(currentConnections);
+
+            // Add all connections of each current connection
+            for (String connection : currentConnections) {
+                newConnections.addAll(socialNetworkTransitiveClosure.getOrDefault(connection, new HashSet<>()));
+            }
+
+            // Check if new connections were added
+            if (newConnections.size() > currentConnections.size()) {
+                socialNetworkTransitiveClosure.put(user, newConnections);
+                changed = true;
             }
         }
+    }
 
         System.out.println("\n\nTransitive Closure" + socialNetworkTransitiveClosure);
         return socialNetworkTransitiveClosure;
