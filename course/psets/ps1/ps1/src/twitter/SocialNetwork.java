@@ -71,7 +71,40 @@ public class SocialNetwork {
         }
 
         System.out.println("\n\n@Mentions + #Hashtag:" + socialNetwork);
-        return socialNetwork;
+
+        Map<String, Set<String>> socialNetworkTransitiveClosure = guessTransitiveClosure(socialNetwork);
+
+        return socialNetworkTransitiveClosure;
+    }
+
+    private static Map<String, Set<String>> guessTransitiveClosure(Map<String, Set<String>> socialNetwork) {
+        Map<String, Set<String>> socialNetworkTransitiveClosure = new HashMap<>();
+
+        // For each user 
+        // O(n)
+        for (Map.Entry<String, Set<String>> entry : socialNetwork.entrySet()) {
+            String user = entry.getKey();
+            Set<String> direct_connections = entry.getValue();
+            // normal direct_connections
+            socialNetworkTransitiveClosure.putIfAbsent(user, new HashSet<>(direct_connections));
+            
+            // For each direct connection
+            // O(d)
+            for (String direct_connection: direct_connections) {
+                // access in O(1) (Hashmap) RAM MODEL
+                Set<String> indirect_connections = socialNetwork.get(direct_connection);
+                
+                // For each indirect connection
+                // O(d)
+                // probably recursion would be better
+                for (String indirect_connection : indirect_connections) { 
+                    socialNetworkTransitiveClosure.get(user).add(indirect_connection);
+                } 
+            }
+        }
+
+        System.out.println("\n\nTransitive Closure" + socialNetworkTransitiveClosure);
+        return socialNetworkTransitiveClosure;
     }
 
     private static Map<String, Set<String>> guessHashtag(List<Tweet> tweets){ 
