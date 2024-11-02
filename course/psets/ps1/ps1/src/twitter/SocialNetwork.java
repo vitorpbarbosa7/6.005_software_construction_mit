@@ -50,22 +50,30 @@ public class SocialNetwork {
         // 01 -> go over the list of tweets and extract usernames
         //02 -> also extract mentions, and add to the list
 
-    //#TODO
-        // Map<String, Set<String>> socialNetworkMention = guessMention(tweets);
+        Map<String, Set<String>> socialNetworkMention = guessMention(tweets);
 
-    //#TODO
         Map<String, Set<String>> socialNetworkHashtag = guessHashtag(tweets);
 
-        socialNetwork = guessMention(tweets);
+        System.out.println("\nmention thing normal" + socialNetworkMention);
 
         socialNetworkHashtag = guessHashtag(tweets);
 
-        System.out.println("hashtag thing" + socialNetworkHashtag);
+        System.out.println("\nhashtag thing" + socialNetworkHashtag);
 
+        // Merge them 
+        for (String user : socialNetworkMention.keySet()) {
+            socialNetwork.putIfAbsent(user, new HashSet<>()); 
+            socialNetwork.get(user).addAll(socialNetworkMention.get(user));
+        } 
+        for (String user : socialNetworkHashtag.keySet()) {
+            socialNetwork.putIfAbsent(user, new HashSet<>());
+            socialNetwork.get(user).addAll(socialNetworkHashtag.get(user));
+        }
+
+        System.out.println("\n\n@Mentions + #Hashtag:" + socialNetwork);
         return socialNetwork;
     }
 
-    //#TODO
     private static Map<String, Set<String>> guessHashtag(List<Tweet> tweets){ 
         Map<String, Set<String>> socialNetworkHashtag = new HashMap<>();        
         Map<String, Set<String>> hashtagUserMap = new HashMap<>();
