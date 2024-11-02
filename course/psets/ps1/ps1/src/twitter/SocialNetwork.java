@@ -97,8 +97,10 @@ public class SocialNetwork {
                 // For each indirect connection
                 // O(d)
                 // probably recursion would be better
-                for (String indirect_connection : indirect_connections) { 
+                for (String indirect_connection : indirect_connections) {
+                    if (!indirect_connection.equals(user)) { 
                     socialNetworkTransitiveClosure.get(user).add(indirect_connection);
+                    }
                 } 
             }
         }
