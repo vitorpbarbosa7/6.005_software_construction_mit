@@ -33,10 +33,13 @@ public class Filter {
 
         for (Tweet tweet: tweets){
             String author = tweet.getAuthor();
-            if (author == username){
+            if (author.equalsIgnoreCase(username)){
                 userTweets.add(tweet);
             }
         } 
+
+        System.out.println("user: " + username + " has written:");
+        System.out.println(userTweets);
 
         return userTweets;
 }

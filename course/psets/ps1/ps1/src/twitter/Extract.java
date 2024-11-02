@@ -81,8 +81,6 @@ public class Extract {
             }
         }
 
-        System.out.println("Mentioned users are" + setUsers);
-
         return setUsers;
     }
 

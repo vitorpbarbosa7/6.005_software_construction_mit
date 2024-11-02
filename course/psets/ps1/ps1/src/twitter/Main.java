@@ -45,17 +45,18 @@ public class Main {
         }
         
         // display some characteristics about the tweets
-        System.err.println("fetched " + tweets.size() + " tweets");
+        System.out.println("fetched " + tweets.size() + " tweets");
         
         final Timespan span = Extract.getTimespan(tweets);
-        System.err.println("ranging from " + span.getStart() + " to " + span.getEnd());
+        System.out.println("ranging from " + span.getStart() + " to " + span.getEnd());
         
         final Set<String> mentionedUsers = Extract.getMentionedUsers(tweets);
-        System.err.println("covers " + mentionedUsers.size() + " Twitter users");
+        System.out.println("covers " + mentionedUsers.size() + " Twitter users");
         
         // infer the follows graph
         final Map<String, Set<String>> followsGraph = SocialNetwork.guessFollowsGraph(tweets);
-        System.err.println("follows graph has " + followsGraph.size() + " nodes");
+        System.out.println("follows graph has " + followsGraph.size() + " nodes");
+        System.out.println(followsGraph);
         
         // print the top-N influencers
         final int count = 10;

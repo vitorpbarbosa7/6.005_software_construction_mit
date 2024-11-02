@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.HashMap;
 
@@ -66,6 +65,12 @@ public class SocialNetwork {
             List<Tweet> userWrittenTweets = new ArrayList<>();
             userWrittenTweets = Filter.writtenBy(tweets, user);
 
+            System.out.println("tweets from user");
+            System.out.println(user);
+            System.out.println(userWrittenTweets);
+
+
+
             // on those tweets, let's look for mentions of users in the list of users
             Set<String> followingUsers = new HashSet<>(); 
             Set<String> mentionedUsers = Extract.getMentionedUsers(userWrittenTweets);
@@ -76,6 +81,7 @@ public class SocialNetwork {
 
             socialNetwork.put(user, followingUsers);
         }
+        System.out.println(socialNetwork);
             
         return socialNetwork;
 
@@ -91,7 +97,43 @@ public class SocialNetwork {
      *         descending order of follower count.
      */
     public static List<String> influencers(Map<String, Set<String>> followsGraph) {
-        throw new RuntimeException("not implemented");
+
+        List<String> mostFollowers = new ArrayList<>();
+
+        Map<String, Integer> countMap = new HashMap<>();
+
+        for (Set<String> setFollowed: followsGraph.values()){
+            for (String followed: setFollowed) {
+                countMap.put(followed, countMap.getOrDefault(followed, 0) + 1);
+            }
+        }
+        System.out.println("CountMap");
+        System.out.println(countMap);
+
+        mostFollowers = getKeysSortedByValueDescending(countMap);
+
+        System.out.println(mostFollowers);
+        return mostFollowers;
+    } 
+
+
+        
+    private static List<String> getKeysSortedByValueDescending(Map<String, Integer> map) {
+        // Create a Data Structure for the entries
+        //Map.Entry<K,V>
+        List<Map.Entry<String, Integer>> entryList = new ArrayList<>(map.entrySet());
+        // after we sort by comparing
+        // Lambda expression or comparator to know how the comparison will be done, for sorting 
+        // is this at least O(nlogn) or worse?
+        entryList.sort((entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()));
+
+        // Extract the sorted keys into a list
+        List<String> sortedKeys = new ArrayList<>();
+        for (Map.Entry<String, Integer> entry : entryList) {
+            sortedKeys.add(entry.getKey());
+        }
+
+        return sortedKeys;
+    }
     }
 
-}
