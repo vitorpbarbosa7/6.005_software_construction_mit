@@ -43,39 +43,38 @@ public class SocialNetwork {
      *         All the Twitter usernames in the returned social network must be
      *         either authors or @-mentions in the list of tweets.
      */
-
-    private static Set<String> setUsers;
-
-    /**
-     * Static initializer for setUsers. This should be called before accessing setUsers in other methods.
-     */
-    private static Set<String> initializeSetUsers(List<Tweet> tweets) {
-        setUsers = new HashSet<>();
-        for (Tweet tweet : tweets) {
-            setUsers.add(tweet.getAuthor());
-            setUsers.addAll(Extract.getMentionedUsers(List.of(tweet)));
-        }
-        return setUsers;
-    }
-
     public static Map<String, Set<String>> guessFollowsGraph(List<Tweet> tweets) {
         Map<String, Set<String>> socialNetwork = new HashMap<>();
 
         // 01 -> go over the list of tweets and extract usernames
         //02 -> also extract mentions, and add to the list
-        
+
+    //#TODO
+        // Map<String, Set<String>> socialNetworkMention = guessMention(tweets);
+
+    //#TODO
+        // Map<String, Set<String>> socialNetworkHashtag = guessHashtag(tweets);
+
+        socialNetwork = guessMention(tweets);
+
+        return socialNetwork;
+    }
+
+    //#TODO
+    // private static Map<String, Set<String>> guessHashtag(List<Tweet> tweets){ 
+    //     Map<String, Set<String>> socialNetworkHashtag = new HashMap<>();
+    //     return  socialNetworkHashtag;
+
+    // }
+
+    private static Map<String, Set<String>> guessMention(List<Tweet> tweets) { 
+        Map<String, Set<String>> socialNetworkMention = new HashMap<>();
         Set<String> setUsers = initializeSetUsers(tweets);
         // 03 now get what each one follows to populate the HashMap
         for (String user: setUsers){
             // what are the tweets from this user
             List<Tweet> userWrittenTweets = new ArrayList<>();
             userWrittenTweets = Filter.writtenBy(tweets, user);
-
-            System.out.println("tweets from user");
-            System.out.println(user);
-            System.out.println(userWrittenTweets);
-
-
 
             // on those tweets, let's look for mentions of users in the list of users
             Set<String> followingUsers = new HashSet<>(); 
@@ -85,14 +84,13 @@ public class SocialNetwork {
                 followingUsers.add(mentionedUser);
             }
 
-            socialNetwork.put(user, followingUsers);
+            socialNetworkMention.put(user, followingUsers);
         }
-        System.out.println(socialNetwork);
+        System.out.println(socialNetworkMention);
             
-        return socialNetwork;
+        return socialNetworkMention;
 
     }
-
     /**
      * Find the people in a social network who have the greatest influence, in
      * the sense that they have the most followers.
@@ -129,7 +127,11 @@ public class SocialNetwork {
         return mostFollowers;
     }
 
-        
+    /**
+     * 
+     * @param map
+     * @return sortedKeys from HashMap
+     */  
     private static List<String> getKeysSortedByValueDescending(Map<String, Integer> map) {
         // Create a Data Structure for the entries
         //Map.Entry<K,V>
@@ -147,5 +149,19 @@ public class SocialNetwork {
 
         return sortedKeys;
     }
+    
+    private static Set<String> setUsers;
+
+    /**
+     * Static initializer for setUsers. This should be called before accessing setUsers in other methods.
+     */
+    private static Set<String> initializeSetUsers(List<Tweet> tweets) {
+        setUsers = new HashSet<>();
+        for (Tweet tweet : tweets) {
+            setUsers.add(tweet.getAuthor());
+            setUsers.addAll(Extract.getMentionedUsers(List.of(tweet)));
+        }
+        return setUsers;
     }
+}
 

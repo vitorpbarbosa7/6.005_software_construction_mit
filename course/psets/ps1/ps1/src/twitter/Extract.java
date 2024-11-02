@@ -84,6 +84,23 @@ public class Extract {
         return setUsers;
     }
 
+    public static Set<String> getMentionedHashtags(List<Tweet> tweets) {
+        Set<String> setHashtags = new HashSet<>();
+
+        List<String> hashtags = new ArrayList<>();
+        String text;
+
+        for (Tweet tweet: tweets) {
+            text = tweet.getText();
+            hashtags = extractHashtagMentions(text);
+            for (String hashtag: hashtags) {
+                setHashtags.add(hashtag);
+            }
+        }
+
+        return setHashtags;
+    }
+
     private static List<String> extractMentions(String text) {
         List<String> mentions = new ArrayList<>();
         
@@ -101,4 +118,23 @@ public class Extract {
     
         return mentions;
     }
+
+    private static List<String> extractHashtagMentions(String text) {
+        List<String> hashtags = new ArrayList<>();
+        
+        // Regex explanation:
+        // (?<!\\w) ensures there is no alphanumeric character before #.
+        // # matches the # symbol.
+        // (\\w+) matches one or more word characters after the # (to match hashtag words).
+        // \\b ensures the hashtag ends with a word boundary (space or punctuation).
+        Pattern pattern = Pattern.compile("(?<!\\w)#(\\w+)\\b");
+        Matcher matcher = pattern.matcher(text);
+    
+        while (matcher.find()) {
+            hashtags.add(matcher.group(1)); // Extract the hashtag without the '#'
+        }
+    
+        return hashtags;
+    }
+
 }

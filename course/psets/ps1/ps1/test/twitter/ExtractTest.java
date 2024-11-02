@@ -30,8 +30,8 @@ public class ExtractTest {
    
     // tweets objects
     private static final Tweet tweet1 = new Tweet(1, "alyssa", "is it reasonable to talk about rivest so much?", d1);
-    private static final Tweet tweet2 = new Tweet(2, "bbitdiddle", "rivest talk in 30 minutes #hype", d2);
-    private static final Tweet tweet3 = new Tweet(3, "charles", "rivest talk was amazing!", d3);
+    private static final Tweet tweet2 = new Tweet(2, "bbitdiddle", "rivest talk in 30 minutes #cisc", d2);
+    private static final Tweet tweet3 = new Tweet(3, "charles", "rivest talk was amazing! #risc", d3);
     private static final Tweet tweetoneuser = new Tweet(4, "charles", "rivest talk with my girlfriend @natalieportman* was amazing!", d4);
     private static final Tweet tweettwousers = new Tweet(5, "charles", "two users: @yamal, @lewa&", d4);
     private static final Tweet tweetsingleuser = new Tweet(6, "charles", "two users: @yamal!", d4);
@@ -114,6 +114,27 @@ public class ExtractTest {
 
         
     }
+
+    @Test
+    public void testGetMentionedHashtags() {
+        // 01
+        Set<String> mentionedUsers = Extract.getMentionedUsers(Arrays.asList(tweet1));
+        assertTrue("expected empty set", mentionedUsers.isEmpty());
+
+        // 02
+        Set<String> expectedHashtags2 = new HashSet<>();
+        String tweet4risc = "risc";
+        String tweet4cisc = "cisc";
+        expectedHashtags2.add(tweet4risc);
+        expectedHashtags2.add(tweet4cisc);
+        Set<String> mentionedHashtags2 = Extract.getMentionedHashtags(Arrays.asList(tweet2, tweet3));
+        assertEquals("2 Hashtags", expectedHashtags2, mentionedHashtags2);
+        
+    }
+
+
+
+
 
     /*
      * Warning: all the tests you write here must be runnable against any
