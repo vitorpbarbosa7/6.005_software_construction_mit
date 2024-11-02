@@ -54,9 +54,13 @@ public class SocialNetwork {
         // Map<String, Set<String>> socialNetworkMention = guessMention(tweets);
 
     //#TODO
-        // Map<String, Set<String>> socialNetworkHashtag = guessHashtag(tweets);
+        Map<String, Set<String>> socialNetworkHashtag = guessHashtag(tweets);
 
         socialNetwork = guessMention(tweets);
+
+        socialNetworkHashtag = guessHashtag(tweets);
+
+        System.out.println("hashtag thing" + socialNetworkHashtag);
 
         return socialNetwork;
     }
