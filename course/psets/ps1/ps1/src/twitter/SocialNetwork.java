@@ -43,22 +43,27 @@ public class SocialNetwork {
      *         All the Twitter usernames in the returned social network must be
      *         either authors or @-mentions in the list of tweets.
      */
+
+    private static Set<String> setUsers;
+
+    /**
+     * Static initializer for setUsers. This should be called before accessing setUsers in other methods.
+     */
+    private static void initializeSetUsers(List<Tweet> tweets) {
+        setUsers = new HashSet<>();
+        for (Tweet tweet : tweets) {
+            setUsers.add(tweet.getAuthor());
+            setUsers.addAll(Extract.getMentionedUsers(List.of(tweet)));
+        }
+    }
+
+
     public static Map<String, Set<String>> guessFollowsGraph(List<Tweet> tweets) {
         Map<String, Set<String>> socialNetwork = new HashMap<>();
 
         // 01 -> go over the list of tweets and extract usernames
         //02 -> also extract mentions, and add to the list
-        Set<String> setUsers = new HashSet<>();
-
-        for (Tweet tweet: tweets){
-            setUsers.add(tweet.getAuthor());
-
-            Set<String> mentionedUsers = Extract.getMentionedUsers(tweets);
-            for (String mentionedUser : mentionedUsers){
-                setUsers.add(mentionedUser);
-            }
-        }
-
+        
         // 03 now get what each one follows to populate the HashMap
         for (String user: setUsers){
             // what are the tweets from this user
@@ -102,6 +107,10 @@ public class SocialNetwork {
 
         Map<String, Integer> countMap = new HashMap<>();
 
+        for (String user: setUsers) {
+            countMap.put(user, 0);
+        }
+
         for (Set<String> setFollowed: followsGraph.values()){
             for (String followed: setFollowed) {
                 countMap.put(followed, countMap.getOrDefault(followed, 0) + 1);
@@ -114,7 +123,21 @@ public class SocialNetwork {
 
         System.out.println(mostFollowers);
         return mostFollowers;
-    } 
+    }
+    
+    private static Set<String> returnSetUsers(List<Tweet> tweets){
+        Set<String> setUsers = new HashSet<>();
+        for (Tweet tweet: tweets){
+            setUsers.add(tweet.getAuthor());
+
+            Set<String> mentionedUsers = Extract.getMentionedUsers(tweets);
+            for (String mentionedUser : mentionedUsers){
+                setUsers.add(mentionedUser);
+            }
+        }
+
+        return setUsers;
+    }
 
 
         
