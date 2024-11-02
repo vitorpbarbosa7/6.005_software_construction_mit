@@ -49,14 +49,14 @@ public class SocialNetwork {
     /**
      * Static initializer for setUsers. This should be called before accessing setUsers in other methods.
      */
-    private static void initializeSetUsers(List<Tweet> tweets) {
+    private static Set<String> initializeSetUsers(List<Tweet> tweets) {
         setUsers = new HashSet<>();
         for (Tweet tweet : tweets) {
             setUsers.add(tweet.getAuthor());
             setUsers.addAll(Extract.getMentionedUsers(List.of(tweet)));
         }
+        return setUsers;
     }
-
 
     public static Map<String, Set<String>> guessFollowsGraph(List<Tweet> tweets) {
         Map<String, Set<String>> socialNetwork = new HashMap<>();
@@ -64,6 +64,7 @@ public class SocialNetwork {
         // 01 -> go over the list of tweets and extract usernames
         //02 -> also extract mentions, and add to the list
         
+        Set<String> setUsers = initializeSetUsers(tweets);
         // 03 now get what each one follows to populate the HashMap
         for (String user: setUsers){
             // what are the tweets from this user
@@ -103,13 +104,16 @@ public class SocialNetwork {
      */
     public static List<String> influencers(Map<String, Set<String>> followsGraph) {
 
+        System.out.println(followsGraph);
+
         List<String> mostFollowers = new ArrayList<>();
 
         Map<String, Integer> countMap = new HashMap<>();
 
-        for (String user: setUsers) {
+        for (String user: followsGraph.keySet()) {
             countMap.put(user, 0);
         }
+        System.out.println("All users are" + countMap);
 
         for (Set<String> setFollowed: followsGraph.values()){
             for (String followed: setFollowed) {
@@ -124,21 +128,6 @@ public class SocialNetwork {
         System.out.println(mostFollowers);
         return mostFollowers;
     }
-    
-    private static Set<String> returnSetUsers(List<Tweet> tweets){
-        Set<String> setUsers = new HashSet<>();
-        for (Tweet tweet: tweets){
-            setUsers.add(tweet.getAuthor());
-
-            Set<String> mentionedUsers = Extract.getMentionedUsers(tweets);
-            for (String mentionedUser : mentionedUsers){
-                setUsers.add(mentionedUser);
-            }
-        }
-
-        return setUsers;
-    }
-
 
         
     private static List<String> getKeysSortedByValueDescending(Map<String, Integer> map) {
