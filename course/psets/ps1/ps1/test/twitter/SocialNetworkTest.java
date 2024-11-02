@@ -82,7 +82,7 @@ public class SocialNetworkTest {
 
         // Expected graph where each user follows the mentioned users
         Map<String, Set<String>> expectedGraph = new HashMap<>();
-        expectedGraph.put("hopper", new HashSet<>(Arrays.asList("lovelace", "knuth", "demaine")));
+        expectedGraph.put("hopper", new HashSet<>(Arrays.asList("lovelace", "knuth", "demaine", "turing")));
         expectedGraph.put("turing", new HashSet<>(Arrays.asList("knuth")));
         expectedGraph.put("shannon", new HashSet<>());
         expectedGraph.put("lovelace", new HashSet<>(Arrays.asList("gracehopper", "turing", "shannon")));
@@ -135,6 +135,16 @@ public class SocialNetworkTest {
         assertTrue("expected empty list", influencers.isEmpty());
     }
 
+    @Test
+    public void testInfluencerSequenceFull() {
+        Map<String, Set<String>> followsGraphFull = new HashMap<>();
+
+        List<Tweet> tweets = Arrays.asList(tweet1, tweet2, tweet3, tweet4, tweet5, tweet7, tweet8, tweet9);
+        followsGraphFull = SocialNetwork.guessFollowsGraph(tweets);
+
+        expectedList = []
+        List<String> influencersFull = SocialNetwork.influencers(followsGraphFull);
+    }
     /*
      * Warning: all the tests you write here must be runnable against any
      * SocialNetwork class that follows the spec. It will be run against several
