@@ -91,9 +91,10 @@ public class ConcreteEdgesGraph implements Graph<String> {
  */
 class Edge {
 
+    // He asked for a immutable Edge
     private final String source;
     private final String target;
-    private int weight;
+    private final int weight;
     
     // TODO fields
     
