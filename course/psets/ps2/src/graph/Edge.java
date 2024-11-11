@@ -2,15 +2,6 @@
  * Redistribution of original or derived work requires permission of course staff.
  */
 package graph;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.Collections;
-
 import java.util.Objects;
 
 /**
@@ -102,7 +93,7 @@ public class Edge {
     public String toString() {
         String fullString;
 
-        fullString = "("+this.getSource() + ") - (" +
+        fullString = "("+this.getSource() + ") - " +
             this.getWeight() + " - (" + this.getTarget() + ")";
         return fullString;
     }

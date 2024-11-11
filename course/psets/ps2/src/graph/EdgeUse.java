@@ -13,5 +13,6 @@ public class EdgeUse {
         System.out.println(edge1.getWeight());
         
         System.out.println(edge1.hashCode());
+        System.out.println(edge1.toString());
     }
 }
