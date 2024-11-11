@@ -22,7 +22,7 @@ public class ConcreteEdgesGraph implements Graph<String> {
     
     // vertices represented as strings in this set
     private final Set<String> vertices = new HashSet<>();
-    private final List<Edge> edges = new ArrayList<>();
+    private final List<ConcreteEdge> edges = new ArrayList<>();
     
     // Abstraction function:
     //   TODO
@@ -42,9 +42,9 @@ public class ConcreteEdgesGraph implements Graph<String> {
     @Override public int set(String source, String target, int weight) {
 
         // construct local edge?
-        Edge localEdge = new Edge(source, target, weight);
+        ConcreteEdge localEdge = new ConcreteEdge(source, target, weight);
 
-        for (Edge edge: edges) {
+        for (ConcreteEdge edge: edges) {
             if (localEdge.similar(edge)) {
                 // if equal weight, return weight without doing nothing
                 if (edge.getWeight() == localEdge.getWeight()) {
@@ -74,7 +74,7 @@ public class ConcreteEdgesGraph implements Graph<String> {
     
     @Override public Map<String, Integer> sources(String target) {
         Map<String, Integer> mapTarget = new HashMap<>();
-        for (Edge edge: edges) {
+        for (ConcreteEdge edge: edges) {
             if (edge.getTarget() == target) {
                 Integer localWeight = edge.getWeight();
                 String localSource = edge.getSource();
@@ -86,7 +86,16 @@ public class ConcreteEdgesGraph implements Graph<String> {
     }
     
     @Override public Map<String, Integer> targets(String source) {
-        throw new RuntimeException("not implemented");
+        Map<String, Integer> mapSource = new HashMap<>();
+        for (ConcreteEdge edge: edges) {
+            if (edge.getSource() == source) {
+                Integer localWeight = edge.getWeight();
+                String localTarget = edge.getTarget();
+                mapSource.put(localTarget, localWeight);
+            }
+        }
+
+        return mapSource;
     }
     
     // TODO toString()
@@ -101,7 +110,7 @@ public class ConcreteEdgesGraph implements Graph<String> {
  * <p>PS2 instructions: the specification and implementation of this class is
  * up to you.
  */
-class Edge {
+public class ConcreteEdge {
 
     // He asked for a immutable Edge
     private final String source;
@@ -118,7 +127,7 @@ class Edge {
     //   TODO
     
     // TODO constructor
-    public Edge(String source, String target, int weight){
+    public ConcreteEdge(String source, String target, int weight){
         this.source = source;
         this.target = target;
         this.weight = weight;
@@ -146,9 +155,9 @@ class Edge {
     // equality proxy
     public boolean similar(Object thatObject){
         // must be this type 
-        if (!(thatObject instanceof Edge)) return false;
+        if (!(thatObject instanceof ConcreteEdge)) return false;
         // casting
-        Edge thatEdge = (Edge) thatObject;
+        ConcreteEdge thatEdge = (ConcreteEdge) thatObject;
         boolean equalSource = this.getSource() == thatEdge.getSource();
         boolean equalTarget = this.getTarget() == thatEdge.getTarget();
         return equalSource & equalTarget;
@@ -158,9 +167,9 @@ class Edge {
     @Override 
     public boolean equals(Object thatObject) {
         // must be this type 
-        if (!(thatObject instanceof Edge)) return false;
+        if (!(thatObject instanceof ConcreteEdge)) return false;
         // casting
-        Edge thatEdge = (Edge) thatObject;
+        ConcreteEdge thatEdge = (ConcreteEdge) thatObject;
         boolean equalSource = this.getSource() == thatEdge.getSource();
         boolean equalTarget = this.getTarget() == thatEdge.getTarget();
         boolean equalWeight = this.getWeight() == thatEdge.getWeight();
@@ -177,5 +186,13 @@ class Edge {
  
     
     // TODO toString()
-    
+
+    @Override
+    public String toString() {
+        String fullString;
+
+        fullString = "("+this.getSource() + ") - (" +
+            this.getWeight() + " - (" + this.getTarget() + ")";
+        return fullString;
+    }
 }
