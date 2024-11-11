@@ -22,7 +22,7 @@ public class ConcreteEdgesGraph implements Graph<String> {
     
     // vertices represented as strings in this set
     private final Set<String> vertices = new HashSet<>();
-    private final List<ConcreteEdge> edges = new ArrayList<>();
+    private final List<Edge> edges = new ArrayList<>();
     
     // Abstraction function:
     //   TODO
@@ -42,9 +42,9 @@ public class ConcreteEdgesGraph implements Graph<String> {
     @Override public int set(String source, String target, int weight) {
 
         // construct local edge?
-        ConcreteEdge localEdge = new ConcreteEdge(source, target, weight);
+        Edge localEdge = new Edge(source, target, weight);
 
-        for (ConcreteEdge edge: edges) {
+        for (Edge edge: edges) {
             if (localEdge.similar(edge)) {
                 // if equal weight, return weight without doing nothing
                 if (edge.getWeight() == localEdge.getWeight()) {
@@ -74,7 +74,7 @@ public class ConcreteEdgesGraph implements Graph<String> {
     
     @Override public Map<String, Integer> sources(String target) {
         Map<String, Integer> mapTarget = new HashMap<>();
-        for (ConcreteEdge edge: edges) {
+        for (Edge edge: edges) {
             if (edge.getTarget() == target) {
                 Integer localWeight = edge.getWeight();
                 String localSource = edge.getSource();
@@ -87,7 +87,7 @@ public class ConcreteEdgesGraph implements Graph<String> {
     
     @Override public Map<String, Integer> targets(String source) {
         Map<String, Integer> mapSource = new HashMap<>();
-        for (ConcreteEdge edge: edges) {
+        for (Edge edge: edges) {
             if (edge.getSource() == source) {
                 Integer localWeight = edge.getWeight();
                 String localTarget = edge.getTarget();
@@ -100,99 +100,4 @@ public class ConcreteEdgesGraph implements Graph<String> {
     
     // TODO toString()
     
-}
-
-/**
- * TODO specification
- * Immutable.
- * This class is internal to the rep of ConcreteEdgesGraph.
- * 
- * <p>PS2 instructions: the specification and implementation of this class is
- * up to you.
- */
-public class ConcreteEdge {
-
-    // He asked for a immutable Edge
-    private final String source;
-    private final String target;
-    private final int weight;
-    
-    // TODO fields
-    
-    // Abstraction function:
-    //   TODO
-    // Representation invariant:
-    //   TODO
-    // Safety from rep exposure:
-    //   TODO
-    
-    // TODO constructor
-    public ConcreteEdge(String source, String target, int weight){
-        this.source = source;
-        this.target = target;
-        this.weight = weight;
-    }
-
-    // TODO checkRep
-    
-    // TODO methods
-
-    // observer
-    public String getSource(){
-        return this.source;
-    }
-
-    // observer
-    public String getTarget(){
-        return this.target;
-    }
-
-    // observer
-    public int getWeight(){
-        return this.weight;
-    }
-
-    // equality proxy
-    public boolean similar(Object thatObject){
-        // must be this type 
-        if (!(thatObject instanceof ConcreteEdge)) return false;
-        // casting
-        ConcreteEdge thatEdge = (ConcreteEdge) thatObject;
-        boolean equalSource = this.getSource() == thatEdge.getSource();
-        boolean equalTarget = this.getTarget() == thatEdge.getTarget();
-        return equalSource & equalTarget;
-    }
-
-    // equality methods
-    @Override 
-    public boolean equals(Object thatObject) {
-        // must be this type 
-        if (!(thatObject instanceof ConcreteEdge)) return false;
-        // casting
-        ConcreteEdge thatEdge = (ConcreteEdge) thatObject;
-        boolean equalSource = this.getSource() == thatEdge.getSource();
-        boolean equalTarget = this.getTarget() == thatEdge.getTarget();
-        boolean equalWeight = this.getWeight() == thatEdge.getWeight();
-        return equalSource & equalTarget & equalWeight;
-    }
-
-    @Override
-    public int hashCode() {
-        // follow the same rule as equals, to a source and target have the same
-        // rule
-        // maybe I should implement with the same weight?
-        return Objects.hash(this.source, this.target, this.weight);
-    }
- 
-    
-    // TODO toString()
-
-    @Override
-    public String toString() {
-        String fullString;
-
-        fullString = "("+this.getSource() + ") - (" +
-            this.getWeight() + " - (" + this.getTarget() + ")";
-        return fullString;
-    }
 }
