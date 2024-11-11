@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Collections;
 
 import java.util.Objects;
 
@@ -44,33 +45,44 @@ public class ConcreteEdgesGraph implements Graph<String> {
         Edge localEdge = new Edge(source, target, weight);
 
         for (Edge edge: edges) {
-            if (localEdge.equals(edge)) {
+            if (localEdge.similar(edge)) {
                 // if equal weight, return weight without doing nothing
                 if (edge.getWeight() == localEdge.getWeight()) {
                     return weight;
                 }
                 else {
-                    // if not equal weight, change weight, and return the old weight
+                    // keep old weight to return 
                     int old_weight = edge.getWeight();
-                    edge.changeWeight(weight);
+                    // must remove the old edge and add new edge
+                    edges.remove(edge);
+                    edges.add(localEdge);
                     return old_weight;
                 }    
             }
         }
-        // if reaches here, so no equaledge was found, so return 0
+        // if reaches here, so no similar edge was found, so return 0
         return 0;
     }
     
     @Override public boolean remove(String vertex) {
-        throw new RuntimeException("not implemented");
+        return vertices.remove(vertex);
     }
     
     @Override public Set<String> vertices() {
-        throw new RuntimeException("not implemented");
+        return Collections.unmodifiableSet(this.vertices);
     }
     
     @Override public Map<String, Integer> sources(String target) {
-        throw new RuntimeException("not implemented");
+        Map<String, Integer> mapTarget = new HashMap<>();
+        for (Edge edge: edges) {
+            if (edge.getTarget() == target) {
+                Integer localWeight = edge.getWeight();
+                String localSource = edge.getSource();
+                mapTarget.put(localSource, localWeight); 
+            }
+        }
+
+        return mapTarget;
     }
     
     @Override public Map<String, Integer> targets(String source) {
@@ -131,9 +143,15 @@ class Edge {
         return this.weight;
     }
 
-    // mutator
-    public void changeWeight(int weight) {
-        this.weight = weight;
+    // equality proxy
+    public boolean similar(Object thatObject){
+        // must be this type 
+        if (!(thatObject instanceof Edge)) return false;
+        // casting
+        Edge thatEdge = (Edge) thatObject;
+        boolean equalSource = this.getSource() == thatEdge.getSource();
+        boolean equalTarget = this.getTarget() == thatEdge.getTarget();
+        return equalSource & equalTarget;
     }
 
     // equality methods
@@ -145,7 +163,8 @@ class Edge {
         Edge thatEdge = (Edge) thatObject;
         boolean equalSource = this.getSource() == thatEdge.getSource();
         boolean equalTarget = this.getTarget() == thatEdge.getTarget();
-        return equalSource & equalTarget;
+        boolean equalWeight = this.getWeight() == thatEdge.getWeight();
+        return equalSource & equalTarget & equalWeight;
     }
 
     @Override
@@ -153,7 +172,7 @@ class Edge {
         // follow the same rule as equals, to a source and target have the same
         // rule
         // maybe I should implement with the same weight?
-        return Objects.hash(source, target);
+        return Objects.hash(this.source, this.target, this.weight);
     }
  
     
