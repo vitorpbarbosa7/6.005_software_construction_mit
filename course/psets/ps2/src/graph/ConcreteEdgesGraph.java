@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import java.util.Objects;
+
 /**
  * An implementation of Graph.
  * 
@@ -54,12 +56,9 @@ public class ConcreteEdgesGraph implements Graph<String> {
                     return old_weight;
                 }    
             }
-            // if reaches here, so no equaledge was found, so return 0
-            return 0;
         }
-
-
-        throw new RuntimeException("not implemented");
+        // if reaches here, so no equaledge was found, so return 0
+        return 0;
     }
     
     @Override public boolean remove(String vertex) {
@@ -136,8 +135,24 @@ class Edge {
         this.weight = weight;
     }
 
-    @Override equals(Object Obj) {
+    // equality methods
+    @Override 
+    public boolean equals(Object thatObject) {
+        // must be this type 
+        if (!(thatObject instanceof Edge)) return false;
+        // casting
+        Edge thatEdge = (Edge) thatObject;
+        boolean equalSource = this.getSource() == thatEdge.getSource();
+        boolean equalTarget = this.getTarget() == thatEdge.getTarget();
+        return equalSource & equalTarget;
+    }
 
+    @Override
+    public int hashCode() {
+        // follow the same rule as equals, to a source and target have the same
+        // rule
+        // maybe I should implement with the same weight?
+        return Objects.hash(source, target);
     }
  
     
