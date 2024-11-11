@@ -80,7 +80,7 @@ public class ConcreteEdgesGraph implements Graph<String> {
                 String localSource = edge.getSource();
                 String localTarget = edge.getTarget();
                 if (vertex.equals(localSource) || vertex.equals(localTarget)) {
-                    edges.remove(edge);
+                    iterator.remove(); 
                 }
             }
         }
