@@ -4,6 +4,7 @@
 package graph;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ import java.util.Set;
  */
 public class ConcreteEdgesGraph implements Graph<String> {
     
+    // vertices represented as strings in this set
     private final Set<String> vertices = new HashSet<>();
     private final List<Edge> edges = new ArrayList<>();
     
@@ -31,10 +33,32 @@ public class ConcreteEdgesGraph implements Graph<String> {
     // TODO checkRep
     
     @Override public boolean add(String vertex) {
-        throw new RuntimeException("not implemented");
+        return vertices.add(vertex);
     }
     
     @Override public int set(String source, String target, int weight) {
+
+        // construct local edge?
+        Edge localEdge = new Edge(source, target, weight);
+
+        for (Edge edge: edges) {
+            if (localEdge.equals(edge)) {
+                // if equal weight, return weight without doing nothing
+                if (edge.getWeight() == localEdge.getWeight()) {
+                    return weight;
+                }
+                else {
+                    // if not equal weight, change weight, and return the old weight
+                    int old_weight = edge.getWeight();
+                    edge.changeWeight(weight);
+                    return old_weight;
+                }    
+            }
+            // if reaches here, so no equaledge was found, so return 0
+            return 0;
+        }
+
+
         throw new RuntimeException("not implemented");
     }
     
@@ -67,6 +91,10 @@ public class ConcreteEdgesGraph implements Graph<String> {
  * up to you.
  */
 class Edge {
+
+    private final String source;
+    private final String target;
+    private int weight;
     
     // TODO fields
     
@@ -78,10 +106,40 @@ class Edge {
     //   TODO
     
     // TODO constructor
-    
+    public Edge(String source, String target, int weight){
+        this.source = source;
+        this.target = target;
+        this.weight = weight;
+    }
+
     // TODO checkRep
     
     // TODO methods
+
+    // observer
+    public String getSource(){
+        return this.source;
+    }
+
+    // observer
+    public String getTarget(){
+        return this.target;
+    }
+
+    // observer
+    public int getWeight(){
+        return this.weight;
+    }
+
+    // mutator
+    public void changeWeight(int weight) {
+        this.weight = weight;
+    }
+
+    @Override equals(Object Obj) {
+
+    }
+ 
     
     // TODO toString()
     
