@@ -168,7 +168,26 @@ class Vertex {
         }
     }
 
-    // TODO toString()
+    @Override
+    public String toString() {
+        StringBuilder repString = new StringBuilder();
+        repString.append(this.getSource()).append(":: ");
+
+        int count = 0;
+        int size = adjNodes.size();
+        
+        for (Map.Entry<String, Integer> entry : adjNodes.entrySet()) {
+            String target = entry.getKey();
+            Integer weight = entry.getValue();
+            repString.append("(").append(target).append(": ").append(weight).append(") ");
+            // Only add a comma if it's not the last item
+            if (++count < size) {
+                repString.append(", ");
+        }
+        }
+        
+        return repString.toString().trim(); // Remove trailing space
+    }
 
     
 }
