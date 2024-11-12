@@ -18,42 +18,66 @@ public class Edge {
     private final String source;
     private final String target;
     private final int weight;
-    
-    // TODO fields
-    
+   
+    // ADT
     // Abstraction function:
-    //   TODO
+    //       AF(source, target, weight):
+    //           Represents the edges of a Weighted Directed Graph
+    //          source: starting vertex from which the direct edge comes from 
+    //          target: reaching vertex from which the direct edge goes into
+    //          weight: the non negative weight from this edge
     // Representation invariant:
-    //   TODO
+    //      Edges are immutable
+    //      Weights are always non negative
+    //      source and target are non null strings
     // Safety from rep exposure:
-    //   TODO
+    //      External cliente can't alter the weight or the source or target of a edge
     
-    // TODO constructor
     public Edge(String source, String target, int weight){
         this.source = source;
         this.target = target;
         this.weight = weight;
+        checkRep();
     }
 
-    // TODO checkRep
+    public void checkRep(){
+        assert source != null;
+        assert target != null;
+        assert weight >= 0;
+    }
     
-    // TODO methods
 
     // observer
+    /** 
+     * Gets the source vertex from current Edge
+     */
     public String getSource(){
         return this.source;
     }
 
     // observer
+    /**
+     * Gets the target vertex from current Edge
+     * @return
+     */
     public String getTarget(){
         return this.target;
     }
 
     // observer
+    /** 
+     * Gets weight from current Edge
+     */
     public int getWeight(){
         return this.weight;
     }
 
+    /**
+     * Compares the Source and Target of two Immutable Edges
+     * If equals, than they are considered 'similar', and returned true, otherwise False
+     * @param thatObject
+     * @return
+     */
     // equality proxy
     public boolean similar(Object thatObject){
         // must be this type 
@@ -87,8 +111,11 @@ public class Edge {
     }
  
     
-    // TODO toString()
-
+    /**
+     * Represents the Edge a Sequence of String
+     * Going from source vertex , showing weight, showing arrow of directed Edge
+     * And finally the target vertex
+     */
     @Override
     public String toString() {
         String fullString;

@@ -93,7 +93,10 @@ public class ConcreteEdgesGraph<L> implements Graph<String> {
                     int old_weight = edge.getWeight();
                     // must remove the old edge and add new edge
                     edges.remove(edge);
-                    edges.add(newEdge);
+                    // if weight was equal to 0, so just remove and that is it 
+                    if (weight !=0) {
+                        edges.add(newEdge);
+                    }
                     return_weight = old_weight;
                 }    
             }
