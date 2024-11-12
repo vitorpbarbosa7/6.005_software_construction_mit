@@ -60,8 +60,8 @@ public class Edge {
         if (!(thatObject instanceof Edge)) return false;
         // casting
         Edge thatEdge = (Edge) thatObject;
-        boolean equalSource = this.getSource() == thatEdge.getSource();
-        boolean equalTarget = this.getTarget() == thatEdge.getTarget();
+        boolean equalSource = this.getSource().equals(thatEdge.getSource());
+        boolean equalTarget = this.getTarget().equals(thatEdge.getTarget());
         return equalSource & equalTarget;
     }
 
@@ -94,7 +94,7 @@ public class Edge {
         String fullString;
 
         fullString = "("+this.getSource() + ") - " +
-            this.getWeight() + " - (" + this.getTarget() + ")";
+            this.getWeight() + " -> (" + this.getTarget() + ")";
         return fullString;
     }
 }

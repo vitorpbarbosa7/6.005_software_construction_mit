@@ -3,27 +3,22 @@ package graph;
 public class UseConcreteEdgesGraph {
 
     public static void main(String args[]){
-
-        ConcreteEdgesGraph graph = new ConcreteEdgesGraph();
+        ConcreteEdgesGraph graph = (ConcreteEdgesGraph) ConcreteEdgesGraph.empty();
 
         graph.add("A");
         graph.add("B");
-        
-        System.out.println(graph.vertices());
-
         graph.add("C");
-        System.out.println(graph.vertices());
 
         graph.set("A", "B", 4);
         graph.set("B", "D", 6);
         graph.set("D", "E", 6);
-        //print edges
-        for (Edge edge: graph.getEdges()) {
-            System.out.println(edge);
-        }
-        // show vertices
-        System.out.println(graph.vertices());
 
+
+        // show vertices
+        System.out.println("Vertices");
+        System.out.println(graph.vertices());
+        System.out.println("Full Graph:");
+        System.out.println(graph.toString());
         
         System.out.println("Targets A");
         System.out.println(graph.targets("A"));

@@ -17,28 +17,67 @@ import java.util.Collections;
  * 
  * <p>PS2 instructions: you MUST use the provided rep.
  */
-public class ConcreteEdgesGraph implements Graph<String> {
+public class ConcreteEdgesGraph<L> implements Graph<String> {
     
     // vertices represented as strings in this set
     private final Set<String> vertices = new HashSet<>();
     private final List<Edge> edges = new ArrayList<>();
     
     // Abstraction function:
-    //   TODO
+    //      AF(vertices, edges) = Represents a Weighted Directed Graph with vertices and edges connecting the vertices
+    //      vertices: set of nodes in G
+    //      edges: set of weighted directed positive edges in G
+    //      Each Edge in G represents a vertex (source) directed to another vertex (target) with a specific weight
     // Representation invariant:
-    //   TODO
-    // Safety from rep exposure:
-    //   TODO
+    //      Edges are immutable, therefore also no duplicate edges
+    //      Weights are positive
+    //      Vertices and Edges are final fields
+    //      Every vertice in the edges are found in the vertice
+    // Safety from Rep Exposure:
+    //      vertices and edges are private, so not accessed directly from outside the class
+    //      With immutable Edges, a client can't mutate the Graph without using only the implemented Graphs
+    //      Edges and vertices being final, avoid side effects of reassignments
+    //      Observers which return vertices and edges make defensive copies
+
     
-    // TODO constructor
-    
-    // TODO checkRep
-    
-    @Override public boolean add(String vertex) {
-        return vertices.add(vertex);
+    // constructor
+    public ConcreteEdgesGraph() {
+        checkRep();
+    }
+   
+    // constructor, create empty graph
+    public static  Graph<String> empty() {
+        return new ConcreteEdgesGraph();
+    }
+
+    // checkRep
+    private void checkRep(){
+        Set<String> seenEdges = new HashSet<>();
+        for (Edge edge: edges){
+            // Check weights are positive
+            assert edge.getWeight() > 0;
+
+            // For every edge, the vertices must contain the 
+            assert vertices.contains(edge.getSource());
+            assert vertices.contains(edge.getTarget());
+
+            // No duplicate edges (since they are unique, immutable)
+            String edgeKey = edge.getSource() + "->" + edge.getTarget();
+            assert !seenEdges.contains(edgeKey);
+            seenEdges.add(edgeKey);
+        }
     }
     
+    // mutator, so call the checkRep
+    @Override public boolean add(String vertex) {
+        boolean added_bool = vertices.add(vertex);
+        checkRep();
+        return added_bool;
+    }
+
+    // mutator, so call the checkRep 
     @Override public int set(String source, String target, int weight) {
+        int return_weight = -1;
 
         // construct local edge?
         Edge newEdge = new Edge(source, target, weight);
@@ -47,7 +86,7 @@ public class ConcreteEdgesGraph implements Graph<String> {
             if (newEdge.similar(edge)) {
                 // if equal weight, return weight without doing nothing
                 if (edge.getWeight() == newEdge.getWeight()) {
-                    return weight;
+                    return_weight = weight;
                 }
                 else {
                     // keep old weight to return 
@@ -55,19 +94,27 @@ public class ConcreteEdgesGraph implements Graph<String> {
                     // must remove the old edge and add new edge
                     edges.remove(edge);
                     edges.add(newEdge);
-                    return old_weight;
+                    return_weight = old_weight;
                 }    
             }
         }
+        
+        // if return weight did not changed its value, so this guy did not exist
+        if (return_weight == -1) {
+            // if they do not exist in the vertices, add, and add the edge to the edge list
+            vertices.add(source);
+            vertices.add(target);
+            edges.add(newEdge);
+            // if reaches here, so no similar edge was found, so return 0
+            return_weight = 0;
+        }
 
-        // if they do not exist in the vertices, add, and add the edge to the edge list
-        vertices.add(source);
-        vertices.add(target);
-        edges.add(newEdge);
-        // if reaches here, so no similar edge was found, so return 0
-        return 0;
+        checkRep();
+        return return_weight;
+
     }
     
+    // mutator, so call the checkRep
     @Override public boolean remove(String vertex) {
 
         // remove the vertex only
@@ -85,18 +132,17 @@ public class ConcreteEdgesGraph implements Graph<String> {
             }
         }
         
+        checkRep();
         return removed;
         
     }
     
+    // observer
     @Override public Set<String> vertices() {
         return Collections.unmodifiableSet(this.vertices);
     }
 
-    public List<Edge> getEdges() {
-        return Collections.unmodifiableList(edges);
-    }
-    
+    // observer 
     @Override public Map<String, Integer> sources(String target) {
         Map<String, Integer> mapTarget = new HashMap<>();
         for (Edge edge: edges) {
@@ -110,6 +156,7 @@ public class ConcreteEdgesGraph implements Graph<String> {
         return mapTarget;
     }
     
+    // observer 
     @Override public Map<String, Integer> targets(String source) {
         Map<String, Integer> mapSource = new HashMap<>();
         for (Edge edge: edges) {
@@ -122,7 +169,17 @@ public class ConcreteEdgesGraph implements Graph<String> {
 
         return mapSource;
     }
-    
-    // TODO toString()
+        
+    // Like a Dunder method
+    // Overriding from Object
+    @Override
+    public String toString() {
+        String graphString = "";
+        for (Edge edge: edges){            
+            graphString = graphString + edge.toString() + "\n";
+        }
+        return graphString;
+
+    }
     
 }
