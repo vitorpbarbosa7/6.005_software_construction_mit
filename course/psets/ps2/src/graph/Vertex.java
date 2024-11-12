@@ -96,21 +96,23 @@ public class Vertex {
      * @param weight
      * @return true if the value was changed, or false if the vajue did not exist there
      */
-    public boolean set(String target, Integer weight){
-        boolean return_value;
-        if (weight <=0) {
-            return_value = this.remove(target);
-        }
-        else{
-            Integer previous_value = adjNodes.put(target, weight);
-            if (previous_value == null) {
-                return_value =  false;
-            } else {
-                return_value = true;
+    public Integer set(String target, Integer weight){
+        Integer return_weight;
+        // if it has the key and we are trying to set to 0, so we should remove it
+        if (this.getAdjNodes().containsKey(target)) {
+            if (weight <=0) {
+                return_weight = this.getTargetWeight(target);
+                this.remove(target);
+            }
+            else{
+                return_weight = adjNodes.put(target, weight);
             }
         }
+        else
+            return_weight = 0;
+
         checkRep();
-        return return_value;
+        return return_weight;
     }
 
     // mutator
@@ -127,6 +129,24 @@ public class Vertex {
         } else {
             return true;
         }
+    }
+
+    public boolean sameSource(Vertex thatObject) {
+        // must be this type 
+        if (!(thatObject instanceof Vertex)) return false;
+        // casting
+        Vertex thatVertex = (Vertex) thatObject;
+        return this.getSource().equals(thatVertex.getSource());
+    }
+
+    @Override
+        public boolean equals(Object thatObject) {
+        // must be this type 
+        if (!(thatObject instanceof Vertex)) return false;
+        // casting
+        Vertex thatVertex = (Vertex) thatObject;
+        boolean equalSource = this.getSource() == thatVertex.getSource();
+        return equalSource;
     }
 
     //observer of string representation

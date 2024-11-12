@@ -31,27 +31,60 @@ public class ConcreteVerticesGraph implements Graph<String> {
     // TODO checkRep
     
     @Override public boolean add(String vertex) {
-        throw new RuntimeException("not implemented");
+        // if the vertex points to others, also add here?
+        Vertex vertexObj = new Vertex(vertex);
+        return this.vertices.add(vertexObj);
     }
     
     @Override public int set(String source, String target, int weight) {
-        throw new RuntimeException("not implemented");
+        //find a way to also create the target vertex
+        int return_weight = -1;
+
+        Vertex newSourceVertex = new Vertex(source);
+        newSourceVertex.set(target, weight);
+        Vertex newTargetVertex = new Vertex(target);
+
+        // find which vertex has the source source
+        for (Vertex vertexObj: this.vertices) {
+            if (vertexObj.sameSource(newSourceVertex)) {
+                return_weight = vertexObj.set(target, weight);
+                // if did not contained the newTargetVertex, add it
+                if (!this.vertices.contains(newTargetVertex)) {
+                    this.vertices.add(newTargetVertex);
+                }
+            };
+        }
+
+        // if it did not exist
+        if (return_weight == -1) {
+            this.vertices.add(newSourceVertex);
+            if (!this.vertices.contains(newTargetVertex)) {
+                this.vertices.add(newTargetVertex);
+                }
+            return_weight = 0;
+        }
+
+        return return_weight;
     }
     
     @Override public boolean remove(String vertex) {
-        throw new RuntimeException("not implemented");
+        // remove vertex
+        // but vertex and be source
+        //      if it is source, remove from the list 
+        // and vertex can be target
+        //      also the vertex objects targets
     }
     
     @Override public Set<String> vertices() {
-        throw new RuntimeException("not implemented");
+        // return all vertices, the sources and targets
     }
     
     @Override public Map<String, Integer> sources(String target) {
-        throw new RuntimeException("not implemented");
+        // return all vertices originally sources
     }
     
     @Override public Map<String, Integer> targets(String source) {
-        throw new RuntimeException("not implemented");
+        // return all those that appear as targets
     }
     
     // TODO toString()
