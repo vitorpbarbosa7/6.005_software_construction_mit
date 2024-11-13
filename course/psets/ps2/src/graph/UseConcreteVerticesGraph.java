@@ -15,6 +15,11 @@ public class UseConcreteVerticesGraph {
         System.out.println("Vertices s-t: " + graph.vertices());
         System.out.println("ToString :" + graph.toString());
 
+        graph.targets("C");
+        System.out.println("Targets from C: " + graph.targets("C"));
+        graph.targets("A");
+        System.out.println("Targets from A: " + graph.targets("A"));
+
 
     }
     

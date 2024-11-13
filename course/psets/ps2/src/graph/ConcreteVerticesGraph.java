@@ -117,7 +117,17 @@ public class ConcreteVerticesGraph implements Graph<String> {
     }
     
     @Override public Map<String, Integer> targets(String source) {
-        throw new RuntimeException("not implemented");
+        Map<String, Integer> targetsMap = new HashMap<>();
+
+        Vertex vertexSource = new Vertex(source);
+
+        for (Vertex vertex: this.vertices){
+            if (vertexSource.sameSource(vertex)) {
+                targetsMap = vertex.getAdjTargets();
+            }
+        }
+    
+        return targetsMap;
     }
     
     // toString()
