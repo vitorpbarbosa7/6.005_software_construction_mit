@@ -20,8 +20,8 @@ import java.util.Collections;
 public class ConcreteEdgesGraph<L> implements Graph<L> {
     
     // vertices represented as strings in this set
-    private final Set<String> vertices = new HashSet<>();
-    private final List<Edge> edges = new ArrayList<>();
+    private final Set<L> vertices = new HashSet<>();
+    private final List<Edge<L>> edges = new ArrayList<>();
     
     // Abstraction function:
     //      AF(vertices, edges) = Represents a Weighted Directed Graph with vertices and edges connecting the vertices
@@ -46,14 +46,14 @@ public class ConcreteEdgesGraph<L> implements Graph<L> {
     }
    
     // constructor, create empty graph
-    public static  Graph<String> empty() {
-        return new ConcreteEdgesGraph();
+    public static  <L> Graph<L> empty() {
+        return new ConcreteEdgesGraph<L>();
     }
 
     // checkRep
     private void checkRep(){
         Set<String> seenEdges = new HashSet<>();
-        for (Edge edge: edges){
+        for (Edge<L> edge: edges){
             // Check weights are positive
             assert edge.getWeight() > 0;
 
@@ -69,20 +69,20 @@ public class ConcreteEdgesGraph<L> implements Graph<L> {
     }
     
     // mutator, so call the checkRep
-    @Override public boolean add(String vertex) {
+    @Override public boolean add(L vertex) {
         boolean added_bool = vertices.add(vertex);
         checkRep();
         return added_bool;
     }
 
     // mutator, so call the checkRep 
-    @Override public int set(String source, String target, int weight) {
+    @Override public int set(L source, L target, int weight) {
         int return_weight = -1;
 
         // construct local edge?
-        Edge newEdge = new Edge(source, target, weight);
+        Edge<L> newEdge = new Edge<L>(source, target, weight);
 
-        for (Edge edge: edges) {
+        for (Edge<L> edge: edges) {
             if (newEdge.similar(edge)) {
                 // if equal weight, return weight without doing nothing
                 if (edge.getWeight() == newEdge.getWeight()) {
@@ -118,17 +118,17 @@ public class ConcreteEdgesGraph<L> implements Graph<L> {
     }
     
     // mutator, so call the checkRep
-    @Override public boolean remove(String vertex) {
+    @Override public boolean remove(L vertex) {
 
         // remove the vertex only
         boolean removed = vertices.remove(vertex);
         // now remove the edges with this vertex
         if (removed){
-            Iterator<Edge> iterator = edges.iterator();
+            Iterator<Edge<L>> iterator = edges.iterator();
             while(iterator.hasNext()){
-                Edge edge = iterator.next();
-                String localSource = edge.getSource();
-                String localTarget = edge.getTarget();
+                Edge<L> edge = iterator.next();
+                L localSource = edge.getSource();
+                L localTarget = edge.getTarget();
                 if (vertex.equals(localSource) || vertex.equals(localTarget)) {
                     iterator.remove(); 
                 }
@@ -141,17 +141,17 @@ public class ConcreteEdgesGraph<L> implements Graph<L> {
     }
     
     // observer
-    @Override public Set<String> vertices() {
+    @Override public Set<L> vertices() {
         return Collections.unmodifiableSet(this.vertices);
     }
 
     // observer 
-    @Override public Map<String, Integer> sources(String target) {
-        Map<String, Integer> mapTarget = new HashMap<>();
-        for (Edge edge: edges) {
+    @Override public Map<L, Integer> sources(L target) {
+        Map<L, Integer> mapTarget = new HashMap<>();
+        for (Edge<L> edge: edges) {
             if (edge.getTarget().equals(target)) {
                 Integer localWeight = edge.getWeight();
-                String localSource = edge.getSource();
+                L localSource = edge.getSource();
                 mapTarget.put(localSource, localWeight); 
             }
         }
@@ -160,12 +160,12 @@ public class ConcreteEdgesGraph<L> implements Graph<L> {
     }
     
     // observer 
-    @Override public Map<String, Integer> targets(String source) {
-        Map<String, Integer> mapSource = new HashMap<>();
-        for (Edge edge: edges) {
+    @Override public Map<L, Integer> targets(L source) {
+        Map<L, Integer> mapSource = new HashMap<>();
+        for (Edge<L> edge: edges) {
             if (edge.getSource().equals(source)) {
                 Integer localWeight = edge.getWeight();
-                String localTarget = edge.getTarget();
+                L localTarget = edge.getTarget();
                 mapSource.put(localTarget, localWeight);
             }
         }
@@ -178,7 +178,7 @@ public class ConcreteEdgesGraph<L> implements Graph<L> {
     @Override
     public String toString() {
         String graphString = "";
-        for (Edge edge: edges){            
+        for (Edge<L> edge: edges){            
             graphString = graphString + edge.toString() + "\n";
         }
         return graphString;

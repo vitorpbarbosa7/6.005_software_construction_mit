@@ -15,8 +15,8 @@ import java.util.Objects;
 public class Edge<L> {
 
     // He asked for a immutable Edge
-    private final String source;
-    private final String target;
+    private final L source;
+    private final L target;
     private final int weight;
    
     // ADT
@@ -33,7 +33,7 @@ public class Edge<L> {
     // Safety from rep exposure:
     //      External cliente can't alter the weight or the source or target of a edge
     
-    public Edge(String source, String target, int weight){
+    public Edge(L source, L target, int weight){
         this.source = source;
         this.target = target;
         this.weight = weight;
@@ -51,7 +51,7 @@ public class Edge<L> {
     /** 
      * Gets the source vertex from current Edge
      */
-    public String getSource(){
+    public L getSource(){
         return this.source;
     }
 
@@ -60,7 +60,7 @@ public class Edge<L> {
      * Gets the target vertex from current Edge
      * @return
      */
-    public String getTarget(){
+    public L getTarget(){
         return this.target;
     }
 
@@ -81,9 +81,9 @@ public class Edge<L> {
     // equality proxy
     public boolean similar(Object thatObject){
         // must be this type 
-        if (!(thatObject instanceof Edge)) return false;
+        if (!(thatObject instanceof Edge<?>)) return false;
         // casting
-        Edge thatEdge = (Edge) thatObject;
+        Edge<L> thatEdge = (Edge<L>) thatObject;
         boolean equalSource = this.getSource().equals(thatEdge.getSource());
         boolean equalTarget = this.getTarget().equals(thatEdge.getTarget());
         return equalSource & equalTarget;
@@ -93,9 +93,9 @@ public class Edge<L> {
     @Override 
     public boolean equals(Object thatObject) {
         // must be this type 
-        if (!(thatObject instanceof Edge)) return false;
+        if (!(thatObject instanceof Edge<?>)) return false;
         // casting
-        Edge thatEdge = (Edge) thatObject;
+        Edge<L> thatEdge = (Edge<L>) thatObject;
         boolean equalSource = this.getSource().equals(thatEdge.getSource());
         boolean equalTarget = this.getTarget().equals(thatEdge.getTarget());
         boolean equalWeight = this.getWeight() == thatEdge.getWeight();
