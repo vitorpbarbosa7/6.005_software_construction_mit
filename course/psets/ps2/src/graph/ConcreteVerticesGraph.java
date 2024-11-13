@@ -63,7 +63,7 @@ public class ConcreteVerticesGraph implements Graph<String> {
 
         // find which vertex has the source source
         for (Vertex vertexObj: this.vertices) {
-            if (vertexObj.sameSource(newSourceVertex)) {
+            if (vertexObj.equals(newSourceVertex)) {
                 return_weight = vertexObj.set(target, weight);
                 if (weight <= 0) {
                     add_to_list = false;
@@ -157,7 +157,7 @@ public class ConcreteVerticesGraph implements Graph<String> {
         Vertex vertexSource = new Vertex(source);
 
         for (Vertex vertex: this.vertices){
-            if (vertexSource.sameSource(vertex)) {
+            if (vertexSource.equals(vertex)) {
                 targetsMap = vertex.getAdjTargets();
             }
         }

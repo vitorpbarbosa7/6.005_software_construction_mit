@@ -133,14 +133,6 @@ public class Vertex {
         }
     }
 
-    public boolean sameSource(Vertex thatObject) {
-        // must be this type 
-        if (!(thatObject instanceof Vertex)) return false;
-        // casting
-        Vertex thatVertex = (Vertex) thatObject;
-        return this.getSource().equals(thatVertex.getSource());
-    }
-
     @Override
         public boolean equals(Object thatObject) {
         // must be this type 
