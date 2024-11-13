@@ -17,7 +17,7 @@ import java.util.Collections;
  * 
  * <p>PS2 instructions: you MUST use the provided rep.
  */
-public class ConcreteEdgesGraph<L> implements Graph<String> {
+public class ConcreteEdgesGraph<L> implements Graph<L> {
     
     // vertices represented as strings in this set
     private final Set<String> vertices = new HashSet<>();

@@ -17,11 +17,11 @@ import java.util.Set;
 import java.util.HashMap;
 import java.util.Collections;
 
-public class Vertex {
+public class Vertex<L> {
     
     // fields
-    private final String source;
-    private final HashMap<String, Integer> adjTargets;
+    private final L source;
+    private final HashMap<L, Integer> adjTargets;
     
     // Abstraction function:
     //   AF(source, adjTargets):
@@ -34,14 +34,14 @@ public class Vertex {
     //   adjTargets field is private, so no external access directly, only modifiable by the public methods
     
     // constructor with both
-    public Vertex(String source, HashMap<String, Integer> adjTargets) {
+    public Vertex(L source, HashMap<L, Integer> adjTargets) {
         this.source = source;
         this.adjTargets = adjTargets;
         checkRep();
     }
     
     // constructor with only the source vertex
-    public Vertex(String source){
+    public Vertex(L source){
         this.source = source;
         this.adjTargets = new HashMap<>();
     }
@@ -53,8 +53,8 @@ public class Vertex {
     }
     
     // observer
-    public Map<String, Integer> getAdjTargets(){
-        Map<String, Integer> unmodifiableMap = Collections.unmodifiableMap(this.adjTargets);
+    public Map<L, Integer> getAdjTargets(){
+        Map<L, Integer> unmodifiableMap = Collections.unmodifiableMap(this.adjTargets);
         return unmodifiableMap;
     }
 
@@ -63,7 +63,7 @@ public class Vertex {
      *  
      * @return The source node
      */
-    public String getSource() {
+    public L getSource() {
         return this.source;
     }
 
@@ -73,7 +73,7 @@ public class Vertex {
      * @param target
      * @return weight from target 
      */
-    public Integer getTargetWeight(String target) {
+    public Integer getTargetWeight(L target) {
         return adjTargets.get(target);
     }
 
@@ -81,8 +81,8 @@ public class Vertex {
      * 
      * @return The set of targets from source node
      */
-    public Set<String> getTargets(){
-        Set<String> targets = adjTargets.keySet();
+    public Set<L> getTargets(){
+        Set<L> targets = adjTargets.keySet();
         return targets;
     }
 
@@ -96,7 +96,7 @@ public class Vertex {
      * @param weight
      * @return the weight of old, or if did not contain the target there, return 0
      */
-    public Integer set(String target, Integer weight){
+    public Integer set(L target, Integer weight){
         Integer return_weight;
         // if it has the key and we are trying to set to 0, so we should remove it
         if (this.getTargets().contains(target)) {
@@ -123,7 +123,7 @@ public class Vertex {
      * @param target
      * @return true if the value existed, or false if the value did not exist there
      */
-    public boolean remove(String target){
+    public boolean remove(L target){
         Integer removed_value = adjTargets.remove(target);
         checkRep();
         if (removed_value == null){
@@ -136,9 +136,9 @@ public class Vertex {
     @Override
         public boolean equals(Object thatObject) {
         // must be this type 
-        if (!(thatObject instanceof Vertex)) return false;
+        if (!(thatObject instanceof Vertex<?>)) return false;
         // casting
-        Vertex thatVertex = (Vertex) thatObject;
+        Vertex<L> thatVertex = (Vertex<L>) thatObject;
         boolean equalSource = this.getSource().equals(thatVertex.getSource());
         return equalSource;
     }
@@ -153,8 +153,8 @@ public class Vertex {
         int size = adjTargets.size();
         
         if (size > 0) {
-            for (Map.Entry<String, Integer> entry : adjTargets.entrySet()) {
-                String target = entry.getKey();
+            for (Map.Entry<L, Integer> entry : adjTargets.entrySet()) {
+                L target = entry.getKey();
                 Integer weight = entry.getValue();
                 repString.append("(").append(target).append(": ").append(weight).append(") ");
                 // Only add a comma if it's not the last item

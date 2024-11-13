@@ -12,7 +12,7 @@ import java.util.Objects;
  * <p>PS2 instructions: the specification and implementation of this class is
  * up to you.
  */
-public class Edge {
+public class Edge<L> {
 
     // He asked for a immutable Edge
     private final String source;
