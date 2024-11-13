@@ -21,25 +21,36 @@ public class ConcreteVerticesGraph implements Graph<String> {
     private final List<Vertex> vertices = new ArrayList<>();
     
     // Abstraction function:
-    //   TODO
+    //   AF(vertices) -> Positive Weighted Directed Graph 
+    //   Represents:
+    //          Source and target vertices are represented as a list of vertices
     // Representation invariant:
-    //   TODO
+    //   The list of vertices is private and final references
+    //   Unique vertices, no duplicated
     // Safety from rep exposure:
-    //   TODO
+    //   No client can reassign the list of vertices
     
     // empty constructor to instantiate the object
     public static Graph<String> empty() {
         return new ConcreteVerticesGraph();
     }
+
+    // checkRep
+    private void checkRep() {
+        Set<Vertex> vertexSet = new HashSet<>(this.vertices);
+        assert vertexSet.size() == this.vertices.size();
+    }
+
     
-    // TODO checkRep
-    
+    // mutator 
     @Override public boolean add(String vertex) {
         // if the vertex points to others, also add here?
         Vertex vertexObj = new Vertex(vertex);
+        checkRep();
         return this.vertices.add(vertexObj);
     }
     
+    // mutator 
     @Override public int set(String source, String target, int weight) {
         //find a way to also create the target vertex
         int return_weight = -1;
@@ -78,9 +89,10 @@ public class ConcreteVerticesGraph implements Graph<String> {
         }
     }
 
+        checkRep();
         return return_weight;
     }
-    
+    // mutator 
     @Override public boolean remove(String vertex) {
         // remove vertex
         // but vertex and be source
@@ -98,7 +110,19 @@ public class ConcreteVerticesGraph implements Graph<String> {
 
         vertices.remove(removeVertex);
 
-        // TODO
+        String target = vertex;
+        Map<String, Integer> sourcesWithTarget= this.sources(target);
+        Set<String> sourcesLabel = sourcesWithTarget.keySet();
+        // the source vertices must be modified, removing this target from there
+        for (String source: sourcesLabel){
+            for (Vertex vertexLocal: this.vertices){
+                if (vertexLocal.getSource().equals(source)) {
+                    vertexLocal.remove(target);
+                }
+            }
+
+        }
+        checkRep();
         return true;
 
     }
@@ -126,6 +150,7 @@ public class ConcreteVerticesGraph implements Graph<String> {
         return sourcesMap;
     }
     
+    // observer
     @Override public Map<String, Integer> targets(String source) {
         Map<String, Integer> targetsMap = new HashMap<>();
 
@@ -140,6 +165,7 @@ public class ConcreteVerticesGraph implements Graph<String> {
         return targetsMap;
     }
     
+    // observer
     // toString()
     @Override
     public String toString() {

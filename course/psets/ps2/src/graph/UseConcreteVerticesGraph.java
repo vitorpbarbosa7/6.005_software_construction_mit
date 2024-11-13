@@ -20,6 +20,8 @@ public class UseConcreteVerticesGraph {
 
         System.out.println("Sources from E" + graph.sources("E"));
 
+        graph.remove("E");
+        System.out.println("After remove vertex E" + graph.toString());
 
     }
     
