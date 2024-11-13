@@ -147,7 +147,7 @@ public class Vertex {
         if (!(thatObject instanceof Vertex)) return false;
         // casting
         Vertex thatVertex = (Vertex) thatObject;
-        boolean equalSource = this.getSource() == thatVertex.getSource();
+        boolean equalSource = this.getSource().equals(thatVertex.getSource());
         return equalSource;
     }
 
