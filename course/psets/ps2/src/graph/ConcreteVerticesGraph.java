@@ -65,7 +65,6 @@ public class ConcreteVerticesGraph implements Graph<String> {
         // if it did not exist
         if (return_weight == -1) {
             this.vertices.add(newSourceVertex);
-            add_to_list = true;
             return_weight = 0;
         }
 
