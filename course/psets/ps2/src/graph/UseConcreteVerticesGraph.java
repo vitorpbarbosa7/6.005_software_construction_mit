@@ -10,8 +10,10 @@ public class UseConcreteVerticesGraph {
         System.out.println("List vertices: " + graph.vertices());
 
         graph.set("C", "D", 4);
-        System.out.println("Vertices after C-D s-t: " + graph.vertices());
-        System.out.println("ToString after C-D: \n" + graph.toString());
+        graph.set("C", "E", 15);
+        graph.set("D", "E", 20);
+        System.out.println("Vertices s-t: " + graph.vertices());
+        System.out.println("ToString :" + graph.toString());
 
 
     }

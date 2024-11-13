@@ -43,6 +43,8 @@ public class ConcreteVerticesGraph implements Graph<String> {
     @Override public int set(String source, String target, int weight) {
         //find a way to also create the target vertex
         int return_weight = -1;
+        boolean add_to_list = true;
+        boolean remove_from_list = false;
 
         Vertex newSourceVertex = new Vertex(source);
         newSourceVertex.set(target, weight);
@@ -52,21 +54,30 @@ public class ConcreteVerticesGraph implements Graph<String> {
         for (Vertex vertexObj: this.vertices) {
             if (vertexObj.sameSource(newSourceVertex)) {
                 return_weight = vertexObj.set(target, weight);
-                // if did not contained the newTargetVertex, add it
-                if (!this.vertices.contains(newTargetVertex)) {
-                    this.vertices.add(newTargetVertex);
+                if (weight <= 0) {
+                    add_to_list = false;
+                    remove_from_list = true;
                 }
+
             };
         }
 
         // if it did not exist
         if (return_weight == -1) {
             this.vertices.add(newSourceVertex);
-            if (!this.vertices.contains(newTargetVertex)) {
-                this.vertices.add(newTargetVertex);
-                }
+            add_to_list = true;
             return_weight = 0;
         }
+
+        if (add_to_list) {
+            // if did not contained the newTargetVertex, add it
+            if (!this.vertices.contains(newTargetVertex)) {
+                this.vertices.add(newTargetVertex);
+            }
+        if (remove_from_list) {
+            this.vertices.remove(newTargetVertex);
+        }
+    }
 
         return return_weight;
     }
