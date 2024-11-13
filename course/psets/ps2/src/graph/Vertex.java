@@ -21,40 +21,40 @@ public class Vertex {
     
     // fields
     private final String source;
-    private final HashMap<String, Integer> adjNodes;
+    private final HashMap<String, Integer> adjTargets;
     
     // Abstraction function:
-    //   AF(source, adjNodes):
+    //   AF(source, adjTargets):
     //      Represents the connections of target vertices to the a source vertex, with their positive weights
     //      Source vertex points to (directed) target vertices
     // Representation invariant:
-    //   source and adjNodes are final fields, so no reassignment is done, only mutable inside the adjNodes HashMap
+    //   source and adjTargets are final fields, so no reassignment is done, only mutable inside the adjTargets HashMap
     // Safety from rep exposure:
     //   Client can't change 
-    //   adjNodes field is private, so no external access directly, only modifiable by the public methods
+    //   adjTargets field is private, so no external access directly, only modifiable by the public methods
     
     // constructor with both
-    public Vertex(String source, HashMap<String, Integer> adjNodes) {
+    public Vertex(String source, HashMap<String, Integer> adjTargets) {
         this.source = source;
-        this.adjNodes = adjNodes;
+        this.adjTargets = adjTargets;
         checkRep();
     }
     
     // constructor with only the source vertex
     public Vertex(String source){
         this.source = source;
-        this.adjNodes = new HashMap<>();
+        this.adjTargets = new HashMap<>();
     }
     
     // checkRep
     public void checkRep(){
         assert source != null;
-        assert adjNodes != null;
+        assert adjTargets != null;
     }
     
     // observer
-    public Map<String, Integer> getAdjNodes(){
-        Map<String, Integer> unmodifiableMap = Collections.unmodifiableMap(this.adjNodes);
+    public Map<String, Integer> getAdjTargets(){
+        Map<String, Integer> unmodifiableMap = Collections.unmodifiableMap(this.adjTargets);
         return unmodifiableMap;
     }
 
@@ -74,7 +74,7 @@ public class Vertex {
      * @return weight from target 
      */
     public Integer getTargetWeight(String target) {
-        return adjNodes.get(target);
+        return adjTargets.get(target);
     }
 
     /**
@@ -82,7 +82,7 @@ public class Vertex {
      * @return The set of targets from source node
      */
     public Set<String> getTargets(){
-        Set<String> targets = adjNodes.keySet();
+        Set<String> targets = adjTargets.keySet();
         return targets;
     }
 
@@ -94,21 +94,23 @@ public class Vertex {
      * If weight is non positive, it will remove the connection from there
      * @param target
      * @param weight
-     * @return true if the value was changed, or false if the vajue did not exist there
+     * @return the weight of old, or if did not contain the target there, return 0
      */
     public Integer set(String target, Integer weight){
         Integer return_weight;
         // if it has the key and we are trying to set to 0, so we should remove it
-        if (this.getAdjNodes().containsKey(target)) {
+        if (this.getTargets().contains(target)) {
             if (weight <=0) {
                 return_weight = this.getTargetWeight(target);
                 this.remove(target);
             }
             else{
-                return_weight = adjNodes.put(target, weight);
+                return_weight = this.adjTargets.put(target, weight);
             }
         }
+        // if did not contain, the return will be 0, and must add it
         else
+            this.adjTargets.put(target, weight);
             return_weight = 0;
 
         checkRep();
@@ -122,7 +124,7 @@ public class Vertex {
      * @return true if the value existed, or false if the value did not exist there
      */
     public boolean remove(String target){
-        Integer removed_value = adjNodes.remove(target);
+        Integer removed_value = adjTargets.remove(target);
         checkRep();
         if (removed_value == null){
             return false;
@@ -153,13 +155,13 @@ public class Vertex {
     @Override
     public String toString() {
         StringBuilder repString = new StringBuilder();
-        repString.append(this.getSource()).append(":: ");
+        repString.append("\n").append(this.getSource()).append(":: ");
 
         int count = 0;
-        int size = adjNodes.size();
+        int size = adjTargets.size();
         
         if (size > 0) {
-            for (Map.Entry<String, Integer> entry : adjNodes.entrySet()) {
+            for (Map.Entry<String, Integer> entry : adjTargets.entrySet()) {
                 String target = entry.getKey();
                 Integer weight = entry.getValue();
                 repString.append("(").append(target).append(": ").append(weight).append(") ");

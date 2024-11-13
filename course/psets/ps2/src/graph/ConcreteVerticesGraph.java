@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Collections;
 
 /**
@@ -26,7 +27,10 @@ public class ConcreteVerticesGraph implements Graph<String> {
     // Safety from rep exposure:
     //   TODO
     
-    // TODO constructor
+    // empty constructor to instantiate the object
+    public static Graph<String> empty() {
+        return new ConcreteVerticesGraph();
+    }
     
     // TODO checkRep
     
@@ -73,20 +77,50 @@ public class ConcreteVerticesGraph implements Graph<String> {
         //      if it is source, remove from the list 
         // and vertex can be target
         //      also the vertex objects targets
+
+        // in all vertices, look for D as a target, if it exists as a target
+        // remove from the target
+        // finally remove from the list of vertices
+        // so I am removing the connections
+
+        // vertex as source is easy to remove
+        Vertex removeVertex = new Vertex(vertex);
+
+        vertices.remove(removeVertex);
+
+        // TODO
+        return true;
+
     }
     
+    // observer
     @Override public Set<String> vertices() {
-        // return all vertices, the sources and targets
+        Set<String> verticesSet = new HashSet<>();
+        for (Vertex vertex: this.vertices){
+            verticesSet.add(vertex.getSource());
+        }
+        return verticesSet;
     }
     
     @Override public Map<String, Integer> sources(String target) {
-        // return all vertices originally sources
+        throw new RuntimeException("not implemented");
     }
     
     @Override public Map<String, Integer> targets(String source) {
-        // return all those that appear as targets
+        throw new RuntimeException("not implemented");
     }
     
-    // TODO toString()
+    // toString()
+    @Override
+    public String toString() {
+        String repString = "";
+        
+        for(Vertex vertex: this.vertices){
+            repString = repString + vertex.toString() + "\n"; 
+        }
+
+        return repString;
+    }
+
     
 }
