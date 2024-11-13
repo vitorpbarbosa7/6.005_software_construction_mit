@@ -31,8 +31,8 @@ public class ConcreteVerticesGraph<L> implements Graph<L> {
     //   No client can reassign the list of vertices
     
     // empty constructor to instantiate the object
-    public static Graph<L> empty() {
-        return new ConcreteVerticesGraph<L>();
+    public static <L> Graph<L> empty() {
+        return new ConcreteVerticesGraph<>();
     }
 
     // checkRep
