@@ -113,7 +113,17 @@ public class ConcreteVerticesGraph implements Graph<String> {
     }
     
     @Override public Map<String, Integer> sources(String target) {
-        throw new RuntimeException("not implemented");
+        Map<String, Integer> sourcesMap = new HashMap<>();
+
+        // look in all vertices, who has target target, if it has, return the source and the weight
+        for (Vertex vertex: this.vertices){
+            if (vertex.getTargets().contains(target)) {
+                Integer localWeight = vertex.getTargetWeight(target);
+                String localSource = vertex.getSource();
+                sourcesMap.put(localSource, localWeight);
+            }
+        }
+        return sourcesMap;
     }
     
     @Override public Map<String, Integer> targets(String source) {
