@@ -3,9 +3,14 @@
  */
 package poet;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import java.io.File;
 import java.io.IOException;
 
+import graph.ConcreteVerticesGraph;
+import graph.ConcreteEdgesGraph;
 import graph.Graph;
 
 /**
@@ -53,6 +58,8 @@ import graph.Graph;
 public class GraphPoet {
     
     private final Graph<String> graph = Graph.empty();
+
+    private final List<String> corpusWords;
     
     // Abstraction function:
     //   TODO
@@ -68,9 +75,14 @@ public class GraphPoet {
      * @throws IOException if the corpus file cannot be found or read
      */
     public GraphPoet(File corpus) throws IOException {
-        throw new RuntimeException("not implemented");
+
+        this.corpusWords = CorpusReader.readCorpus(corpus.getPath());
+
+        System.out.println(this.corpusWords);
+
     }
     
+
     // TODO checkRep
     
     /**
@@ -80,9 +92,32 @@ public class GraphPoet {
      * @return poem (as described above)
      */
     public String poem(String input) {
-        throw new RuntimeException("not implemented");
+        //TODO implement poem
+        System.out.println(input);
+
+        // TODO remove this
+        return input;
     }
     
     // TODO toString()
+
+
+
+    //main
+    public static void main(String args[]) {
+
+        String filenameCorpus = "src/corpus.txt";
+        File fileCorpus = new File(filenameCorpus);
+        try {
+            GraphPoet poet = new GraphPoet(fileCorpus);
+
+            String filenameInput = "src/corpus.txt";
+            String outputPoem = poet.poem(filenameInput);
+        } catch (IOException e) {
+            System.err.println("Error reading the corpus file" + e.getMessage());
+        }
+        
+
+    }
     
 }
