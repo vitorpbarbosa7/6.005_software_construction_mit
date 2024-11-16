@@ -5,6 +5,8 @@ package poet;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import java.io.File;
 import java.io.IOException;
@@ -57,7 +59,8 @@ import graph.Graph;
  */
 public class GraphPoet {
     
-    private final Graph<String> graph = Graph.empty();
+    private final Graph<String> graphInput = Graph.empty();
+    private final Graph<String> graphCorpus = Graph.empty();
 
     private final List<String> corpusWords;
     
@@ -78,8 +81,6 @@ public class GraphPoet {
 
         this.corpusWords = CorpusReader.readCorpus(corpus.getPath());
 
-        System.out.println(this.corpusWords);
-
     }
     
 
@@ -92,12 +93,60 @@ public class GraphPoet {
      * @return poem (as described above)
      */
     public String poem(String input) {
-        //TODO implement poem
-        System.out.println(input);
 
-        // TODO remove this
+        // graphCorpus generate
+        genGraphCorpus();
+
+        System.out.println(this.graphCorpus);
+
+        // TODO replace for th real poem 
         return input;
+
+
     }
+
+    private void genGraphCorpus() {
+
+        Map<String, Map<String, Integer>> preGraphCorpus = createPreGraph(this.corpusWords);
+
+        for (Map.Entry<String, Map<String, Integer>> outerEntry : preGraphCorpus.entrySet()) {
+            String outerKey = outerEntry.getKey(); // Outer key
+            Map<String, Integer> innerMap = outerEntry.getValue(); // Inner map
+
+            for (Map.Entry<String, Integer> innerEntry : innerMap.entrySet()) {
+                String innerKey = innerEntry.getKey(); // Inner key
+                Integer innerValue = innerEntry.getValue(); // Inner value
+                
+                // populate correctly the graph
+                this.graphCorpus.set(outerKey, innerKey, innerValue);
+            }
+        }
+    }
+    /**
+     * Creates a weighted adjacency list (pre-graph) from a list of vertices.
+     *
+     * @param vertices a list of strings representing the sequence of vertices
+     * @return a map representing the adjacency structure
+     */
+    private  Map<String, Map<String, Integer>> createPreGraph(List<String> vertices) {
+        Map<String, Map<String, Integer>> graph = new HashMap<>();
+
+        // Populate the graph based on consecutive pairs in the input
+        for (int i = 0; i < vertices.size() - 1; i++) {
+            String source = vertices.get(i);
+            String target = vertices.get(i + 1);
+
+            // Add the source vertex if it doesn't already exist
+            graph.putIfAbsent(source, new HashMap<>());
+
+            // Increment the weight of the edge from source to target
+            Map<String, Integer> edges = graph.get(source);
+            edges.put(target, edges.getOrDefault(target, 0) + 1);
+        }
+
+        return graph;
+        }
+
     
     // TODO toString()
 
