@@ -98,7 +98,28 @@ public class GraphPoet {
     public String poem(String input) {
 
         List<String> inputWords = readWords(input);
-        genGraph(inputWords, this.graphInput);
+
+        for (int i = 0; i< inputWords.size() - 1; i++) {
+            String sourceWord = inputWords.get(i);
+            String targetWord = inputWords.get(i + 1);
+            Map<String, Integer> targetsLevel1 = this.graphCorpus.targets(sourceWord);
+            for (String targetLevel1: targetsLevel1.keySet()) {
+                Map<String, Integer> targetsLevel2 = this.graphCorpus.targets(targetLevel1);
+                for (String targetLevel2: targetsLevel2.keySet()) {
+                    // if at this level we find our target, we can store it 
+                    if (targetLevel2.equals(targetWord)) {
+                    Integer weightSumEdges = targetsLevel1.get(targetLevel1) + targetsLevel2.get(targetLevel2); 
+                    }
+
+                }
+
+            }
+
+        }
+
+
+
+
         System.out.println(this.graphInput);
 
         // TODO replace for th real poem 
