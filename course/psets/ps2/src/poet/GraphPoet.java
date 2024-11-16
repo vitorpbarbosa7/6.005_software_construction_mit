@@ -79,7 +79,10 @@ public class GraphPoet {
      */
     public GraphPoet(File corpus) throws IOException {
 
+        // graphCorpus generate
         this.corpusWords = CorpusReader.readCorpus(corpus.getPath());
+        genGraph(this.corpusWords, this.graphCorpus);
+        System.out.println(this.graphCorpus);
 
     }
     
@@ -94,10 +97,9 @@ public class GraphPoet {
      */
     public String poem(String input) {
 
-        // graphCorpus generate
-        genGraphCorpus();
-
-        System.out.println(this.graphCorpus);
+        List<String> inputWords = readWords(input);
+        genGraph(inputWords, this.graphInput);
+        System.out.println(this.graphInput);
 
         // TODO replace for th real poem 
         return input;
@@ -105,9 +107,21 @@ public class GraphPoet {
 
     }
 
-    private void genGraphCorpus() {
+    private List<String> readWords(String filename){
+        File inputFile = new File(filename);
+        try {
+            List<String> words = CorpusReader.readCorpus(inputFile.getPath());
+            return words;
+        } catch (IOException e) {
+            System.err.println("Could read file" + filename + "Exception: " + e);
+            System.exit(1);
+            return new ArrayList<>();
+        }
+    }
 
-        Map<String, Map<String, Integer>> preGraphCorpus = createPreGraph(this.corpusWords);
+    private void genGraph(List<String> localCorpusWords, Graph<String> localGraph) {
+
+        Map<String, Map<String, Integer>> preGraphCorpus = createPreGraph(localCorpusWords);
 
         for (Map.Entry<String, Map<String, Integer>> outerEntry : preGraphCorpus.entrySet()) {
             String outerKey = outerEntry.getKey(); // Outer key
@@ -118,7 +132,7 @@ public class GraphPoet {
                 Integer innerValue = innerEntry.getValue(); // Inner value
                 
                 // populate correctly the graph
-                this.graphCorpus.set(outerKey, innerKey, innerValue);
+                localGraph.set(outerKey, innerKey, innerValue);
             }
         }
     }
