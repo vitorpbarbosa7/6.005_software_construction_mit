@@ -100,7 +100,6 @@ public class GraphPoet {
 
         List<String> inputWords = readWords(input);
         Integer weightSumEdges = 0;
-        Integer previousWeight = 0;
 
         Map<String, SimpleEntry<String, Integer>> bridgeMap = new HashMap<>();
         for (int i = 0; i< inputWords.size() - 1; i++) {
@@ -131,7 +130,7 @@ public class GraphPoet {
                 }
             }
         }
-        System.out.println(bridgeMap);
+        // System.out.println(bridgeMap);
 
         List<String> newWordList = new ArrayList<>();
         // modify the list, according to higher weight of w1-b-w2 bridge
@@ -173,16 +172,8 @@ public class GraphPoet {
 
     }
 
-    private List<String> readWords(String filename){
-        File inputFile = new File(filename);
-        try {
-            List<String> words = CorpusReader.readCorpus(inputFile.getPath());
-            return words;
-        } catch (IOException e) {
-            System.err.println("Could read file" + filename + "Exception: " + e);
-            System.exit(1);
-            return new ArrayList<>();
-        }
+    private List<String> readWords(String text){
+        return CorpusReader.readText(text);
     }
 
     private void genGraph(List<String> localCorpusWords, Graph<String> localGraph) {
@@ -240,13 +231,13 @@ public class GraphPoet {
     //main
     public static void main(String args[]) {
 
-        String filenameCorpus = "poet/corpus.txt";
+        String filenameCorpus = "src/poet/corpus.txt";
         File fileCorpus = new File(filenameCorpus);
         // where is my corpus, oh my god
         // System.out.println("Current working directory: " + System.getProperty("user.dir"));
         try {
             GraphPoet poet = new GraphPoet(fileCorpus);
-            String filenameInput = "poet/input.txt";
+            String filenameInput = "src/poet/input.txt";
             String outputPoem = poet.poem(filenameInput);
             System.out.println(outputPoem);
         } catch (IOException e) {

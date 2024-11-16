@@ -20,7 +20,15 @@ public class Main {
      * @throws IOException if a poet corpus file cannot be found or read
      */
     public static void main(String[] args) throws IOException {
-        final GraphPoet nimoy = new GraphPoet(new File("src/poet/mugar-omni-theater.txt"));
+        // System.out.println("Current Working Directory: " + System.getProperty("user.dir"));
+        // File currentDir = new File("."); // "." means the current directory
+        // // Call the static method from ListFiles class
+        // System.out.println("Listing all files and directories recursively:");
+        // ListFiles.listFilesRecursively(currentDir, "");
+
+        String filename = "src/poet/fuckingfile.txt";
+        File fileCorpus = new File(filename);
+        final GraphPoet nimoy = new GraphPoet(fileCorpus);
         final String input = "Test the system.";
         System.out.println(input + "\n>>>\n" + nimoy.poem(input));
     }
