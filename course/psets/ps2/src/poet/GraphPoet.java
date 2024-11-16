@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.AbstractMap.SimpleEntry;
 
 import java.io.File;
 import java.io.IOException;
@@ -101,7 +102,7 @@ public class GraphPoet {
         Integer weightSumEdges = 0;
         Integer previousWeight = 0;
 
-        Map<String, Map<String, Integer>> bridgeMap = new HashMap<>();
+        Map<String, SimpleEntry<String, Integer>> bridgeMap = new HashMap<>();
         for (int i = 0; i< inputWords.size() - 1; i++) {
             // for each consecutive words, that is, source and target
             String sourceWord = inputWords.get(i);
@@ -118,13 +119,12 @@ public class GraphPoet {
                         weightSumEdges = targetsLevel1.get(targetLevel1) + targetsLevel2.get(targetLevel2);
                         
                         String keyConcat = sourceWord + "_" + targetWord;
-                        bridgeMap.putIfAbsent(keyConcat, new HashMap<>());
+                        SimpleEntry<String, Integer> currentEntry = bridgeMap.getOrDefault(keyConcat, null);
                             
                         // if this one has higher weight, we substitute it
                         // targetLevel1 is the bridgeWord
-                        previousWeight = bridgeMap.get(keyConcat).getOrDefault(targetLevel1, 0);
-                        if (weightSumEdges >= previousWeight) {
-                            bridgeMap.get(keyConcat).put(targetLevel1, weightSumEdges);
+                        if (currentEntry == null || weightSumEdges >= currentEntry.getValue()) {
+                            bridgeMap.put(keyConcat, new SimpleEntry<>(targetLevel1, weightSumEdges));
                         }
 
                     }
@@ -133,10 +133,30 @@ public class GraphPoet {
         }
         System.out.println(bridgeMap);
 
-        // // modify the list, according to higher weight of w1-b-w2 bridge
-        // for(int i = 0; i<inputWords.size() -1; i++) {
-        //     String sourceWord = inputWords.get(i);
-        //     String targetWord = inputWords.get(i+1);
+        List<String> newWordList = new ArrayList<>();
+        // modify the list, according to higher weight of w1-b-w2 bridge
+        for(int i = 0; i<inputWords.size() -1; i++) {
+            String sourceWord = inputWords.get(i);
+            String targetWord = inputWords.get(i+1);
+
+            String keyConcat = sourceWord + "_" + targetWord;
+
+            if (bridgeMap.containsKey(keyConcat)) {
+                SimpleEntry<String, Integer> innerMap = bridgeMap.get(keyConcat);
+                
+                newWordList.add(sourceWord);
+                newWordList.add(innerMap.getKey());
+
+            } else {
+                newWordList.add(sourceWord);
+            }
+
+            if (i == inputWords.size() - 2) {
+                newWordList.add(targetWord);
+            }
+        }
+
+        System.out.println(newWordList);
 
         // }
         return input;
