@@ -1,6 +1,3 @@
-/* Copyright (c) 2015-2016 MIT 6.005 course staff, all rights reserved.
- * Redistribution of original or derived work requires permission of course staff.
- */
 package graph;
 
 import java.util.ArrayList;
@@ -12,177 +9,169 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Collections;
 
-/**
- * An implementation of Graph.
- * 
- * <p>PS2 instructions: you MUST use the provided rep.
- */
 public class ConcreteEdgesGraph<L> implements Graph<L> {
     
-    // vertices represented as strings in this set
     private final Set<L> vertices = new HashSet<>();
     private final List<Edge<L>> edges = new ArrayList<>();
     
-    // Abstraction function:
-    //      AF(vertices, edges) = Represents a Weighted Directed Graph with vertices and edges connecting the vertices
-    //      vertices: set of nodes in G
-    //      edges: set of weighted directed positive edges in G
-    //      Each Edge in G represents a vertex (source) directed to another vertex (target) with a specific weight
-    // Representation invariant:
-    //      Edges are immutable, therefore also no duplicate edges
-    //      Weights are positive
-    //      Vertices and Edges are final fields
-    //      Every vertice in the edges are found in the vertice
-    // Safety from Rep Exposure:
-    //      vertices and edges are private, so not accessed directly from outside the class
-    //      With immutable Edges, a client can't mutate the Graph without using only the implemented Graphs
-    //      Edges and vertices being final, avoid side effects of reassignments
-    //      Observers which return vertices and edges make defensive copies
-
-    
-    // constructor
     public ConcreteEdgesGraph() {
         checkRep();
     }
    
-    // constructor, create empty graph
-    public static  <L> Graph<L> empty() {
+    public static <L> Graph<L> empty() {
         return new ConcreteEdgesGraph<L>();
     }
 
-    // checkRep
-    private void checkRep(){
+    private void checkRep() {
         Set<String> seenEdges = new HashSet<>();
-        for (Edge<L> edge: edges){
-            // Check weights are positive
+        for (Edge<L> edge: edges) {
             assert edge.getWeight() > 0;
-
-            // For every edge, the vertices must contain the 
             assert vertices.contains(edge.getSource());
             assert vertices.contains(edge.getTarget());
-
-            // No duplicate edges (since they are unique, immutable)
             String edgeKey = edge.getSource() + "->" + edge.getTarget();
             assert !seenEdges.contains(edgeKey);
             seenEdges.add(edgeKey);
         }
     }
     
-    // mutator, so call the checkRep
     @Override public boolean add(L vertex) {
-        boolean added_bool = vertices.add(vertex);
+        boolean added = vertices.add(vertex);
         checkRep();
-        return added_bool;
+        return added;
     }
 
-    // mutator, so call the checkRep 
     @Override public int set(L source, L target, int weight) {
-        int return_weight = -1;
+        int returnWeight = -1;
 
-        // construct local edge?
         Edge<L> newEdge = new Edge<L>(source, target, weight);
 
         for (Edge<L> edge: edges) {
             if (newEdge.similar(edge)) {
-                // if equal weight, return weight without doing nothing
                 if (edge.getWeight() == newEdge.getWeight()) {
-                    return_weight = weight;
-                }
-                else {
-                    // keep old weight to return 
-                    int old_weight = edge.getWeight();
-                    // must remove the old edge and add new edge
+                    returnWeight = weight;
+                } else {
+                    int oldWeight = edge.getWeight();
                     edges.remove(edge);
-                    // if weight was equal to 0, so just remove and that is it 
-                    if (weight !=0) {
+                    if (weight != 0) {
                         edges.add(newEdge);
                     }
-                    return_weight = old_weight;
+                    returnWeight = oldWeight;
                 }    
+                break;
             }
         }
         
-        // if return weight did not changed its value, so this guy did not exist
-        if (return_weight == -1) {
-            // if they do not exist in the vertices, add, and add the edge to the edge list
+        if (returnWeight == -1) {
             vertices.add(source);
             vertices.add(target);
             edges.add(newEdge);
-            // if reaches here, so no similar edge was found, so return 0
-            return_weight = 0;
+            returnWeight = 0;
         }
 
         checkRep();
-        return return_weight;
-
+        return returnWeight;
     }
     
-    // mutator, so call the checkRep
     @Override public boolean remove(L vertex) {
-
-        // remove the vertex only
         boolean removed = vertices.remove(vertex);
-        // now remove the edges with this vertex
-        if (removed){
+        if (removed) {
             Iterator<Edge<L>> iterator = edges.iterator();
-            while(iterator.hasNext()){
+            while (iterator.hasNext()) {
                 Edge<L> edge = iterator.next();
-                L localSource = edge.getSource();
-                L localTarget = edge.getTarget();
-                if (vertex.equals(localSource) || vertex.equals(localTarget)) {
-                    iterator.remove(); 
+                if (vertex.equals(edge.getSource()) || vertex.equals(edge.getTarget())) {
+                    iterator.remove();
                 }
             }
         }
-        
         checkRep();
         return removed;
-        
     }
     
-    // observer
     @Override public Set<L> vertices() {
-        return Collections.unmodifiableSet(this.vertices);
+        return Collections.unmodifiableSet(vertices);
     }
 
-    // observer 
     @Override public Map<L, Integer> sources(L target) {
         Map<L, Integer> mapTarget = new HashMap<>();
         for (Edge<L> edge: edges) {
             if (edge.getTarget().equals(target)) {
-                Integer localWeight = edge.getWeight();
-                L localSource = edge.getSource();
-                mapTarget.put(localSource, localWeight); 
+                mapTarget.put(edge.getSource(), edge.getWeight());
             }
         }
-
         return mapTarget;
     }
     
-    // observer 
     @Override public Map<L, Integer> targets(L source) {
         Map<L, Integer> mapSource = new HashMap<>();
         for (Edge<L> edge: edges) {
             if (edge.getSource().equals(source)) {
-                Integer localWeight = edge.getWeight();
-                L localTarget = edge.getTarget();
-                mapSource.put(localTarget, localWeight);
+                mapSource.put(edge.getTarget(), edge.getWeight());
             }
         }
-
         return mapSource;
     }
         
-    // Like a Dunder method
-    // Overriding from Object
-    @Override
-    public String toString() {
-        String graphString = "";
-        for (Edge<L> edge: edges){            
-            graphString = graphString + edge.toString() + "\n";
+    @Override public String toString() {
+        StringBuilder graphString = new StringBuilder();
+        for (Edge<L> edge : edges) {            
+            graphString.append(edge.toString()).append("\n");
         }
-        return graphString;
-
+        return graphString.toString();
     }
-    
+
+    // Main Method for Testing
+    public static void main(String[] args) {
+        ConcreteEdgesGraph<String> graph = new ConcreteEdgesGraph<>();
+        graph.add("A");
+        graph.add("B");
+        graph.add("C");
+
+        graph.set("A", "B", 4);
+        graph.set("B", "C", 5);
+        graph.set("C", "A", 7);
+        graph.set("B", "D", 6);
+        graph.set("D", "E", 6);
+
+        System.out.println("Vertices:");
+        System.out.println(graph.vertices());
+
+        System.out.println("Full Graph:");
+        System.out.println(graph.toString());
+
+        System.out.println("Targets of A:");
+        System.out.println(graph.targets("A"));
+
+        System.out.println("Targets of B:");
+        System.out.println(graph.targets("B"));
+
+        System.out.println("Targets of D:");
+        System.out.println(graph.targets("D"));
+
+        System.out.println("Sources of B:");
+        System.out.println(graph.sources("B"));
+
+        System.out.println("Sources of D:");
+        System.out.println(graph.sources("D"));
+
+        System.out.println("Sources of E:");
+        System.out.println(graph.sources("E"));
+
+        graph.remove("B");
+        System.out.println("\nAfter Removing B:");
+
+        System.out.println("Vertices:");
+        System.out.println(graph.vertices());
+
+        System.out.println("Targets of A:");
+        System.out.println(graph.targets("A"));
+
+        System.out.println("Targets of D:");
+        System.out.println(graph.targets("D"));
+
+        System.out.println("Sources of D:");
+        System.out.println(graph.sources("D"));
+
+        System.out.println("Sources of E:");
+        System.out.println(graph.sources("E"));
+    }
 }

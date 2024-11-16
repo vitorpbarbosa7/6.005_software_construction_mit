@@ -1,21 +1,9 @@
-/**
- * TODO specification
- * Mutable.
- * This class is internal to the rep of ConcreteVerticesGraph.
- * 
- * <p>PS2 instructions: the specification and implementation of this class is
- * up to you.
- */
+// package graph;
 
-
-package graph;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.HashMap;
 import java.util.Collections;
+import java.util.Set;
 
 public class Vertex<L> {
     
@@ -25,21 +13,19 @@ public class Vertex<L> {
     
     // Abstraction function:
     //   AF(source, adjTargets):
-    //      Represents the connections of target vertices to the a source vertex, with their positive weights
-    //      Source vertex points to (directed) target vertices
+    //      Represents the connections of target vertices to the source vertex, with their positive weights.
     // Representation invariant:
-    //   source and adjTargets are final fields, so no reassignment is done, only mutable inside the adjTargets HashMap
+    //   source and adjTargets are final fields, so no reassignment is done, only mutable inside the adjTargets HashMap.
     // Safety from rep exposure:
-    //   Client can't change 
-    //   adjTargets field is private, so no external access directly, only modifiable by the public methods
-    
+    //   Client can't change adjTargets (private and final).
+
     // constructor with both
     public Vertex(L source, HashMap<L, Integer> adjTargets) {
         this.source = source;
         this.adjTargets = adjTargets;
         checkRep();
     }
-    
+
     // constructor with only the source vertex
     public Vertex(L source){
         this.source = source;
@@ -47,103 +33,60 @@ public class Vertex<L> {
     }
     
     // checkRep
-    public void checkRep(){
+    private void checkRep(){
         assert source != null;
         assert adjTargets != null;
     }
     
     // observer
     public Map<L, Integer> getAdjTargets(){
-        Map<L, Integer> unmodifiableMap = Collections.unmodifiableMap(this.adjTargets);
-        return unmodifiableMap;
+        return Collections.unmodifiableMap(this.adjTargets);
     }
 
     // observer
-    /**
-     *  
-     * @return The source node
-     */
     public L getSource() {
         return this.source;
     }
 
-    // observer
-    /**
-     * Recevies the target and gets the Integer weight from a Target from the source node
-     * @param target
-     * @return weight from target 
-     */
     public Integer getTargetWeight(L target) {
         return adjTargets.get(target);
     }
 
-    /**
-     * 
-     * @return The set of targets from source node
-     */
     public Set<L> getTargets(){
-        Set<L> targets = adjTargets.keySet();
-        return targets;
+        return adjTargets.keySet();
     }
 
-
-
     // mutator
-    /**
-     *Set a new connection from source to the target, with weight 
-     * If weight is non positive, it will remove the connection from there
-     * @param target
-     * @param weight
-     * @return the weight of old, or if did not contain the target there, return 0
-     */
     public Integer set(L target, Integer weight){
         Integer return_weight;
-        // if it has the key and we are trying to set to 0, so we should remove it
         if (this.getTargets().contains(target)) {
-            if (weight <=0) {
+            if (weight <= 0) {
                 return_weight = this.getTargetWeight(target);
                 this.remove(target);
-            }
-            else{
+            } else {
                 return_weight = this.adjTargets.put(target, weight);
             }
-        }
-        // if did not contain, the return will be 0, and must add it
-        else
+        } else {
             this.adjTargets.put(target, weight);
             return_weight = 0;
-
+        }
         checkRep();
         return return_weight;
     }
 
-    // mutator
-    /**
-     *Remove a existing connection from source to target 
-     * @param target
-     * @return true if the value existed, or false if the value did not exist there
-     */
     public boolean remove(L target){
         Integer removed_value = adjTargets.remove(target);
         checkRep();
-        if (removed_value == null){
-            return false;
-        } else {
-            return true;
-        }
+        return removed_value != null;
     }
 
     @Override
-        public boolean equals(Object thatObject) {
-        // must be this type 
+    public boolean equals(Object thatObject) {
         if (!(thatObject instanceof Vertex<?>)) return false;
-        // casting
         Vertex<L> thatVertex = (Vertex<L>) thatObject;
-        boolean equalSource = this.getSource().equals(thatVertex.getSource());
-        return equalSource;
+        return this.getSource().equals(thatVertex.getSource());
     }
 
-    //observer of string representation
     @Override
     public String toString() {
         StringBuilder repString = new StringBuilder();
@@ -157,7 +100,6 @@ public class Vertex<L> {
                 L target = entry.getKey();
                 Integer weight = entry.getValue();
                 repString.append("(").append(target).append(": ").append(weight).append(") ");
-                // Only add a comma if it's not the last item
                 if (++count < size) {
                     repString.append(", ");
                 }
@@ -165,9 +107,39 @@ public class Vertex<L> {
         } else {
             repString.append("[[No Target Nodes]]");
         }
-        
-        return repString.toString(); // Remove trailing space
+        return repString.toString();
     }
 
-    
+    // Main method for testing
+    public static void main(String[] args) {
+        
+        HashMap<String, Integer> adjTargets1 = new HashMap<>();
+        adjTargets1.put("B", 4);
+        adjTargets1.put("D", 5);
+        Vertex<String> v1 = new Vertex<>("A", adjTargets1);
+        System.out.println(v1.toString());
+
+        Vertex<String> v2 = new Vertex<>("C");
+
+        v2.set("F", 1);
+        v2.set("G", 2);
+        System.out.println("Add F " + v2.getTargets());
+        System.out.println("Add G " + v2.toString());
+
+        v2.remove("F");
+        System.out.println("Remove F "+ v2.toString());
+
+        v2.set("G", 10);
+        System.out.println("Modify G " + v2.toString());
+
+        v2.set("H", 12);
+        System.out.println("Add H " + v2.toString());
+
+        System.out.println("Observers:\n");
+        System.out.println(v2.toString());
+        System.out.println(v2.getTargets());
+        System.out.println(v2.getTargetWeight("H"));
+        System.out.println(v2.getSource());
+        System.out.println(v2.getAdjTargets());
+    }
 }
