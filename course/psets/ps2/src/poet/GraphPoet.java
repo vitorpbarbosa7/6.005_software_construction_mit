@@ -106,15 +106,18 @@ public class GraphPoet {
     //main
     public static void main(String args[]) {
 
-        String filenameCorpus = "src/corpus.txt";
+        String filenameCorpus = "poet/corpus.txt";
         File fileCorpus = new File(filenameCorpus);
+        // where is my corpus
+        // System.out.println("Current working directory: " + System.getProperty("user.dir"));
         try {
             GraphPoet poet = new GraphPoet(fileCorpus);
+            // where is my corpus oh my god
 
-            String filenameInput = "src/corpus.txt";
+            String filenameInput = "poet/input.txt";
             String outputPoem = poet.poem(filenameInput);
         } catch (IOException e) {
-            System.err.println("Error reading the corpus file" + e.getMessage());
+            System.err.println("Error reading the corpus file: " + e.getMessage());
         }
         
 

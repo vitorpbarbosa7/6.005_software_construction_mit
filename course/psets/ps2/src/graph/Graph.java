@@ -26,7 +26,9 @@ public interface Graph<L> {
      * @return a new empty weighted directed graph
      */
     public static <L> Graph<L> empty() {
-        throw new RuntimeException("not implemented");
+        // so here, in this interface, we call a concrete implementation of the graph, my friends
+        // and client use this baby, to use, hiding the implementation details
+        return new ConcreteVerticesGraph<>();
     }
     
     /**
@@ -94,5 +96,4 @@ public interface Graph<L> {
      *         source to the key
      */
     public Map<L, Integer> targets(L source);
-    
-}
+    }
