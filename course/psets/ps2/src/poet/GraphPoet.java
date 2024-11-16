@@ -98,6 +98,8 @@ public class GraphPoet {
     public String poem(String input) {
 
         List<String> inputWords = readWords(input);
+        Integer weightSumEdges = 0;
+        Integer previousWeight = 0;
 
         Map<String, Map<String, Integer>> bridgeMap = new HashMap<>();
         for (int i = 0; i< inputWords.size() - 1; i++) {
@@ -113,14 +115,14 @@ public class GraphPoet {
                 for (String targetLevel2: targetsLevel2.keySet()) {
                     // if at this level we find our target, we can store it
                     if (targetLevel2.equals(targetWord)) {
-                        Integer weightSumEdges = targetsLevel1.get(targetLevel1) + targetsLevel2.get(targetLevel2);
+                        weightSumEdges = targetsLevel1.get(targetLevel1) + targetsLevel2.get(targetLevel2);
                         
                         String keyConcat = sourceWord + "_" + targetWord;
                         bridgeMap.putIfAbsent(keyConcat, new HashMap<>());
                             
                         // if this one has higher weight, we substitute it
                         // targetLevel1 is the bridgeWord
-                        Integer previousWeight = bridgeMap.get(keyConcat).get(targetLevel1);
+                        previousWeight = bridgeMap.get(keyConcat).getOrDefault(targetLevel1, 0);
                         if (weightSumEdges >= previousWeight) {
                             bridgeMap.get(keyConcat).put(targetLevel1, weightSumEdges);
                         }
