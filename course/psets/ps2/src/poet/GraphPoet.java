@@ -82,7 +82,7 @@ public class GraphPoet {
         // graphCorpus generate
         this.corpusWords = CorpusReader.readCorpus(corpus.getPath());
         genGraph(this.corpusWords, this.graphCorpus);
-        System.out.println(this.graphCorpus);
+        // System.out.println(this.graphCorpus);
 
     }
     
@@ -99,30 +99,44 @@ public class GraphPoet {
 
         List<String> inputWords = readWords(input);
 
+        Map<String, Map<String, Integer>> bridgeMap = new HashMap<>();
         for (int i = 0; i< inputWords.size() - 1; i++) {
+            // for each consecutive words, that is, source and target
             String sourceWord = inputWords.get(i);
             String targetWord = inputWords.get(i + 1);
+            // get all targets from the sourceWord from input, from the Corpus
             Map<String, Integer> targetsLevel1 = this.graphCorpus.targets(sourceWord);
+            // for each target from source, we must go a level deeper to find another targets
             for (String targetLevel1: targetsLevel1.keySet()) {
                 Map<String, Integer> targetsLevel2 = this.graphCorpus.targets(targetLevel1);
+                // from this second level of targets, we try to find a word that matches the targetWord
                 for (String targetLevel2: targetsLevel2.keySet()) {
-                    // if at this level we find our target, we can store it 
+                    // if at this level we find our target, we can store it
                     if (targetLevel2.equals(targetWord)) {
-                    Integer weightSumEdges = targetsLevel1.get(targetLevel1) + targetsLevel2.get(targetLevel2); 
+                        Integer weightSumEdges = targetsLevel1.get(targetLevel1) + targetsLevel2.get(targetLevel2);
+                        
+                        String keyConcat = sourceWord + "_" + targetWord;
+                        bridgeMap.putIfAbsent(keyConcat, new HashMap<>());
+                            
+                        // if this one has higher weight, we substitute it
+                        // targetLevel1 is the bridgeWord
+                        Integer previousWeight = bridgeMap.get(keyConcat).get(targetLevel1);
+                        if (weightSumEdges >= previousWeight) {
+                            bridgeMap.get(keyConcat).put(targetLevel1, weightSumEdges);
+                        }
+
                     }
-
                 }
-
             }
-
         }
+        System.out.println(bridgeMap);
 
+        // // modify the list, according to higher weight of w1-b-w2 bridge
+        // for(int i = 0; i<inputWords.size() -1; i++) {
+        //     String sourceWord = inputWords.get(i);
+        //     String targetWord = inputWords.get(i+1);
 
-
-
-        System.out.println(this.graphInput);
-
-        // TODO replace for th real poem 
+        // }
         return input;
 
 
