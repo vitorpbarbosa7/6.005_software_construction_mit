@@ -156,10 +156,19 @@ public class GraphPoet {
             }
         }
 
-        System.out.println(newWordList);
+        // System.out.println(newWordList);
 
-        // }
-        return input;
+        // with our new wordlist, we can create our final poem 
+        genGraph(newWordList, this.graphInput);
+
+        // System.out.println(this.graphInput);
+
+        String poemSequence = "";
+        for (String singleWord: newWordList){
+            poemSequence += " " + singleWord;
+        }
+
+        return poemSequence;
 
 
     }
@@ -221,6 +230,11 @@ public class GraphPoet {
     
     // TODO toString()
 
+    @Override
+    public String toString() {
+        return this.graphInput.toString();
+    }
+
 
 
     //main
@@ -228,14 +242,13 @@ public class GraphPoet {
 
         String filenameCorpus = "poet/corpus.txt";
         File fileCorpus = new File(filenameCorpus);
-        // where is my corpus
+        // where is my corpus, oh my god
         // System.out.println("Current working directory: " + System.getProperty("user.dir"));
         try {
             GraphPoet poet = new GraphPoet(fileCorpus);
-            // where is my corpus oh my god
-
             String filenameInput = "poet/input.txt";
             String outputPoem = poet.poem(filenameInput);
+            System.out.println(outputPoem);
         } catch (IOException e) {
             System.err.println("Error reading the corpus file: " + e.getMessage());
         }
