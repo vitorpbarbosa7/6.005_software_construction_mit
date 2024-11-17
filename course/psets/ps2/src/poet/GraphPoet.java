@@ -65,12 +65,24 @@ public class GraphPoet {
 
     private final List<String> corpusWords;
     
-    // Abstraction function:
-    //   TODO
-    // Representation invariant:
-    //   TODO
-    // Safety from rep exposure:
-    //   TODO
+    /**
+     * A graph-based poetry generator.
+     * 
+     * Abstraction Function:
+     *   AF(graphCorpus, graphInput, corpusWords):
+     *      - Represents a poetry generator that uses a word affinity graph (`graphCorpus`) derived
+     *        from a corpus of text (`corpusWords`) to generate poems (`graphInput`) based on input strings.
+     * 
+     * Representation Invariant:
+     *   - The graphCorpus must not be null and must correctly represent the structure of the corpus.
+     *   - The corpusWords list must not be null and must contain only valid, non-empty words.
+     *   - The graphInput must not be null and must represent the structure of the generated poem.
+     * 
+     * Safety from Representation Exposure:
+     *   - All fields are private and final where possible.
+     *   - `graphCorpus` and `graphInput` are private and only accessible through controlled methods.
+     *   - Defensive copies or unmodifiable views are used where applicable (e.g., unmodifiable collections).
+     */
     
     /**
      * Create a new poet with the graph from corpus (as described above).
@@ -87,8 +99,15 @@ public class GraphPoet {
 
     }
     
+    private void checkRep() {
+        assert graphCorpus != null : "graphCorpus must not be null";
+        assert graphInput != null : "graphInput must not be null";
+        assert corpusWords != null : "corpusWords must not be null";
 
-    // TODO checkRep
+        for (String word : corpusWords) {
+            assert word != null && !word.isEmpty() : "All words in corpusWords must be non-empty";
+        }
+    }
     
     /**
      * Generate a poem.
@@ -167,6 +186,7 @@ public class GraphPoet {
             poemSequence += " " + singleWord;
         }
 
+        checkRep();
         return poemSequence;
 
 
@@ -215,12 +235,11 @@ public class GraphPoet {
             edges.put(target, edges.getOrDefault(target, 0) + 1);
         }
 
+        checkRep();
         return graph;
         }
 
     
-    // TODO toString()
-
     @Override
     public String toString() {
         return this.graphInput.toString();
