@@ -58,194 +58,109 @@ import graph.Graph;
  * You MUST use Graph in your rep, but otherwise the implementation of this
  * class is up to you.
  */
-public class GraphPoet {
-    
-    private final Graph<String> graphInput = Graph.empty();
-    private final Graph<String> graphCorpus = Graph.empty();
 
+public class GraphPoet {
+
+    private final Graph<String> graphCorpus;
     private final List<String> corpusWords;
-    
-    /**
-     * A graph-based poetry generator.
-     * 
-     * Abstraction Function:
-     *   AF(graphCorpus, graphInput, corpusWords):
-     *      - Represents a poetry generator that uses a word affinity graph (`graphCorpus`) derived
-     *        from a corpus of text (`corpusWords`) to generate poems (`graphInput`) based on input strings.
-     * 
-     * Representation Invariant:
-     *   - The graphCorpus must not be null and must correctly represent the structure of the corpus.
-     *   - The corpusWords list must not be null and must contain only valid, non-empty words.
-     *   - The graphInput must not be null and must represent the structure of the generated poem.
-     * 
-     * Safety from Representation Exposure:
-     *   - All fields are private and final where possible.
-     *   - `graphCorpus` and `graphInput` are private and only accessible through controlled methods.
-     *   - Defensive copies or unmodifiable views are used where applicable (e.g., unmodifiable collections).
-     */
-    
+
     /**
      * Create a new poet with the graph from corpus (as described above).
-     * 
+     *
      * @param corpus text file from which to derive the poet's affinity graph
      * @throws IOException if the corpus file cannot be found or read
      */
     public GraphPoet(File corpus) throws IOException {
-
-        // graphCorpus generate
+        this.graphCorpus = Graph.empty();
         this.corpusWords = CorpusReader.readCorpus(corpus.getPath());
-        genGraph(this.corpusWords, this.graphCorpus);
-        // System.out.println(this.graphCorpus);
-
+        genGraph(this.corpusWords);
+        checkRep();
     }
-    
+
     private void checkRep() {
         assert graphCorpus != null : "graphCorpus must not be null";
-        assert graphInput != null : "graphInput must not be null";
         assert corpusWords != null : "corpusWords must not be null";
 
         for (String word : corpusWords) {
             assert word != null && !word.isEmpty() : "All words in corpusWords must be non-empty";
         }
     }
-    
+
     /**
      * Generate a poem.
-     * 
+     *
      * @param input string from which to create the poem
      * @return poem (as described above)
      */
     public String poem(String input) {
-
-        List<String> inputWords = readWords(input);
-        Integer weightSumEdges = 0;
-
+        // Split the input into words while preserving punctuation
+        List<String> inputWords = CorpusReader.readText(input);
+    
+        if (inputWords.isEmpty()) {
+            return input; // Return the original input if no words are present
+        }
+    
         Map<String, SimpleEntry<String, Integer>> bridgeMap = new HashMap<>();
-        for (int i = 0; i< inputWords.size() - 1; i++) {
-            // for each consecutive words, that is, source and target
-            String sourceWord = inputWords.get(i);
-            String targetWord = inputWords.get(i + 1);
-            // get all targets from the sourceWord from input, from the Corpus
-            Map<String, Integer> targetsLevel1 = this.graphCorpus.targets(sourceWord);
-            // for each target from source, we must go a level deeper to find another targets
-            for (String targetLevel1: targetsLevel1.keySet()) {
-                Map<String, Integer> targetsLevel2 = this.graphCorpus.targets(targetLevel1);
-                // from this second level of targets, we try to find a word that matches the targetWord
-                for (String targetLevel2: targetsLevel2.keySet()) {
-                    // if at this level we find our target, we can store it
-                    if (targetLevel2.equals(targetWord)) {
-                        weightSumEdges = targetsLevel1.get(targetLevel1) + targetsLevel2.get(targetLevel2);
-                        
-                        String keyConcat = sourceWord + "_" + targetWord;
-                        SimpleEntry<String, Integer> currentEntry = bridgeMap.getOrDefault(keyConcat, null);
-                            
-                        // if this one has higher weight, we substitute it
-                        // targetLevel1 is the bridgeWord
-                        if (currentEntry == null || weightSumEdges >= currentEntry.getValue()) {
-                            bridgeMap.put(keyConcat, new SimpleEntry<>(targetLevel1, weightSumEdges));
-                        }
-
-                    }
+    
+        // Create a case-insensitive map for input words
+        List<String> lowerInputWords = new ArrayList<>();
+        for (String word : inputWords) {
+            lowerInputWords.add(word.toLowerCase());
+        }
+    
+        for (int i = 0; i < lowerInputWords.size() - 1; i++) {
+            String sourceWord = lowerInputWords.get(i);
+            String targetWord = lowerInputWords.get(i + 1);
+    
+            Map<String, Integer> targetsLevel1 = graphCorpus.targets(sourceWord);
+            for (String bridgeWord : targetsLevel1.keySet()) {
+                Map<String, Integer> targetsLevel2 = graphCorpus.targets(bridgeWord);
+                if (targetsLevel2.containsKey(targetWord)) {
+                    int weight = targetsLevel1.get(bridgeWord) + targetsLevel2.get(targetWord);
+                    bridgeMap.put(sourceWord + "_" + targetWord,
+                            new SimpleEntry<>(bridgeWord, weight));
                 }
             }
         }
-        // System.out.println(bridgeMap);
-
-        List<String> newWordList = new ArrayList<>();
-        // modify the list, according to higher weight of w1-b-w2 bridge
-        for(int i = 0; i<inputWords.size() -1; i++) {
-            String sourceWord = inputWords.get(i);
-            String targetWord = inputWords.get(i+1);
-
-            String keyConcat = sourceWord + "_" + targetWord;
-
-            if (bridgeMap.containsKey(keyConcat)) {
-                SimpleEntry<String, Integer> innerMap = bridgeMap.get(keyConcat);
-                
-                newWordList.add(sourceWord);
-                newWordList.add(innerMap.getKey());
-
-            } else {
-                newWordList.add(sourceWord);
-            }
-
-            if (i == inputWords.size() - 2) {
-                newWordList.add(targetWord);
-            }
-        }
-
-        // System.out.println(newWordList);
-
-        // with our new wordlist, we can create our final poem 
-        genGraph(newWordList, this.graphInput);
-
-        // System.out.println(this.graphInput);
-
-        String poemSequence = "";
-        for (String singleWord: newWordList){
-            poemSequence += " " + singleWord;
-        }
-
-        checkRep();
-        return poemSequence;
-
-
-    }
-
-    private List<String> readWords(String text){
-        return CorpusReader.readText(text);
-    }
-
-    private void genGraph(List<String> localCorpusWords, Graph<String> localGraph) {
-
-        Map<String, Map<String, Integer>> preGraphCorpus = createPreGraph(localCorpusWords);
-
-        for (Map.Entry<String, Map<String, Integer>> outerEntry : preGraphCorpus.entrySet()) {
-            String outerKey = outerEntry.getKey(); // Outer key
-            Map<String, Integer> innerMap = outerEntry.getValue(); // Inner map
-
-            for (Map.Entry<String, Integer> innerEntry : innerMap.entrySet()) {
-                String innerKey = innerEntry.getKey(); // Inner key
-                Integer innerValue = innerEntry.getValue(); // Inner value
-                
-                // populate correctly the graph
-                localGraph.set(outerKey, innerKey, innerValue);
-            }
-        }
-    }
-    /**
-     * Creates a weighted adjacency list (pre-graph) from a list of vertices.
-     *
-     * @param vertices a list of strings representing the sequence of vertices
-     * @return a map representing the adjacency structure
-     */
-    private  Map<String, Map<String, Integer>> createPreGraph(List<String> vertices) {
-        Map<String, Map<String, Integer>> graph = new HashMap<>();
-
-        // Populate the graph based on consecutive pairs in the input
-        for (int i = 0; i < vertices.size() - 1; i++) {
-            String source = vertices.get(i);
-            String target = vertices.get(i + 1);
-
-            // Add the source vertex if it doesn't already exist
-            graph.putIfAbsent(source, new HashMap<>());
-
-            // Increment the weight of the edge from source to target
-            Map<String, Integer> edges = graph.get(source);
-            edges.put(target, edges.getOrDefault(target, 0) + 1);
-        }
-
-        checkRep();
-        return graph;
-        }
-
     
+        StringBuilder output = new StringBuilder();
+    
+        for (int i = 0; i < inputWords.size() - 1; i++) {
+            String sourceWord = inputWords.get(i);
+            String targetWord = inputWords.get(i + 1);
+    
+            // Add the original source word to the output
+            output.append(sourceWord);
+    
+            String key = sourceWord.toLowerCase() + "_" + targetWord.toLowerCase();
+            if (bridgeMap.containsKey(key)) {
+                // Add the bridge word in lowercase
+                output.append(" ").append(bridgeMap.get(key).getKey());
+            }
+    
+            output.append(" "); // Add space between words
+        }
+    
+        // Add the final word to the output
+        output.append(inputWords.get(inputWords.size() - 1));
+    
+        return output.toString().trim();
+    }
+    
+
+    private void genGraph(List<String> words) {
+        for (int i = 0; i < words.size() - 1; i++) {
+            String source = words.get(i);
+            String target = words.get(i + 1);
+            int currentWeight = graphCorpus.set(source, target, 1);
+            graphCorpus.set(source, target, currentWeight + 1);
+        }
+    }
+
     @Override
     public String toString() {
-        return this.graphInput.toString();
+        return graphCorpus.toString();
     }
-
-
 
     //main
     public static void main(String args[]) {

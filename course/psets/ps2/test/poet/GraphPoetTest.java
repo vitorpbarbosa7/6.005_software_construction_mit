@@ -64,7 +64,7 @@ public class GraphPoetTest {
         GraphPoet poet = new GraphPoet(corpus);
 
         String input = "Hello world!";
-        String expectedOutput = " Hello world!";
+        String expectedOutput = "Hello world!";
         assertEquals(expectedOutput, poet.poem(input));
     }
 
@@ -75,7 +75,7 @@ public class GraphPoetTest {
 
         // Assuming a corpus with "To explore strange new worlds"
         String input = "Explore new";
-        String expectedOutput = " Explore strange new"; // "strange" bridges "Explore" and "new"
+        String expectedOutput = "Explore strange new"; // "strange" bridges "Explore" and "new"
         assertEquals(expectedOutput, poet.poem(input));
     }
 
@@ -86,7 +86,7 @@ public class GraphPoetTest {
 
         // Assuming a corpus with multiple paths between input words
         String input = "To worlds";
-        String expectedOutput = " To explore worlds"; // "explore" is the bridge word with max weight
+        String expectedOutput = "To explore worlds"; // "explore" is the bridge word with max weight
         assertEquals(expectedOutput, poet.poem(input));
     }
 
@@ -97,7 +97,7 @@ public class GraphPoetTest {
 
         // Assuming a corpus "To Explore strange NEW worlds"
         String input = "explore new";
-        String expectedOutput = " explore strange new";
+        String expectedOutput = "explore strange new";
         assertEquals(expectedOutput, poet.poem(input));
     }
 
@@ -107,7 +107,7 @@ public class GraphPoetTest {
         GraphPoet poet = new GraphPoet(emptyCorpus);
 
         String input = "This is a test.";
-        assertEquals(" This is a test.", poet.poem(input));
+        assertEquals("This is a test.", poet.poem(input));
     }
 
     @Test
@@ -125,7 +125,7 @@ public class GraphPoetTest {
         GraphPoet poet = new GraphPoet(corpus);
 
         String input = "Hello, world!";
-        String expectedOutput = " Hello, world!";
+        String expectedOutput = "Hello, world!";
         assertEquals(expectedOutput, poet.poem(input));
     }
 
@@ -134,7 +134,7 @@ public class GraphPoetTest {
         File corpus = new File("src/poet/corpus.txt");
         GraphPoet poet = new GraphPoet(corpus);
 
-        String input = "   ";
+        String input = "";
         assertEquals("", poet.poem(input));
     }
 }

@@ -54,17 +54,17 @@ public class CorpusReader {
         // Split the line by whitespace (spaces, tabs, newlines) to get words
         String[] tokens = line.split("\\s+");
         for (String token : tokens) {
-            // Remove leading and trailing spaces and convert to lowercase
-            token = token.trim().toLowerCase();
-
+            // Trim and preserve punctuation
+            token = token.trim();
+            
             // Only add non-empty tokens
             if (!token.isEmpty()) {
-                words.add(token.replaceAll("[^a-zA-Z0-9]", "")); // Remove special characters
+                words.add(token);
             }
         }
         return words;
     }
-
+    
     public static void main(String[] args) {
         try {
             // Example: Read words from a file
