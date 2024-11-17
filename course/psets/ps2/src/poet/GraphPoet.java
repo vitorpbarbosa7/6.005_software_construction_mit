@@ -159,8 +159,34 @@ public class GraphPoet {
 
     @Override
     public String toString() {
-        return graphCorpus.toString();
+        StringBuilder result = new StringBuilder();
+        result.append("GraphPoet Corpus Representation:\n");
+    
+        // Add vertices
+        result.append("Vertices:\n");
+        for (String vertex : graphCorpus.vertices()) {
+            result.append("- ").append(vertex).append("\n");
+        }
+    
+        // Add edges
+        result.append("Edges:\n");
+        for (String source : graphCorpus.vertices()) {
+            Map<String, Integer> targets = graphCorpus.targets(source);
+            for (Map.Entry<String, Integer> entry : targets.entrySet()) {
+                String target = entry.getKey();
+                int weight = entry.getValue();
+                result.append(source)
+                      .append(" -> ")
+                      .append(target)
+                      .append(" (weight: ")
+                      .append(weight)
+                      .append(")\n");
+            }
+        }
+    
+        return result.toString();
     }
+    
 
     //main
     public static void main(String args[]) {

@@ -28,9 +28,11 @@ public class Main {
 
         String filename = "src/poet/fuckingfile.txt";
         File fileCorpus = new File(filename);
-        final GraphPoet nimoy = new GraphPoet(fileCorpus);
+        final GraphPoet graphpoet = new GraphPoet(fileCorpus);
         final String input = "Test the system.";
-        System.out.println(input + "\n>>>\n" + nimoy.poem(input));
+        System.out.println(input + "\n>>>\n" + graphpoet.poem(input));
+
+        System.out.println(graphpoet.toString());
     }
     
 }
