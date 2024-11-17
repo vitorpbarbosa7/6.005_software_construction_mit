@@ -66,7 +66,7 @@ public class Edge<L> {
 
     @Override
     public String toString() {
-        return "(" + this.source + ") -" + this.weight + "-> (" + this.target + ")";
+        return "(" + this.source + ") - " + this.weight + " -> (" + this.target + ")";
     }
 
     /**

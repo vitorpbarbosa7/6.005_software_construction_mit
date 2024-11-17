@@ -42,7 +42,11 @@ public class ConcreteVerticesGraph<L> implements Graph<L> {
     @Override public boolean add(L vertex) {
         Vertex<L> vertexObj = new Vertex<L>(vertex);
         checkRep();
-        return this.vertices.add(vertexObj);
+        boolean returnBool = false;
+        if (!this.vertices.contains(vertexObj)) {
+            returnBool = this.vertices.add(vertexObj);
+        }
+        return returnBool;
     }
     
     // mutator 
