@@ -59,7 +59,7 @@ public class CorpusReader {
 
             // Only add non-empty tokens
             if (!token.isEmpty()) {
-                words.add(token);
+                words.add(token.replaceAll("[^a-zA-Z0-9]", "")); // Remove special characters
             }
         }
         return words;
