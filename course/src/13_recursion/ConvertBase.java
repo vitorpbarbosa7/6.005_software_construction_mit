@@ -5,7 +5,7 @@ public class ConvertBase{
     return Character.toString("0123456789".charAt(remainder));
   }
 
-  public static String stringValue(Integer n, Integer base) {
+  private static String helper(Integer n, Integer base) {
 
     Integer quotient = n/base;
     Integer remainder = n%base;
@@ -17,11 +17,24 @@ public class ConvertBase{
 
     // relate subproblems
     String currentLevel = toStr(remainder);
-    String depeerLevel = stringValue(quotient, base);
+    String depeerLevel = helper(quotient, base);
 
     return depeerLevel + currentLevel;
 
   }
+
+  public static String stringValue(Integer n, Integer base) {
+
+    String sign = "";
+
+    if (n <0){
+      n = -n;
+      sign = "-";
+    }
+
+    return sign + helper(n, base);
+  }
+
 
   public static void main(String args[]) {
     Integer n = 16;
@@ -29,6 +42,8 @@ public class ConvertBase{
     Integer base2 = 2;
     
     System.out.println(stringValue(n, base10));
+    System.out.println(stringValue(-n, base10));
     System.out.println(stringValue(n, base2));
+    System.out.println(stringValue(-n, base2));
 }
 }
