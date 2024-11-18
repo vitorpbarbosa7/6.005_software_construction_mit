@@ -2,7 +2,8 @@
 public class ConvertBase{
 
   private static String toStr(Integer remainder) {
-    return Character.toString("0123456789".charAt(remainder));
+    // only 10 places here, if you want hexadecimal, change here
+    return Character.toString("0123456789ABCDEF".charAt(remainder));
   }
 
   private static String helper(Integer n, Integer base) {
@@ -45,5 +46,6 @@ public class ConvertBase{
     System.out.println(stringValue(-n, base10));
     System.out.println(stringValue(n, base2));
     System.out.println(stringValue(-n, base2));
+    System.out.println(stringValue(170, 16));
 }
 }
