@@ -7,12 +7,12 @@ public class HelperSubsequences {
     } else {
       // inductive step
       // proved to work on k + 1
-      String withoutWordPartial = partialSubsequence;
-      String withoutWord = subsequencesAfter(withoutWordPartial, word.substring(1));
+      String withoutCharPartial = partialSubsequence;
+      String withoutChar = subsequencesAfter(withoutCharPartial, word.substring(1));
       String separator = ",";
-      String withWordPartial = partialSubsequence + word.charAt(0);
-      String withWord = subsequencesAfter(withWordPartial, word.substring(1));
-      return withoutWord + separator + withWord;
+      String withCharPartial = partialSubsequence + word.charAt(0);
+      String withChar = subsequencesAfter(withCharPartial, word.substring(1));
+      return withoutChar + separator + withChar;
     }
   }
 
