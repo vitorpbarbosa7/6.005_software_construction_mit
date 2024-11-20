@@ -24,6 +24,8 @@ public interface ImList<E> {
 
 // Base case
 class Empty<E> implements ImList<E> {
+    // remove the public here if want to make
+    // package-private
     public Empty() {
     }
     public ImList<E> cons(E e) {
@@ -50,6 +52,11 @@ class Cons<E> implements ImList<E> {
     private final E e;
     // recursive
     private final ImList<E> rest;
+    // data augmentation as learned in 6.006
+    private int size = 0;
+    // rep invariant:
+    //      e != null, rest != null, size >= 0;
+    //      sie > 0 implies size == 1+rest.size();
 
     // the concrete class Cons<E> uses the ImList interface here, even if the 
     // concrete implements the ImList itself
@@ -66,18 +73,26 @@ class Cons<E> implements ImList<E> {
     }
     public E first() {
         // base case
-        return e;
+        return this.e;
     }
     public ImList<E> rest() {
       // recursive, considering rest
       // the ones down the stack will consider their rests 
-        return rest;
+        return this.rest;
     }
 
     public int size() {
       // recursive, considering rest
-      return 1 + rest.size();
+      // data augmentation as in 6.006 (caching the size)
+      // making retrieve it in O(1), not calculate always in O(n)
+      // computes during construction of the last pointer 
+      if (this.size == 0) {
+        this.size = 1 + this.rest.size();
+      }
+      return this.size;
     }
+      
+    
 
     public boolean isEmpty() {
         // recursive
@@ -94,6 +109,7 @@ class Cons<E> implements ImList<E> {
 class Main {
     public static void main(String[] args) {
         ImList<Integer> list = ImList.empty();
+        ImList<Integer> emptyList = ImList.empty();
         list = list.cons(1).cons(2).cons(3); // Creates [3, 2, 1]
 
         System.out.println(list.first());  // Output: 3
@@ -101,6 +117,9 @@ class Main {
         
         System.out.println(list.size());
         System.out.println(list.rest().size());
+
+        System.out.println(emptyList.isEmpty());
+        System.out.println(list.isEmpty());
 
     }
 }
