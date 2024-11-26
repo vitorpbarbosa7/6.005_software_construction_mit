@@ -4,7 +4,7 @@ class Number implements IntegerExpression {
     private final int n;
     
     // Abstraction function
-    //    AF(n) = the integer n
+    //    represents the integer n
     // Rep invariant
     //    true
     // Safety from rep exposure
@@ -23,6 +23,4 @@ class Number implements IntegerExpression {
     @Override public String toString() {
         return String.valueOf(n);
     }
-
-    // TODO: implement equals() and hashCode()?
 }

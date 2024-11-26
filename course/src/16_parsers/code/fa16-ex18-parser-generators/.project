@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>ex18-parsers</name>
+	<name>ex18-parser-generators</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -16,7 +16,7 @@
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1732618421960</id>
+			<id>1732619440390</id>
 			<name></name>
 			<type>30</type>
 			<matcher>

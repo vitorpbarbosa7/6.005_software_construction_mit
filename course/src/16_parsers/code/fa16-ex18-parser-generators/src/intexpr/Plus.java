@@ -4,7 +4,7 @@ class Plus implements IntegerExpression {
     private final IntegerExpression left, right;
     
     // Abstraction function
-    //    AF(left, right) = the expression left+right
+    //    represents the sum of two expressions left+right
     // Rep invariant
     //    true
     // Safety from rep exposure
@@ -23,6 +23,4 @@ class Plus implements IntegerExpression {
     @Override public String toString() {
         return "(" + left + ")+(" + right + ")";
     }
-
-    // TODO: implement equals() and hashCode()?
 }
