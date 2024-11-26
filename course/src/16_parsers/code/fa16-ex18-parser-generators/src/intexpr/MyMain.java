@@ -45,16 +45,37 @@ public class MyMain {
          
          ParseTree<IntegerGrammar> someNode = tree.children().get(0).children().get(0).children().get(0);
          System.out.println(someNode.getContents());
-         System.out.println(someNode.children());
          System.out.println(someNode.toString());
+         System.out.println(someNode.getName());
+         System.out.println(someNode.children());
          System.out.println(someNode.isTerminal());
 
+         // return those which correspond to specific production rule
+         System.out.println("Some production rule PRIMITIVE: "+ tree.children().get(0).childrenByName(IntegerGrammar.PRIMITIVE).toString());
+         System.out.println("Some production rule:NUMBER "+ tree.children().get(0).childrenByName(IntegerGrammar.NUMBER).toString());
+
+         // Recursively visit all node
+         visitAll(tree, "  ");
 
          
          // This tree we can print as a string
          System.out.println(tree.toString());         
         //  IntegerExpression ast = buildAST(tree);
         //  return ast;
+    }
+
+    private static void visitAll(ParseTree<IntegerGrammar> node, String indent) {
+        // Base case
+        if (node.isTerminal()) {
+            System.out.println(indent + node.getName() + ":" + node.getContents());
+        } else {
+            // induction rule
+            System.out.println(indent + node.getName());
+            // iterable is already implemented over children
+            for(ParseTree<IntegerGrammar> child: node){
+                visitAll(child, indent + "   ");
+            }
+        }
     }
 
     
