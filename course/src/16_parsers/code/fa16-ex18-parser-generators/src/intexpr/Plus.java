@@ -21,6 +21,7 @@ class Plus implements IntegerExpression {
     }
     
     @Override public String toString() {
-        return "(" + left + ")+(" + right + ")";
+        // return "(" + left + ")+(" + right + ")";
+        return "Plus(" + left + ","+ right + ")";
     }
 }

@@ -21,6 +21,7 @@ class Number implements IntegerExpression {
     }
     
     @Override public String toString() {
-        return String.valueOf(n);
+        // return String.valueOf(n);
+        return "Number("+ String.valueOf(n)+ ")";
     }
 }
