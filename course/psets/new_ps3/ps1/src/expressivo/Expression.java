@@ -84,17 +84,18 @@ public interface Expression {
             case PRIMITIVE:
                 // if it is primitive, we must check if in the children, we have NUMBER of VARIABLE
                 // Which are terminals
-                if (p.childrenByName(ElementsGrammar.NUMBER).isEmpty()) { 
+                if (p.childrenByName(ElementsGrammar.NUMBER).isEmpty() || p.childrenByName(ElementsGrammar.VARIABLE).isEmpty()) { 
                     // if not terminal, go in the left and expand
                     if (p.childrenByName(ElementsGrammar.SUM).isEmpty()) { 
                         return buildAST(p.childrenByName(ElementsGrammar.PRODUCT).get(0));
                     }
                 }
-                if (p.childrenByName(ElementsGrammar.NUMBER).isEmpty()) { 
+                if (p.childrenByName(ElementsGrammar.NUMBER).isEmpty() || p.childrenByName(ElementsGrammar.VARIABLE).isEmpty()) { 
                     // if not terminal, go in the left and expand
                     if (p.childrenByName(ElementsGrammar.PRODUCT).isEmpty()) { 
                         return buildAST(p.childrenByName(ElementsGrammar.SUM).get(0));
                     }
+                }
                 }
             
 
