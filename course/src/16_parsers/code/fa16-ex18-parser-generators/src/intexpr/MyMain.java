@@ -17,7 +17,7 @@ public class MyMain {
 
     public static void main(String[] args) throws UnableToParseException, IOException {
         // String input = "54+(2+89)";
-        String input = "19 + 23 + 18";
+        String input = "(19 + 23) + (18)";
         // IntegerExpression expr = parse(input);
         IntegerExpression AbstractSyntaxTree = parse(input);
 

@@ -2,6 +2,10 @@ package expressivo;
 
 import lib6005.parser.Parser;
 import lib6005.parser.UnableToParseException;
+
+import java.io.IOException;
+
+import expressivo.GrammarRun.ElementsGrammar;
 import lib6005.parser.GrammarCompiler;
 import lib6005.parser.ParseTree;
 
@@ -31,7 +35,19 @@ public interface Expression {
      * @return expression AST for the input
      * @throws IllegalArgumentException if the expression is invalid
      */
-    public static Expression parse(String input) {
+    public static Expression parse(String string) throws UnableToParseException, IOException {
+        Parser<ElementsGrammar> parser = GrammarCompiler.compile(new File("Expression.g"), ElementsGrammar.ROOT);
+        ParseTree<ElementsGrammar> tree = parser.parse(string);
+
+
+        Expression AbstractSyntaxTree = buildAST(tree);
+
+        return AbstractSyntaxTree;
+    }
+
+
+
+        
         throw new RuntimeException("unimplemented");
     }
     
@@ -57,8 +73,26 @@ public interface Expression {
      */
     @Override
     public int hashCode();
-    
-    // TODO more instance methods
+
+    private static Expression buildAST(ParseTree<ElementsGrammar> p) {
+        
+        switch(p.getName()) { 
+            
+            // base case 
+            case NUMBER:
+                return new Number(Double.parseDouble(p.getContents()));
+
+            case VAR:
+                return new Variable(p.getContents());
+            
+
+        }
+    }
+
+    public enum ElementsGrammar {
+        ROOT, OPERATION, PRIMITIVE, WHITESPACE, NUMBER, VAR
+    }
+
 
 
     

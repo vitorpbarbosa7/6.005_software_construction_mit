@@ -11,11 +11,14 @@
  *
  * For more information, see the parsers reading.
  */
-root ::= sum;
+root ::= operation;
 @skip whitespace{
-	sum ::= primitive ('+' primitive)*;
-	primitive ::= number | '(' sum ')';
+	operation ::= primitive ('+'|'*' primitive)*;
+	primitive ::= number | '(' operation ')';
 }
-number ::= [0-9]+;
-
-whitespace ::= [ ]+;
+// must consider floatings
+// [0-9]+ :: one more ocurrences of this
+// (\.[0-9]+)? :: this can occur or not, note that the point is not 
+// followerd by +, only the [0-9]
+number ::= [0-9]+(\.[0-9]+)?;
+whitespace ::= [ \t\r\n]+;
