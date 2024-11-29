@@ -3,7 +3,7 @@ package expressivo;
 import java.util.Objects;
 
 class Variable implements Expression{
-    private final String var;
+    private final String variable;
 
     // Abstraction Function
     //       Represents a Variable
@@ -12,13 +12,13 @@ class Variable implements Expression{
     // Safety from rep exposure
     //      All fields representing the variable are private and final
 
-    public Variable(String var){
-        this.var = var;
+    public Variable(String variable){
+        this.variable = variable;
     }
 
     @Override
     public String toString() {
-        return this.var;
+        return this.variable;
     }
 
     @Override
@@ -26,12 +26,12 @@ class Variable implements Expression{
         if (!(thatObject instanceof Variable)) return false;
         Variable thatVariable = (Variable) thatObject;
 
-        return this.var.equals(thatVariable.var);
+        return this.variable.equals(thatVariable.variable);
     }
 
     @Override
     public int hashCode(){
-        return Objects.hash(this.var);
+        return Objects.hash(this.variable);
     }
     
 }

@@ -10,11 +10,11 @@ import lib6005.parser.Parser;
 
 public class GrammarRun {
     public static void main(String args[]) throws UnableToParseException, IOException {
-        String a1 = "1 + 2 + 3"; parse(a1);
-        String a2 = "x + y + z"; parse(a2);
-        String a3 = "(x) + (y + z)"; parse(a3);
-        String a4 = "(x) + (y + 3)"; parse(a4);
-        String a5 = "(x) + (y + 3.1)"; parse(a5);
+        String a1 = "1 * 2 * 3"; parse(a1);
+        String a2 = "x * y + z"; parse(a2);
+        String a3 = "(x) * (y + z)"; parse(a3);
+        String a4 = "(x) + (y * 3)"; parse(a4);
+        String a5 = "(x) + (y * 3.1)"; parse(a5);
     }
 
     public static void parse(String string) throws UnableToParseException, IOException {
@@ -24,6 +24,6 @@ public class GrammarRun {
     }
 
     public enum ElementsGrammar {
-        ROOT, OPERATION, PRIMITIVE, WHITESPACE, NUMBER, VAR
+        ROOT, SUM, PRODUCT, PRIMITIVE, WHITESPACE, NUMBER, VARIABLE
     }
 }

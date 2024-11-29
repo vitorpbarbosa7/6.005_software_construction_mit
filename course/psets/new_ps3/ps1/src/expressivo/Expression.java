@@ -24,9 +24,9 @@ public interface Expression {
     
     // Datatype definition
     //   Expression = Number(n: double) 
-    //            Variable(var:String) + 
+    //            Variable(variable:String) + 
     //            Product(left:Expression, right:Expression)
-    //            Plus(left:Expression, right:Expression)
+    //            Sum(left:Expression, right:Expression)
     // Once defined their variants, need to implement them concretely
     
     /**
@@ -36,17 +36,13 @@ public interface Expression {
      * @throws IllegalArgumentException if the expression is invalid
      */
     public static Expression parse(String string) throws UnableToParseException, IOException {
-        Parser<ElementsGrammar> parser = GrammarCompiler.compile(new File("Expression.g"), ElementsGrammar.ROOT);
-        ParseTree<ElementsGrammar> tree = parser.parse(string);
+        // Parser<ElementsGrammar> parser = GrammarCompiler.compile(new File("Expression.g"), ElementsGrammar.ROOT);
+        // ParseTree<ElementsGrammar> tree = parser.parse(string);
 
 
-        Expression AbstractSyntaxTree = buildAST(tree);
+        // Expression AbstractSyntaxTree = buildAST(tree);
 
-        return AbstractSyntaxTree;
-    }
-
-
-
+        // return AbstractSyntaxTree;
         
         throw new RuntimeException("unimplemented");
     }
@@ -74,23 +70,31 @@ public interface Expression {
     @Override
     public int hashCode();
 
-    private static Expression buildAST(ParseTree<ElementsGrammar> p) {
+    // private static Expression buildAST(ParseTree<ElementsGrammar> p) {
         
-        switch(p.getName()) { 
+    //     switch(p.getName()) { 
             
-            // base case 
-            case NUMBER:
-                return new Number(Double.parseDouble(p.getContents()));
+    //         // base case 
+    //         case NUMBER:
+    //             return new Number(Double.parseDouble(p.getContents()));
 
-            case VAR:
-                return new Variable(p.getContents());
+    //         case VARIABLE:
+    //             return new Variable(p.getContents());
+
+    //         case PRIMITIVE:
+    //             // if it is primitive, we must check if in the children, we have NUMBER of VARIABLE
+    //             // Which are terminals
+    //             if (p.childrenByName(ElementsGrammar.NUMBER).isEmpty()) { 
+    //                 // if not terminal, go in the left and expand
+    //                 return buildAST(p.childrenByName(ElementsGrammar.OPERATION))
+    //             }
             
 
-        }
-    }
+    //     }
+    // }
 
     public enum ElementsGrammar {
-        ROOT, OPERATION, PRIMITIVE, WHITESPACE, NUMBER, VAR
+        ROOT, OPERATION, PRIMITIVE, WHITESPACE, NUMBER, VARIABLE
     }
 
 

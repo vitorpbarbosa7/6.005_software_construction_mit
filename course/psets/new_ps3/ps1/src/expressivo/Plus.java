@@ -2,7 +2,7 @@ package expressivo;
 
 import java.util.Objects;
 
-class Plus implements Expression{
+class Sum implements Expression{
     private final Expression left, right;
    
     // Abstraction Fcuntion
@@ -11,8 +11,8 @@ class Plus implements Expression{
     // .   ??
     // All fields are private final 
 
-    /** Make a Plus which is the product of left and right expressions */
-    public Plus(Expression left, Expression right){
+    /** Make a Sum which is the product of left and right expressions */
+    public Sum(Expression left, Expression right){
         this.left = left;
         this.right = right;
     }
@@ -24,10 +24,10 @@ class Plus implements Expression{
 
     @Override
     public boolean equals(Object thatObject){
-        if(!(thatObject instanceof Plus)) return false;
-        Plus thatPlus = (Plus) thatObject;
+        if(!(thatObject instanceof Sum)) return false;
+        Sum thatSum = (Sum) thatObject;
 
-        return this.toString().equals(thatPlus.toString());
+        return this.toString().equals(thatSum.toString());
     }
 
     @Override
