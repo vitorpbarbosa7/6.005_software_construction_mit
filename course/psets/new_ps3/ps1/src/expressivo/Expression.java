@@ -70,31 +70,39 @@ public interface Expression {
     @Override
     public int hashCode();
 
-    // private static Expression buildAST(ParseTree<ElementsGrammar> p) {
+    private static Expression buildAST(ParseTree<ElementsGrammar> p) {
         
-    //     switch(p.getName()) { 
+        switch(p.getName()) { 
             
-    //         // base case 
-    //         case NUMBER:
-    //             return new Number(Double.parseDouble(p.getContents()));
+            // base case 
+            case NUMBER:
+                return new Number(Double.parseDouble(p.getContents()));
 
-    //         case VARIABLE:
-    //             return new Variable(p.getContents());
+            case VARIABLE:
+                return new Variable(p.getContents());
 
-    //         case PRIMITIVE:
-    //             // if it is primitive, we must check if in the children, we have NUMBER of VARIABLE
-    //             // Which are terminals
-    //             if (p.childrenByName(ElementsGrammar.NUMBER).isEmpty()) { 
-    //                 // if not terminal, go in the left and expand
-    //                 return buildAST(p.childrenByName(ElementsGrammar.OPERATION))
-    //             }
+            case PRIMITIVE:
+                // if it is primitive, we must check if in the children, we have NUMBER of VARIABLE
+                // Which are terminals
+                if (p.childrenByName(ElementsGrammar.NUMBER).isEmpty()) { 
+                    // if not terminal, go in the left and expand
+                    if (p.childrenByName(ElementsGrammar.SUM).isEmpty()) { 
+                        return buildAST(p.childrenByName(ElementsGrammar.PRODUCT).get(0));
+                    }
+                }
+                if (p.childrenByName(ElementsGrammar.NUMBER).isEmpty()) { 
+                    // if not terminal, go in the left and expand
+                    if (p.childrenByName(ElementsGrammar.PRODUCT).isEmpty()) { 
+                        return buildAST(p.childrenByName(ElementsGrammar.SUM).get(0));
+                    }
+                }
             
 
-    //     }
-    // }
+        }
+    }
 
     public enum ElementsGrammar {
-        ROOT, OPERATION, PRIMITIVE, WHITESPACE, NUMBER, VARIABLE
+        ROOT, SUM, PRODUCT, PRIMITIVE, WHITESPACE, NUMBER, VARIABLE
     }
 
 
