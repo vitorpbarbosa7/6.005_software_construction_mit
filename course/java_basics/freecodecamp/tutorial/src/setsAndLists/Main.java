@@ -1,11 +1,10 @@
-package setsandlists;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.HashSet;
 
 public class Main {
 	
-	public static void Main(String[] args) {
+	public static void main(String[] args) {
 		
 //		"Simple" declarion of set data structure type
 		Set<Integer> t = new HashSet<Integer>();

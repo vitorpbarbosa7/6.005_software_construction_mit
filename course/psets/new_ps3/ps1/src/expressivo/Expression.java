@@ -1,6 +1,9 @@
 package expressivo;
 
-import lib6005.parser.*;
+import lib6005.parser.Parser;
+import lib6005.parser.UnableToParseException;
+import lib6005.parser.GrammarCompiler;
+import lib6005.parser.ParseTree;
 
 /**
  * An immutable data type representing a polynomial expression of:
@@ -16,7 +19,11 @@ import lib6005.parser.*;
 public interface Expression {
     
     // Datatype definition
-    //   TODO
+    //   Expression = Number(n: double) 
+    //            Variable(var:String) + 
+    //            Product(left:Expression, right:Expression)
+    //            Plus(left:Expression, right:Expression)
+    // Once defined their variants, need to implement them concretely
     
     /**
      * Parse an expression.
@@ -52,6 +59,8 @@ public interface Expression {
     public int hashCode();
     
     // TODO more instance methods
+
+
     
     /* Copyright (c) 2015-2017 MIT 6.005 course staff, all rights reserved.
      * Redistribution of original or derived work requires permission of course staff.
