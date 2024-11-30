@@ -99,19 +99,23 @@ public interface Expression {
                     // if not terminal, go in the left and expand
                     if (p.childrenByName(ElementsGrammar.SUM).isEmpty()) { 
                         return buildAST(p.childrenByName(ElementsGrammar.PRODUCT).get(0));
-                    }
-                }
-                if (p.childrenByName(ElementsGrammar.NUMBER).isEmpty() || p.childrenByName(ElementsGrammar.VARIABLE).isEmpty()) { 
-                    // if not terminal, go in the left and expand
-                    if (p.childrenByName(ElementsGrammar.PRODUCT).isEmpty()) { 
+                    } else {
                         return buildAST(p.childrenByName(ElementsGrammar.SUM).get(0));
                     }
+                } else {
+                    if (p.childrenByName(ElementsGrammar.NUMBER).isEmpty()) {
+                        return buildAST(p.childrenByName(ElementsGrammar.VARIABLE).get(0));
+                    } else {
+                        return buildAST(p.childrenByName(ElementsGrammar.NUMBER).get(0));
+                    }
+
                 }
 
             case SUM:
                 // track if it is the first operand from the SUM
                 boolean firstSum = true;
                 Expression resultSum = null;
+                // for each child which is a PRODUCT
                 for (ParseTree<ElementsGrammar> child : p.childrenByName(ElementsGrammar.PRODUCT)){
                     if (firstSum) {
                         resultSum = buildAST(child);
