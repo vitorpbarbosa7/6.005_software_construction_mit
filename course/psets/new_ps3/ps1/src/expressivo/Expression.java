@@ -30,12 +30,27 @@ public interface Expression {
     // Once defined their variants, need to implement them concretely
 
     public static void main(String[] args) throws UnableToParseException, IOException {
-        String a2 = "x * y + z"; parse(a2);
+        // Sample expressions
+        String a1 = "1 * 2 * 3";
+        String a2 = "x * y + z";
+        String a3 = "(x) * (y + z)";
+        String a4 = "(x) + (y * 3)";
+        String a5 = "(x) + (y * 3.1)";
 
-        Expression AbstractSyntaxTree = parse(a2);
+        // Parse each expression
+        Expression expr1 = parse(a1);  // Expression 1
+        Expression expr2 = parse(a2);  // Expression 2
+        Expression expr3 = parse(a3);  // Expression 3
+        Expression expr4 = parse(a4);  // Expression 4
+        Expression expr5 = parse(a5);  // Expression 5
+
+        // Print the Abstract Syntax Trees for each expression
+        System.out.println("AST for Expression 1 (1 * 2 * 3): " + expr1.toString());
+        System.out.println("AST for Expression 2 (x * y + z): " + expr2.toString());
+        System.out.println("AST for Expression 3 ((x) * (y + z)): " + expr3.toString());
+        System.out.println("AST for Expression 4 ((x) + (y * 3)): " + expr4.toString());
+        System.out.println("AST for Expression 5 ((x) + (y * 3.1)): " + expr5.toString());
         
-        System.out.println(AbstractSyntaxTree.toString());
-
     }
     
     /**
