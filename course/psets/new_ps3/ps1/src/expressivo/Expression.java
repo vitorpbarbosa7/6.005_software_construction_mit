@@ -95,6 +95,102 @@ public interface Expression {
     @Override
     public int hashCode();
 
+    public static String differentiate(ParseTree<ElementsGrammar> p, Variable var) {
+        String result = "";
+
+        switch(p.getName()) { 
+
+            // base case 
+            case NUMBER:
+                return String.valueOf(0);
+
+            case VARIABLE:
+                Expression currentVar = new Variable(p.getContents());
+                if (currentVar.equals(var)){
+                    return "1";
+                } else {
+                    return "0";
+                }
+
+            // Inductive steps:
+
+            // we will reach NUMBER or VARIABLE, the terminal nodes, by the SUM and PRODUCT non terminals, going by the PRIMITIVE
+            case PRIMITIVE:
+                // if it is primitive, we must check if in the children, we have NUMBER of VARIABLE
+                // Which are terminals
+                if (p.childrenByName(ElementsGrammar.NUMBER).isEmpty() && p.childrenByName(ElementsGrammar.VARIABLE).isEmpty()) { 
+                    // if not terminal, go in the left and expand
+                    if (p.childrenByName(ElementsGrammar.SUM).isEmpty()) { 
+                        return buildAST(p.childrenByName(ElementsGrammar.PRODUCT).get(0));
+                    } else {
+                        return buildAST(p.childrenByName(ElementsGrammar.SUM).get(0));
+                    }
+                } else {
+                    if (p.childrenByName(ElementsGrammar.NUMBER).isEmpty()) {
+                        return buildAST(p.childrenByName(ElementsGrammar.VARIABLE).get(0));
+                    } else {
+                        return buildAST(p.childrenByName(ElementsGrammar.NUMBER).get(0));
+                    }
+
+                }
+
+            case SUM:
+                // track if it is the first operand from the SUM
+                boolean firstSum = true;
+                Expression resultSum = null;
+                // for each child which is a PRODUCT
+                for (ParseTree<ElementsGrammar> child : p.childrenByName(ElementsGrammar.PRODUCT)){
+                    if (firstSum) {
+                        resultSum = buildAST(child);
+                        firstSum = false;
+                    } else {
+                        // if it is not the first one, the first operand in the left, we go on to the next operands
+                        // using the previous result as left, and the remaining one as right to build recursively down 
+                        // we can have like some products for the sum,
+                        // and from left to right, we go constructing the final, and recursively down
+                        resultSum = new Sum(resultSum, buildAST(child));
+                    }
+                }
+
+                if (firstSum) {
+                    throw new RuntimeException("The SUM had no PRODUCT under it!!!");
+                }
+
+                return resultSum;
+            
+            case PRODUCT:
+                // track if it is the first operand from the SUM
+                boolean firstProduct = true;
+                Expression resultProduct = null;
+                for (ParseTree<ElementsGrammar> child : p.childrenByName(ElementsGrammar.PRIMITIVE)){
+                    if (firstProduct) {
+                        resultProduct = buildAST(child);
+                        firstProduct = false;
+                    } else {
+                        // if it is not the first one, the first operand in the left, we go on to the next operands
+                        // using the previous result as left, and the remaining one as right to build recursively down 
+                        // we can have like some primitives for the product,
+                        // and from left to right, we go constructing the final, and recursively down
+                        resultProduct = new Product(resultProduct, buildAST(child));
+                    }
+                }
+
+                if (firstProduct) {
+                    throw new RuntimeException("The PRODUCT had no PRIMITIVE under it !!");
+                }
+
+                return resultProduct;
+
+            // the first node of all, which starts with SUM
+            case ROOT:
+                return buildAST(p.childrenByName(ElementsGrammar.SUM).get(0)) ;
+
+            case WHITESPACE:
+                throw new RuntimeException("You reached a WHITESPACE, and this is not allowed!!" + p);
+
+        return result
+    }
+
     private static Expression buildAST(ParseTree<ElementsGrammar> p) {
         
         switch(p.getName()) { 

@@ -17,7 +17,8 @@ public class MyMain {
 
     public static void main(String[] args) throws UnableToParseException, IOException {
         // String input = "54+(2+89)";
-        String input = "(19 + 23) + (18)";
+        // String input = "(19 + 23) + (18)";
+        String input = "5";
         // IntegerExpression expr = parse(input);
         IntegerExpression AbstractSyntaxTree = parse(input);
 
@@ -56,11 +57,12 @@ public class MyMain {
         //  System.out.println("Is it terminal value? "+  tree.isTerminal());
          
          ParseTree<IntegerGrammar> someNode = tree.children().get(0).children().get(0).children().get(0);
-         System.out.println(someNode.getContents());
-         System.out.println(someNode.toString());
-         System.out.println(someNode.getName());
-         System.out.println(someNode.children());
-         System.out.println(someNode.isTerminal());
+         System.out.println("Contents of the node: " + someNode.getContents());
+         System.out.println("String representation of the node: " + someNode.toString());
+         System.out.println("Name of the node: " + someNode.getName());
+         System.out.println("Children of the node: " + someNode.children());
+         System.out.println("Is the node a terminal? " + someNode.isTerminal());
+         
 
          // return those which correspond to specific production rule
          System.out.println("Some production rule PRIMITIVE: "+ tree.children().get(0).childrenByName(IntegerGrammar.PRIMITIVE).toString());
@@ -74,7 +76,7 @@ public class MyMain {
          System.out.println(tree.toString());         
 
 
-         // The Abstract Syntax Tree, generalized, constructed from the ConcreteParseTree
+         // The Abstract Syntax Tree, generalized, constructed from the ConcretePrsarseTree
          IntegerExpression AbstractSyntaxTree = buildAST(tree);
 
          return AbstractSyntaxTree;
