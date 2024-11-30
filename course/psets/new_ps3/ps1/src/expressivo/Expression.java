@@ -33,31 +33,48 @@ public interface Expression {
     // Once defined their variants, need to implement them concretely
 
     public static void main(String[] args) throws UnableToParseException, IOException {
-        // Sample expressions
-        String a1 = "x * x * x";
-        // String a2 = "x * y + z";
-        // String a3 = "(x) * (y + z)";
-        // String a4 = "(x) + (y * 3)";
-        // String a5 = "(x) + (y * 3.1)";
+       // Sample expressions
 
-        // Parse each expression
-        Expression expr1 = parse(a1);  // Expression 1
-        // Expression expr2 = parse(a2);  // Expression 2
-        // Expression expr3 = parse(a3);  // Expression 3
-        // Expression expr4 = parse(a4);  // Expression 4
-        // Expression expr5 = parse(a5);  // Expression 5
+    // Create the variable 'x' for differentiation
+    Variable varX = new Variable("x");
+    Variable varY = new Variable("y");
 
-        // Print the Abstract Syntax Trees for each expression
-        System.out.println("AST for Expression 1 (1 * 2 * 3): " + expr1.toString());
-        // System.out.println("AST for Expression 2 (x * y + z): " + expr2.toString());
-        // System.out.println("AST for Expression 3 ((x) * (y + z)): " + expr3.toString());
-        // System.out.println("AST for Expression 4 ((x) + (y * 3)): " + expr4.toString());
-        // System.out.println("AST for Expression 5 ((x) + (y * 3.1)): " + expr5.toString());
+    // Parse and compute the derivatives for each expression
+    String a1 = "x * x * x";
+    Expression expr1 = parse(a1);  // Expression 1
+    Expression derivative1 = expr1.differentiate(varX);
+    System.out.println("Expression 1: " + a1);
+    System.out.println("AST for Expression 1 (x * x * x): " + expr1.toString());
+    System.out.println("Derivative for Expression 1 (x * x * x) with respect to x: " + derivative1);
 
+    String a2 = "x * y + z";
+    Expression expr2 = parse(a2);  // Expression 2
+    Expression derivative2 = expr2.differentiate(varX);
+    System.out.println("\nExpression 2: " + a2);
+    System.out.println("AST for Expression 2 (x * y + z): " + expr2.toString());
+    System.out.println("Derivative for Expression 2 (x * y + z) with respect to x: " + derivative2);
 
-        Variable varX = new Variable("x");
-        Expression derivative = expr1.differentiate(varX);
-        System.out.println("Derivative: " + derivative);
+    String a3 = "(x) * (y + z)";
+    Expression expr3 = parse(a3);  // Expression 3
+    Expression derivative3 = expr3.differentiate(varY);
+    System.out.println("\nExpression 3: " + a3);
+    System.out.println("AST for Expression 3 ((x) * (y + z)): " + expr3.toString());
+    System.out.println("Derivative for Expression 3 ((x) * (y + z)) with respect to x: " + derivative3);
+
+    String a4 = "(x) + (y * 3)";
+    Expression expr4 = parse(a4);  // Expression 4
+    Expression derivative4 = expr4.differentiate(varY);
+    System.out.println("\nExpression 4: " + a4);
+    System.out.println("AST for Expression 4 ((x) + (y * 3)): " + expr4.toString());
+    System.out.println("Derivative for Expression 4 ((x) + (y * 3)) with respect to x: " + derivative4);
+
+    String a5 = "(x) + (y * 3.1)";
+    Expression expr5 = parse(a5);  // Expression 5
+    Expression derivative5 = expr5.differentiate(varY);
+    System.out.println("\nExpression 5: " + a5);
+    System.out.println("AST for Expression 5 ((x) + (y * 3.1)): " + expr5.toString());
+    System.out.println("Derivative for Expression 5 ((x) + (y * 3.1)) with respect to x: " + derivative5);
+
         
     }
     

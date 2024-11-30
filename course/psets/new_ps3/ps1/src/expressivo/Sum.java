@@ -24,6 +24,7 @@ class Sum implements Expression{
     @Override
     public String toString() {
         return "["+left+"] + ["+right+"]";
+        // return "" + left + " + " + right + "";
     }
 
     @Override

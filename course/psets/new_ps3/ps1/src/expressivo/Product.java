@@ -20,6 +20,7 @@ class Product implements Expression{
     @Override
     public String toString() {
         return "["+left+"] * ["+right+"]";
+        // return "" + left + " * " + right + "";
     }
 
     // derivative of a product is a sum 
