@@ -27,4 +27,8 @@ public class GrammarRun {
         ROOT, SUM, PRODUCT, PRIMITIVE, WHITESPACE, NUMBER, VARIABLE
     }
 
+    // public enum ElementsGrammar {
+    //     ROOT, OPERATION, SUM, PRODUCT, PRIMITIVE, WHITESPACE, NUMBER, VARIABLE
+    // }
+
 }

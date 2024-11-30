@@ -3,9 +3,9 @@ package expressivo;
 import lib6005.parser.Parser;
 import lib6005.parser.UnableToParseException;
 
+import java.io.File;
 import java.io.IOException;
 
-import expressivo.GrammarRun.ElementsGrammar;
 import lib6005.parser.GrammarCompiler;
 import lib6005.parser.ParseTree;
 
@@ -28,6 +28,15 @@ public interface Expression {
     //            Product(left:Expression, right:Expression)
     //            Sum(left:Expression, right:Expression)
     // Once defined their variants, need to implement them concretely
+
+    public static void main(String[] args) throws UnableToParseException, IOException {
+        String a1 = "1 * 2 * 3"; parse(a1); 
+
+        Expression AbstractSyntaxTree = parse(a1);
+        
+        System.out.println(AbstractSyntaxTree.toString());
+
+    }
     
     /**
      * Parse an expression.
@@ -36,15 +45,14 @@ public interface Expression {
      * @throws IllegalArgumentException if the expression is invalid
      */
     public static Expression parse(String string) throws UnableToParseException, IOException {
-        // Parser<ElementsGrammar> parser = GrammarCompiler.compile(new File("Expression.g"), ElementsGrammar.ROOT);
-        // ParseTree<ElementsGrammar> tree = parser.parse(string);
+        Parser<ElementsGrammar> parser = GrammarCompiler.compile(new File("Expression.g"), ElementsGrammar.ROOT);
+        ParseTree<ElementsGrammar> tree = parser.parse(string);
+
+        Expression AbstractSyntaxTree = buildAST(tree);
 
 
-        // Expression AbstractSyntaxTree = buildAST(tree);
-
-        // return AbstractSyntaxTree;
+        return AbstractSyntaxTree;
         
-        throw new RuntimeException("unimplemented");
     }
     
     /**
@@ -70,41 +78,98 @@ public interface Expression {
     @Override
     public int hashCode();
 
-    // private static Expression buildAST(ParseTree<ElementsGrammar> p) {
+    private static Expression buildAST(ParseTree<ElementsGrammar> p) {
         
-    //     switch(p.getName()) { 
+        switch(p.getName()) { 
+
+            // base case 
+            case NUMBER:
+                return new Number(Double.parseDouble(p.getContents()));
+
+            case VARIABLE:
+                return new Variable(p.getContents());
+
+            // Inductive steps:
+
+            // we will reach NUMBER or VARIABLE, the terminal nodes, by the SUM and PRODUCT non terminals, going by the PRIMITIVE
+            case PRIMITIVE:
+                // if it is primitive, we must check if in the children, we have NUMBER of VARIABLE
+                // Which are terminals
+                if (p.childrenByName(ElementsGrammar.NUMBER).isEmpty() || p.childrenByName(ElementsGrammar.VARIABLE).isEmpty()) { 
+                    // if not terminal, go in the left and expand
+                    if (p.childrenByName(ElementsGrammar.SUM).isEmpty()) { 
+                        return buildAST(p.childrenByName(ElementsGrammar.PRODUCT).get(0));
+                    }
+                }
+                if (p.childrenByName(ElementsGrammar.NUMBER).isEmpty() || p.childrenByName(ElementsGrammar.VARIABLE).isEmpty()) { 
+                    // if not terminal, go in the left and expand
+                    if (p.childrenByName(ElementsGrammar.PRODUCT).isEmpty()) { 
+                        return buildAST(p.childrenByName(ElementsGrammar.SUM).get(0));
+                    }
+                }
+
+            case SUM:
+                // track if it is the first operand from the SUM
+                boolean firstSum = true;
+                Expression resultSum = null;
+                for (ParseTree<ElementsGrammar> child : p.childrenByName(ElementsGrammar.PRODUCT)){
+                    if (firstSum) {
+                        resultSum = buildAST(child);
+                        firstSum = false;
+                    } else {
+                        // if it is not the first one, the first operand in the left, we go on to the next operands
+                        // using the previous result as left, and the remaining one as right to build recursively down 
+                        // we can have like some products for the sum,
+                        // and from left to right, we go constructing the final, and recursively down
+                        resultSum = new Sum(resultSum, buildAST(child));
+                    }
+                }
+
+                if (firstSum) {
+                    throw new RuntimeException("The SUM had no PRODUCT under it!!!");
+                }
+
+                return resultSum;
             
-    //         // base case 
-    //         case NUMBER:
-    //             return new Number(Double.parseDouble(p.getContents()));
+            case PRODUCT:
+                // track if it is the first operand from the SUM
+                boolean firstProduct = true;
+                Expression resultProduct = null;
+                for (ParseTree<ElementsGrammar> child : p.childrenByName(ElementsGrammar.PRIMITIVE)){
+                    if (firstProduct) {
+                        resultProduct = buildAST(child);
+                        firstProduct = false;
+                    } else {
+                        // if it is not the first one, the first operand in the left, we go on to the next operands
+                        // using the previous result as left, and the remaining one as right to build recursively down 
+                        // we can have like some primitives for the product,
+                        // and from left to right, we go constructing the final, and recursively down
+                        resultProduct = new Product(resultProduct, buildAST(child));
+                    }
+                }
 
-    //         case VARIABLE:
-    //             return new Variable(p.getContents());
+                if (firstProduct) {
+                    throw new RuntimeException("The PRODUCT had no PRIMITIVE under it !!");
+                }
 
-    //         case PRIMITIVE:
-    //             // if it is primitive, we must check if in the children, we have NUMBER of VARIABLE
-    //             // Which are terminals
-    //             if (p.childrenByName(ElementsGrammar.NUMBER).isEmpty() || p.childrenByName(ElementsGrammar.VARIABLE).isEmpty()) { 
-    //                 // if not terminal, go in the left and expand
-    //                 if (p.childrenByName(ElementsGrammar.SUM).isEmpty()) { 
-    //                     return buildAST(p.childrenByName(ElementsGrammar.PRODUCT).get(0));
-    //                 }
-    //             }
-    //             if (p.childrenByName(ElementsGrammar.NUMBER).isEmpty() || p.childrenByName(ElementsGrammar.VARIABLE).isEmpty()) { 
-    //                 // if not terminal, go in the left and expand
-    //                 if (p.childrenByName(ElementsGrammar.PRODUCT).isEmpty()) { 
-    //                     return buildAST(p.childrenByName(ElementsGrammar.SUM).get(0));
-    //                 }
-    //             }
-    //             }
-            
+                return resultProduct;
 
-    //     }
-    // }
+            // the first node of all, which starts with SUM
+            case ROOT:
+                return buildAST(p.childrenByName(ElementsGrammar.SUM).get(0)) ;
 
-    // public enum ElementsGrammar {
-    //     ROOT, SUM, PRODUCT, PRIMITIVE, WHITESPACE, NUMBER, VARIABLE
-    // }
+            case WHITESPACE:
+                throw new RuntimeException("You reached a WHITESPACE, and this is not allowed!!" + p);
+
+        }
+
+        throw new RuntimeException("It went beyond the Switch case expressions, which is very weird !!");
+
+    }
+
+    public enum ElementsGrammar {
+        ROOT, SUM, PRODUCT, PRIMITIVE, WHITESPACE, NUMBER, VARIABLE
+    }
 
 
 
