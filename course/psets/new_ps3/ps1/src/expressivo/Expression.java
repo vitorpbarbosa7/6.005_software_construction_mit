@@ -8,6 +8,9 @@ import java.io.IOException;
 
 import lib6005.parser.GrammarCompiler;
 import lib6005.parser.ParseTree;
+import java.util.List;
+
+import javax.swing.text.html.parser.Element;
 
 /**
  * An immutable data type representing a polynomial expression of:
@@ -31,25 +34,25 @@ public interface Expression {
 
     public static void main(String[] args) throws UnableToParseException, IOException {
         // Sample expressions
-        String a1 = "1 * 2 * 3";
-        String a2 = "x * y + z";
-        String a3 = "(x) * (y + z)";
-        String a4 = "(x) + (y * 3)";
-        String a5 = "(x) + (y * 3.1)";
+        String a1 = "x * x * x";
+        // String a2 = "x * y + z";
+        // String a3 = "(x) * (y + z)";
+        // String a4 = "(x) + (y * 3)";
+        // String a5 = "(x) + (y * 3.1)";
 
         // Parse each expression
         Expression expr1 = parse(a1);  // Expression 1
-        Expression expr2 = parse(a2);  // Expression 2
-        Expression expr3 = parse(a3);  // Expression 3
-        Expression expr4 = parse(a4);  // Expression 4
-        Expression expr5 = parse(a5);  // Expression 5
+        // Expression expr2 = parse(a2);  // Expression 2
+        // Expression expr3 = parse(a3);  // Expression 3
+        // Expression expr4 = parse(a4);  // Expression 4
+        // Expression expr5 = parse(a5);  // Expression 5
 
         // Print the Abstract Syntax Trees for each expression
         System.out.println("AST for Expression 1 (1 * 2 * 3): " + expr1.toString());
-        System.out.println("AST for Expression 2 (x * y + z): " + expr2.toString());
-        System.out.println("AST for Expression 3 ((x) * (y + z)): " + expr3.toString());
-        System.out.println("AST for Expression 4 ((x) + (y * 3)): " + expr4.toString());
-        System.out.println("AST for Expression 5 ((x) + (y * 3.1)): " + expr5.toString());
+        // System.out.println("AST for Expression 2 (x * y + z): " + expr2.toString());
+        // System.out.println("AST for Expression 3 ((x) * (y + z)): " + expr3.toString());
+        // System.out.println("AST for Expression 4 ((x) + (y * 3)): " + expr4.toString());
+        // System.out.println("AST for Expression 5 ((x) + (y * 3.1)): " + expr5.toString());
         
     }
     
@@ -130,15 +133,14 @@ public interface Expression {
             case SUM:
                 // track if it is the first operand from the SUM
                 boolean firstSum = true;
-                String resultSum = null;
+                Expression resultSum = null;
                 // for each child which is a PRODUCT
                 for (ParseTree<ElementsGrammar> child : p.childrenByName(ElementsGrammar.PRODUCT)){
                     if (firstSum) {
                         resultSum = differentiate(child, var);
                         firstSum = false;
                     } else {
-                        resultSum = differentiate()
-                        resultSum = new Sum(resultSum, buildAST(child));
+                        resultSum = new Sum(resultSum, differentiate(p, var));
                     }
                 }
 
@@ -152,24 +154,23 @@ public interface Expression {
                 // track if it is the first operand from the SUM
                 boolean firstProduct = true;
                 Expression resultProduct = null;
-                for (ParseTree<ElementsGrammar> child : p.childrenByName(ElementsGrammar.PRIMITIVE)){
-                    if (firstProduct) {
-                        resultProduct = buildAST(child);
-                        firstProduct = false;
-                    } else {
-                        // if it is not the first one, the first operand in the left, we go on to the next operands
-                        // using the previous result as left, and the remaining one as right to build recursively down 
-                        // we can have like some primitives for the product,
-                        // and from left to right, we go constructing the final, and recursively down
-                        resultProduct = new Product(resultProduct, buildAST(child));
-                    }
-                }
+                List<ParseTree<ElementsGrammar>> childrenPrimitive = p.childrenByName(ElementsGrammar.PRIMITIVE);
+                if (childrenPrimitive.size() > 1){;
+                    for (int i = 0; i < childrenPrimitive.size(); i++){
 
-                if (firstProduct) {
-                    throw new RuntimeException("The PRODUCT had no PRIMITIVE under it !!");
-                }
+                        Expression localResultSum = null;
 
-                return resultProduct;
+                        ParseTree<ElementsGrammar> childU = childrenPrimitive.get(i);
+                        ParseTree<ElementsGrammar> childV = childrenPrimitive.get(i+1);
+
+                        Variable u = new Variable(childU.getContents());
+                        Variable v = new Variable(childV.getContents());
+
+                        Expression leftProduct = new Product(u, differentiate(childV, var));
+                        Expression rightProduct = new Product(v, differentiate(childU, var));
+
+                        localResultSum = new Sum(leftProduct, rightProduct);
+                }
 
             // the first node of all, which starts with SUM
             case ROOT:
@@ -178,7 +179,7 @@ public interface Expression {
             case WHITESPACE:
                 throw new RuntimeException("You reached a WHITESPACE, and this is not allowed!!" + p);
 
-        return result
+        throw new RuntimeException("It went beyond the Switch case expressions, which is very weird !!");
     }
 
     private static Expression buildAST(ParseTree<ElementsGrammar> p) {
