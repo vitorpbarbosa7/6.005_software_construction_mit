@@ -108,9 +108,9 @@ public interface Expression {
             case VARIABLE:
                 Expression currentVar = new Variable(p.getContents());
                 if (currentVar.equals(var)){
-                    return new Variable("1");
+                    return new Number(1);
                 } else {
-                    return new Variable("0");
+                    return new Number(0);
                 }
 
             // Inductive steps (for non-terminals, internal nodes):
@@ -153,34 +153,54 @@ public interface Expression {
             case PRODUCT:
                 // track if it is the first operand from the SUM
                 boolean firstProduct = true;
-                Expression resultProduct = null;
-                List<ParseTree<ElementsGrammar>> childrenPrimitive = p.childrenByName(ElementsGrammar.PRIMITIVE);
-                if (childrenPrimitive.size() > 1){;
-                    for (int i = 0; i < childrenPrimitive.size(); i++){
+                ParseTree<ElementsGrammar> uElement = null;
+                ParseTree<ElementsGrammar> vElement = null;
+                Expression u = null;
+                Expression v = null;
+                Expression ulinha = null;
+                Expression vlinha = null;
+                Expression localLeftProduct = null;
+                Expression localRightProduct = null;
+                List<ParseTree<ElementsGrammar>> children = p.childrenByName(ElementsGrammar.PRIMITIVE);
+                int size = children.size();
+                for (int i =0; i < size; i++){
+                    uElement = children.get(i);
+                    if (firstProduct) {
+                        ulinha = differentiate(uElement, var);
+                        u = u
+                        firstProduct = false;
+                    } else {
+                        vElement = children.get(i+1);
+                        vlinha = differentiate(vElement, var);
 
-                        Expression localResultSum = null;
-
-                        ParseTree<ElementsGrammar> childU = childrenPrimitive.get(i);
-                        ParseTree<ElementsGrammar> childV = childrenPrimitive.get(i+1);
-
-                        Variable u = new Variable(childU.getContents());
-                        Variable v = new Variable(childV.getContents());
-
-                        Expression leftProduct = new Product(u, differentiate(childV, var));
-                        Expression rightProduct = new Product(v, differentiate(childU, var));
-
-                        localResultSum = new Sum(leftProduct, rightProduct);
+                        localLeftProduct = new Product(u, vlinha);
+                        localRightProduct = new Product(v, ulinha);
+                        localSum = new Sum()
+                        u = new Product(uElement, vElement);
+                    }
                 }
 
-            // the first node of all, which starts with SUM
-            case ROOT:
+                if (firstProduct) {
+                    throw new RuntimeException("The PRODUCT had no PRIMITIVE under it !!");
+                }
+
+                return resultProduct;
+
+                // the first node of all, which starts with SUM
+                case ROOT:
                 return buildAST(p.childrenByName(ElementsGrammar.SUM).get(0)) ;
 
-            case WHITESPACE:
+                case WHITESPACE:
                 throw new RuntimeException("You reached a WHITESPACE, and this is not allowed!!" + p);
 
-        throw new RuntimeException("It went beyond the Switch case expressions, which is very weird !!");
+                }
+
+
     }
+
+
+
+
 
     private static Expression buildAST(ParseTree<ElementsGrammar> p) {
         
