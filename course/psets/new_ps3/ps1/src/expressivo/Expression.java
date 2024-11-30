@@ -164,10 +164,17 @@ public interface Expression {
                 Expression localSum = null;
                 List<ParseTree<ElementsGrammar>> children = p.childrenByName(ElementsGrammar.PRIMITIVE);
                 int size = children.size();
-                for (int i =0; i < size; i++){
+                for (int i =1; i < size; i++){
 
-                    uElement = children.get(i);
-                    vElement = children.get(i+1);
+                    if (i == 1) {
+                        uElement = children.get(i-1);
+                        vElement = children.get(i);
+                    } else {
+                        uElement = localSum;
+                        vElement = children.get(i);
+
+                    }
+
                     
                     if (uElement.getName().equals(ElementsGrammar.VARIABLE)) { 
                         u = new Variable(uElement.getContents());
@@ -184,7 +191,8 @@ public interface Expression {
                     localLeftProduct = new Product(u, vlinha);
                     localRightProduct = new Product(v, ulinha);
 
-                    u = new Sum(localLeftProduct, localRightProduct);
+                    localSum = new Sum(localLeftProduct, localRightProduct);
+
                 }
 
                 if (firstProduct) {
