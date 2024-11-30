@@ -95,41 +95,34 @@ public interface Expression {
     @Override
     public int hashCode();
 
-    public static String differentiate(ParseTree<ElementsGrammar> p, Variable var) {
-        String result = "";
-
+    public static Expression differentiate(ParseTree<ElementsGrammar> p, Variable var) {
         switch(p.getName()) { 
 
-            // base case 
+            // base cases, NUMBER and VARIABLE, which are terminals 
             case NUMBER:
-                return String.valueOf(0);
+                return new Number(0);
 
             case VARIABLE:
                 Expression currentVar = new Variable(p.getContents());
                 if (currentVar.equals(var)){
-                    return "1";
+                    return new Variable("1");
                 } else {
-                    return "0";
+                    return new Variable("0");
                 }
 
-            // Inductive steps:
-
-            // we will reach NUMBER or VARIABLE, the terminal nodes, by the SUM and PRODUCT non terminals, going by the PRIMITIVE
+            // Inductive steps (for non-terminals, internal nodes):
             case PRIMITIVE:
-                // if it is primitive, we must check if in the children, we have NUMBER of VARIABLE
-                // Which are terminals
                 if (p.childrenByName(ElementsGrammar.NUMBER).isEmpty() && p.childrenByName(ElementsGrammar.VARIABLE).isEmpty()) { 
-                    // if not terminal, go in the left and expand
                     if (p.childrenByName(ElementsGrammar.SUM).isEmpty()) { 
-                        return buildAST(p.childrenByName(ElementsGrammar.PRODUCT).get(0));
+                        return differentiate(p.childrenByName(ElementsGrammar.PRODUCT).get(0), var);
                     } else {
-                        return buildAST(p.childrenByName(ElementsGrammar.SUM).get(0));
+                        return differentiate(p.childrenByName(ElementsGrammar.SUM).get(0), var);
                     }
                 } else {
                     if (p.childrenByName(ElementsGrammar.NUMBER).isEmpty()) {
-                        return buildAST(p.childrenByName(ElementsGrammar.VARIABLE).get(0));
+                        return differentiate(p.childrenByName(ElementsGrammar.VARIABLE).get(0), var);
                     } else {
-                        return buildAST(p.childrenByName(ElementsGrammar.NUMBER).get(0));
+                        return differentiate(p.childrenByName(ElementsGrammar.NUMBER).get(0), var);
                     }
 
                 }
@@ -137,17 +130,14 @@ public interface Expression {
             case SUM:
                 // track if it is the first operand from the SUM
                 boolean firstSum = true;
-                Expression resultSum = null;
+                String resultSum = null;
                 // for each child which is a PRODUCT
                 for (ParseTree<ElementsGrammar> child : p.childrenByName(ElementsGrammar.PRODUCT)){
                     if (firstSum) {
-                        resultSum = buildAST(child);
+                        resultSum = differentiate(child, var);
                         firstSum = false;
                     } else {
-                        // if it is not the first one, the first operand in the left, we go on to the next operands
-                        // using the previous result as left, and the remaining one as right to build recursively down 
-                        // we can have like some products for the sum,
-                        // and from left to right, we go constructing the final, and recursively down
+                        resultSum = differentiate()
                         resultSum = new Sum(resultSum, buildAST(child));
                     }
                 }
