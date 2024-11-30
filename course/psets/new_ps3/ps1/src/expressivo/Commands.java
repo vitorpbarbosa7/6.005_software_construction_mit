@@ -1,6 +1,9 @@
 package expressivo;
 
+import java.io.IOException;
 import java.util.Map;
+
+import lib6005.parser.UnableToParseException;
 
 /**
  * String-based commands provided by the expression system.
@@ -20,8 +23,12 @@ public class Commands {
      *         to the derivative, but doesn't need to be in simplest or canonical form.
      * @throws IllegalArgumentException if the expression or variable is invalid
      */
-    public static String differentiate(String expression, String variable) {
-        throw new RuntimeException("unimplemented");
+    public static String differentiate(String expression, String variable) throws UnableToParseException, IOException{
+
+        Variable var = new Variable(variable);
+        Expression expr = Expression.parse(expression);
+        Expression derivative = expr.differentiate(var);
+        return derivative.toString();
     }
     
     /**

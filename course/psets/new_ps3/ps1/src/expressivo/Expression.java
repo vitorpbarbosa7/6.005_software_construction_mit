@@ -8,9 +8,7 @@ import java.io.IOException;
 
 import lib6005.parser.GrammarCompiler;
 import lib6005.parser.ParseTree;
-import java.util.List;
 
-import javax.swing.text.html.parser.Element;
 
 /**
  * An immutable data type representing a polynomial expression of:
@@ -88,7 +86,7 @@ public interface Expression {
         Parser<ElementsGrammar> parser = GrammarCompiler.compile(new File("Expression.g"), ElementsGrammar.ROOT);
         ParseTree<ElementsGrammar> tree = parser.parse(string);
 
-        tree.display();
+        // tree.display();
 
         Expression AbstractSyntaxTree = buildAST(tree);
         return AbstractSyntaxTree;
