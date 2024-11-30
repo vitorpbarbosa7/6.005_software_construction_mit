@@ -23,11 +23,8 @@ public class GrammarRun {
         tree.display();
     }
 
-    // public enum ElementsGrammar {
-    //     ROOT, SUM, PRODUCT, PRIMITIVE, WHITESPACE, NUMBER, VARIABLE
-    // }
-
     public enum ElementsGrammar {
-        ROOT, OPERATION, PRIMITIVE, VARIABLE, NUMBER, WHITESPACE
+        ROOT, SUM, PRODUCT, PRIMITIVE, WHITESPACE, NUMBER, VARIABLE
     }
+
 }
