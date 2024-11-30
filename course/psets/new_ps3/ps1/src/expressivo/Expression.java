@@ -30,9 +30,9 @@ public interface Expression {
     // Once defined their variants, need to implement them concretely
 
     public static void main(String[] args) throws UnableToParseException, IOException {
-        String a1 = "1 * 2 * 3"; parse(a1); 
+        String a2 = "x * y + z"; parse(a2);
 
-        Expression AbstractSyntaxTree = parse(a1);
+        Expression AbstractSyntaxTree = parse(a2);
         
         System.out.println(AbstractSyntaxTree.toString());
 
@@ -47,6 +47,8 @@ public interface Expression {
     public static Expression parse(String string) throws UnableToParseException, IOException {
         Parser<ElementsGrammar> parser = GrammarCompiler.compile(new File("Expression.g"), ElementsGrammar.ROOT);
         ParseTree<ElementsGrammar> tree = parser.parse(string);
+
+        tree.display();
 
         Expression AbstractSyntaxTree = buildAST(tree);
 
@@ -95,7 +97,7 @@ public interface Expression {
             case PRIMITIVE:
                 // if it is primitive, we must check if in the children, we have NUMBER of VARIABLE
                 // Which are terminals
-                if (p.childrenByName(ElementsGrammar.NUMBER).isEmpty() || p.childrenByName(ElementsGrammar.VARIABLE).isEmpty()) { 
+                if (p.childrenByName(ElementsGrammar.NUMBER).isEmpty() && p.childrenByName(ElementsGrammar.VARIABLE).isEmpty()) { 
                     // if not terminal, go in the left and expand
                     if (p.childrenByName(ElementsGrammar.SUM).isEmpty()) { 
                         return buildAST(p.childrenByName(ElementsGrammar.PRODUCT).get(0));
