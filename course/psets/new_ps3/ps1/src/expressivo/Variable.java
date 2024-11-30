@@ -16,6 +16,14 @@ class Variable implements Expression{
         this.variable = variable;
     }
 
+    public Number differentiate(Variable var){
+        if (this.equals(var)){
+            return new Number(1);
+        } else {
+            return new Number(0);
+        }
+    }
+
     @Override
     public String toString() {
         return this.variable;

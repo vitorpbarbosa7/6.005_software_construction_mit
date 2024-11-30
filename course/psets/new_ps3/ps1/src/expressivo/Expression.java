@@ -53,6 +53,11 @@ public interface Expression {
         // System.out.println("AST for Expression 3 ((x) * (y + z)): " + expr3.toString());
         // System.out.println("AST for Expression 4 ((x) + (y * 3)): " + expr4.toString());
         // System.out.println("AST for Expression 5 ((x) + (y * 3.1)): " + expr5.toString());
+
+
+        Variable varX = new Variable("x");
+        Expression derivative = expr1.differentiate(varX);
+        System.out.println("Derivative: " + derivative);
         
     }
     
@@ -69,8 +74,6 @@ public interface Expression {
         tree.display();
 
         Expression AbstractSyntaxTree = buildAST(tree);
-
-
         return AbstractSyntaxTree;
         
     }
@@ -98,123 +101,7 @@ public interface Expression {
     @Override
     public int hashCode();
 
-    public static Expression differentiate(ParseTree<ElementsGrammar> p, Variable var) {
-        switch(p.getName()) { 
-
-            // base cases, NUMBER and VARIABLE, which are terminals 
-            case NUMBER:
-                return new Number(0);
-
-            case VARIABLE:
-                Expression currentVar = new Variable(p.getContents());
-                if (currentVar.equals(var)){
-                    return new Number(1);
-                } else {
-                    return new Number(0);
-                }
-
-            // Inductive steps (for non-terminals, internal nodes):
-            case PRIMITIVE:
-                if (p.childrenByName(ElementsGrammar.NUMBER).isEmpty() && p.childrenByName(ElementsGrammar.VARIABLE).isEmpty()) { 
-                    if (p.childrenByName(ElementsGrammar.SUM).isEmpty()) { 
-                        return differentiate(p.childrenByName(ElementsGrammar.PRODUCT).get(0), var);
-                    } else {
-                        return differentiate(p.childrenByName(ElementsGrammar.SUM).get(0), var);
-                    }
-                } else {
-                    if (p.childrenByName(ElementsGrammar.NUMBER).isEmpty()) {
-                        return differentiate(p.childrenByName(ElementsGrammar.VARIABLE).get(0), var);
-                    } else {
-                        return differentiate(p.childrenByName(ElementsGrammar.NUMBER).get(0), var);
-                    }
-
-                }
-
-            case SUM:
-                // track if it is the first operand from the SUM
-                boolean firstSum = true;
-                Expression resultSum = null;
-                // for each child which is a PRODUCT
-                for (ParseTree<ElementsGrammar> child : p.childrenByName(ElementsGrammar.PRODUCT)){
-                    if (firstSum) {
-                        resultSum = differentiate(child, var);
-                        firstSum = false;
-                    } else {
-                        resultSum = new Sum(resultSum, differentiate(p, var));
-                    }
-                }
-
-                if (firstSum) {
-                    throw new RuntimeException("The SUM had no PRODUCT under it!!!");
-                }
-
-                return resultSum;
-            
-            case PRODUCT:
-                // track if it is the first operand from the SUM
-                Expression resultProduct = null;
-                ParseTree<ElementsGrammar> uElement = null;
-                ParseTree<ElementsGrammar> vElement = null;
-                Expression u = null;
-                Expression v = null;
-                Expression ulinha = null;
-                Expression vlinha = null;
-                Expression localLeftProduct = null;
-                Expression localRightProduct = null;
-                List<ParseTree<ElementsGrammar>> children = p.childrenByName(ElementsGrammar.PRIMITIVE);
-                int size = children.size();
-                for (int i =1; i < size; i++){
-
-                    if (i == 1) {
-                        uElement = children.get(i-1);
-                        vElement = children.get(i);
-                        u = buildAST(uElement);
-                        v = buildAST(vElement);
-                        
-                        ulinha = differentiate(uElement, var);
-                        vlinha = differentiate(vElement, var);
-                        
-                        localLeftProduct = new Product(u, vlinha);
-                        localRightProduct = new Product(v, ulinha);
-
-                        // localSum = new Sum(localLeftProduct, localRightProduct);
-                        resultProduct = new Sum(localLeftProduct, localRightProduct);
-
-                        
-                    } else {
-                        ulinha = resultProduct;
-                        // get next element
-                        // so the inductive step
-                        vElement = children.get(i);
-                        v = buildAST(vElement);
-
-                        vlinha = differentiate(vElement, var);
-
-                        // now we need to differentiate on the product of them 
-                        // u is the previous one
-                        localLeftProduct = new Product(u, vlinha);
-                        localRightProduct = new Product(v, ulinha);
-
-                        resultProduct = new Sum(localLeftProduct, localRightProduct);
-                    }
-                }
-                
-                return resultProduct;
-
-                // the first node of all, which starts with SUM
-                case ROOT:
-                    return differentiate(p.childrenByName(ElementsGrammar.SUM).get(0), var) ;
-
-                case WHITESPACE:
-                    throw new RuntimeException("You reached a WHITESPACE, and this is not allowed!!" + p);
-
-                }
-            
-                throw new RuntimeException("It went beyond the Switch case expressions, which is very weird !!");
-    }
-
-
-
+    public Expression differentiate(Variable var);
 
 
     private static Expression buildAST(ParseTree<ElementsGrammar> p) {

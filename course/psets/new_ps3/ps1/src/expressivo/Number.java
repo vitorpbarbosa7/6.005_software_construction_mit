@@ -17,6 +17,10 @@ class Number implements Expression {
         this.n = n;
     }
 
+    public Number differentiate(Variable var) {
+        return new Number(0);
+    }
+
     @Override
     public String toString() {
         return String.valueOf(n);

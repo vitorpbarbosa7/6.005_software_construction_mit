@@ -17,6 +17,10 @@ class Sum implements Expression{
         this.right = right;
     }
 
+    public Sum differentiate(Variable var){
+        return new Sum(this.left.differentiate(var), this.right.differentiate(var));
+    }
+
     @Override
     public String toString() {
         return "["+left+"] + ["+right+"]";

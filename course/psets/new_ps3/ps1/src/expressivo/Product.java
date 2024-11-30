@@ -22,6 +22,21 @@ class Product implements Expression{
         return "["+left+"] * ["+right+"]";
     }
 
+    // derivative of a product is a sum 
+    public Sum differentiate(Variable var) {
+        // u'
+        Expression leftPrime = this.left.differentiate(var);
+        // v'
+        Expression rightPrime = this.right.differentiate(var);
+
+        // uv'
+        Product leftProduct = new Product(this.left, rightPrime);
+        // vu'
+        Product rightProduct = new Product(this.right, leftPrime);
+
+        return new Sum(leftProduct, rightProduct);
+    }
+
     @Override
     public boolean equals(Object thatObject){
         if(!(thatObject instanceof Product)) return false;
