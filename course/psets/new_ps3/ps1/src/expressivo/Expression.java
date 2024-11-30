@@ -161,30 +161,37 @@ public interface Expression {
                 Expression vlinha = null;
                 Expression localLeftProduct = null;
                 Expression localRightProduct = null;
+                Expression localSum = null;
                 List<ParseTree<ElementsGrammar>> children = p.childrenByName(ElementsGrammar.PRIMITIVE);
                 int size = children.size();
                 for (int i =0; i < size; i++){
-                    uElement = children.get(i);
-                    if (firstProduct) {
-                        ulinha = differentiate(uElement, var);
-                        u = u
-                        firstProduct = false;
-                    } else {
-                        vElement = children.get(i+1);
-                        vlinha = differentiate(vElement, var);
 
-                        localLeftProduct = new Product(u, vlinha);
-                        localRightProduct = new Product(v, ulinha);
-                        localSum = new Sum()
-                        u = new Product(uElement, vElement);
-                    }
+                    uElement = children.get(i);
+                    vElement = children.get(i+1);
+                    
+                    if (uElement.getName().equals(ElementsGrammar.VARIABLE)) { 
+                        u = new Variable(uElement.getContents());
+                    } else {
+                        u = new Number(Double.parseDouble(uElement.getContents()));
+                    ulinha = differentiate(uElement, var);
+                    
+                    if (vElement.getName().equals(ElementsGrammar.VARIABLE)) { 
+                        v = new Variable(vElement.getContents());
+                    } else {
+                        v = new Number(Double.parseDouble(vElement.getContents()));
+                    vlinha = differentiate(vElement, var);
+                    
+                    localLeftProduct = new Product(u, vlinha);
+                    localRightProduct = new Product(v, ulinha);
+
+                    u = new Sum(localLeftProduct, localRightProduct);
                 }
 
                 if (firstProduct) {
                     throw new RuntimeException("The PRODUCT had no PRIMITIVE under it !!");
                 }
 
-                return resultProduct;
+                return u;
 
                 // the first node of all, which starts with SUM
                 case ROOT:
