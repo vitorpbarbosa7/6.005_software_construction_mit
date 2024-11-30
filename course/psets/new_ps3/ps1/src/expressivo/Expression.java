@@ -169,29 +169,61 @@ public interface Expression {
                     if (i == 1) {
                         uElement = children.get(i-1);
                         vElement = children.get(i);
+                        if (uElement.getName().equals(ElementsGrammar.VARIABLE)) { 
+                            u = new Variable(uElement.getContents());
+                        } else {
+                            u = new Number(Double.parseDouble(uElement.getContents()));
+                            ulinha = differentiate(uElement, var);
+                        }
+                        
+                        if (vElement.getName().equals(ElementsGrammar.VARIABLE)) { 
+                            v = new Variable(vElement.getContents());
+                        } else {
+                            v = new Number(Double.parseDouble(vElement.getContents()));
+                            vlinha = differentiate(vElement, var);
+                        }
+                        
+                        localLeftProduct = new Product(u, vlinha);
+                        localRightProduct = new Product(v, ulinha);
+
+                        // localSum = new Sum(localLeftProduct, localRightProduct);
+                        u = new Sum(localLeftProduct, localRightProduct);
+
+                        
                     } else {
-                        uElement = localSum;
+                        // get next element
+                        // so the inductive step
                         vElement = children.get(i);
+
+                        if (vElement.getName().equals(ElementsGrammar.VARIABLE)) { 
+                            v = new Variable(vElement.getContents());
+                        } else {
+                            v = new Number(Double.parseDouble(vElement.getContents()));
+                            // the recursion
+                            vlinha = differentiate(vElement, var);
+                        }
+
+                        // now we need to differentiate on the product of them 
+                        // u is the previous one
+                        localLeftProduct = new Product(u, vlinha);
+                        localRightProduct = new Product(v, ulinha);
+
+                        // localSum = new Sum(localLeftProduct, localRightProduct);
+                        u = new Sum(localLeftProduct, localRightProduct);
+
+
+
+
+
+
+                        }
+
+
 
                     }
 
                     
-                    if (uElement.getName().equals(ElementsGrammar.VARIABLE)) { 
-                        u = new Variable(uElement.getContents());
-                    } else {
-                        u = new Number(Double.parseDouble(uElement.getContents()));
-                    ulinha = differentiate(uElement, var);
-                    
-                    if (vElement.getName().equals(ElementsGrammar.VARIABLE)) { 
-                        v = new Variable(vElement.getContents());
-                    } else {
-                        v = new Number(Double.parseDouble(vElement.getContents()));
-                    vlinha = differentiate(vElement, var);
-                    
-                    localLeftProduct = new Product(u, vlinha);
-                    localRightProduct = new Product(v, ulinha);
 
-                    localSum = new Sum(localLeftProduct, localRightProduct);
 
                 }
 
