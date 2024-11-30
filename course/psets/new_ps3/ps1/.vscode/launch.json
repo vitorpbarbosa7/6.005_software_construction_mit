@@ -1,0 +1,47 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}",
+            "console": "integratedTerminal"  // Add this line
+        },
+        {
+            "type": "java",
+            "name": "EchoProgram",
+            "request": "launch",
+            "mainClass": "expressivo.EchoProgram",
+            "projectName": "ps1-expressivo",
+            "console": "integratedTerminal"  // Add this line
+        },
+        {
+            "type": "java",
+            "name": "Expression",
+            "request": "launch",
+            "mainClass": "expressivo.Expression",
+            "projectName": "ps1-expressivo",
+            "console": "integratedTerminal"  // Add this line
+        },
+        {
+            "type": "java",
+            "name": "GrammarRun",
+            "request": "launch",
+            "mainClass": "expressivo.GrammarRun",
+            "projectName": "ps1-expressivo",
+            "console": "integratedTerminal"  // Add this line
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "expressivo.Main",
+            "projectName": "ps1-expressivo",
+            "console": "integratedTerminal"  // Add this line
+        }
+    ]
+}
