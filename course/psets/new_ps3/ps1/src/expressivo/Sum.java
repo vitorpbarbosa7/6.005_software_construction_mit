@@ -32,17 +32,6 @@ class Sum implements Expression{
 
     }
 
-    public Expression add(Variable other) {
-        return this.left.add(this.right);
-    }
-
-    public Expression add(Number other) {
-        return this.left.add(this.right);
-    }
-
-    public Expression product(Expression other){
-        return new Product(this.left, this.right);
-    }
 
     public Sum differentiate(Variable var){
         return new Sum(this.left.differentiate(var), this.right.differentiate(var));

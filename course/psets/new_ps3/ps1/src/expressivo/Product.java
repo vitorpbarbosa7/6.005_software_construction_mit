@@ -32,7 +32,7 @@ class Product implements Expression{
         if (leftReplaced.isThisFuckingNumber() && rightReplaced.isThisFuckingNumber()) {
             return new Number(leftReplaced.getValue() * rightReplaced.getValue());
         } else {
-            return new Sum(leftReplaced, rightReplaced);
+            return new Product(leftReplaced, rightReplaced);
         }
     }
 

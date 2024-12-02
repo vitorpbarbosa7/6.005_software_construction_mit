@@ -20,7 +20,7 @@ class Variable implements Expression{
 
     public Expression simplify(HashMap<String, Integer> vars) {
 
-        Map<Variable, Integer> variables = HelperSimplifly.createVars(vars);
+        HashMap<Variable, Integer> variables = HelperSimplifly.createVars(vars);
 
         // get the value of the variable, if does not exist, then return the variable itself
         Integer intValue = variables.get(this);
