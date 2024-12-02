@@ -118,14 +118,11 @@ public interface Expression {
     public int hashCode();
 
     public Expression simplify(HashMap<String, Integer> vars);
-    
-    public Expression add(Number other);
-    
-    public Expression add(Variable other);
 
-    public Expression product(Number other);
+    public boolean isThisFuckingNumber();
+
+    public Double getValue();
     
-    public Expression product(Variable other);
 
     public Expression differentiate(Variable var);
 

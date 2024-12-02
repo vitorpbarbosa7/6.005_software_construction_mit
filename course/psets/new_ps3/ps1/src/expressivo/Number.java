@@ -22,24 +22,6 @@ class Number implements Expression {
         return this;
     }
 
-    public Expression add(Number other){
-        return new Number(this.n + other.n);
-    }
-
-    public Expression add(Variable other){
-        return new Sum(this, other);
-    }
-
-    public Expression product(Number other){
-        return new Number(this.n * other.n);
-    }
-
-    public Expression product(Variable other){
-        return new Product(this, other);
-    }
-
-
-
     public Number differentiate(Variable var) {
         return new Number(0);
     }
@@ -62,5 +44,17 @@ class Number implements Expression {
     @Override
     public int hashCode() {
         return Objects.hash(this.n);
+    }
+
+
+    // ok, but in fact, this is the same as a instanceof????
+    // no it is not, very clever
+    // you define a method inside the variant to corresponde to some instanceof, that is crazy
+    public boolean isThisFuckingNumber() {
+        return true;
+    }
+
+    public Double getValue() {
+        return Double.valueOf(this.n);
     }
 }

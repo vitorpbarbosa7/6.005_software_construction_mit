@@ -20,16 +20,15 @@ class Sum implements Expression{
     }
 
     public Expression simplify(HashMap<String, Integer> vars){
-        // if both are numbers, we can create a sum here
-
-        // left and right with same operations
-
 
         Expression leftReplaced = this.left.simplify(vars);
         Expression rightReplaced = this.left.simplify(vars);
 
-        leftReplaced.add(rightReplaced);
-
+        if (leftReplaced.isThisFuckingNumber() && rightReplaced.isThisFuckingNumber()) {
+            return new Number(leftReplaced.getValue() + rightReplaced.getValue());
+        } else {
+            return new Sum(leftReplaced, rightReplaced);
+        }
 
     }
 
@@ -66,6 +65,17 @@ class Sum implements Expression{
     @Override
     public int hashCode() {
         return Objects.hash(this.toString());
+    }
+
+    // ok, but in fact, this is the same as a instanceof????
+    // no it is not, very clever
+    // you define a method inside the variant to corresponde to some instanceof, that is crazy
+    public boolean isThisFuckingNumber() {
+        return false;
+    }
+
+    public Double getValue() {
+        throw new RuntimeException("A sum has no value");
     }
 
 }

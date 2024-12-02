@@ -25,15 +25,15 @@ class Product implements Expression{
     }
 
     public Expression simplify(HashMap<String, Integer> vars){
-        return this.left.product(this.right);
-    }
+        
+        Expression leftReplaced = this.left.simplify(vars);
+        Expression rightReplaced = this.left.simplify(vars);
 
-    public Expression product(Expression other){
-        return this.left.product(this.right);
-    }
-
-    public Expression add(Expression other){
-        return new Sum(this.left, this.right);
+        if (leftReplaced.isThisFuckingNumber() && rightReplaced.isThisFuckingNumber()) {
+            return new Number(leftReplaced.getValue() * rightReplaced.getValue());
+        } else {
+            return new Sum(leftReplaced, rightReplaced);
+        }
     }
 
     // derivative of a product is a sum 
@@ -62,6 +62,17 @@ class Product implements Expression{
     @Override
     public int hashCode() {
         return Objects.hash(this.toString());
+    }
+
+    // ok, but in fact, this is the same as a instanceof????
+    // no it is not, very clever
+    // you define a method inside the variant to corresponde to some instanceof, that is crazy
+    public boolean isThisFuckingNumber() {
+        return false;
+    }
+
+    public Double getValue() {
+        throw new RuntimeException("A product has no value");
     }
 
 }

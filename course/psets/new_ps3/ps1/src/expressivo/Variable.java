@@ -72,4 +72,14 @@ class Variable implements Expression{
         return Objects.hash(this.variable);
     }
     
+    // ok, but in fact, this is the same as a instanceof????
+    // no it is not, very clever
+    // you define a method inside the variant to corresponde to some instanceof, that is crazy
+    public boolean isThisFuckingNumber() {
+        return false;
+    }
+
+    public Double getValue() {
+        throw new RuntimeException("A variable has no value");
+    }
 }
