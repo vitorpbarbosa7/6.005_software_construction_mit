@@ -119,9 +119,13 @@ public interface Expression {
 
     public Expression simplify(HashMap<String, Integer> vars);
     
-    public Expression add(Expression other);
+    public Expression add(Number other);
+    
+    public Expression add(Variable other);
 
-    public Expression product(Expression other);
+    public Expression product(Number other);
+    
+    public Expression product(Variable other);
 
     public Expression differentiate(Variable var);
 

@@ -24,11 +24,20 @@ class Sum implements Expression{
 
         // left and right with same operations
 
-        return this.left.add(this.right);
+
+        Expression leftReplaced = this.left.simplify(vars);
+        Expression rightReplaced = this.left.simplify(vars);
+
+        leftReplaced.add(rightReplaced);
+
 
     }
 
-    public Expression add(Expression other) {
+    public Expression add(Variable other) {
+        return this.left.add(this.right);
+    }
+
+    public Expression add(Number other) {
         return this.left.add(this.right);
     }
 
