@@ -32,20 +32,6 @@ class Variable implements Expression{
 
         }
 
-    public Expression add(Variable other){
-        return new Sum(this, other);
-    }
-    public Expression add(Number other){
-        return new Sum(this, other);
-    }
-
-    public Expression product(Variable other){
-        return new Product(this, other);
-    }
-    public Expression product(Number other){
-        return new Product(this, other);
-    }
-
     public Number differentiate(Variable var){
         if (this.equals(var)){
             return new Number(1);

@@ -45,13 +45,13 @@ public interface Expression {
     vars.put("z", 4);
 
     // Expression 1: x * x * x
-    String a1 = "x * x * x";
-    Expression expr1 = parse(a1);  // Expression 1
-    Expression derivative1 = expr1.differentiate(new Variable("x"));
-    System.out.println("\n\nExpression 1: " + a1);
-    System.out.println("AST for Expression 1 (x * x * x): " + expr1.toString());
-    System.out.println("Derivative for Expression 1 (x * x * x) with respect to x: " + derivative1);
-    System.out.println("Simplified Expression 1: " + expr1.simplify(vars).toString());  // Should output 8 (2 * 2 * 2)
+    // String a1 = "x * x * x";
+    // Expression expr1 = parse(a1);  // Expression 1
+    // Expression derivative1 = expr1.differentiate(new Variable("x"));
+    // System.out.println("\n\nExpression 1: " + a1);
+    // System.out.println("AST for Expression 1 (x * x * x): " + expr1.toString());
+    // System.out.println("Derivative for Expression 1 (x * x * x) with respect to x: " + derivative1);
+    // System.out.println("Simplified Expression 1: " + expr1.simplify(vars).toString());  // Should output 8 (2 * 2 * 2)
 
     // Expression 2: x * y + z
     String a2 = "x * y + z";
@@ -101,7 +101,7 @@ public interface Expression {
         Parser<ElementsGrammar> parser = GrammarCompiler.compile(new File("Expression.g"), ElementsGrammar.ROOT);
         ParseTree<ElementsGrammar> tree = parser.parse(string);
 
-        tree.display();
+        // tree.display();
 
         Expression AbstractSyntaxTree = buildAST(tree);
         return AbstractSyntaxTree;
