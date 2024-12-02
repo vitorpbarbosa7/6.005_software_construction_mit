@@ -5,6 +5,8 @@ import lib6005.parser.UnableToParseException;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import lib6005.parser.GrammarCompiler;
 import lib6005.parser.ParseTree;
@@ -73,7 +75,6 @@ public interface Expression {
     System.out.println("AST for Expression 5 ((x) + (y * 3.1)): " + expr5.toString());
     System.out.println("Derivative for Expression 5 ((x) + (y * 3.1)) with respect to x: " + derivative5);
 
-        
     }
     
     /**
@@ -86,7 +87,7 @@ public interface Expression {
         Parser<ElementsGrammar> parser = GrammarCompiler.compile(new File("Expression.g"), ElementsGrammar.ROOT);
         ParseTree<ElementsGrammar> tree = parser.parse(string);
 
-        // tree.display();
+        tree.display();
 
         Expression AbstractSyntaxTree = buildAST(tree);
         return AbstractSyntaxTree;
@@ -116,7 +117,14 @@ public interface Expression {
     @Override
     public int hashCode();
 
+    public Expression simplify(HashMap<String, Integer> vars);
+    
+    public Expression add(Expression other);
+
+    public Expression product(Expression other);
+
     public Expression differentiate(Variable var);
+
 
 
     private static Expression buildAST(ParseTree<ElementsGrammar> p) {
@@ -215,6 +223,8 @@ public interface Expression {
     public enum ElementsGrammar {
         ROOT, SUM, PRODUCT, PRIMITIVE, WHITESPACE, NUMBER, VARIABLE
     }
+
+
 
 
 

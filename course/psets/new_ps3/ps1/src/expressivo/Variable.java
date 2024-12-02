@@ -1,6 +1,8 @@
 package expressivo;
 
 import java.util.Objects;
+import java.util.HashMap;
+import java.util.Map;
 
 class Variable implements Expression{
     private final String variable;
@@ -14,6 +16,28 @@ class Variable implements Expression{
 
     public Variable(String variable){
         this.variable = variable;
+    }
+
+    public Expression simplify(HashMap<String, Integer> vars) {
+
+        Map<Variable, Integer> variables = HelperSimplifly.createVars(vars);
+
+        // get the value of the variable, if does not exist, then return the variable itself
+        Integer intValue = variables.get(this);
+        if (intValue == null){
+            return this;
+        } else {
+            return new Number(intValue);
+        }
+
+        }
+
+    public Expression add(Expression other){
+        return new Sum(this, other);
+    }
+
+    public Expression product(Expression other){
+        return new Product(this, other);
     }
 
     public Number differentiate(Variable var){

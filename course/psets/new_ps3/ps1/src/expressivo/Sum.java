@@ -1,6 +1,8 @@
 package expressivo;
 
 import java.util.Objects;
+import java.util.HashMap;
+import java.util.Map;
 
 class Sum implements Expression{
     private final Expression left, right;
@@ -15,6 +17,23 @@ class Sum implements Expression{
     public Sum(Expression left, Expression right){
         this.left = left;
         this.right = right;
+    }
+
+    public Expression simplify(HashMap<String, Integer> vars){
+        // if both are numbers, we can create a sum here
+
+        // left and right with same operations
+
+        return this.left.add(this.right);
+
+    }
+
+    public Expression add(Expression other) {
+        return this.left.add(this.right);
+    }
+
+    public Expression product(Expression other){
+        return new Product(this.left, this.right);
     }
 
     public Sum differentiate(Variable var){

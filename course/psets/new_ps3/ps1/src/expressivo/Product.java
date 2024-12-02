@@ -1,6 +1,7 @@
 package expressivo;
 
 import java.util.Objects;
+import java.util.HashMap;
 
 class Product implements Expression{
     private final Expression left, right;
@@ -21,6 +22,18 @@ class Product implements Expression{
     public String toString() {
         return "["+left+"] * ["+right+"]";
         // return "" + left + " * " + right + "";
+    }
+
+    public Expression simplify(HashMap<String, Integer> vars){
+        return this.left.product(this.right);
+    }
+
+    public Expression product(Expression other){
+        return this.left.product(this.right);
+    }
+
+    public Expression add(Expression other){
+        return new Sum(this.left, this.right);
     }
 
     // derivative of a product is a sum 
