@@ -21,11 +21,17 @@ class Sum implements Expression{
 
     public Expression simplify(HashMap<String, Integer> vars){
 
+        // System.out.println("This object is: "+ this.toString());
+        // System.out.println("Left is: "+ this.left.toString());
+        // System.out.println("Right is: "+ this.right.toString());
         Expression leftReplaced = this.left.simplify(vars);
-        Expression rightReplaced = this.left.simplify(vars);
+        Expression rightReplaced = this.right.simplify(vars);
 
         if (leftReplaced.isThisFuckingNumber() && rightReplaced.isThisFuckingNumber()) {
-            return new Number(leftReplaced.getValue() + rightReplaced.getValue());
+            Double result = leftReplaced.getValue() + rightReplaced.getValue();
+            System.out.println("" + leftReplaced + "*" + rightReplaced + "= " + result);
+            System.out.println("passou aqui");
+            return new Number(result);
         } else {
             return new Sum(leftReplaced, rightReplaced);
         }
