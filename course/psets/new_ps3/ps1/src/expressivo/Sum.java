@@ -2,7 +2,6 @@ package expressivo;
 
 import java.util.Objects;
 import java.util.HashMap;
-import java.util.Map;
 
 class Sum implements Expression{
     private final Expression left, right;

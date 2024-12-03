@@ -6,7 +6,6 @@ import lib6005.parser.UnableToParseException;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
 
 import lib6005.parser.GrammarCompiler;
 import lib6005.parser.ParseTree;
@@ -40,18 +39,18 @@ public interface Expression {
     Variable varY = new Variable("y");
     
     HashMap<String, Integer> vars = new HashMap<>();
-    vars.put("x", 2);
+    // vars.put("x", 2);
     vars.put("y", 3);
     vars.put("z", 4);
 
-    // Expression 1: x * x * x
-    // String a1 = "x * x * x";
-    // Expression expr1 = parse(a1);  // Expression 1
-    // Expression derivative1 = expr1.differentiate(new Variable("x"));
-    // System.out.println("\n\nExpression 1: " + a1);
-    // System.out.println("AST for Expression 1 (x * x * x): " + expr1.toString());
-    // System.out.println("Derivative for Expression 1 (x * x * x) with respect to x: " + derivative1);
-    // System.out.println("Simplified Expression 1: " + expr1.simplify(vars).toString());  // Should output 8 (2 * 2 * 2)
+    //Expression 1: x * x * x
+    String a1 = "x * x * x";
+    Expression expr1 = parse(a1);  // Expression 1
+    Expression derivative1 = expr1.differentiate(new Variable("x"));
+    System.out.println("\n\nExpression 1: " + a1);
+    System.out.println("AST for Expression 1 (x * x * x): " + expr1.toString());
+    System.out.println("Derivative for Expression 1 (x * x * x) with respect to x: " + derivative1);
+    System.out.println("Simplified Expression 1: " + expr1.simplify(vars).toString());  // Should output 8 (2 * 2 * 2)
 
     // Expression 2: x * y + z
     String a2 = "x * y + z";

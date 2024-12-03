@@ -2,7 +2,6 @@ package expressivo;
 
 import java.util.Objects;
 import java.util.HashMap;
-import java.util.Map;
 
 class Variable implements Expression{
     private final String variable;

@@ -20,7 +20,7 @@ public class GrammarRun {
     public static void parse(String string) throws UnableToParseException, IOException {
         Parser<ElementsGrammar> parser = GrammarCompiler.compile(new File("Expression.g"), ElementsGrammar.ROOT);
         ParseTree<ElementsGrammar> tree = parser.parse(string);
-        // tree.display();
+        tree.display();
     }
 
     public enum ElementsGrammar {
