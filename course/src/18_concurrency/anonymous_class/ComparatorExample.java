@@ -5,11 +5,10 @@ import java.util.TreeSet;
 
 /**
  * A comparison function that imposes a total ordering on some objects.
- * This interface defines the compare method to compare two objects for order.
  */
 public class ComparatorExample {
 
-    /** 
+    /**
      * Orders Strings by length (shorter first) and then lexicographically.
      */
     public static class StringLengthComparator implements Comparator<String> {
@@ -50,11 +49,24 @@ public class ComparatorExample {
         // Output: Sorted with StringLengthComparator: [bob, zach, alice, yolanda]
 
         // Alternative: directly using the comparator without storing it in a variable
-        // Without creating an exclusive object to be reused
         SortedSet<String> stringsDirectComparator = new TreeSet<>(new StringLengthComparator());
         stringsDirectComparator.addAll(Arrays.asList("yolanda", "zach", "alice", "bob"));
         System.out.println("Sorted directly with StringLengthComparator: " + stringsDirectComparator);
         // Output: Sorted directly with StringLengthComparator: [bob, zach, alice, yolanda]
+
+        // Using an anonymous class for the comparator
+        SortedSet<String> stringsAnonymousComparator = new TreeSet<>(new Comparator<String>() {
+            @Override
+            public int compare(String s1, String s2) {
+                if (s1.length() == s2.length()) {
+                    return s1.compareTo(s2); // lexicographical comparison
+                }
+                return s1.length() - s2.length(); // compare by length
+            }
+        });
+        stringsAnonymousComparator.addAll(Arrays.asList("yolanda", "zach", "alice", "bob"));
+        System.out.println("Sorted with anonymous comparator: " + stringsAnonymousComparator);
+        // Output: Sorted with anonymous comparator: [bob, zach, alice, yolanda]
     }
 }
 
