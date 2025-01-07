@@ -55,6 +55,7 @@ public class ComparatorExample {
         // Output: Sorted directly with StringLengthComparator: [bob, zach, alice, yolanda]
 
         // we do not have to create a class before, we create all in like runtime
+        // looks like a lambda function in python
         // Using an anonymous class for the comparator
         SortedSet<String> stringsAnonymousComparator = new TreeSet<>(new Comparator<String>() {
             @Override
