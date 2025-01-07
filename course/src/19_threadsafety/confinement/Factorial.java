@@ -20,8 +20,11 @@ public class Factorial {
 
     public static void main(String[] args) {
       // thread starts computeFact(99)
+        // anonymous class runnable to able to execute the code
       new Thread(new Runnable() {
+        // method run necessary for the thread and runnable
         public void run() {
+          // what is executed inside the run method of this tread and runnable
           computeFact(99);
         }
       }).start();
