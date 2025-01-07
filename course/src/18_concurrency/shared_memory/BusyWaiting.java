@@ -13,6 +13,7 @@ public class BusyWaiting {
 
   // useAnswer runs in a different thread
   private void useAnswer() {
+    // stays in the loop while the answer is not ready (ready = false) therefore !ready = true
     while (!ready) {
       Thread.yield();
     }
