@@ -54,6 +54,7 @@ public class ComparatorExample {
         System.out.println("Sorted directly with StringLengthComparator: " + stringsDirectComparator);
         // Output: Sorted directly with StringLengthComparator: [bob, zach, alice, yolanda]
 
+        // we do not have to create a class before, we create all in like runtime
         // Using an anonymous class for the comparator
         SortedSet<String> stringsAnonymousComparator = new TreeSet<>(new Comparator<String>() {
             @Override
