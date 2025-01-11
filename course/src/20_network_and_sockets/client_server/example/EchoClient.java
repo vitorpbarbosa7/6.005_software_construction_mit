@@ -43,6 +43,8 @@ public class EchoClient{
         // sends to server
         out.println(userInput);
         // received from server
+        // blocking and waiting to receive something from the server?
+        // in???
         System.out.println("echo: " + in.readLine());
       }
     } catch (UnknownHostException e) {

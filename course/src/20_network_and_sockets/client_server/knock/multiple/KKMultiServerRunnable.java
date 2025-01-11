@@ -28,27 +28,24 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */ 
-
 import java.net.*;
 import java.io.*;
 
-public class KKMultiServerThread extends Thread {
-    private Socket socket = null;
+public class KKMultiServerRunnable implements Runnable {
+    private Socket socket;
 
-    public KKMultiServerThread(Socket socket) {
-        super("KKMultiServerThread");
+    public KKMultiServerRunnable(Socket socket) {
         this.socket = socket;
     }
-    
-    public void run() {
 
+    @Override
+    public void run() {
         try (
             // out to send from the server to channel
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             // in to receive from the channel
             BufferedReader in = new BufferedReader(
-                new InputStreamReader(
-                    socket.getInputStream()));
+                new InputStreamReader(socket.getInputStream()));
         ) {
             String inputLine, outputLine;
             KnockKnockProtocol kkp = new KnockKnockProtocol();
@@ -61,9 +58,15 @@ public class KKMultiServerThread extends Thread {
                 if (outputLine.equals("Bye"))
                     break;
             }
-            socket.close();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                socket.close(); // Always ensure the socket is closed
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
+

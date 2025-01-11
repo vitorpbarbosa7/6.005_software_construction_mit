@@ -33,26 +33,27 @@ import java.net.*;
 import java.io.*;
 
 public class KKMultiServer {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
+        int portNumber = 4444;
 
-    if (args.length != 1) {
-        System.err.println("Usage: java KKMultiServer <port number>");
-        System.exit(1);
-    }
+        try (ServerSocket serverSocket = new ServerSocket(portNumber)) {
+            System.out.println("Server started, waiting for clients...");
 
-        int portNumber = Integer.parseInt(args[0]);
-        boolean listening = true;
-        
-        try (ServerSocket serverSocket = new ServerSocket(portNumber)) { 
-            while (listening) {
-              // wrap the socket with the thread one guy 
-              // lisetning with accept()
-              // waiting for as many threads as you wish with start()
-              new KKMultiServerThread(serverSocket.accept()).start();
-          }
-      } catch (IOException e) {
-            System.err.println("Could not listen on port " + portNumber);
-            System.exit(-1);
+            // Accept connections and handle each client in a separate thread
+            while (true) {
+                Socket clientSocket = serverSocket.accept();
+                System.out.println("Client connected: " + clientSocket.getInetAddress());
+
+                // Create a new Runnable for handling the client
+                Runnable clientHandler = new KKMultiServerRunnable(clientSocket);
+
+                // Start a new thread to handle the client
+                Thread clientThread = new Thread(clientHandler);
+                clientThread.start();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
+
