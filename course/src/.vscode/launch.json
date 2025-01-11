@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/vpb/Documents/Documents - bitedFruit/01_ds/MIT/6.005/course/src",
+      "program": "/Users/vpb/Documents/Documents - bitedFruit/01_ds/MIT/6.005/course/src/build/Debug/outDebug"
+    }
+  ]
+}
