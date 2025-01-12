@@ -1,5 +1,3 @@
-package square;
-
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -92,16 +90,25 @@ public class SquareQueue {
         BlockingQueue<SquareResult> replies = new LinkedBlockingQueue<>();
         
         Squarer squarer = new Squarer(requests, replies);
+        // the thread is open, so now I can externally put things in the 
+        // queues
         squarer.start();
         
         try {
             // make a request
             requests.put(42);
+            // read the reply
+            System.out.println(replies.take());
+
+            requests.put(2);
+            requests.put(3);
+            requests.put(4);
+            requests.put(5);
+            System.out.println(replies.take());
+            // 4 and 5 are in the replies to be sent yet
             
             // maybe do something concurrently...
             
-            // read the reply
-            System.out.println(replies.take());
         } catch (InterruptedException ie) {
             ie.printStackTrace();
         }
