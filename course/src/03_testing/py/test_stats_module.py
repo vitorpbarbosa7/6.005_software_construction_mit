@@ -1,6 +1,8 @@
 # test_stats_module.py
 
 import unittest
+# patching, so temporarily altering the behaviour of the function, to have this mocked function
+# not the real one
 from unittest.mock import patch
 from stats_module import calculate_standard_deviation
 
