@@ -4,6 +4,16 @@
 
 // grammar Expression;
 
+/* ElementsGrammar Types Definitions Names */ 
+/* 
+*NUMBER
+*VARIABLE
+*PRIMITIVE
+*SUM
+*ROOT
+*WHITESPACE
+*/
+
 /*
  *
  * You should make sure you have one rule that describes the entire input.

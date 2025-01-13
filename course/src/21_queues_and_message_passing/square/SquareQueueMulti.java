@@ -2,7 +2,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
- * Squares integers.
+   * Squares integers.
  */
 class Squarer {
     // Integer and SquareResult are threadsafe?
