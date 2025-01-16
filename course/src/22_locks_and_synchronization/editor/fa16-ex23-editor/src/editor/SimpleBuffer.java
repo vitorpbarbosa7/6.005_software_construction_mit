@@ -10,6 +10,9 @@ public class SimpleBuffer implements EditBuffer {
     //   text, lock != null
     // Abstraction function: 
     //   represents the sequence text[0],...,text[text.length()-1]
+    // Thread safety argument:
+    //    all accesses to text happen within SimpleBuffer methods
+    //    which are all guarded by SImpleBuffer's lock 
     // Concurrency argument:
     //   TODO
 
