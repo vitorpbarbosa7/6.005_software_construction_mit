@@ -73,11 +73,14 @@ public class MinesweeperServer {
      * @throws IOException if the connection encounters an error or terminates unexpectedly
      */
     private void handleConnection(Socket socket) throws IOException {
+        // messages from the client, to be processed by the server
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        // messages of the server to be sent to the client
         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
         try {
             for (String line = in.readLine(); line != null; line = in.readLine()) {
+                // input from cliente received with success, what to do?
                 String output = handleRequest(line);
                 if (output != null) {
                     // TODO: Consider improving spec of handleRequest to avoid use of null
@@ -96,6 +99,7 @@ public class MinesweeperServer {
      * @param input message from client
      * @return message to client, or null if none
      */
+    // is this implemented using regex directly in the code and no Recursive Data Type and grammar? using parserlib or antlr?
     private String handleRequest(String input) {
         String regex = "(look)|(help)|(bye)|"
                      + "(dig -?\\d+ -?\\d+)|(flag -?\\d+ -?\\d+)|(deflag -?\\d+ -?\\d+)";
