@@ -56,19 +56,21 @@ public class MinesweeperServer {
             Socket clientSocket = serverSocket.accept();
             System.out.println("Client connected: " + clientSocket.getInetAddress());
 
+            // handle the client
+            // try {
+            /* single thread way, let's try with multi thread */
+            // handleConnection(clientSocket);
+
             Runnable clientHandler = new MinesweeperServerRunnable(clientSocket);
 
             Thread clientThread = new Thread(clientHandler);
             clientThread.start();
 
-            // handle the client
-            try {
-                handleConnection(clientSocket);
-            } catch (IOException ioe) {
-                ioe.printStackTrace(); // but don't terminate serve()
-            } finally {
-                clientSocket.close();
-            }
+            // } catch (IOException ioe) {
+            //     ioe.printStackTrace(); // but don't terminate serve()
+            // } finally {
+            //     clientSocket.close();
+            // }
         }
     }
 

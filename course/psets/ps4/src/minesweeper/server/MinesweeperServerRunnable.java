@@ -13,24 +13,24 @@ public class MinesweeperServerRunnable implements Runnable {
 
         try {
 
-        // messages from the client, to be processed by the server
-        BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-        // messages of the server to be sent to the client
-        PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+            // messages from the client, to be processed by the server
+            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            // messages of the server to be sent to the client
+            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
 
-        try {
-            for (String line = in.readLine(); line != null; line = in.readLine()) {
-                // input from cliente received with success, what to do?
-                String output = handleRequest(line);
-                if (output != null) {
-                    // TODO: Consider improving spec of handleRequest to avoid use of null
-                    out.println(output);
+            try {
+                for (String line = in.readLine(); line != null; line = in.readLine()) {
+                    // input from cliente received with success, what to do?
+                    String output = handleRequest(line);
+                    if (output != null) {
+                        // TODO: Consider improving spec of handleRequest to avoid use of null
+                        out.println(output);
+                    }
                 }
+            } finally {
+                out.close();
+                in.close();
             }
-        } finally {
-            out.close();
-            in.close();
-        }
 
 
         } catch (IOException e) {
