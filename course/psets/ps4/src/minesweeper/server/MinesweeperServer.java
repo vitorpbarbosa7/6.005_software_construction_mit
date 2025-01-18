@@ -53,15 +53,15 @@ public class MinesweeperServer {
     public void serve() throws IOException {
         while (true) {
             // block until a client connects
-            Socket socket = serverSocket.accept();
+            Socket clientSocket = serverSocket.accept();
 
             // handle the client
             try {
-                handleConnection(socket);
+                handleConnection(clientSocket);
             } catch (IOException ioe) {
                 ioe.printStackTrace(); // but don't terminate serve()
             } finally {
-                socket.close();
+                clientSocket.close();
             }
         }
     }
@@ -69,14 +69,14 @@ public class MinesweeperServer {
     /**
      * Handle a single client connection. Returns when client disconnects.
      * 
-     * @param socket socket where the client is connected
+     * @param cilentSocket socket where the client is connected
      * @throws IOException if the connection encounters an error or terminates unexpectedly
      */
-    private void handleConnection(Socket socket) throws IOException {
+    private void handleConnection(Socket cilentSocket) throws IOException {
         // messages from the client, to be processed by the server
-        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        BufferedReader in = new BufferedReader(new InputStreamReader(cilentSocket.getInputStream()));
         // messages of the server to be sent to the client
-        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+        PrintWriter out = new PrintWriter(cilentSocket.getOutputStream(), true);
 
         try {
             for (String line = in.readLine(); line != null; line = in.readLine()) {
@@ -89,9 +89,54 @@ public class MinesweeperServer {
             }
         } finally {
             out.close();
-            in.close();
-        }
+            in.close()
+
     }
+
+    // private class MinesweeperServerRunnable implements Runnable {
+    //     private Socket socket;
+    
+    //     public MinesweeperServerRunnable(Socket socket) {
+    //         this.socket = socket;
+    //     }
+    
+    //     @Override 
+    //     public void run() { 
+    
+    //         try {
+    
+    //         // messages from the client, to be processed by the server
+    //         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+    //         // messages of the server to be sent to the client
+    //         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+    
+    //         try {
+    //             for (String line = in.readLine(); line != null; line = in.readLine()) {
+    //                 // input from cliente received with success, what to do?
+    //                 String output = handleRequest(line);
+    //                 if (output != null) {
+    //                     // TODO: Consider improving spec of handleRequest to avoid use of null
+    //                     out.println(output);
+    //                 }
+    //             }
+    //         } finally {
+    //             out.close();
+    //             in.close();
+    //         }
+    
+    
+    //         } catch (IOException e) {
+    //             e.printStackTrace();
+    //         } finally {
+    //             try {
+    //             socket.close();
+    //             // closed
+    //             } catch (IOException e) {
+    //                 e.printStackTrace();
+    //             }
+    //         }
+    //     }
+    // }
 
     /**
      * Handler for client input, performing requested operations and returning an output message.
