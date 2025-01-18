@@ -29,6 +29,9 @@ public class MinesweeperServer {
     /** True if the server should *not* disconnect a client after a BOOM message. */
     private final boolean debug;
 
+    /** The board */
+    public final Board board;
+
     // TODO: Abstraction function, rep invariant, rep exposure
 
     /**
@@ -73,137 +76,6 @@ public class MinesweeperServer {
             // }
         }
     }
-
-    /* ###########################################################
-    /* Try to implement in a Runnable for the threadcall */
-    // /**
-    //  * Handle a single client connection. Returns when client disconnects.
-    //  * 
-    //  * @param cilentSocket socket where the client is connected
-    //  * @throws IOException if the connection encounters an error or terminates unexpectedly
-    //  */
-    // private void handleConnection(Socket cilentSocket) throws IOException {
-    //     // messages from the client, to be processed by the server
-    //     BufferedReader in = new BufferedReader(new InputStreamReader(cilentSocket.getInputStream()));
-    //     // messages of the server to be sent to the client
-    //     PrintWriter out = new PrintWriter(cilentSocket.getOutputStream(), true);
-
-    //     try {
-    //         for (String line = in.readLine(); line != null; line = in.readLine()) {
-    //             // input from cliente received with success, what to do?
-    //             String output = handleRequest(line);
-    //             if (output != null) {
-    //                 // TODO: Consider improving spec of handleRequest to avoid use of null
-    //                 out.println(output);
-    //             }
-    //         }
-    //     } finally {
-    //         out.close();
-    //         in.close();
-    //     }
-    // }
-    /* ###########################################################
-
-    /* ###########################################################
-     * Try to implement in a Runnable for the thread call
-     */
-    // /**
-    //  * Handler for client input, performing requested operations and returning an output message.
-    //  * 
-    //  * @param input message from client
-    //  * @return message to client, or null if none
-    //  */
-    // // is this implemented using regex directly in the code and no Recursive Data Type and grammar? using parserlib or antlr?
-    // private String handleRequest(String input) {
-    //     String regex = "(look)|(help)|(bye)|"
-    //                  + "(dig -?\\d+ -?\\d+)|(flag -?\\d+ -?\\d+)|(deflag -?\\d+ -?\\d+)";
-    //     if ( ! input.matches(regex)) {
-    //         System.out.println(" no command");
-    //         // invalid input
-    //         // TODO Problem 5
-    //     }
-    //     String[] tokens = input.split(" ");
-    //     if (tokens[0].equals("look")) {
-    //         System.out.println(" look!");
-    //         System.exit(0);
-    //         // 'look' request
-    //         // TODO Problem 5
-    //     } else if (tokens[0].equals("help")) {
-    //         System.out.println(" help!");
-    //         // 'help' request
-    //         // TODO Problem 5
-    //     } else if (tokens[0].equals("bye")) {
-    //         System.out.println(" bye!");
-    //         // 'bye' request
-    //         // TODO Problem 5
-    //     } else {
-    //         int x = Integer.parseInt(tokens[1]);
-    //         int y = Integer.parseInt(tokens[2]);
-    //         if (tokens[0].equals("dig")) {
-    //             System.out.println(" dig");
-    //             // 'dig x y' request
-    //             // TODO Problem 5
-    //         } else if (tokens[0].equals("flag")) {
-    //             System.out.println(" flag");
-    //             // 'flag x y' request
-    //             // TODO Problem 5
-    //         } else if (tokens[0].equals("deflag")) {
-    //             System.out.println(" deflag");
-    //             // 'deflag x y' request
-    //             // TODO Problem 5
-    //         }
-    //     }
-    //     // TODO: Should never get here, make sure to return in each of the cases above
-    //     throw new UnsupportedOperationException();
-    // }
-
-    /* ###########################################################
-
-
-    /**
-     * Start a MinesweeperServer using the given arguments.
-     * 
-     * <br> Usage:
-     *      MinesweeperServer [--debug | --no-debug] [--port PORT] [--size SIZE_X,SIZE_Y | --file FILE]
-     * 
-     * <br> The --debug argument means the server should run in debug mode. The server should disconnect a
-     *      client after a BOOM message if and only if the --debug flag was NOT given.
-     *      Using --no-debug is the same as using no flag at all.
-     * <br> E.g. "MinesweeperServer --debug" starts the server in debug mode.
-     * 
-     * <br> PORT is an optional integer in the range 0 to 65535 inclusive, specifying the port the server
-     *      should be listening on for incoming connections.
-     * <br> E.g. "MinesweeperServer --port 1234" starts the server listening on port 1234.
-     * 
-     * <br> SIZE_X and SIZE_Y are optional positive integer arguments, specifying that a random board of size
-     *      SIZE_X*SIZE_Y should be generated.
-     * <br> E.g. "MinesweeperServer --size 42,58" starts the server initialized with a random board of size
-     *      42*58.
-     * 
-     * <br> FILE is an optional argument specifying a file pathname where a board has been stored. If this
-     *      argument is given, the stored board should be loaded as the starting board.
-     * <br> E.g. "MinesweeperServer --file boardfile.txt" starts the server initialized with the board stored
-     *      in boardfile.txt.
-     * 
-     * <br> The board file format, for use with the "--file" option, is specified by the following grammar:
-     * <pre>
-     *   FILE ::= BOARD LINE+
-     *   BOARD ::= X SPACE Y NEWLINE
-     *   LINE ::= (VAL SPACE)* VAL NEWLINE
-     *   VAL ::= 0 | 1
-     *   X ::= INT
-     *   Y ::= INT
-     *   SPACE ::= " "
-     *   NEWLINE ::= "\n" | "\r" "\n"?
-     *   INT ::= [0-9]+
-     * </pre>
-     * 
-     * <br> If neither --file nor --size is given, generate a random board of size 10x10.
-     * 
-     * <br> Note that --file and --size may not be specified simultaneously.
-     * 
-     * @param args arguments as described
-     */
     public static void main(String[] args) {
         System.out.println("main started");
         // Command-line argument parsing is provided. Do not change this method.
@@ -277,6 +149,8 @@ public class MinesweeperServer {
      * @throws IOException if a network error occurs
      */
     public static void runMinesweeperServer(boolean debug, Optional<File> file, int sizeX, int sizeY, int port) throws IOException {
+
+        board = new Board(sizeX, sizeY); 
         
         // TODO: Continue implementation here in problem 4
         

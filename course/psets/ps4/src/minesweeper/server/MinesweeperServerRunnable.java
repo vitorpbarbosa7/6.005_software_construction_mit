@@ -4,6 +4,8 @@ package minesweeper.server;
 import java.net.*;
 import java.io.*;
 
+import minesweeper.Board;
+
 public class MinesweeperServerRunnable implements Runnable {
     private Socket clientSocket;
 
@@ -69,6 +71,7 @@ public class MinesweeperServerRunnable implements Runnable {
         }
         String[] tokens = input.split(" ");
         if (tokens[0].equals("look")) {
+            System.out.println(board.toString());
             // 'look' request
             // TODO Problem 5
             try {
@@ -80,6 +83,7 @@ public class MinesweeperServerRunnable implements Runnable {
             } finally {
                 System.out.println("Thread releasing System.out lock after command: " + tokens[0]);
             }
+        
         } else if (tokens[0].equals("help")) {
             System.out.println(" help!");
             // 'help' request
