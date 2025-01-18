@@ -1,3 +1,6 @@
+
+package minesweeper.server;
+
 import java.net.*;
 import java.io.*;
 
@@ -14,13 +17,13 @@ public class MinesweeperServerRunnable implements Runnable {
 
         try {
 
-            handleConnection(clientSocket);
+            handleConnection(this.clientSocket);
 
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
             try {
-            clientSocket.close();
+            this.clientSocket.close();
             // closed
             } catch (IOException e) {
                 e.printStackTrace();
