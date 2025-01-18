@@ -35,6 +35,7 @@ public class KKMultiServerRunnable implements Runnable {
     private Socket socket;
 
     public KKMultiServerRunnable(Socket socket) {
+        System.out.println(" new connection stablished");
         this.socket = socket;
     }
 
