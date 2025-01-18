@@ -3,6 +3,8 @@
  */
 package minesweeper;
 
+import minesweeper.Square;
+
 /**
  * TODO: Specification
  */
@@ -26,9 +28,18 @@ public class Board {
         for (int y = 0; y < this.sizeY; y++) {
             // column
             for (int x = 0; x< this.sizeX; x++) {
-                this.board[y][x] = "-";
+                Square square = new Square();
+                this.board[y][x] = square;
             } 
         }
+    }
+
+    public void dig(int x, int y){
+        if (x < 0 || y < 0) {
+
+        } else if (y > this.sizeY || x > this.sizeX ){
+            
+        } else if ()
     }
 
     @Override
@@ -43,8 +54,5 @@ public class Board {
             sb.append("\n");
         }
         return sb.toString();
-    }
-
-    
-    
+    } 
 }
