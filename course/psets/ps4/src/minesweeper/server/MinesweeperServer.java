@@ -154,36 +154,36 @@ public class MinesweeperServer {
         String regex = "(look)|(help)|(bye)|"
                      + "(dig -?\\d+ -?\\d+)|(flag -?\\d+ -?\\d+)|(deflag -?\\d+ -?\\d+)";
         if ( ! input.matches(regex)) {
-            System.out.println(" no command")
+            System.out.println(" no command");
             // invalid input
             // TODO Problem 5
         }
         String[] tokens = input.split(" ");
         if (tokens[0].equals("look")) {
-            System.out.println(" look!")
+            System.out.println(" look!");
             // 'look' request
             // TODO Problem 5
         } else if (tokens[0].equals("help")) {
-            System.out.println(" help!")
+            System.out.println(" help!");
             // 'help' request
             // TODO Problem 5
         } else if (tokens[0].equals("bye")) {
-            System.out.println(" bye!")
+            System.out.println(" bye!");
             // 'bye' request
             // TODO Problem 5
         } else {
             int x = Integer.parseInt(tokens[1]);
             int y = Integer.parseInt(tokens[2]);
             if (tokens[0].equals("dig")) {
-                System.out.println(" dig")
+                System.out.println(" dig");
                 // 'dig x y' request
                 // TODO Problem 5
             } else if (tokens[0].equals("flag")) {
-                System.out.println(" flag")
+                System.out.println(" flag");
                 // 'flag x y' request
                 // TODO Problem 5
             } else if (tokens[0].equals("deflag")) {
-                System.out.println(" deflag")
+                System.out.println(" deflag");
                 // 'deflag x y' request
                 // TODO Problem 5
             }
@@ -286,6 +286,7 @@ public class MinesweeperServer {
         }
 
         try {
+            System.out.println("port" + port + "debug" + debug + "SIZE_X" + sizeX + "SIZE_Y" + sizeY)
             runMinesweeperServer(debug, file, sizeX, sizeY, port);
         } catch (IOException ioe) {
             throw new RuntimeException(ioe);
