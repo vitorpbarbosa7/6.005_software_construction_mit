@@ -69,16 +69,17 @@ public class MinesweeperServerRunnable implements Runnable {
         }
         String[] tokens = input.split(" ");
         if (tokens[0].equals("look")) {
-            System.out.println(" look!");
-            try {
-                // Pause for 3 seconds (3000 milliseconds)
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                // Handle the exception if the sleep is interrupted
-                System.out.println("Thread was interrupted!");
-            }
             // 'look' request
             // TODO Problem 5
+            try {
+                System.out.println("Processing command: " + tokens[0]);
+                // Simulate some work (e.g., 3 seconds of processing)
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                System.out.println("Thread was interrupted!");
+            } finally {
+                System.out.println("Thread releasing System.out lock after command: " + tokens[0]);
+            }
         } else if (tokens[0].equals("help")) {
             System.out.println(" help!");
             // 'help' request
