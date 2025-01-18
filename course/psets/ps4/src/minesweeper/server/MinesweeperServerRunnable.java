@@ -2,10 +2,10 @@ import java.net.*;
 import java.io.*;
 
 public class MinesweeperServerRunnable implements Runnable {
-    private Socket socket;
+    private Socket clientSocket;
 
-    public MinesweeperServerRunnable(Socket socket) {
-        this.socket = socket;
+    public MinesweeperServerRunnable(Socket clientSocket) {
+        this.clientSocket = clientSocket;
     }
 
     @Override 
@@ -14,9 +14,9 @@ public class MinesweeperServerRunnable implements Runnable {
         try {
 
         // messages from the client, to be processed by the server
-        BufferedReader in = new BufferedReader(new InputStreamReader(cilentSocket.getInputStream()));
+        BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         // messages of the server to be sent to the client
-        PrintWriter out = new PrintWriter(cilentSocket.getOutputStream(), true);
+        PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
 
         try {
             for (String line = in.readLine(); line != null; line = in.readLine()) {
@@ -37,7 +37,7 @@ public class MinesweeperServerRunnable implements Runnable {
             e.printStackTrace();
         } finally {
             try {
-            socket.close();
+            clientSocket.close();
             // closed
             } catch (IOException e) {
                 e.printStackTrace();
@@ -49,14 +49,14 @@ public class MinesweeperServerRunnable implements Runnable {
     /**
      * Handle a single client connection. Returns when client disconnects.
      * 
-     * @param cilentSocket socket where the client is connected
+     * @param clientSocket clientSocket where the client is connected
      * @throws IOException if the connection encounters an error or terminates unexpectedly
      */
-    private void handleConnection(Socket cilentSocket) throws IOException {
+    private void handleConnection(Socket clientSocket) throws IOException {
         // messages from the client, to be processed by the server
-        BufferedReader in = new BufferedReader(new InputStreamReader(cilentSocket.getInputStream()));
+        BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         // messages of the server to be sent to the client
-        PrintWriter out = new PrintWriter(cilentSocket.getOutputStream(), true);
+        PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
 
         try {
             for (String line = in.readLine(); line != null; line = in.readLine()) {
