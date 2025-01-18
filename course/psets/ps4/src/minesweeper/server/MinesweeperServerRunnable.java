@@ -5,6 +5,7 @@ public class MinesweeperServerRunnable implements Runnable {
     private Socket clientSocket;
 
     public MinesweeperServerRunnable(Socket clientSocket) {
+        System.out.println(" New connection stablished");
         this.clientSocket = clientSocket;
     }
 
@@ -13,25 +14,7 @@ public class MinesweeperServerRunnable implements Runnable {
 
         try {
 
-            // messages from the client, to be processed by the server
-            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            // messages of the server to be sent to the client
-            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-
-            try {
-                for (String line = in.readLine(); line != null; line = in.readLine()) {
-                    // input from cliente received with success, what to do?
-                    String output = handleRequest(line);
-                    if (output != null) {
-                        // TODO: Consider improving spec of handleRequest to avoid use of null
-                        out.println(output);
-                    }
-                }
-            } finally {
-                out.close();
-                in.close();
-            }
-
+            handleConnection(clientSocket);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -84,7 +67,13 @@ public class MinesweeperServerRunnable implements Runnable {
         String[] tokens = input.split(" ");
         if (tokens[0].equals("look")) {
             System.out.println(" look!");
-            System.exit(0);
+            try {
+                // Pause for 3 seconds (3000 milliseconds)
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                // Handle the exception if the sleep is interrupted
+                System.out.println("Thread was interrupted!");
+            }
             // 'look' request
             // TODO Problem 5
         } else if (tokens[0].equals("help")) {
