@@ -161,6 +161,7 @@ public class MinesweeperServer {
         String[] tokens = input.split(" ");
         if (tokens[0].equals("look")) {
             System.out.println(" look!");
+            System.exit(0);
             // 'look' request
             // TODO Problem 5
         } else if (tokens[0].equals("help")) {
@@ -237,6 +238,7 @@ public class MinesweeperServer {
      * @param args arguments as described
      */
     public static void main(String[] args) {
+        System.out.println("main started");
         // Command-line argument parsing is provided. Do not change this method.
         boolean debug = false;
         int port = DEFAULT_PORT;
@@ -286,7 +288,7 @@ public class MinesweeperServer {
         }
 
         try {
-            System.out.println("port" + port + "debug" + debug + "SIZE_X" + sizeX + "SIZE_Y" + sizeY)
+            System.out.println("port: " + port + " -- debug: " + debug + " -- SIZE_X: " + sizeX + " -- SIZE_Y: " + sizeY);
             runMinesweeperServer(debug, file, sizeX, sizeY, port);
         } catch (IOException ioe) {
             throw new RuntimeException(ioe);
