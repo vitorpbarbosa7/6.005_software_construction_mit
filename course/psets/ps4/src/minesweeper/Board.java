@@ -22,10 +22,11 @@ public class Board {
         this.board = new String[sizeX][sizeY];
 
         // initial board configuration, with no bombs
-        // each row
-        for (int i = 0; i <= this.sizeX; i++) {
-            for (int j = 0; i<= this.sizeY; i++) {
-                this.board[i][j] = "-";
+        // row
+        for (int y = 0; y < this.sizeY; y++) {
+            // column
+            for (int x = 0; x< this.sizeX; x++) {
+                this.board[y][x] = "-";
             } 
         }
     }
@@ -33,12 +34,14 @@ public class Board {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(); 
-        for (int i = 0; i<= this.sizeX; i++) {
-            for(int j =0; i<= this.sizeY; i++) {
-                sb.append(board[i][j]).append(" ");
+        // row
+        for (int y = 0; y < this.sizeY; y++) {
+            // column
+            for (int x = 0; x< this.sizeX; x++) {
+                sb.append(this.board[y][x]).append(" ");
             }
             sb.append("\n");
-        } 
+        }
         return sb.toString();
     }
 
