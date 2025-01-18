@@ -255,7 +255,7 @@ public class MinesweeperServer {
         }
 
         try {
-            System.out.println("port: " + port + " -- debug: " + debug + " -- SIZE_X: " + sizeX + " -- SIZE_Y: " + sizeY);
+            System.out.println("port: " + port + " -- debug: " + debug + " -- SIZE_X: " + sizeX + " -- SIZE_Y: " + sizeY + " -- debug:" + debug);
             runMinesweeperServer(debug, file, sizeX, sizeY, port);
         } catch (IOException ioe) {
             throw new RuntimeException(ioe);
