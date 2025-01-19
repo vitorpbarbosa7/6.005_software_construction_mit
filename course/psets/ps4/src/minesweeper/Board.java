@@ -87,6 +87,11 @@ public class Board {
             // if we do not have bombs, we have to recursively explore it, so dig again? 
                     this.recursiveExplore(y, x);
             }
+        } else if (this.boardContent[y][x] == bomb) {
+            // change so it contains no bomb
+            this.boardContent[y][x] = empty;
+            this.boardState[y][x] = dug;
+            this.boardDisplay[y][x] = dug;
         }
         return returnMessage;
     }
