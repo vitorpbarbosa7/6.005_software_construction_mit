@@ -95,11 +95,11 @@ public class Board {
                 for (int i = 0; i < yOffsets.length; i ++){
                     int adjacentY = y + yOffsets[i];
                     int adjacentX = x + xOffsets[i];
-                    boolean yCondition = (adjacentY > 0 & adjacentY < this.sizeY);
-                    boolean xCondition = (adjacentX > 0 & adjacentX < this.sizeX);
-                    if  (yCondition & xCondition) {
-                        this.recursiveExplore(adjacentY, adjacentX);
-                }
+                    // boolean yCondition = (adjacentY > 0 & adjacentY < this.sizeY);
+                    // boolean xCondition = (adjacentX > 0 & adjacentX < this.sizeX);
+                    // if  (yCondition & xCondition) {
+                    this.recursiveExplore(adjacentY, adjacentX);
+                // }
             }
             returnMessage = this.returnBoard();
         }
@@ -127,12 +127,12 @@ public class Board {
     
     private void recursiveExplore(int y, int x) {
         System.out.println("Stack created");
-        if (this.boardState[y][x] == dug){
-            // Do nothing and go back in the stack
-        }
-        else if (x < 0 || y < 0) {
+        // first conditions must be the positions, to go back doing nothing
+        if (x < 0 || y < 0) {
             // Do nothing and go back in the stack
         } else if (y > this.sizeY -1 || x > this.sizeX - 1 ){
+            // Do nothing and go back in the stack
+        } else if (this.boardState[y][x] == dug){
             // Do nothing and go back in the stack
         } else if (this.boardContent[y][x] == bomb) {
             // Do nothing and go back in the stack
@@ -151,11 +151,11 @@ public class Board {
             for (int i = 0; i < yOffsets.length; i ++){
                 int adjacentY = y + yOffsets[i];
                 int adjacentX = x + xOffsets[i];
-                boolean yCondition = (adjacentY > 0 & adjacentY < this.sizeY);
-                boolean xCondition = (adjacentX > 0 & adjacentX < this.sizeX);
-                if  (yCondition & xCondition) {
-                    this.recursiveExplore(adjacentY, adjacentX);
-                }
+                // boolean yCondition = (adjacentY > 0 & adjacentY < this.sizeY);
+                // boolean xCondition = (adjacentX > 0 & adjacentX < this.sizeX);
+                // if  (yCondition & xCondition) {
+                this.recursiveExplore(adjacentY, adjacentX);
+                // }
             }
         }
     }
