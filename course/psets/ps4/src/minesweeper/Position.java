@@ -3,10 +3,10 @@ import java.util.Objects;
 
 public class Position {
     
-        private final int x;
         private final int y;
+        private final int x;
 
-        public Position(int x, int y) {
+        public Position(int y, int x) {
             this.x = x;
             this.y = y;
         }
