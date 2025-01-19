@@ -94,6 +94,7 @@ public class Board {
             // if we have bombs, we have to show it
             if (numberAdjacentBombs != 0) {
                 this.updateBombCount(y, x, numberAdjacentBombs);
+                returnMessage = this.returnBoard();
             } else {
             // if we do not have bombs, we have to recursively explore it, so dig again? 
                 // recursively explore
@@ -102,9 +103,9 @@ public class Board {
                     int adjacentX = x + xOffsets[i];
                     this.recursiveExplore(adjacentY, adjacentX);
                 // }
+                }
+                returnMessage = this.returnBoard();
             }
-            returnMessage = this.returnBoard();
-        }
         } else if (this.boardContent[y][x] == bomb) {
             // change so it contains no bomb
             this.boardContent[y][x] = empty;
