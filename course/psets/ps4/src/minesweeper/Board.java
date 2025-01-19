@@ -63,7 +63,7 @@ public class Board {
                 this.boardContent[y][x] = empty;
     
                 // Check if there's a bomb at (x, y)
-                if (bombPositions.contains(new Position(x, y))) {
+                if (bombPositions.contains(new Position(y, x))) {
                     this.boardContent[y][x] = bomb; // Place bomb
                     this.boardDisplay[y][x] = untouched;
                 } else {
@@ -85,7 +85,7 @@ public class Board {
             returnMessage += this.returnBoard();
         } else if (this.boardState[y][x] != untouched) {
             // Do nothing and return the board
-            returnMessage = "This is not a untouched square";
+            returnMessage = "This is not a untouched square \n";
             returnMessage += this.returnBoard();
         } else if (this.boardState[y][x] == untouched & this.boardContent[y][x] == empty) {
             this.boardState[y][x] = dug;
@@ -203,6 +203,19 @@ public class Board {
             // column
             for (int x = 0; x< this.sizeX; x++) {
                 sb.append(this.boardDisplay[y][x]).append(" ");
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
+    } 
+
+    public String debugContent() {
+        StringBuilder sb = new StringBuilder(); 
+        // row
+        for (int y = 0; y < this.sizeY; y++) {
+            // column
+            for (int x = 0; x< this.sizeX; x++) {
+                sb.append(this.boardContent[y][x]).append(" ");
             }
             sb.append("\n");
         }

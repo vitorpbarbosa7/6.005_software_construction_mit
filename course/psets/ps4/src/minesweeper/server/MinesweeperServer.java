@@ -158,9 +158,10 @@ public class MinesweeperServer {
                 // 'bye' request
                 // TODO Problem 5
             } else {
-                int x = Integer.parseInt(tokens[1]);
-                int y = Integer.parseInt(tokens[2]);
+                int y = Integer.parseInt(tokens[1]);
+                int x = Integer.parseInt(tokens[2]);
                 if (tokens[0].equals("dig")) {
+                    System.out.println(this.board.debugContent());
                     return this.board.dig(x,y);
                     // 'dig x y' request
                     // TODO Problem 5
