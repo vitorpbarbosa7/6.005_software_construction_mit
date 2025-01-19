@@ -65,9 +65,44 @@ public class Board {
             returnMessage = this.returnBoard();
         } else if (this.boardState[y][x] != untouched) {
             returnMessage = this.returnBoard();
+        } else if (this.boardState[y][x] == untouched & this.boardContent[y][x] == empty) {
+            this.boardState[y][x] = dug;
+            int numberAdjacentBombs= this.countAdjancentBombs(y,x);
+            if (numberAdjacentBombs > 0) {
+                this.recursiveExplore(y, x);
+            }
         }
         return returnMessage;
     }
+
+    private int countAdjancentBombs(int y, int x) {
+        // rows: y
+        // columns: x
+        int numberAdjacentBombs = 0;
+        // row
+        int[] yOffsets = {-1, -1, -1, 0, 0, +1, +1, +1};
+        int[] xOffsets = {-1, 0, +1, -1, +1, -1, 0, +1};
+
+        for (int i = 0; i < yOffsets.length; i ++){
+            int adjancentY = y - yOffsets[i];
+            int adjancentX = x - xOffsets[i];
+
+            if (this.boardContent[adjancentY][adjancentX] == bomb) { 
+                numberAdjacentBombs++;
+            }
+        }
+
+        return numberAdjacentBombs;
+    }
+
+    private void recursiveExplore(int y, int x) {
+        // rows: y
+        // columns: x
+
+
+    }
+
+
 
     public String returnBoard() {
         StringBuilder sb = new StringBuilder(); 
