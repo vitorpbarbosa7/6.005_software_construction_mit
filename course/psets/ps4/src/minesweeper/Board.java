@@ -22,9 +22,10 @@ public class Board {
 
 
     public Board(int sizeX,int sizeY) {
-        this.sizeX = sizeX;
         this.sizeY = sizeY;
-        this.board = new Square[sizeX][sizeY];
+        this.sizeX = sizeX;
+        this.boardContent = new Square[sizeY][sizeX];
+        this.boardState = new Square[sizeY][sizeX];
 
         // initial board configuration, with no bombs
         // row
@@ -42,7 +43,7 @@ public class Board {
 
         } else if (y > this.sizeY || x > this.sizeX ){
             
-        } else if ()
+        } else if (this.board[y][x] != untouched)
     }
 
     @Override
