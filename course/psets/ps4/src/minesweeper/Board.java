@@ -70,10 +70,13 @@ public class Board {
     public String dig(int x, int y){
         String returnMessage = "";
         if (x < 0 || y < 0) {
+            // Do nothing and return the board
             returnMessage = this.returnBoard();
         } else if (y > this.sizeY || x > this.sizeX ){
+            // Do nothing and return the board
             returnMessage = this.returnBoard();
         } else if (this.boardState[y][x] != untouched) {
+            // Do nothing and return the board
             returnMessage = this.returnBoard();
         } else if (this.boardState[y][x] == untouched & this.boardContent[y][x] == empty) {
             this.boardState[y][x] = dug;
@@ -97,6 +100,8 @@ public class Board {
             int numberAdjacentBombs= this.countAdjancentBombs(y,x);
             this.updateBombCount(y, x, numberAdjacentBombs);
 
+            returnMessage = "BOOM!\r\n";
+
             // TODO terminate user connection if no debug flag is configured
         }
         return returnMessage;
@@ -108,7 +113,10 @@ public class Board {
     
     
     private void recursiveExplore(int y, int x) {
-        if (x < 0 || y < 0) {
+        if (this.boardState[y][x] == dug){
+            // Do nothing and go back in the stack
+        }
+        else if (x < 0 || y < 0) {
             // Do nothing and go back in the stack
         } else if (y > this.sizeY || x > this.sizeX ){
             // Do nothing and go back in the stack
