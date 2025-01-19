@@ -162,11 +162,12 @@ public class MinesweeperServer {
                 int x = Integer.parseInt(tokens[2]);
                 if (tokens[0].equals("dig")) {
                     System.out.println(this.board.debugContent());
-                    return this.board.dig(x,y);
+                    return this.board.dig(y,x);
                     // 'dig x y' request
                     // TODO Problem 5
                 } else if (tokens[0].equals("flag")) {
                     System.out.println(" flag");
+                    return this.board.flag(y,x);
                     // 'flag x y' request
                     // TODO Problem 5
                 } else if (tokens[0].equals("deflag")) {

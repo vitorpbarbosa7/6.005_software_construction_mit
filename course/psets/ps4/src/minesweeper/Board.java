@@ -73,7 +73,7 @@ public class Board {
         }
     }
 
-    public String dig(int x, int y){
+    public String dig(int y, int x){
         String returnMessage = "";
         if (x < 0 || y < 0) {
             // Do nothing and return the board
@@ -123,6 +123,23 @@ public class Board {
         return returnMessage;
     }
 
+    public String flag(int y, int x) {
+        String returnMessage = "NOT UPDATED BOARD";
+
+        if (this.positionCondition(y, x)) {
+            if (this.boardState[y][x] == untouched) {
+                this.boardDisplay[y][x] = flag;
+                this.boardState[y][x] = flag;
+            }
+        }
+        returnMessage = this.returnBoard();
+        
+        return returnMessage;
+
+
+
+    }
+
     private void updateBombCount(int y, int x, int numberAdjacentBombs) {
             this.boardDisplay[y][x] = " " + String.valueOf(numberAdjacentBombs) + " ";
     }
@@ -165,11 +182,15 @@ public class Board {
     }
 
     private void debugDisplay(int y, int x){
-        boolean yCondition = (y >= 0 & y < this.sizeY);
-        boolean xCondition = (x >= 0 & x < this.sizeX);
-        if (yCondition & xCondition){
+        if (this.positionCondition(y, x)){
             System.out.println(this.boardState[y][x]);
         }
+    }
+
+    private boolean positionCondition(int y, int x){
+        boolean yCondition = (y >= 0 & y < this.sizeY);
+        boolean xCondition = (x >= 0 & x < this.sizeX);
+        return yCondition & xCondition;
     }
 
     private int countadjacentBombs(int y, int x) {
@@ -179,9 +200,7 @@ public class Board {
             int adjacentY = y + yOffsets[i];
             int adjacentX = x + xOffsets[i];
 
-            boolean yCondition = (adjacentY >= 0 & adjacentY < this.sizeY);
-            boolean xCondition = (adjacentX >= 0 & adjacentX < this.sizeX);
-            if  (yCondition & xCondition) {
+            if  (this.positionCondition(adjacentY, adjacentX)) {
                 if (this.boardContent[adjacentY][adjacentX] == bomb) { 
                     numberAdjacentBombs++;
                 }
