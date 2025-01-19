@@ -98,12 +98,8 @@ public class Board {
         } else if (y > this.sizeY || x > this.sizeX ){
             // Do nothing and go back in the stack
         } else if (this.boardContent[y][x] == bomb) {
-            // Do nothing and recursively explore
-            for (int i = 0; i < yOffsets.length; i ++){
-                int adjancentY = y + yOffsets[i];
-                int adjancentX = x + xOffsets[i];
-                this.recursiveExplore(adjancentY, adjancentX);
-            }
+            // Do nothing and go back in the stack
+            
         // check for no bomb at the position
         } else if (this.boardState[y][x] == untouched & this.boardContent[y][x] == empty) {
             this.boardState[y][x] = dug;
