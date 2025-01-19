@@ -5,6 +5,9 @@ package minesweeper;
 
 import minesweeper.Square;
 
+
+import java.util.ArrayList;
+
 /**
  * TODO: Specification
  */
@@ -15,13 +18,13 @@ public class Board {
 
     private final int sizeX;
     private final int sizeY;
-    private final String [][] board;
+    private final Square [][] board;
 
 
     public Board(int sizeX,int sizeY) {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
-        this.board = new String[sizeX][sizeY];
+        this.board = new Square[sizeX][sizeY];
 
         // initial board configuration, with no bombs
         // row

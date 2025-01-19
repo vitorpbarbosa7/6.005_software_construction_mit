@@ -1,11 +1,16 @@
 package minesweeper;
 
-public class Square {
+public interface Square {
 
-    private final String state;
+    public Square dig();
 
-    public Square(String state) {
-        this.state = state;
-    }
+    public Square flag();
+
+    public Square deflag();
+
+    @Override
+    public String toString();
+
+
     
 }
