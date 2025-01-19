@@ -109,12 +109,14 @@ public class Board {
             if (numberAdjacentBombs != 0) {
                 this.boardState[y][x] = dug;
                 this.boardDisplay[y][x] = String.valueOf(numberAdjacentBombs);
+            }
+            // recursively explore
+            for (int i = 0; i < yOffsets.length; i ++){
+                int adjancentY = y + yOffsets[i];
+                int adjancentX = x + xOffsets[i];
+                this.recursiveExplore(adjancentY, adjancentX);
+            }
         }
-        }
-
-        this.recursiveExplore(y, x);
-
-
     }
 
     private int countAdjancentBombs(int y, int x) {
