@@ -1,19 +1,23 @@
-package minesweeper;
+// package minesweeper;
 
-public class Flag {
+// public class Flag {
 
-    private final String squareState = " F ";
+//     private final String squareState = " F ";
 
-    public Flag(){};
+//     public Flag(){};
+
+//     public Square dig(){
+
+//     }
 
 
 
 
 
 
-    @Override
-    public String toString(){
-        return squareState;
-    }
+//     @Override
+//     public String toString(){
+//         return squareState;
+//     }
     
-}
+// }

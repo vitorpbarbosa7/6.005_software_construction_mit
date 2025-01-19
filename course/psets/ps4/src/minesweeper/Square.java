@@ -1,16 +1,16 @@
-package minesweeper;
+// package minesweeper;
 
-public interface Square {
+// public interface Square {
 
-    public Square dig();
+//     public Square dig();
 
-    public Square flag();
+//     public Square flag();
 
-    public Square deflag();
+//     public Square deflag();
 
-    @Override
-    public String toString();
+//     @Override
+//     public String toString();
 
 
     
-}
+// }

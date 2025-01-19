@@ -1,32 +1,32 @@
-package minesweeper;
+// package minesweeper;
 
-public class Untouched implements Square{
+// public class Untouched implements Square{
 
-    private final String squareState = " - ";
+//     private final String squareState = " - ";
 
-    public Untouched(){};
-
-
-    public Square dig(){
-        return new Dug();
-    }
-
-    public Square flag(){
-        return new Flag();
-    }
-
-    public Square deflag(){
-        return new Untouched();
-    }
+//     public Untouched(){};
 
 
-    @Override
-    public String toString() {
-        return squareState;
-    }
+//     public Square dig(){
+//         return new Dug();
+//     }
+
+//     public Square flag(){
+//         return new Flag();
+//     }
+
+//     public Square deflag(){
+//         return new Untouched();
+//     }
+
+
+//     @Override
+//     public String toString() {
+//         return squareState;
+//     }
 
 
 
 
     
-}
+// }
