@@ -172,6 +172,7 @@ public class MinesweeperServer {
                     // TODO Problem 5
                 } else if (tokens[0].equals("deflag")) {
                     System.out.println(" deflag");
+                    return this.board.deflag(y,x);
                     // 'deflag x y' request
                     // TODO Problem 5
                 }

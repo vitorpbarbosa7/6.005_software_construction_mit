@@ -135,9 +135,19 @@ public class Board {
         returnMessage = this.returnBoard();
         
         return returnMessage;
+    }
+    public String deflag(int y, int x) {
+        String returnMessage = "NOT UPDATED BOARD";
 
-
-
+        if (this.positionCondition(y, x)) {
+            if (this.boardState[y][x] == flag) {
+                this.boardDisplay[y][x] = untouched;
+                this.boardState[y][x] = untouched;
+            }
+        }
+        returnMessage = this.returnBoard();
+        
+        return returnMessage;
     }
 
     private void updateBombCount(int y, int x, int numberAdjacentBombs) {
