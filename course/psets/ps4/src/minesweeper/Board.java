@@ -82,7 +82,7 @@ public class Board {
             // if we have bombs, we have to show it
             if (numberAdjacentBombs != 0) {
                 this.boardState[y][x] = dug;
-                this.boardDisplay[y][x] = String.valueOf(numberAdjacentBombs);
+                this.updateBombCount(y, x, numberAdjacentBombs);
             } else {
             // if we do not have bombs, we have to recursively explore it, so dig again? 
                     this.recursiveExplore(y, x);
@@ -92,8 +92,18 @@ public class Board {
             this.boardContent[y][x] = empty;
             this.boardState[y][x] = dug;
             this.boardDisplay[y][x] = dug;
+            
+            // update bombCount
+            int numberAdjacentBombs= this.countAdjancentBombs(y,x);
+            this.updateBombCount(y, x, numberAdjacentBombs);
+
+            // TODO terminate user connection if no debug flag is configured
         }
         return returnMessage;
+    }
+
+    private void updateBombCount(int y, int x, int numberAdjacentBombs) {
+            this.boardDisplay[y][x] = String.valueOf(numberAdjacentBombs);
     }
     
     
