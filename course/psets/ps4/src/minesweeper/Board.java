@@ -20,12 +20,14 @@ public class Board {
     private final int sizeY;
     private final String[][] boardContent;
     private final String[][] boardState;
+    private final String[][] boardDisplay;
 
     private final String untouched = " - ";
     private final String flag = " F ";
-    private final String dug = "  ";
     private final String bomb = "b";
     private final String empty =  "n";
+     
+    private String dug = "  ";
 
     private final Set<Position> bombPositions = new HashSet<>();
 
@@ -34,6 +36,7 @@ public class Board {
         this.sizeX = sizeX;
         this.boardContent = new String[sizeY][sizeX];
         this.boardState = new String[sizeY][sizeX];
+        this.boardDisplay = new String[sizeY][sizeX];
 
         // bomb positions
         Set<Position> bombPositions = new HashSet<>();
@@ -46,6 +49,8 @@ public class Board {
         for (int y = 0; y < this.sizeY; y++) {
             for (int x = 0; x < this.sizeX; x++) {
                 this.boardState[y][x] = untouched;
+                this.boardDisplay[y][x] = untouched;
+                this.boardContent[y][x] = empty;
     
                 // Check if there's a bomb at (x, y)
                 if (bombPositions.contains(new Position(x, y))) {
@@ -68,9 +73,13 @@ public class Board {
         } else if (this.boardState[y][x] == untouched & this.boardContent[y][x] == empty) {
             this.boardState[y][x] = dug;
             int numberAdjacentBombs= this.countAdjancentBombs(y,x);
+            if (numberAdjacentBombs < 8) {
+                this.boardState[y][x] = dug;
+                this.boardDisplay[y][x] = String.valueOf(numberAdjacentBombs);
+            }
             if (numberAdjacentBombs > 0) {
                 this.recursiveExplore(y, x);
-            }
+            } else if 
         }
         return returnMessage;
     }
@@ -110,7 +119,7 @@ public class Board {
         for (int y = 0; y < this.sizeY; y++) {
             // column
             for (int x = 0; x< this.sizeX; x++) {
-                sb.append(this.boardState[y][x]).append(" ");
+                sb.append(this.boardDisplay[y][x]).append(" ");
             }
             sb.append("\n");
         }
