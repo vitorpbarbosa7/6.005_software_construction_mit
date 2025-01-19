@@ -88,7 +88,12 @@ public class Board {
                 this.updateBombCount(y, x, numberAdjacentBombs);
             } else {
             // if we do not have bombs, we have to recursively explore it, so dig again? 
-                    this.recursiveExplore(y, x);
+                // recursively explore
+                for (int i = 0; i < yOffsets.length; i ++){
+                    int adjancentY = y + yOffsets[i];
+                    int adjancentX = x + xOffsets[i];
+                    this.recursiveExplore(adjancentY, adjancentX);
+                }
             }
         } else if (this.boardContent[y][x] == bomb) {
             // change so it contains no bomb
