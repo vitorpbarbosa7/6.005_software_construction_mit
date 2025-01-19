@@ -24,10 +24,11 @@ public class Board {
 
     private final String untouched = " - ";
     private final String flag = " F ";
-    private final String bomb = "b";
-    private final String empty =  "n";
      
     private final String dug = "  ";
+    
+    private final String bomb = " B ";
+    private final String empty =  dug;
 
     private final Set<Position> bombPositions = new HashSet<>();
 
@@ -45,9 +46,7 @@ public class Board {
 
         // bomb positions
         Set<Position> bombPositions = new HashSet<>();
-        bombPositions.add(new Position(2, 3));
-        bombPositions.add(new Position(4, 1));
-        bombPositions.add(new Position(0, 0));
+        bombPositions.add(new Position(3, 3));
 
         // initial board configuration, with no bombs
         // row
@@ -60,6 +59,7 @@ public class Board {
                 // Check if there's a bomb at (x, y)
                 if (bombPositions.contains(new Position(x, y))) {
                     this.boardContent[y][x] = bomb; // Place bomb
+                    this.boardDisplay[y][x] = bomb;
                 } else {
                     this.boardContent[y][x] = empty; // Place empty square
                 }
@@ -71,13 +71,16 @@ public class Board {
         String returnMessage = "";
         if (x < 0 || y < 0) {
             // Do nothing and return the board
-            returnMessage = this.returnBoard();
-        } else if (y > this.sizeY || x > this.sizeX ){
+            returnMessage = "Invalid x or y \n";
+            returnMessage += this.returnBoard();
+        } else if (y > this.sizeY - 1  || x > this.sizeX - 1 ){
             // Do nothing and return the board
-            returnMessage = this.returnBoard();
+            returnMessage = "Invalid x or y \n";
+            returnMessage += this.returnBoard();
         } else if (this.boardState[y][x] != untouched) {
             // Do nothing and return the board
-            returnMessage = this.returnBoard();
+            returnMessage = "This is not a untouched square";
+            returnMessage += this.returnBoard();
         } else if (this.boardState[y][x] == untouched & this.boardContent[y][x] == empty) {
             this.boardState[y][x] = dug;
             this.boardDisplay[y][x] = dug;
@@ -95,6 +98,7 @@ public class Board {
                     this.recursiveExplore(adjancentY, adjancentX);
                 }
             }
+            returnMessage = this.returnBoard();
         } else if (this.boardContent[y][x] == bomb) {
             // change so it contains no bomb
             this.boardContent[y][x] = empty;
@@ -123,7 +127,7 @@ public class Board {
         }
         else if (x < 0 || y < 0) {
             // Do nothing and go back in the stack
-        } else if (y > this.sizeY || x > this.sizeX ){
+        } else if (y > this.sizeY -1 || x > this.sizeX - 1 ){
             // Do nothing and go back in the stack
         } else if (this.boardContent[y][x] == bomb) {
             // Do nothing and go back in the stack

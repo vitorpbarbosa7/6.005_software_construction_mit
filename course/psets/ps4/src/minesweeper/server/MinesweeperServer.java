@@ -146,7 +146,7 @@ public class MinesweeperServer {
             }
             String[] tokens = input.split(" ");
             if (tokens[0].equals("look")) {
-                System.out.println(this.board.toString());
+                return this.board.returnBoard();
                 // 'look' request
                 // TODO Problem 5
             } else if (tokens[0].equals("help")) {

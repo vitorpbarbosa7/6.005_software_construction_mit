@@ -1,16 +1,18 @@
-package minesweeper;
+// package minesweeper;
 
-public class Dug {
+// public class Dug {
 
-    private final String squareState = "   ";
+//     private final String squareState = "   ";
 
-    public Dug(){};
+//     public Dug(){};
+
+//     public Square 
 
 
 
-    @Override
-    public String toString(){
-        return squareState;
-    }
+//     @Override
+//     public String toString(){
+//         return squareState;
+//     }
     
-}
+// }
