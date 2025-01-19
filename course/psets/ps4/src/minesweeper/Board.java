@@ -59,7 +59,7 @@ public class Board {
                 // Check if there's a bomb at (x, y)
                 if (bombPositions.contains(new Position(x, y))) {
                     this.boardContent[y][x] = bomb; // Place bomb
-                    this.boardDisplay[y][x] = bomb;
+                    this.boardDisplay[y][x] = untouched;
                 } else {
                     this.boardContent[y][x] = empty; // Place empty square
                 }
