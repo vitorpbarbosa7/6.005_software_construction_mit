@@ -25,7 +25,7 @@ public class Board {
     private final String untouched = " - ";
     private final String flag = " F ";
      
-    private final String dug = "  ";
+    private final String dug = "   ";
     
     private final String bomb = " B ";
     private final String empty =  dug;
@@ -145,7 +145,7 @@ public class Board {
             // if we have bombs, we have to show it
             if (numberAdjacentBombs != 0) {
                 this.boardState[y][x] = dug;
-                this.boardDisplay[y][x] = String.valueOf(numberAdjacentBombs);
+                this.boardDisplay[y][x] = " "+String.valueOf(numberAdjacentBombs)+" ";
             }
             // recursively explore
             for (int i = 0; i < yOffsets.length; i ++){
