@@ -73,7 +73,7 @@ public class Board {
         }
     }
 
-    public String dig(int y, int x){
+    public  String dig(int y, int x){
         String returnMessage = "";
         if (x < 0 || y < 0) {
             // Do nothing and return the board
@@ -123,7 +123,7 @@ public class Board {
         return returnMessage;
     }
 
-    public String flag(int y, int x) {
+    public  String flag(int y, int x) {
         String returnMessage = "NOT UPDATED BOARD";
 
         if (this.positionCondition(y, x)) {
@@ -136,7 +136,7 @@ public class Board {
         
         return returnMessage;
     }
-    public String deflag(int y, int x) {
+    public  String deflag(int y, int x) {
         String returnMessage = "NOT UPDATED BOARD";
 
         if (this.positionCondition(y, x)) {

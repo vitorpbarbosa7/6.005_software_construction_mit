@@ -136,7 +136,7 @@ public class MinesweeperServer {
             }
         }
 
-        private String handleRequest(String input) {
+        private synchronized String handleRequest(String input) {
             String regex = "(look)|(help)|(bye)|"
                         + "(dig -?\\d+ -?\\d+)|(flag -?\\d+ -?\\d+)|(deflag -?\\d+ -?\\d+)";
             if ( ! input.matches(regex)) {
