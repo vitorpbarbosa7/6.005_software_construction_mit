@@ -74,7 +74,7 @@ public class Board {
             // Do nothing and return the board
             returnMessage = "Invalid x or y \n";
             returnMessage += this.returnBoard();
-        } else if (y > this.sizeY - 1  || x > this.sizeX - 1 ){
+        } else if (y >= this.sizeY  || x >= this.sizeX ){
             // Do nothing and return the board
             returnMessage = "Invalid x or y \n";
             returnMessage += this.returnBoard();
@@ -88,7 +88,6 @@ public class Board {
             int numberAdjacentBombs= this.countadjacentBombs(y,x);
             // if we have bombs, we have to show it
             if (numberAdjacentBombs != 0) {
-                this.boardState[y][x] = dug;
                 this.updateBombCount(y, x, numberAdjacentBombs);
             } else {
             // if we do not have bombs, we have to recursively explore it, so dig again? 
@@ -96,9 +95,6 @@ public class Board {
                 for (int i = 0; i < yOffsets.length; i ++){
                     int adjacentY = y + yOffsets[i];
                     int adjacentX = x + xOffsets[i];
-                    // boolean yCondition = (adjacentY > 0 & adjacentY < this.sizeY);
-                    // boolean xCondition = (adjacentX > 0 & adjacentX < this.sizeX);
-                    // if  (yCondition & xCondition) {
                     this.recursiveExplore(adjacentY, adjacentX);
                 // }
             }
@@ -122,16 +118,19 @@ public class Board {
     }
 
     private void updateBombCount(int y, int x, int numberAdjacentBombs) {
-            this.boardDisplay[y][x] = String.valueOf(numberAdjacentBombs);
+            this.boardDisplay[y][x] = " " + String.valueOf(numberAdjacentBombs) + " ";
     }
     
     
     private void recursiveExplore(int y, int x) {
         System.out.println("Stack created");
+        System.out.println(y); 
+        System.out.println(x); 
+        this.debugDisplay(y, x);
         // first conditions must be the positions, to go back doing nothing
         if (x < 0 || y < 0) {
             // Do nothing and go back in the stack
-        } else if (y > this.sizeY -1 || x > this.sizeX - 1 ){
+        } else if (y >= this.sizeY || x >= this.sizeX ){
             // Do nothing and go back in the stack
         } else if (this.boardState[y][x] == dug){
             // Do nothing and go back in the stack
@@ -140,24 +139,30 @@ public class Board {
             
         // check for no bomb at the position
         } else if (this.boardState[y][x] == untouched & this.boardContent[y][x] == empty) {
+            System.out.println("entrou aqui");
             this.boardState[y][x] = dug;
             this.boardDisplay[y][x] = dug;
             int numberAdjacentBombs= this.countadjacentBombs(y,x);
             // if we have bombs, we have to show it
             if (numberAdjacentBombs != 0) {
                 this.boardState[y][x] = dug;
-                this.boardDisplay[y][x] = " "+String.valueOf(numberAdjacentBombs)+" ";
+                this.updateBombCount(y, x, numberAdjacentBombs);
             }
             // recursively explore
             for (int i = 0; i < yOffsets.length; i ++){
                 int adjacentY = y + yOffsets[i];
                 int adjacentX = x + xOffsets[i];
-                // boolean yCondition = (adjacentY > 0 & adjacentY < this.sizeY);
-                // boolean xCondition = (adjacentX > 0 & adjacentX < this.sizeX);
-                // if  (yCondition & xCondition) {
                 this.recursiveExplore(adjacentY, adjacentX);
                 // }
             }
+        }
+    }
+
+    private void debugDisplay(int y, int x){
+        boolean yCondition = (y >= 0 & y < this.sizeY);
+        boolean xCondition = (x >= 0 & x < this.sizeX);
+        if (yCondition & xCondition){
+            System.out.println(this.boardState[y][x]);
         }
     }
 
@@ -168,8 +173,8 @@ public class Board {
             int adjacentY = y + yOffsets[i];
             int adjacentX = x + xOffsets[i];
 
-            boolean yCondition = (adjacentY > 0 & adjacentY < this.sizeY);
-            boolean xCondition = (adjacentX > 0 & adjacentX < this.sizeX);
+            boolean yCondition = (adjacentY >= 0 & adjacentY < this.sizeY);
+            boolean xCondition = (adjacentX >= 0 & adjacentX < this.sizeX);
             if  (yCondition & xCondition) {
                 if (this.boardContent[adjacentY][adjacentX] == bomb) { 
                     numberAdjacentBombs++;
