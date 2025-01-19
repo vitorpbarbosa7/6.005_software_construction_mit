@@ -57,16 +57,19 @@ public class Board {
         }
     }
 
-    public void dig(int x, int y){
+    public String dig(int x, int y){
+        String returnMessage = "";
         if (x < 0 || y < 0) {
-
+            returnMessage = this.returnBoard();
         } else if (y > this.sizeY || x > this.sizeX ){
-            
-        } else if (this.boardState[y][x] != untouched)
+            returnMessage = this.returnBoard();
+        } else if (this.boardState[y][x] != untouched) {
+            returnMessage = this.returnBoard();
+        }
+        return returnMessage;
     }
 
-    @Override
-    public String toString() {
+    public String returnBoard() {
         StringBuilder sb = new StringBuilder(); 
         // row
         for (int y = 0; y < this.sizeY; y++) {
