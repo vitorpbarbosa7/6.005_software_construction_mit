@@ -47,6 +47,7 @@ public class Board {
         // bomb positions
         Set<Position> bombPositions = new HashSet<>();
         bombPositions.add(new Position(3, 3));
+        bombPositions.add(new Position(0, 0));
 
         // initial board configuration, with no bombs
         // row
