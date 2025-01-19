@@ -95,10 +95,14 @@ public class Board {
                 for (int i = 0; i < yOffsets.length; i ++){
                     int adjacentY = y + yOffsets[i];
                     int adjacentX = x + xOffsets[i];
-                    this.recursiveExplore(adjacentY, adjacentX);
+                    boolean yCondition = (adjacentY > 0 & adjacentY < this.sizeY);
+                    boolean xCondition = (adjacentX > 0 & adjacentX < this.sizeX);
+                    if  (yCondition & xCondition) {
+                        this.recursiveExplore(adjacentY, adjacentX);
                 }
             }
             returnMessage = this.returnBoard();
+        }
         } else if (this.boardContent[y][x] == bomb) {
             // change so it contains no bomb
             this.boardContent[y][x] = empty;
@@ -147,7 +151,11 @@ public class Board {
             for (int i = 0; i < yOffsets.length; i ++){
                 int adjacentY = y + yOffsets[i];
                 int adjacentX = x + xOffsets[i];
-                this.recursiveExplore(adjacentY, adjacentX);
+                boolean yCondition = (adjacentY > 0 & adjacentY < this.sizeY);
+                boolean xCondition = (adjacentX > 0 & adjacentX < this.sizeX);
+                if  (yCondition & xCondition) {
+                    this.recursiveExplore(adjacentY, adjacentX);
+                }
             }
         }
     }
@@ -159,8 +167,8 @@ public class Board {
             int adjacentY = y + yOffsets[i];
             int adjacentX = x + xOffsets[i];
 
-            boolean yCondition = (adjacentY > 0 & adjacentY < this.sizeY - 1);
-            boolean xCondition = (adjacentX > 0 & adjacentX < this.sizeX - 1);
+            boolean yCondition = (adjacentY > 0 & adjacentY < this.sizeY);
+            boolean xCondition = (adjacentX > 0 & adjacentX < this.sizeX);
             if  (yCondition & xCondition) {
                 if (this.boardContent[adjacentY][adjacentX] == bomb) { 
                     numberAdjacentBombs++;
