@@ -27,7 +27,7 @@ public class Board {
     private final String bomb = "b";
     private final String empty =  "n";
      
-    private String dug = "  ";
+    private final String dug = "  ";
 
     private final Set<Position> bombPositions = new HashSet<>();
 
@@ -77,6 +77,7 @@ public class Board {
             returnMessage = this.returnBoard();
         } else if (this.boardState[y][x] == untouched & this.boardContent[y][x] == empty) {
             this.boardState[y][x] = dug;
+            this.boardDisplay[y][x] = dug;
             int numberAdjacentBombs= this.countAdjancentBombs(y,x);
             // if we have bombs, we have to show it
             if (numberAdjacentBombs != 0) {
@@ -84,21 +85,48 @@ public class Board {
                 this.boardDisplay[y][x] = String.valueOf(numberAdjacentBombs);
             } else {
             // if we do not have bombs, we have to recursively explore it, so dig again? 
-                for (int i = 0; i < yOffsets.length; i ++){
-                    int adjancentY = y - yOffsets[i];
-                    int adjancentX = x - xOffsets[i];
-                    this.dig(adjancentY, adjancentX);
+                    this.recursiveExplore(y, x);
             }
         }
         return returnMessage;
+    }
+    
+    
+    private void recursiveExplore(int y, int x) {
+        if (x < 0 || y < 0) {
+            // Do nothing and go back in the stack
+        } else if (y > this.sizeY || x > this.sizeX ){
+            // Do nothing and go back in the stack
+        } else if (this.boardContent[y][x] == bomb) {
+            // Do nothing and recursively explore
+            for (int i = 0; i < yOffsets.length; i ++){
+                int adjancentY = y + yOffsets[i];
+                int adjancentX = x + xOffsets[i];
+                this.recursiveExplore(adjancentY, adjancentX);
+            }
+        // check for no bomb at the position
+        } else if (this.boardState[y][x] == untouched & this.boardContent[y][x] == empty) {
+            this.boardState[y][x] = dug;
+            this.boardDisplay[y][x] = dug;
+            int numberAdjacentBombs= this.countAdjancentBombs(y,x);
+            // if we have bombs, we have to show it
+            if (numberAdjacentBombs != 0) {
+                this.boardState[y][x] = dug;
+                this.boardDisplay[y][x] = String.valueOf(numberAdjacentBombs);
+        }
+        }
+
+        this.recursiveExplore(y, x);
+
+
     }
 
     private int countAdjancentBombs(int y, int x) {
         int numberAdjacentBombs = 0;
 
         for (int i = 0; i < yOffsets.length; i ++){
-            int adjancentY = y - yOffsets[i];
-            int adjancentX = x - xOffsets[i];
+            int adjancentY = y + yOffsets[i];
+            int adjancentX = x + xOffsets[i];
 
             if (this.boardContent[adjancentY][adjancentX] == bomb) { 
                 numberAdjacentBombs++;
@@ -108,12 +136,6 @@ public class Board {
         return numberAdjacentBombs;
     }
 
-    private void recursiveExplore(int y, int x) {
-        // rows: y
-        // columns: x
-
-
-    }
 
 
 
