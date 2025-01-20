@@ -16,7 +16,7 @@ public class Board {
     
     // TODO: Specify, test, and implement in problem 2
 
-    private final int sizeX;
+    public final int sizeX;
     private final int sizeY;
     private final String[][] boardContent;
     private final String[][] boardState;
@@ -258,5 +258,15 @@ public class Board {
             sb.append("\n");
         }
         return sb.toString();
-    } 
+    }
+    
+    
+    // observers
+    public int getSizeX(){
+        return this.sizeX;
+    }
+
+    public int getSizeY(){
+        return this.sizeY;
+    }
 }

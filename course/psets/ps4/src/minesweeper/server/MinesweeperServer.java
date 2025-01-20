@@ -6,6 +6,7 @@ package minesweeper.server;
 import java.io.*;
 import java.net.*;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 import minesweeper.Board;
 import minesweeper.Constants;
@@ -32,6 +33,8 @@ public class MinesweeperServer {
 
     /** The board */
     public final Board board;
+
+    private static final ConcurrentHashMap<Thread, String> activeThreads = new ConcurrentHashMap<>();
 
     // TODO: Abstraction function, rep invariant, rep exposure
 
@@ -70,6 +73,8 @@ public class MinesweeperServer {
             Runnable clientHandler = new MinesweeperServerRunnable(clientSocket, this.board, this.debug);
 
             Thread clientThread = new Thread(clientHandler);
+
+            activeThreads.put(clientThread, clientSocket.getRemoteSocketAddress().toString());
             clientThread.start();
 
             // } catch (IOException ioe) {
@@ -85,11 +90,12 @@ public class MinesweeperServer {
         private final Board board;
         private final boolean debug; 
 
-        public MinesweeperServerRunnable(Socket clientSocket, Board board, boolean debug) {
-            System.out.println(" New connection stablished");
+        public MinesweeperServerRunnable(Socket clientSocket, Board board, boolean debug) { 
             this.clientSocket = clientSocket;
             this.board = board;
             this.debug = debug;
+
+            displayHelloMessage();
         }
 
         @Override 
@@ -103,12 +109,27 @@ public class MinesweeperServer {
                 e.printStackTrace();
             } finally {
                 try {
-                this.clientSocket.close();
+                    // removing current threads as it closed
+                    activeThreads.remove(Thread.currentThread());
+                    this.clientSocket.close();
                 // closed
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
+        }
+            
+        public void displayHelloMessage() {
+            int threadCount = this.getActiveThreadCount();
+            String helloMessage =  Constants.HELLO_MESSAGE;
+            String helloMessageRendered = String.format(
+                helloMessage, board.getSizeX(), board.getSizeY(), threadCount);
+            System.out.println(helloMessageRendered);
+        }
+
+        // Method to get the number of active threads
+        public int getActiveThreadCount() {
+            return activeThreads.size();
         }
 
 
