@@ -75,7 +75,9 @@ public class MinesweeperServer {
             Thread clientThread = new Thread(clientHandler);
 
             activeThreads.put(clientThread, clientSocket.getRemoteSocketAddress().toString());
+
             clientThread.start();
+            this.displayHelloMessage();
 
             // } catch (IOException ioe) {
             //     ioe.printStackTrace(); // but don't terminate serve()
@@ -84,6 +86,7 @@ public class MinesweeperServer {
             // }
         }
     }
+
 
     public class MinesweeperServerRunnable implements Runnable {
         private final Socket clientSocket;
@@ -95,7 +98,6 @@ public class MinesweeperServer {
             this.board = board;
             this.debug = debug;
 
-            displayHelloMessage();
         }
 
         @Override 
@@ -119,18 +121,7 @@ public class MinesweeperServer {
             }
         }
             
-        public void displayHelloMessage() {
-            int threadCount = this.getActiveThreadCount();
-            String helloMessage =  Constants.HELLO_MESSAGE;
-            String helloMessageRendered = String.format(
-                helloMessage, board.getSizeX(), board.getSizeY(), threadCount);
-            System.out.println(helloMessageRendered);
-        }
 
-        // Method to get the number of active threads
-        public int getActiveThreadCount() {
-            return activeThreads.size();
-        }
 
 
         /**
@@ -211,6 +202,19 @@ public class MinesweeperServer {
         }
     }
 
+    private void displayHelloMessage() {
+        int threadCount = this.getActiveThreadCount();
+        String helloMessage =  Constants.HELLO_MESSAGE;
+        String helloMessageRendered = String.format(
+            helloMessage, board.getSizeX(), board.getSizeY(), threadCount);
+        System.out.println(helloMessageRendered);
+    }
+
+    // Method to get the number of active threads
+    private int getActiveThreadCount() {
+        return activeThreads.size();
+    }
+
     public static void main(String[] args) {
         System.out.println("main started");
         // Command-line argument parsing is provided. Do not change this method.
@@ -283,7 +287,7 @@ public class MinesweeperServer {
      * @param port The network port on which the server should listen, requires 0 <= port <= 65535.
      * @throws IOException if a network error occurs
      */
-    public static void runMinesweeperServer(boolean debug, Optional<File> file, int sizeX, int sizeY, int port) throws IOException {
+    public static void runMinesweeperererver(boolean debug, Optional<File> file, int sizeX, int sizeY, int port) throws IOException {
 
         // TODO: Continue implementation here in problem 4
         // if file we recreate the board, altering to other size
