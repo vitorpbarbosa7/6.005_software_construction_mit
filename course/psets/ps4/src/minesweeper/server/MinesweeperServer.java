@@ -156,7 +156,7 @@ public class MinesweeperServer {
             }
         }
 
-        private synchronized String handleRequest(String input) {
+        private synchronized String handleRequest(String input) throws IOException{
             String regex = "(look)|(help)|(bye)|"
                         + "(dig -?\\d+ -?\\d+)|(flag -?\\d+ -?\\d+)|(deflag -?\\d+ -?\\d+)";
             if ( ! input.matches(regex)) {
@@ -176,6 +176,7 @@ public class MinesweeperServer {
                 // TODO Problem 5
             } else if (tokens[0].equals("bye")) {
                 System.out.println(" bye!");
+                this.clientSocket.close();
                 // 'bye' request
                 // TODO Problem 5
             } else {
