@@ -8,6 +8,7 @@ import java.net.*;
 import java.util.*;
 
 import minesweeper.Board;
+import minesweeper.Constants;
 
 /**
  * Multiplayer Minesweeper server.
@@ -66,7 +67,7 @@ public class MinesweeperServer {
             /* single thread way, let's try with multi thread */
             // handleConnection(clientSocket);
 
-            Runnable clientHandler = new MinesweeperServerRunnable(clientSocket, this.board);
+            Runnable clientHandler = new MinesweeperServerRunnable(clientSocket, this.board, this.debug);
 
             Thread clientThread = new Thread(clientHandler);
             clientThread.start();
@@ -80,13 +81,15 @@ public class MinesweeperServer {
     }
 
     public class MinesweeperServerRunnable implements Runnable {
-        private Socket clientSocket;
-        public Board board;
+        private final Socket clientSocket;
+        private final Board board;
+        private final boolean debug; 
 
-        public MinesweeperServerRunnable(Socket clientSocket, Board board) {
+        public MinesweeperServerRunnable(Socket clientSocket, Board board, boolean debug) {
             System.out.println(" New connection stablished");
             this.clientSocket = clientSocket;
             this.board = board;
+            this.debug = debug;
         }
 
         @Override 
@@ -125,6 +128,11 @@ public class MinesweeperServer {
                 for (String line = in.readLine(); line != null; line = in.readLine()) {
                     // input from cliente received with success, what to do?
                     String output = handleRequest(line);
+                    
+                    // handles close the connection after some conditions
+                    if (this.debug == false & output == Constants.BOOM) {
+                        clientSocket.close();
+                    }
                     if (output != null) {
                         // TODO: Consider improving spec of handleRequest to avoid use of null
                         out.println(output);

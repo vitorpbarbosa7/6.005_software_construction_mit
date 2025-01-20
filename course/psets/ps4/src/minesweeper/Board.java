@@ -116,7 +116,15 @@ public class Board {
             int numberAdjacentBombs= this.countadjacentBombs(y,x);
             this.updateBombCount(y, x, numberAdjacentBombs);
 
-            returnMessage = "BOOM!\r\n";
+            // must also update bomb count for adjacent cells
+            for (int i = 0; i < yOffsets.length; i ++){
+                int adjacentY = y + yOffsets[i];
+                int adjacentX = x + xOffsets[i];
+                numberAdjacentBombs = this.countadjacentBombs(adjacentY, adjacentX) ;
+                this.updateBombCount(adjacentY, adjacentX, numberAdjacentBombs);
+            }
+
+            returnMessage = Constants.BOOM; 
 
             // TODO terminate user connection if no debug flag is configured
         }
