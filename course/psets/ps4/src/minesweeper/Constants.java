@@ -10,4 +10,8 @@ public class Constants {
     "Board: %d columns by %d rows. \n " +
     "Players: %d including you. " + 
     "Type 'help' for help.\r\n";
+
+
+    public static final String HELP_MESSAGE = "" + 
+    "Commands allowed: look, dig, flag, deflag, help and bye";
 }

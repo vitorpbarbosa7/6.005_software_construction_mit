@@ -171,6 +171,7 @@ public class MinesweeperServer {
                 // TODO Problem 5
             } else if (tokens[0].equals("help")) {
                 System.out.println(" help!");
+                return Constants.HELP_MESSAGE;
                 // 'help' request
                 // TODO Problem 5
             } else if (tokens[0].equals("bye")) {

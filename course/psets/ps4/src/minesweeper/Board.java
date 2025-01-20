@@ -22,13 +22,11 @@ public class Board {
     private final String[][] boardState;
     private final String[][] boardDisplay;
 
-    private final String untouched = " - ";
-    private final String flag = " F ";
-     
-    private final String dug = "   ";
-    
-    private final String bomb = " B ";
-    private final String empty =  dug;
+    private final String UNTOUCHED = " - "; 
+    private final String FLAGGED = " F ";
+    private final String DUG = "   ";
+    private final String BOMB = " B ";
+    private final String EMPTY =  DUG;
 
     private final Set<Position> bombPositions = new HashSet<>();
 
@@ -58,16 +56,16 @@ public class Board {
         // row
         for (int y = 0; y < this.sizeY; y++) {
             for (int x = 0; x < this.sizeX; x++) {
-                this.boardState[y][x] = untouched;
-                this.boardDisplay[y][x] = untouched;
-                this.boardContent[y][x] = empty;
+                this.boardState[y][x] = UNTOUCHED;
+                this.boardDisplay[y][x] = UNTOUCHED;
+                this.boardContent[y][x] = EMPTY;
     
                 // Check if there's a bomb at (x, y)
                 if (bombPositions.contains(new Position(y, x))) {
-                    this.boardContent[y][x] = bomb; // Place bomb
-                    this.boardDisplay[y][x] = untouched;
+                    this.boardContent[y][x] = BOMB; // Place bomb
+                    this.boardDisplay[y][x] = UNTOUCHED;
                 } else {
-                    this.boardContent[y][x] = empty; // Place empty square
+                    this.boardContent[y][x] = EMPTY; // Place empty square
                 }
             }
         }
@@ -83,13 +81,13 @@ public class Board {
             // Do nothing and return the board
             returnMessage = "Invalid x or y \n";
             returnMessage += this.returnBoard();
-        } else if (this.boardState[y][x] != untouched) {
+        } else if (this.boardState[y][x] != UNTOUCHED) {
             // Do nothing and return the board
             returnMessage = "This is not a untouched square \n";
             returnMessage += this.returnBoard();
-        } else if (this.boardState[y][x] == untouched & this.boardContent[y][x] == empty) {
-            this.boardState[y][x] = dug;
-            this.boardDisplay[y][x] = dug;
+        } else if (this.boardState[y][x] == UNTOUCHED & this.boardContent[y][x] == EMPTY) {
+            this.boardState[y][x] = DUG;
+            this.boardDisplay[y][x] = DUG;
             int numberAdjacentBombs= this.countadjacentBombs(y,x);
             // if we have bombs, we have to show it
             if (numberAdjacentBombs != 0) {
@@ -106,11 +104,11 @@ public class Board {
                 }
                 returnMessage = this.returnBoard();
             }
-        } else if (this.boardContent[y][x] == bomb) {
+        } else if (this.boardContent[y][x] == BOMB) {
             // change so it contains no bomb
-            this.boardContent[y][x] = empty;
-            this.boardState[y][x] = dug;
-            this.boardDisplay[y][x] = dug;
+            this.boardContent[y][x] = EMPTY;
+            this.boardState[y][x] = DUG;
+            this.boardDisplay[y][x] = DUG;
             
             // update bombCount
             int numberAdjacentBombs= this.countadjacentBombs(y,x);
@@ -135,9 +133,9 @@ public class Board {
         String returnMessage = "NOT UPDATED BOARD";
 
         if (this.positionCondition(y, x)) {
-            if (this.boardState[y][x] == untouched) {
-                this.boardDisplay[y][x] = flag;
-                this.boardState[y][x] = flag;
+            if (this.boardState[y][x] == UNTOUCHED) {
+                this.boardDisplay[y][x] = FLAGGED;
+                this.boardState[y][x] = FLAGGED;
             }
         }
         returnMessage = this.returnBoard();
@@ -148,9 +146,9 @@ public class Board {
         String returnMessage = "NOT UPDATED BOARD";
 
         if (this.positionCondition(y, x)) {
-            if (this.boardState[y][x] == flag) {
-                this.boardDisplay[y][x] = untouched;
-                this.boardState[y][x] = untouched;
+            if (this.boardState[y][x] == FLAGGED) {
+                this.boardDisplay[y][x] = UNTOUCHED;
+                this.boardState[y][x] = UNTOUCHED;
             }
         }
         returnMessage = this.returnBoard();
@@ -173,20 +171,20 @@ public class Board {
             // Do nothing and go back in the stack
         } else if (y >= this.sizeY || x >= this.sizeX ){
             // Do nothing and go back in the stack
-        } else if (this.boardState[y][x] == dug){
+        } else if (this.boardState[y][x] == DUG){
             // Do nothing and go back in the stack
-        } else if (this.boardContent[y][x] == bomb) {
+        } else if (this.boardContent[y][x] == BOMB) {
             // Do nothing and go back in the stack
             
         // check for no bomb at the position
-        } else if (this.boardState[y][x] == untouched & this.boardContent[y][x] == empty) {
+        } else if (this.boardState[y][x] == UNTOUCHED & this.boardContent[y][x] == EMPTY) {
             System.out.println("entrou aqui");
-            this.boardState[y][x] = dug;
-            this.boardDisplay[y][x] = dug;
+            this.boardState[y][x] = DUG;
+            this.boardDisplay[y][x] = DUG;
             int numberAdjacentBombs= this.countadjacentBombs(y,x);
             // if we have bombs, we have to show it
             if (numberAdjacentBombs != 0) {
-                this.boardState[y][x] = dug;
+                this.boardState[y][x] = DUG;
                 this.updateBombCount(y, x, numberAdjacentBombs);
             }
             // recursively explore
@@ -219,7 +217,7 @@ public class Board {
             int adjacentX = x + xOffsets[i];
 
             if  (this.positionCondition(adjacentY, adjacentX)) {
-                if (this.boardContent[adjacentY][adjacentX] == bomb) { 
+                if (this.boardContent[adjacentY][adjacentX] == BOMB) { 
                     numberAdjacentBombs++;
                 }
             } else {
