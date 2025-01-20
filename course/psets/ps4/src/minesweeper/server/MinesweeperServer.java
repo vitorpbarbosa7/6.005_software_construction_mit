@@ -287,7 +287,7 @@ public class MinesweeperServer {
      * @param port The network port on which the server should listen, requires 0 <= port <= 65535.
      * @throws IOException if a network error occurs
      */
-    public static void runMinesweeperererver(boolean debug, Optional<File> file, int sizeX, int sizeY, int port) throws IOException {
+    public static void runMinesweeperServer(boolean debug, Optional<File> file, int sizeX, int sizeY, int port) throws IOException {
 
         // TODO: Continue implementation here in problem 4
         // if file we recreate the board, altering to other size
