@@ -30,6 +30,9 @@ public class MinesweeperServer {
     private final ServerSocket serverSocket;
     /** True if the server should *not* disconnect a client after a BOOM message. */
     private final boolean debug;
+    private final int sizeY;
+    private final int sizeX;
+    private final Optional<File> file;
 
     /** The board */
     public final Board board;
@@ -45,11 +48,14 @@ public class MinesweeperServer {
      * @param debug debug mode flag
      * @throws IOException if an error occurs opening the server socket
      */
-    public MinesweeperServer(int port, boolean debug) throws IOException {
-        serverSocket = new ServerSocket(port);
+    public MinesweeperServer(int port, boolean debug, int sizeY, int sizeX, Optional<File> file) throws IOException {
+        this.serverSocket = new ServerSocket(port);
         this.debug = debug;
-
-        this.board = new Board(DEFAULT_SIZE, DEFAULT_SIZE);
+        this.sizeY = sizeY;
+        this.sizeX = sizeX;
+        this.file = file;
+        
+        this.board = new Board(sizeX, sizeY);
     }
 
     /**
@@ -69,12 +75,12 @@ public class MinesweeperServer {
             // try {
             /* single thread way, let's try with multi thread */
             // handleConnection(clientSocket);
-
             Runnable clientHandler = new MinesweeperServerRunnable(clientSocket, this.board, this.debug);
-
             Thread clientThread = new Thread(clientHandler);
 
-            activeThreads.put(clientThread, clientSocket.getRemoteSocketAddress().toString());
+            synchronized (this) {
+                activeThreads.put(clientThread, clientSocket.getRemoteSocketAddress().toString());
+            }
 
             clientThread.start();
             this.displayHelloMessage();
@@ -111,9 +117,13 @@ public class MinesweeperServer {
                 e.printStackTrace();
             } finally {
                 try {
+                    // when removing threads, should be able to only one at a time
+                    // coarsed?
+                    synchronized (this) {
                     // removing current threads as it closed
-                    activeThreads.remove(Thread.currentThread());
-                    this.clientSocket.close();
+                        activeThreads.remove(Thread.currentThread());
+                        this.clientSocket.close();
+                    }
                 // closed
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -214,7 +224,9 @@ public class MinesweeperServer {
 
     // Method to get the number of active threads
     private int getActiveThreadCount() {
-        return activeThreads.size();
+        synchronized (this){
+            return activeThreads.size();
+        }
     }
 
     public static void main(String[] args) {
@@ -294,7 +306,7 @@ public class MinesweeperServer {
         // TODO: Continue implementation here in problem 4
         // if file we recreate the board, altering to other size
         
-        MinesweeperServer server = new MinesweeperServer(port, debug);
+        MinesweeperServer server = new MinesweeperServer(port, debug, sizeY, sizeX, file);
         server.serve();
     }
 }
