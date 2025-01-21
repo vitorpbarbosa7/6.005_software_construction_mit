@@ -58,42 +58,8 @@ public class MinesweeperServer {
         this.board = new Board(sizeX, sizeY);
     }
 
-    /**
-     * Run the server, listening for client connections and handling them.
-     * Never returns unless an exception is thrown.
-     * 
-     * @throws IOException if the main server socket is broken
-     *                     (IOExceptions from individual clients do *not* terminate serve())
-     */
-    public void serve() throws IOException {
-        while (true) {
-            // block until a client connects
-            Socket clientSocket = serverSocket.accept();
-            System.out.println("Client connected: " + clientSocket.getInetAddress());
-
-            // handle the client
-            // try {
-            /* single thread way, let's try with multi thread */
-            // handleConnection(clientSocket);
-            Runnable clientHandler = new MinesweeperServerRunnable(clientSocket, this.board, this.debug);
-            Thread clientThread = new Thread(clientHandler);
-
-            synchronized (this) {
-                activeThreads.put(clientThread, clientSocket.getRemoteSocketAddress().toString());
-            }
-
-            clientThread.start();
-            this.displayHelloMessage();
-
-            // } catch (IOException ioe) {
-            //     ioe.printStackTrace(); // but don't terminate serve()
-            // } finally {
-            //     clientSocket.close();
-            // }
-        }
-    }
-
-
+    /*################################################ */
+    // * beginning of Runnable to be executed */
     public class MinesweeperServerRunnable implements Runnable {
         private final Socket clientSocket;
         private final Board board;
@@ -108,9 +74,9 @@ public class MinesweeperServer {
 
         @Override 
         public void run() { 
-
+            
             try {
-
+                // from the server to the client
                 handleConnection(this.clientSocket);
 
             } catch (IOException e) {
@@ -141,10 +107,14 @@ public class MinesweeperServer {
          * @throws IOException if the connection encounters an error or terminates unexpectedly
          */
         private void handleConnection(Socket clientSocket) throws IOException {
+
             // messages from the client, to be processed by the server
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             // messages of the server to be sent to the client
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+
+            String helloMessage = displayHelloMessage();
+            out.println(helloMessage);
 
             try {
                 for (String line = in.readLine(); line != null; line = in.readLine()) {
@@ -213,13 +183,44 @@ public class MinesweeperServer {
             throw new UnsupportedOperationException();
         }
     }
+    /*################################################ */
 
-    private void displayHelloMessage() {
+    /**
+     * Run the server, listening for client connections and handling them.
+     * Never returns unless an exception is thrown.
+     * 
+     * @throws IOException if the main server socket is broken
+     *                     (IOExceptions from individual clients do *not* terminate serve())
+     */
+    public void serve() throws IOException {
+        while (true) {
+            // block until a client connects
+            Socket clientSocket = serverSocket.accept();
+            System.out.println("Client connected: " + clientSocket.getInetAddress());
+
+            // handle the client
+            // try {
+            /* single thread way, let's try with multi thread */
+            // handleConnection(clientSocket);
+            Runnable clientHandler = new MinesweeperServerRunnable(clientSocket, this.board, this.debug);
+            Thread clientThread = new Thread(clientHandler);
+
+            synchronized (this) {
+                activeThreads.put(clientThread, clientSocket.getRemoteSocketAddress().toString());
+            }
+
+            clientThread.start();
+
+        }
+    }
+
+    private String displayHelloMessage() {
         int threadCount = this.getActiveThreadCount();
         String helloMessage =  Constants.HELLO_MESSAGE;
         String helloMessageRendered = String.format(
             helloMessage, board.getSizeX(), board.getSizeY(), threadCount);
-        System.out.println(helloMessageRendered);
+
+        return helloMessageRendered;
     }
 
     // Method to get the number of active threads
