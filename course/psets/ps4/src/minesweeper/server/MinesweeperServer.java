@@ -163,7 +163,7 @@ public class MinesweeperServer {
                 int y = Integer.parseInt(tokens[1]);
                 int x = Integer.parseInt(tokens[2]);
                 if (tokens[0].equals("dig")) {
-                    System.out.println(this.board.debugContent());
+                    // System.out.println(this.board.debugContent());
                     return this.board.dig(y,x);
                     // 'dig x y' request
                     // TODO Problem 5
@@ -179,6 +179,7 @@ public class MinesweeperServer {
                     // TODO Problem 5
                 }
             }
+            System.out.println("\n Content: \n " + this.board.debugContent()+"\n");
             // TODO: Should never get here, make sure to return in each of the cases above
             throw new UnsupportedOperationException();
         }

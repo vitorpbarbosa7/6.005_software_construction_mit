@@ -45,11 +45,11 @@ public class Board {
         // bomb positions
         Set<Position> bombPositions = new HashSet<>();
         bombPositions.add(new Position(0, 0));
-        bombPositions.add(new Position(0 , 3));
-        bombPositions.add(new Position(1, 2));
-        bombPositions.add(new Position(2, 0));
-        bombPositions.add(new Position(2, 3));
-        bombPositions.add(new Position(3, 1));
+        // bombPositions.add(new Position(0 , 3));
+        // bombPositions.add(new Position(1, 2));
+        // bombPositions.add(new Position(2, 0));
+        // bombPositions.add(new Position(2, 3));
+        // bombPositions.add(new Position(3, 1));
         bombPositions.add(new Position(3, 3));
 
         // initial board configuration, with no bombs
@@ -116,10 +116,13 @@ public class Board {
 
             // must also update bomb count for adjacent cells
             for (int i = 0; i < yOffsets.length; i ++){
+                // visit all adjacent cells to update the bomb count
                 int adjacentY = y + yOffsets[i];
                 int adjacentX = x + xOffsets[i];
-                numberAdjacentBombs = this.countadjacentBombs(adjacentY, adjacentX) ;
-                this.updateBombCount(adjacentY, adjacentX, numberAdjacentBombs);
+                if (positionCondition(adjacentY, adjacentX)) {
+                    numberAdjacentBombs = this.countadjacentBombs(adjacentY, adjacentX) ;
+                    this.updateBombCount(adjacentY, adjacentX, numberAdjacentBombs);
+                }
             }
 
             returnMessage = Constants.BOOM; 
@@ -165,7 +168,7 @@ public class Board {
         System.out.println("Stack created");
         System.out.println(y); 
         System.out.println(x); 
-        this.debugDisplay(y, x);
+        // this.debugDisplay(y, x);
         // first conditions must be the positions, to go back doing nothing
         if (x < 0 || y < 0) {
             // Do nothing and go back in the stack
@@ -227,6 +230,7 @@ public class Board {
         }
 
         return numberAdjacentBombs;
+
     }
 
 
