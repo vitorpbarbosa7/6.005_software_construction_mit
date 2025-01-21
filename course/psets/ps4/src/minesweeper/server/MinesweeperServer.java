@@ -146,6 +146,7 @@ public class MinesweeperServer {
             }
             String[] tokens = input.split(" ");
             if (tokens[0].equals("look")) {
+                System.out.println("\n Content: \n " + this.board.debugContent()+"\n");
                 return this.board.returnBoard();
                 // 'look' request
                 // TODO Problem 5
@@ -179,7 +180,6 @@ public class MinesweeperServer {
                     // TODO Problem 5
                 }
             }
-            System.out.println("\n Content: \n " + this.board.debugContent()+"\n");
             // TODO: Should never get here, make sure to return in each of the cases above
             throw new UnsupportedOperationException();
         }
