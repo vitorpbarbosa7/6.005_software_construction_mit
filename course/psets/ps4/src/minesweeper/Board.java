@@ -96,11 +96,10 @@ public class Board {
                 for (int i = 0; i < yOffsets.length; i ++){
                     int adjacentY = y + yOffsets[i];
                     int adjacentX = x + xOffsets[i];
-                    this.recursiveExplore(adjacentY, adjacentX);
-                // }
+                this.recursiveExplore(adjacentY, adjacentX);
                 }
-                returnMessage = this.returnBoard();
             }
+                returnMessage = this.returnBoard();
         } else if (this.boardContent[y][x] == BOMB) {
             // change so it contains no bomb
             this.boardContent[y][x] = EMPTY;
@@ -167,11 +166,13 @@ public class Board {
         System.out.println(x); 
         // this.debugDisplay(y, x);
         // first conditions must be the positions, to go back doing nothing
+
         if (x < 0 || y < 0) {
             // Do nothing and go back in the stack
         } else if (y >= this.sizeY || x >= this.sizeX ){
             // Do nothing and go back in the stack
         } else if (this.boardState[y][x] == DUG){
+            // System.out.println("Dugged");
             // Do nothing and go back in the stack
         } else if (this.boardContent[y][x] == BOMB) {
             // Do nothing and go back in the stack
@@ -183,20 +184,19 @@ public class Board {
             this.boardDisplay[y][x] = DUG;
             int numberAdjacentBombs= this.countadjacentBombs(y,x);
             // if we have bombs, we have to show it
+            System.out.println("y:" + y + " x:" + x + "numBombs: " + numberAdjacentBombs);
             if (numberAdjacentBombs != 0) {
                 this.boardState[y][x] = DUG;
                 this.updateBombCount(y, x, numberAdjacentBombs);
             }
-            // recursively explore
-            for (int i = 0; i < yOffsets.length; i ++){
+            else {// recursively explore
+                for (int i = 0; i < yOffsets.length; i ++){
                 int adjacentY = y + yOffsets[i];
                 int adjacentX = x + xOffsets[i];
                 // if do not have a number here, we continue to recursively explore
-                if (this.boardDisplay[y][x] != UNTOUCHED & this.boardDisplay[y][x] != FLAGGED & this.boardDisplay[y][x] != DUG){
                     this.recursiveExplore(adjacentY, adjacentX);
                 }
-                // }
-            }
+             }
         }
     }
 
