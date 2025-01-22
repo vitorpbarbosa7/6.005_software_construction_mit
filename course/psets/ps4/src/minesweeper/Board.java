@@ -238,29 +238,78 @@ public class Board {
 
     public String returnBoard() {
         StringBuilder sb = new StringBuilder(); 
-        // row
+    
+        // Add column numbers
+        sb.append("    "); // Space for row numbers
+        for (int x = 0; x < this.sizeX; x++) {
+            sb.append(String.format("%2d ", x));
+        }
+        sb.append("\n");
+    
+        // Add horizontal separator
+        sb.append("   +");
+        for (int x = 0; x < this.sizeX; x++) {
+            sb.append("---+");
+        }
+        sb.append("\n");
+    
+        // Add board content with row numbers
         for (int y = 0; y < this.sizeY; y++) {
-            // column
-            for (int x = 0; x< this.sizeX; x++) {
-                sb.append(this.boardDisplay[y][x]).append(" ");
+            sb.append(String.format("%2d |", y)); // Add row number with separator
+            for (int x = 0; x < this.sizeX; x++) {
+                sb.append(this.boardDisplay[y][x]).append("|");
+            }
+            sb.append("\n");
+    
+            // Add horizontal separator between rows
+            sb.append("   +");
+            for (int x = 0; x < this.sizeX; x++) {
+                sb.append("---+");
             }
             sb.append("\n");
         }
-        return sb.toString();
-    } 
-
-    public String debugContent() {
-        StringBuilder sb = new StringBuilder(); 
-        // row
-        for (int y = 0; y < this.sizeY; y++) {
-            // column
-            for (int x = 0; x< this.sizeX; x++) {
-                sb.append(this.boardContent[y][x]).append(" ");
-            }
-            sb.append("\n");
-        }
+    
         return sb.toString();
     }
+    
+    
+    public String debugContent() {
+        StringBuilder sb = new StringBuilder(); 
+    
+        // Add column numbers
+        sb.append("    "); // Space for row numbers
+        for (int x = 0; x < this.sizeX; x++) {
+            sb.append(String.format("%2d ", x));
+        }
+        sb.append("\n");
+    
+        // Add horizontal separator
+        sb.append("   +");
+        for (int x = 0; x < this.sizeX; x++) {
+            sb.append("---+");
+        }
+        sb.append("\n");
+    
+        // Add board content with row numbers
+        for (int y = 0; y < this.sizeY; y++) {
+            sb.append(String.format("%2d |", y)); // Add row number with separator
+            for (int x = 0; x < this.sizeX; x++) {
+                sb.append(this.boardContent[y][x]).append("|");
+            }
+            sb.append("\n");
+    
+            // Add horizontal separator between rows
+            sb.append("   +");
+            for (int x = 0; x < this.sizeX; x++) {
+                sb.append("---+");
+            }
+            sb.append("\n");
+        }
+    
+        return sb.toString();
+    }
+    
+    
     
     
     // observers
