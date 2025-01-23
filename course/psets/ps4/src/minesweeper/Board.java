@@ -28,7 +28,7 @@ public class Board {
     private final String BOMB = " B ";
     private final String EMPTY =  DUG;
 
-    private final Set<Position> bombPositions = new HashSet<>();
+    // private final Set<Position> bombPositions = new HashSet<>();
 
     // rows: y
     private final int[] yOffsets = {-1, -1, -1, 0, 0, +1, +1, +1};
@@ -49,10 +49,10 @@ public class Board {
             // initialize with random positions for bombs
         }
         else {
-            for (int i = 0; i <xBombPositions.length; i++) {
+            for (int i = 0; i < xBombPositions.length; i++) {
+                int yPosition = yBombPositions[i];
                 int xPosition = xBombPositions[i];
-                int yPosition = xBombPositions[i];
-                bombPositions.add(new Position(xPosition, yPosition));
+                bombPositions.add(new Position(yPosition, xPosition));
             }
         }
 
