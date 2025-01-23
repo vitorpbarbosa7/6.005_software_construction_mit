@@ -320,25 +320,39 @@ public class MinesweeperServer {
 
         // TODO: Continue implementation here in problem 4
         // if file we recreate the board, altering to other size
-
-        System.out.println(file);
-
-        int matrix[][] = readFile(file.get().getAbsolutePath());
         List<Integer> xBombPositions = new ArrayList<>();
         List<Integer> yBombPositions = new ArrayList<>();
 
-        // number of rows 
-        for (int j = 0; j < matrix.length; j ++) {
-            // number of columns
-            for (int i = 0; i < matrix[j].length; i ++) {
-                if (matrix[j][i] == 1) {
-                    yBombPositions.add(j);
-                    xBombPositions.add(i);
+        System.out.println(file);
+
+        if (file.isPresent()) {
+            int matrix[][] = readFile(file.get().getAbsolutePath());
+
+            // number of rows 
+            for (int j = 0; j < matrix.length; j ++) {
+                // number of columns
+                for (int i = 0; i < matrix[j].length; i ++) {
+                    if (matrix[j][i] == 1) {
+                        yBombPositions.add(j);
+                        xBombPositions.add(i);
+                    }
                 }
             }
         }
 
-        MinesweeperServer server = new MinesweeperServer(port, debug, sizeY, sizeX, xBombPositions, yBombPositions);
+        else {
+            sizeY = DEFAULT_SIZE;
+            sizeX = DEFAULT_SIZE;
+            yBombPositions.add(1);
+            xBombPositions.add(2);
+            yBombPositions.add(2);
+            xBombPositions.add(1);
+            yBombPositions.add(3);
+            xBombPositions.add(3);
+        }
+
+        MinesweeperServer server = new MinesweeperServer(
+            port, debug, sizeY, sizeX, xBombPositions, yBombPositions);
         server.serve();
     }
 
