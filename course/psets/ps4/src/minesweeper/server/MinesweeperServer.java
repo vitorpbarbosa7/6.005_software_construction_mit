@@ -32,7 +32,8 @@ public class MinesweeperServer {
     private final boolean debug;
     private final int sizeY;
     private final int sizeX;
-    private final Optional<File> file;
+    private final int[] xBombPositions;
+    private final int[] yBombPositions;
 
     /** The board */
     public final Board board;
@@ -48,14 +49,25 @@ public class MinesweeperServer {
      * @param debug debug mode flag
      * @throws IOException if an error occurs opening the server socket
      */
-    public MinesweeperServer(int port, boolean debug, int sizeY, int sizeX, Optional<File> file) throws IOException {
+    public MinesweeperServer(
+        int port, 
+        boolean debug, 
+        int sizeY, 
+        int sizeX, 
+        int[] xBombPositions,
+        int[] yBombPositions) throws IOException {
         this.serverSocket = new ServerSocket(port);
         this.debug = debug;
         this.sizeY = sizeY;
         this.sizeX = sizeX;
-        this.file = file;
+        this.xBombPositions = xBombPositions;
+        this.yBombPositions = yBombPositions;
         
-        this.board = new Board(sizeX, sizeY);
+        this.board = new Board(
+            this.sizeX, 
+            this.sizeY, 
+            this.xBombPositions, 
+            this.yBombPositions);
     }
 
     /*################################################ */
@@ -260,6 +272,7 @@ public class MinesweeperServer {
                         sizeY = Integer.parseInt(sizes[1]);
                         file = Optional.empty();
                     } else if (flag.equals("--file")) {
+                        //file and other sizes not specified together
                         sizeX = -1;
                         sizeY = -1;
                         file = Optional.of(new File(arguments.remove()));
@@ -307,8 +320,13 @@ public class MinesweeperServer {
 
         // TODO: Continue implementation here in problem 4
         // if file we recreate the board, altering to other size
-        
-        MinesweeperServer server = new MinesweeperServer(port, debug, sizeY, sizeX, file);
+
+        System.out.println(file);
+       
+        int[] xBombPositions = {1,2};
+        int[] yBombPositions = {2, 3};
+
+        MinesweeperServer server = new MinesweeperServer(port, debug, sizeY, sizeX, xBombPositions, yBombPositions);
         server.serve();
     }
 }
