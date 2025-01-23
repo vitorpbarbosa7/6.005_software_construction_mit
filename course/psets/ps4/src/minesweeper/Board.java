@@ -35,7 +35,7 @@ public class Board {
     // columns: x
     private final int[] xOffsets = {-1, 0, +1, -1, +1, -1, 0, +1};
 
-    public Board(int sizeX,int sizeY, int[] xBombPositions, int[] yBombPositions) {
+    public Board(int sizeX,int sizeY, List<Integer> xBombPositions, List<Integer> yBombPositions) {
         this.sizeY = sizeY;
         this.sizeX = sizeX;
         this.boardContent = new String[sizeY][sizeX];
@@ -49,9 +49,9 @@ public class Board {
             // initialize with random positions for bombs
         }
         else {
-            for (int i = 0; i < xBombPositions.length; i++) {
-                int yPosition = yBombPositions[i];
-                int xPosition = xBombPositions[i];
+            for (int i = 0; i < xBombPositions.size(); i++) {
+                int yPosition = yBombPositions.get(i);
+                int xPosition = xBombPositions.get(i);
                 bombPositions.add(new Position(yPosition, xPosition));
             }
         }

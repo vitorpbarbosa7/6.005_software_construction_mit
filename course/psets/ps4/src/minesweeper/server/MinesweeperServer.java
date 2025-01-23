@@ -32,8 +32,8 @@ public class MinesweeperServer {
     private final boolean debug;
     private final int sizeY;
     private final int sizeX;
-    private final int[] xBombPositions;
-    private final int[] yBombPositions;
+    private final List<Integer> xBombPositions;
+    private final List<Integer> yBombPositions;
 
     /** The board */
     public final Board board;
@@ -54,8 +54,8 @@ public class MinesweeperServer {
         boolean debug, 
         int sizeY, 
         int sizeX, 
-        int[] xBombPositions,
-        int[] yBombPositions) throws IOException {
+        List<Integer> xBombPositions,
+        List<Integer> yBombPositions) throws IOException {
         this.serverSocket = new ServerSocket(port);
         this.debug = debug;
         this.sizeY = sizeY;
@@ -322,11 +322,55 @@ public class MinesweeperServer {
         // if file we recreate the board, altering to other size
 
         System.out.println(file);
-       
-        int[] xBombPositions = {1,2};
-        int[] yBombPositions = {2, 3};
+
+        int matrix[][] = readFile(file.get().getAbsolutePath());
+        List<Integer> xBombPositions = new ArrayList<>();
+        List<Integer> yBombPositions = new ArrayList<>();
+
+        // number of rows 
+        for (int j = 0; j < matrix.length; j ++) {
+            // number of columns
+            for (int i = 0; i < matrix[j].length; i ++) {
+                if (matrix[j][i] == 1) {
+                    yBombPositions.add(j);
+                    xBombPositions.add(i);
+                }
+            }
+        }
 
         MinesweeperServer server = new MinesweeperServer(port, debug, sizeY, sizeX, xBombPositions, yBombPositions);
         server.serve();
+    }
+
+    public static int[][] readFile(String fileName) throws IOException{
+
+        int[][] matrix = null;
+
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+
+            // Read the dimensions (first line)
+            String dimensions = br.readLine();
+            String[] size = dimensions.split(" ");
+            int rows = Integer.parseInt(size[0]);
+            int cols = Integer.parseInt(size[1]);
+
+            // Read the matrix
+            matrix = new int[rows][cols];
+            for (int j = 0; j < rows; j++) {
+                // each time readLine is called, it reads the next line, as the one before was already read
+                String line = br.readLine();
+                String[] values = line.split(" "); // Split by space
+                for (int i = 0; i < cols; i++) {
+                    matrix[j][i] = Integer.parseInt(values[i]);
+                }
+            }
+            
+            return matrix;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return matrix;
+
     }
 }
