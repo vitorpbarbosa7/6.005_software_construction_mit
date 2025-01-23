@@ -323,8 +323,6 @@ public class MinesweeperServer {
         List<Integer> xBombPositions = new ArrayList<>();
         List<Integer> yBombPositions = new ArrayList<>();
 
-        System.out.println(file);
-
         if (file.isPresent()) {
             int matrix[][] = readFile(file.get().getAbsolutePath());
 
@@ -338,6 +336,8 @@ public class MinesweeperServer {
                     }
                 }
             }
+            sizeY = yBombPositions.size();
+            sizeX = xBombPositions.size();
         }
 
         else {
@@ -368,14 +368,18 @@ public class MinesweeperServer {
             int rows = Integer.parseInt(size[0]);
             int cols = Integer.parseInt(size[1]);
 
+
             // Read the matrix
             matrix = new int[rows][cols];
             for (int j = 0; j < rows; j++) {
                 // each time readLine is called, it reads the next line, as the one before was already read
                 String line = br.readLine();
-                String[] values = line.split(" "); // Split by space
-                for (int i = 0; i < cols; i++) {
-                    matrix[j][i] = Integer.parseInt(values[i]);
+
+                if (line != null) {
+                    String[] values = line.split(" "); // Split by space
+                    for (int i = 0; i < cols; i++) {
+                        matrix[j][i] = Integer.parseInt(values[i]);
+                    }
                 }
             }
             
@@ -385,6 +389,5 @@ public class MinesweeperServer {
         }
 
         return matrix;
-
     }
 }
