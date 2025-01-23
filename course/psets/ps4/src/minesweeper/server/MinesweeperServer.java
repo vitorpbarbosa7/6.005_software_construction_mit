@@ -325,6 +325,9 @@ public class MinesweeperServer {
 
         if (file.isPresent()) {
             int matrix[][] = readFile(file.get().getAbsolutePath());
+            // indirect way to get it
+            sizeY = matrix.length; // rows
+            sizeX = matrix[0].length; // columns
 
             // number of rows 
             for (int j = 0; j < matrix.length; j ++) {
@@ -336,8 +339,6 @@ public class MinesweeperServer {
                     }
                 }
             }
-            sizeY = yBombPositions.size();
-            sizeX = xBombPositions.size();
         }
 
         else {
@@ -365,8 +366,8 @@ public class MinesweeperServer {
             // Read the dimensions (first line)
             String dimensions = br.readLine();
             String[] size = dimensions.split(" ");
-            int rows = Integer.parseInt(size[0]);
-            int cols = Integer.parseInt(size[1]);
+            int cols = Integer.parseInt(size[0]);
+            int rows = Integer.parseInt(size[1]);
 
 
             // Read the matrix
@@ -382,6 +383,8 @@ public class MinesweeperServer {
                     }
                 }
             }
+
+            System.out.println(matrix);
             
             return matrix;
         } catch (IOException e) {
@@ -390,4 +393,5 @@ public class MinesweeperServer {
 
         return matrix;
     }
+
 }
