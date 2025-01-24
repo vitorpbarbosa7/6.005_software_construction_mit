@@ -4,3 +4,5 @@
 **/*.js linguist-vendored
 *.css linguist-vendored
 **/*.css linguist-vendored
+
+*.g linguist-language=Parserlib
