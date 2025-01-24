@@ -7,7 +7,6 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.Random;
 
 import minesweeper.Board;
 import minesweeper.Constants;
@@ -343,6 +342,7 @@ public class MinesweeperServer {
         }
 
         else {
+
             // generate at random
             int upperBound = 15;
             int lowerBound = 8;
@@ -356,14 +356,19 @@ public class MinesweeperServer {
             int pctOfCells = random.nextInt(upperBoundPctBombs + 1) + lowerBoundPctBombs;
             // integer division for those types here
             int numberOfCellsBombs = numOfCells*(pctOfCells/100);
-
+            
+            String position;
+            Set<String> bombPositions = new HashSet<>();
             int yPositionBomb;
             int xPositionBomb;
             for (int k = 0; k < numberOfCellsBombs; k++) {
                 yPositionBomb = random.nextInt(sizeY);
                 xPositionBomb = random.nextInt(sizeX);
-                yBombPositions.add(yPositionBomb);
-                xBombPositions.add(xPositionBomb);
+                position = yPositionBomb + "," + xPositionBomb;
+                if (bombPositions.add(position)) {
+                    yBombPositions.add(yPositionBomb);
+                    xBombPositions.add(xPositionBomb);
+                }
             }
         }
 
