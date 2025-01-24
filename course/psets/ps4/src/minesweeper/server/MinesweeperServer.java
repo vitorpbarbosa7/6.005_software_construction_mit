@@ -7,6 +7,7 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.Random;
 
 import minesweeper.Board;
 import minesweeper.Constants;
@@ -342,14 +343,28 @@ public class MinesweeperServer {
         }
 
         else {
-            sizeY = DEFAULT_SIZE;
-            sizeX = DEFAULT_SIZE;
-            yBombPositions.add(1);
-            xBombPositions.add(2);
-            yBombPositions.add(2);
-            xBombPositions.add(1);
-            yBombPositions.add(3);
-            xBombPositions.add(3);
+            // generate at random
+            int upperBound = 15;
+            int lowerBound = 8;
+            Random random = new Random();
+            sizeY = random.nextInt(upperBound - lowerBound + 1) + lowerBound;
+            sizeX = random.nextInt(upperBound - lowerBound + 1) + lowerBound;
+
+            int numOfCells = sizeY*sizeX;
+            int lowerBoundPctBombs = 14;
+            int upperBoundPctBombs = 25;
+            int pctOfCells = random.nextInt(upperBoundPctBombs + 1) + lowerBoundPctBombs;
+            // integer division for those types here
+            int numberOfCellsBombs = numOfCells*(pctOfCells/100);
+
+            int yPositionBomb;
+            int xPositionBomb;
+            for (int k = 0; k < numberOfCellsBombs; k++) {
+                yPositionBomb = random.nextInt(sizeY);
+                xPositionBomb = random.nextInt(sizeX);
+                yBombPositions.add(yPositionBomb);
+                xBombPositions.add(xPositionBomb);
+            }
         }
 
         MinesweeperServer server = new MinesweeperServer(

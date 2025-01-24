@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.Random;
 
 /**
  * TODO: Specification
@@ -44,13 +45,6 @@ public class Board {
 
         // bomb positions
         Set<Position> bombPositions = new HashSet<>();
-
-        if (xBombPositions == null) {
-
-            // initialize with random positions for bombs
-        }
-        else {
-            }
         for (int i = 0; i < xBombPositions.size(); i++) {
             int yPosition = yBombPositions.get(i);
             int xPosition = xBombPositions.get(i);
