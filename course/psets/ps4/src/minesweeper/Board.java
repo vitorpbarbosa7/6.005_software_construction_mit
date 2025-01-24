@@ -46,16 +46,15 @@ public class Board {
         Set<Position> bombPositions = new HashSet<>();
 
         if (xBombPositions == null) {
+
             // initialize with random positions for bombs
         }
         else {
-            System.out.println(yBombPositions);
-            System.out.println(xBombPositions);
-            for (int i = 0; i < xBombPositions.size(); i++) {
-                int yPosition = yBombPositions.get(i);
-                int xPosition = xBombPositions.get(i);
-                bombPositions.add(new Position(yPosition, xPosition));
             }
+        for (int i = 0; i < xBombPositions.size(); i++) {
+            int yPosition = yBombPositions.get(i);
+            int xPosition = xBombPositions.get(i);
+            bombPositions.add(new Position(yPosition, xPosition));
         }
 
         // initial board configuration, with no bombs

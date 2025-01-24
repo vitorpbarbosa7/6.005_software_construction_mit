@@ -158,7 +158,7 @@ public class MinesweeperServer {
             }
             String[] tokens = input.split(" ");
             if (tokens[0].equals("look")) {
-                System.out.println("\n Content: \n " + this.board.debugContent()+"\n");
+                // System.out.println("\n Content: \n " + this.board.debugContent()+"\n");
                 return this.board.returnBoard();
                 // 'look' request
                 // TODO Problem 5
