@@ -4,5 +4,7 @@
 **/*.js linguist-vendored
 *.css linguist-vendored
 **/*.css linguist-vendored
-
+**/*.g4 linguist-language=ANTLR
+*.g4 linguist-language=ANTLR
+**/*.g linguist-language=Parserlib
 *.g linguist-language=Parserlib
