@@ -132,9 +132,12 @@ public class MinesweeperServer {
                 for (String line = in.readLine(); line != null; line = in.readLine()) {
                     // input from cliente received with success, what to do?
                     String output = handleRequest(line);
+                    out.println(output);
                     
                     // handles close the connection after some conditions
                     if (this.debug == false & output == Constants.BOOM) {
+                        String messageOut = "You lost, connection will be closed";
+                        out.println(messageOut);
                         clientSocket.close();
                     }
                     if (output != null) {
@@ -153,12 +156,13 @@ public class MinesweeperServer {
                         + "(dig -?\\d+ -?\\d+)|(flag -?\\d+ -?\\d+)|(deflag -?\\d+ -?\\d+)";
             if ( ! input.matches(regex)) {
                 System.out.println(" no command");
+                return Constants.HELP_MESSAGE;
                 // invalid input
                 // TODO Problem 5
             }
             String[] tokens = input.split(" ");
             if (tokens[0].equals("look")) {
-                // System.out.println("\n Content: \n " + this.board.debugContent()+"\n");
+                System.out.println("\n Content: \n " + this.board.debugContent()+"\n");
                 return this.board.returnBoard();
                 // 'look' request
                 // TODO Problem 5
@@ -190,6 +194,8 @@ public class MinesweeperServer {
                     return this.board.deflag(y,x);
                     // 'deflag x y' request
                     // TODO Problem 5
+                } else {
+                    return Constants.HELP_MESSAGE;
                 }
             }
             // TODO: Should never get here, make sure to return in each of the cases above
@@ -342,20 +348,22 @@ public class MinesweeperServer {
         }
 
         else {
+            System.out.println("passou aqui random");
 
             // generate at random
-            int upperBound = 15;
+            int upperBound = 12;
             int lowerBound = 8;
             Random random = new Random();
             sizeY = random.nextInt(upperBound - lowerBound + 1) + lowerBound;
             sizeX = random.nextInt(upperBound - lowerBound + 1) + lowerBound;
 
             int numOfCells = sizeY*sizeX;
-            int lowerBoundPctBombs = 14;
-            int upperBoundPctBombs = 25;
+            int lowerBoundPctBombs = 12;
+            int upperBoundPctBombs = 20;
             int pctOfCells = random.nextInt(upperBoundPctBombs + 1) + lowerBoundPctBombs;
             // integer division for those types here
-            int numberOfCellsBombs = numOfCells*(pctOfCells/100);
+            int numberOfCellsBombs = (int) Math.round(numOfCells * (pctOfCells / 100.0)); // Ensure floating-point division
+            // System.out.println("Number of Cell Bombs: " + numberOfCellsBombs);
             
             String position;
             Set<String> bombPositions = new HashSet<>();
@@ -370,6 +378,9 @@ public class MinesweeperServer {
                     xBombPositions.add(xPositionBomb);
                 }
             }
+
+            // System.out.println("Bomb Positions: " + yBombPositions + "\n " + xBombPositions);
+            // System.out.println("Sizes: " + sizeY + "," + sizeX);
         }
 
         MinesweeperServer server = new MinesweeperServer(

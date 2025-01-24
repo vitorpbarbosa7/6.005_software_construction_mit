@@ -50,6 +50,7 @@ public class Board {
             int xPosition = xBombPositions.get(i);
             bombPositions.add(new Position(yPosition, xPosition));
         }
+            
 
         // initial board configuration, with no bombs
         // row
@@ -70,7 +71,7 @@ public class Board {
         }
     }
 
-    public  String dig(int y, int x){
+    public String dig(int y, int x){
         String returnMessage = "";
         if (x < 0 || y < 0) {
             // Do nothing and return the board
@@ -163,9 +164,9 @@ public class Board {
     
     
     private void recursiveExplore(int y, int x) {
-        System.out.println("Stack created");
-        System.out.println(y); 
-        System.out.println(x); 
+        // System.out.println("Stack created");
+        // System.out.println(y); 
+        // System.out.println(x); 
         // this.debugDisplay(y, x);
         // first conditions must be the positions, to go back doing nothing
 
@@ -242,9 +243,11 @@ public class Board {
         StringBuilder sb = new StringBuilder(); 
     
         // Add column numbers
-        sb.append("    "); // Space for row numbers
+        sb.append("   "); // Space for row numbers
         for (int x = 0; x < this.sizeX; x++) {
-            sb.append(String.format("%2d ", x));
+            sb.append(" "); // Space for row numbers
+            sb.append(String.format("%2d", x));
+            sb.append(" "); // Space for row numbers
         }
         sb.append("\n");
     
@@ -279,9 +282,11 @@ public class Board {
         StringBuilder sb = new StringBuilder(); 
     
         // Add column numbers
-        sb.append("    "); // Space for row numbers
+        sb.append("  "); // Space for row numbers
         for (int x = 0; x < this.sizeX; x++) {
-            sb.append(String.format("%2d ", x));
+            sb.append(" "); // Space for row numbers
+            sb.append(String.format("%2d", x));
+            sb.append(" "); // Space for row numbers
         }
         sb.append("\n");
     
