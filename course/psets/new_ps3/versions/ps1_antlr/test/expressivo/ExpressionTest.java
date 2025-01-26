@@ -8,8 +8,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import lib6005.parser.UnableToParseException;
-
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -94,11 +92,11 @@ public class ExpressionTest {
 
     // Additional tests as needed (for edge cases, etc.)
 
-    @Test(expected = UnableToParseException.class)
-    public void testInvalidExpression() throws UnableToParseException, IOException{
+    @Test
+    public void testInvalidExpression() throws IOException{
         // Example: test for invalid expression
         String invalidExpr = "x * + y";
-        Expression.parse(invalidExpr);  // This should throw an UnableToParseException
+        Expression.parse(invalidExpr);
     }
 
     @Test

@@ -10,8 +10,6 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import lib6005.parser.UnableToParseException;
-
 /**
  * Console interface to the expression system.
  * 
@@ -26,7 +24,7 @@ public class Main {
      * @param args unused
      * @throws IOException if there is an error reading the input
      */
-    public static void main(String[] args) throws UnableToParseException, IOException {
+    public static void main(String[] args) throws IOException {
         final BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         Optional<String> currentExpression = Optional.empty();
         
