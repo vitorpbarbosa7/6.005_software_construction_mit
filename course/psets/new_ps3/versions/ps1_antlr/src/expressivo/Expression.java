@@ -20,6 +20,7 @@ import org.antlr.v4.runtime.BaseErrorListener;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
 
+import expressivo.GrammarRun.ElementsGrammar;
 import expressivo.parser.ExpressionLexer;
 import expressivo.parser.ExpressionListener;
 import expressivo.parser.ExpressionParser;
@@ -198,10 +199,46 @@ public interface Expression {
 
     // The return is always a expression, different kinds of them 
     // Polymorphism?
-    private static Expression buildAST(ExpressionParser.RootContext context) {
+    private static Expression buildAST(ExpressionParser.SumContext sumContext) {
+
+        if (sumContext.product().size() == 1) {
+            return buildProductAST(sumContext.product(0));
+        }
+
+        Expression left = buildProductAST(sumContext.product(0));
+
+        // explore the others if available using the recursion also
+        for (int i = 1; i < sumContext.product().size(); i ++) {
+            Expression right = buildProductAST(sumContext.product(i));
+            // when back in this stack level of the frame, we must add, because we are at the buildAST Sum level (the first one)
+            left = new Sum(left, right); 
+        }
 
 
-        
+
+    } 
+
+
+    private static Expression buildProductAST(ExpressionParser.ProductContext productContext) {
+
+        if (productContext.primitive().size() == 0) {
+            return buildPrimitiveAST(productContext.primitive(0));
+        }
+    }
+
+
+    private static Expression buildPrimitiveAST(ExpressionParser.PrimitiveContext primitiveContext) {
+
+        if (primitiveContext.NUMBER() != null) {
+            return new Number(Double.parseDouble(primitiveContext.NUMBER().getText()));
+        } else if (primitiveContext.VAR() != null) {
+            return new Variable(primitiveContext.VAR().getText());
+        } else {
+            return buildAST(primitiveContext.sum());
+        }
+
+
+    }
         switch(p.getName()) { 
 
             // base case 

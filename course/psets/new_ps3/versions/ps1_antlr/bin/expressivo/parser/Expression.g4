@@ -1,9 +1,6 @@
 grammar Expression;
 import Configuration;
 
-// Root rule (start rule) for the entire input
-root: sum EOF;
-
 // Sum rule: allows products separated by '+'
 sum: product ('+' product)*;
 
