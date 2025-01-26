@@ -6,11 +6,21 @@ import java.util.Arrays;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
-import org.antlr.v4.gui.TreeViewer;
-import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.tree.*;
 import javax.swing.*;
+
+import org.antlr.v4.gui.Trees;
+import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.TokenStream;
+import org.antlr.v4.runtime.tree.ErrorNode;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.antlr.v4.runtime.tree.TerminalNode;
+import org.antlr.v4.runtime.BaseErrorListener;
+import org.antlr.v4.runtime.RecognitionException;
+import org.antlr.v4.runtime.Recognizer;
 
 import expressivo.parser.ExpressionLexer;
 import expressivo.parser.ExpressionListener;
@@ -55,16 +65,16 @@ public class GrammarRun {
                 // Print the parse tree in LISP-style notation
         System.out.println(sumContext.toStringTree(parser));
 
-        // Display the parse tree graphically
-        JFrame frame = new JFrame("ANTLR Parse Tree");
-        JPanel panel = new JPanel();
-        TreeViewer viewer = new TreeViewer(Arrays.asList(parser.getRuleNames()), tree);
-        viewer.setScale(1.5); // Adjust the scale as needed
-        panel.add(viewer);
-        frame.add(panel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 600); // Set the desired size
-        frame.setVisible(true);
+        // // Display the parse tree graphically
+        // JFrame frame = new JFrame("ANTLR Parse Tree");
+        // JPanel panel = new JPanel();
+        // TreeViewer viewer = new TreeViewer(Arrays.asList(parser.getRuleNames()), tree);
+        // viewer.setScale(1.5); // Adjust the scale as needed
+        // panel.add(viewer);
+        // frame.add(panel);
+        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // frame.setSize(800, 600); // Set the desired size
+        // frame.setVisible(true);
     } catch (Exception e) {
     throw new IllegalArgumentException("Failed to parse expression", e);
     }
