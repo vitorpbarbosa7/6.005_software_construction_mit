@@ -1,11 +1,5 @@
 package expressivo;
 
-// import lib6005.parser.Parser;
-// import lib6005.parser.UnableToParseException;
-// import lib6005.parser.GrammarCompiler;
-// import lib6005.parser.ParseTree;
-
-
 import org.antlr.v4.gui.Trees;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CharStream;
@@ -20,7 +14,6 @@ import org.antlr.v4.runtime.BaseErrorListener;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
 
-import expressivo.GrammarRun.ElementsGrammar;
 import expressivo.parser.ExpressionLexer;
 import expressivo.parser.ExpressionListener;
 import expressivo.parser.ExpressionParser;
@@ -51,7 +44,7 @@ public interface Expression {
     //            Sum(left:Expression, right:Expression)
     // Once defined their variants, need to implement them concretely
 
-    public static void main(String[] args) throws UnableToParseException, IOException {
+    public static void main(String[] args) throws IOException {
         // Sample expressions
 
         // Create the variable 'x' for differentiation
