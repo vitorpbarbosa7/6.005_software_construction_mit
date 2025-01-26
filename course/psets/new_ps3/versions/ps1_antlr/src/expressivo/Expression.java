@@ -1,14 +1,33 @@
 package expressivo;
 
-import lib6005.parser.Parser;
-import lib6005.parser.UnableToParseException;
+// import lib6005.parser.Parser;
+// import lib6005.parser.UnableToParseException;
+// import lib6005.parser.GrammarCompiler;
+// import lib6005.parser.ParseTree;
+
+
+import org.antlr.v4.gui.Trees;
+import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.TokenStream;
+import org.antlr.v4.runtime.tree.ErrorNode;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.antlr.v4.runtime.tree.TerminalNode;
+import org.antlr.v4.runtime.BaseErrorListener;
+import org.antlr.v4.runtime.RecognitionException;
+import org.antlr.v4.runtime.Recognizer;
+
+import expressivo.parser.ExpressionLexer;
+import expressivo.parser.ExpressionListener;
+import expressivo.parser.ExpressionParser;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
-import lib6005.parser.GrammarCompiler;
-import lib6005.parser.ParseTree;
 
 
 /**
@@ -97,8 +116,47 @@ public interface Expression {
      * @throws IllegalArgumentException if the expression is invalid
      */
     public static Expression parse(String string) throws UnableToParseException, IOException {
+        try {
+            CharStream cs = new ANTLRInputStream(string);
+            ExpressionLexer lexer = new ExpressionLexer(cs);
+            lexer.removeErrorListeners();
+            lexer.addErrorListener(new BaseErrorListener() {
+                @Override
+                public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol,
+                        int line, int charPositionInLine, String msg, RecognitionException e) {
+                    throw new IllegalArgumentException("Invalid expression: " + msg);
+                }
+            });
+
+            CommonTokenStream tokens = new CommonTokenStream(lexer);
+            ExpressionParser parser = new ExpressionParser(tokens);
+
+            parser.removeErrorListeners();
+            parser.addErrorListener(new BaseErrorListener() {
+                @Override
+                public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol,
+                        int line, int charPositionInLine, String msg, RecognitionException e) {
+                    throw new IllegalArgumentException("Invalid expression: " + msg);
+                }
+            });
+
+            ExpressionParser.RootContext context = parser.expr();
+
+            Expression AbstractSyntaxTree = buildAST(context);
+            return AbstractSyntaxTree; 
+            
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Failed to parse expression", e);
+        }
+
+
+
+
+
+
         Parser<ElementsGrammar> parser = GrammarCompiler.compile(new File("Expression.g"), ElementsGrammar.ROOT);
         ParseTree<ElementsGrammar> tree = parser.parse(string);
+
 
         // tree.display();
 
@@ -140,7 +198,9 @@ public interface Expression {
 
     // The return is always a expression, different kinds of them 
     // Polymorphism?
-    private static Expression buildAST(ParseTree<ElementsGrammar> p) {
+    private static Expression buildAST(ExpressionParser.RootContext context) {
+
+
         
         switch(p.getName()) { 
 
@@ -233,9 +293,6 @@ public interface Expression {
 
     }
 
-    public enum ElementsGrammar {
-        ROOT, SUM, PRODUCT, PRIMITIVE, WHITESPACE, NUMBER, VARIABLE
-    }
 
 
 

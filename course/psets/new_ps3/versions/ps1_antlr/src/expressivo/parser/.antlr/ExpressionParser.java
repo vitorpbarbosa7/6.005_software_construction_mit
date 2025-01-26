@@ -1,4 +1,4 @@
-// Generated from /Users/vpb/Documents/Documents - bitedFruit/01_ds/MIT/6.005/course/psets/new_ps3/versions/ps1_antlr/src/parser/Expression.g4 by ANTLR 4.13.1
+// Generated from /Users/vpb/Documents/Documents - bitedFruit/01_ds/MIT/6.005/course/psets/new_ps3/versions/ps1_antlr/src/expressivo/parser/Expression.g4 by ANTLR 4.13.1
 
 package expressivo.parser;
 // Do not edit this .java file! Edit the grammar in Expression.g4 and re-run Antlr.
