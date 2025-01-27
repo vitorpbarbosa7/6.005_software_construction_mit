@@ -1,4 +1,4 @@
-// Generated from Expression.g4 by ANTLR 4.5.1
+// Generated from src/expressivo/parser/Expression.g4 by ANTLR 4.5.1
 
 package expressivo.parser;
 // Do not edit this .java file! Edit the grammar in Expression.g4 and re-run Antlr.
@@ -20,7 +20,7 @@ public class ExpressionParser extends Parser {
   protected static final PredictionContextCache _sharedContextCache =
     new PredictionContextCache();
   public static final int
-    T__0=1, T__1=2, T__2=3, T__3=4, NUMBER=5, VAR=6, SPACES=7;
+    T__0=1, T__1=2, T__2=3, T__3=4, NUMBER=5, VAR=6, WHITESPACE=7;
   public static final int
     RULE_sum = 0, RULE_product = 1, RULE_primitive = 2;
   public static final String[] ruleNames = {
@@ -31,7 +31,7 @@ public class ExpressionParser extends Parser {
     null, "'+'", "'*'", "'('", "')'"
   };
   private static final String[] _SYMBOLIC_NAMES = {
-    null, null, null, null, null, "NUMBER", "VAR", "SPACES"
+    null, null, null, null, null, "NUMBER", "VAR", "WHITESPACE"
   };
   public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -106,6 +106,7 @@ public class ExpressionParser extends Parser {
     public ProductContext product(int i) {
       return getRuleContext(ProductContext.class,i);
     }
+    public TerminalNode EOF() { return getToken(ExpressionParser.EOF, 0); }
     public SumContext(ParserRuleContext parent, int invokingState) {
       super(parent, invokingState);
     }
@@ -145,6 +146,8 @@ public class ExpressionParser extends Parser {
         _errHandler.sync(this);
         _la = _input.LA(1);
       }
+      setState(14);
+      match(EOF);
       }
     }
     catch (RecognitionException re) {
@@ -186,21 +189,21 @@ public class ExpressionParser extends Parser {
     try {
       enterOuterAlt(_localctx, 1);
       {
-      setState(14);
+      setState(16);
       primitive();
-      setState(19);
+      setState(21);
       _errHandler.sync(this);
       _la = _input.LA(1);
       while (_la==T__1) {
         {
         {
-        setState(15);
+        setState(17);
         match(T__1);
-        setState(16);
+        setState(18);
         primitive();
         }
         }
-        setState(21);
+        setState(23);
         _errHandler.sync(this);
         _la = _input.LA(1);
       }
@@ -241,30 +244,30 @@ public class ExpressionParser extends Parser {
     PrimitiveContext _localctx = new PrimitiveContext(_ctx, getState());
     enterRule(_localctx, 4, RULE_primitive);
     try {
-      setState(28);
+      setState(30);
       switch (_input.LA(1)) {
       case VAR:
         enterOuterAlt(_localctx, 1);
         {
-        setState(22);
+        setState(24);
         match(VAR);
         }
         break;
       case NUMBER:
         enterOuterAlt(_localctx, 2);
         {
-        setState(23);
+        setState(25);
         match(NUMBER);
         }
         break;
       case T__2:
         enterOuterAlt(_localctx, 3);
         {
-        setState(24);
-        match(T__2);
-        setState(25);
-        sum();
         setState(26);
+        match(T__2);
+        setState(27);
+        sum();
+        setState(28);
         match(T__3);
         }
         break;
@@ -284,16 +287,17 @@ public class ExpressionParser extends Parser {
   }
 
   public static final String _serializedATN =
-    "\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\t!\4\2\t\2\4\3"+
-      "\t\3\4\4\t\4\3\2\3\2\3\2\7\2\f\n\2\f\2\16\2\17\13\2\3\3\3\3\3\3\7"+
-      "\3\24\n\3\f\3\16\3\27\13\3\3\4\3\4\3\4\3\4\3\4\3\4\5\4\37\n\4\3\4"+
-      "\2\2\5\2\4\6\2\2!\2\b\3\2\2\2\4\20\3\2\2\2\6\36\3\2\2\2\b\r\5\4\3"+
-      "\2\t\n\7\3\2\2\n\f\5\4\3\2\13\t\3\2\2\2\f\17\3\2\2\2\r\13\3\2\2\2"+
-      "\r\16\3\2\2\2\16\3\3\2\2\2\17\r\3\2\2\2\20\25\5\6\4\2\21\22\7\4\2"+
-      "\2\22\24\5\6\4\2\23\21\3\2\2\2\24\27\3\2\2\2\25\23\3\2\2\2\25\26\3"+
-      "\2\2\2\26\5\3\2\2\2\27\25\3\2\2\2\30\37\7\b\2\2\31\37\7\7\2\2\32\33"+
-      "\7\5\2\2\33\34\5\2\2\2\34\35\7\6\2\2\35\37\3\2\2\2\36\30\3\2\2\2\36"+
-      "\31\3\2\2\2\36\32\3\2\2\2\37\7\3\2\2\2\5\r\25\36";
+    "\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\t#\4\2\t\2\4\3"+
+      "\t\3\4\4\t\4\3\2\3\2\3\2\7\2\f\n\2\f\2\16\2\17\13\2\3\2\3\2\3\3\3"+
+      "\3\3\3\7\3\26\n\3\f\3\16\3\31\13\3\3\4\3\4\3\4\3\4\3\4\3\4\5\4!\n"+
+      "\4\3\4\2\2\5\2\4\6\2\2#\2\b\3\2\2\2\4\22\3\2\2\2\6 \3\2\2\2\b\r\5"+
+      "\4\3\2\t\n\7\3\2\2\n\f\5\4\3\2\13\t\3\2\2\2\f\17\3\2\2\2\r\13\3\2"+
+      "\2\2\r\16\3\2\2\2\16\20\3\2\2\2\17\r\3\2\2\2\20\21\7\2\2\3\21\3\3"+
+      "\2\2\2\22\27\5\6\4\2\23\24\7\4\2\2\24\26\5\6\4\2\25\23\3\2\2\2\26"+
+      "\31\3\2\2\2\27\25\3\2\2\2\27\30\3\2\2\2\30\5\3\2\2\2\31\27\3\2\2\2"+
+      "\32!\7\b\2\2\33!\7\7\2\2\34\35\7\5\2\2\35\36\5\2\2\2\36\37\7\6\2\2"+
+      "\37!\3\2\2\2 \32\3\2\2\2 \33\3\2\2\2 \34\3\2\2\2!\7\3\2\2\2\5\r\27"+
+      " ";
   public static final ATN _ATN =
     new ATNDeserializer().deserialize(_serializedATN.toCharArray());
   static {

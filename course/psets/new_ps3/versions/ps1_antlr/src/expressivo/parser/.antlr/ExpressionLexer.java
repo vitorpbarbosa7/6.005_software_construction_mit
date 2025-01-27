@@ -20,7 +20,7 @@ public class ExpressionLexer extends Lexer {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, T__3=4, NUMBER=5, VAR=6, SPACES=7;
+		T__0=1, T__1=2, T__2=3, T__3=4, NUMBER=5, VAR=6, WHITESPACE=7;
 	public static String[] channelNames = {
 		"DEFAULT_TOKEN_CHANNEL", "HIDDEN"
 	};
@@ -31,7 +31,7 @@ public class ExpressionLexer extends Lexer {
 
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"T__0", "T__1", "T__2", "T__3", "NUMBER", "VAR", "SPACES"
+			"T__0", "T__1", "T__2", "T__3", "NUMBER", "VAR", "WHITESPACE"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -44,7 +44,7 @@ public class ExpressionLexer extends Lexer {
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, null, null, null, "NUMBER", "VAR", "SPACES"
+			null, null, null, null, null, "NUMBER", "VAR", "WHITESPACE"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -132,18 +132,18 @@ public class ExpressionLexer extends Lexer {
 		"\u0004 \u0003\u0004#\b\u0004\u0001\u0005\u0001\u0005\u0001\u0006\u0004"+
 		"\u0006(\b\u0006\u000b\u0006\f\u0006)\u0001\u0006\u0001\u0006\u0000\u0000"+
 		"\u0007\u0001\u0001\u0003\u0002\u0005\u0003\u0007\u0004\t\u0005\u000b\u0006"+
-		"\r\u0007\u0001\u0000\u0003\u0001\u000009\u0002\u0000AZaz\u0001\u0000 "+
-		" 0\u0000\u0001\u0001\u0000\u0000\u0000\u0000\u0003\u0001\u0000\u0000\u0000"+
-		"\u0000\u0005\u0001\u0000\u0000\u0000\u0000\u0007\u0001\u0000\u0000\u0000"+
-		"\u0000\t\u0001\u0000\u0000\u0000\u0000\u000b\u0001\u0000\u0000\u0000\u0000"+
-		"\r\u0001\u0000\u0000\u0000\u0001\u000f\u0001\u0000\u0000\u0000\u0003\u0011"+
-		"\u0001\u0000\u0000\u0000\u0005\u0013\u0001\u0000\u0000\u0000\u0007\u0015"+
-		"\u0001\u0000\u0000\u0000\t\u0018\u0001\u0000\u0000\u0000\u000b$\u0001"+
-		"\u0000\u0000\u0000\r\'\u0001\u0000\u0000\u0000\u000f\u0010\u0005+\u0000"+
-		"\u0000\u0010\u0002\u0001\u0000\u0000\u0000\u0011\u0012\u0005*\u0000\u0000"+
-		"\u0012\u0004\u0001\u0000\u0000\u0000\u0013\u0014\u0005(\u0000\u0000\u0014"+
-		"\u0006\u0001\u0000\u0000\u0000\u0015\u0016\u0005)\u0000\u0000\u0016\b"+
-		"\u0001\u0000\u0000\u0000\u0017\u0019\u0007\u0000\u0000\u0000\u0018\u0017"+
+		"\r\u0007\u0001\u0000\u0003\u0001\u000009\u0002\u0000AZaz\u0003\u0000\t"+
+		"\n\r\r  0\u0000\u0001\u0001\u0000\u0000\u0000\u0000\u0003\u0001\u0000"+
+		"\u0000\u0000\u0000\u0005\u0001\u0000\u0000\u0000\u0000\u0007\u0001\u0000"+
+		"\u0000\u0000\u0000\t\u0001\u0000\u0000\u0000\u0000\u000b\u0001\u0000\u0000"+
+		"\u0000\u0000\r\u0001\u0000\u0000\u0000\u0001\u000f\u0001\u0000\u0000\u0000"+
+		"\u0003\u0011\u0001\u0000\u0000\u0000\u0005\u0013\u0001\u0000\u0000\u0000"+
+		"\u0007\u0015\u0001\u0000\u0000\u0000\t\u0018\u0001\u0000\u0000\u0000\u000b"+
+		"$\u0001\u0000\u0000\u0000\r\'\u0001\u0000\u0000\u0000\u000f\u0010\u0005"+
+		"+\u0000\u0000\u0010\u0002\u0001\u0000\u0000\u0000\u0011\u0012\u0005*\u0000"+
+		"\u0000\u0012\u0004\u0001\u0000\u0000\u0000\u0013\u0014\u0005(\u0000\u0000"+
+		"\u0014\u0006\u0001\u0000\u0000\u0000\u0015\u0016\u0005)\u0000\u0000\u0016"+
+		"\b\u0001\u0000\u0000\u0000\u0017\u0019\u0007\u0000\u0000\u0000\u0018\u0017"+
 		"\u0001\u0000\u0000\u0000\u0019\u001a\u0001\u0000\u0000\u0000\u001a\u0018"+
 		"\u0001\u0000\u0000\u0000\u001a\u001b\u0001\u0000\u0000\u0000\u001b\"\u0001"+
 		"\u0000\u0000\u0000\u001c\u001e\u0005.\u0000\u0000\u001d\u001f\u0007\u0000"+
