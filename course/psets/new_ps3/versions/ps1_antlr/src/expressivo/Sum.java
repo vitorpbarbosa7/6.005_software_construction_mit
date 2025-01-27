@@ -28,7 +28,7 @@ class Sum implements Expression{
 
         if (leftReplaced.isThisFuckingNumber() && rightReplaced.isThisFuckingNumber()) {
             Double result = leftReplaced.getValue() + rightReplaced.getValue();
-            System.out.println("" + leftReplaced + "*" + rightReplaced + "= " + result);
+            System.out.println("" + leftReplaced + " + " + rightReplaced + " = " + result);
             System.out.println("passou aqui");
             return new Number(result);
         } else {

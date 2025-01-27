@@ -52,7 +52,7 @@ public interface Expression {
         Variable varY = new Variable("y");
         
         HashMap<String, Integer> vars = new HashMap<>();
-        // vars.put("x", 2);
+        vars.put("x", 2);
         vars.put("y", 3);
         vars.put("z", 4);
 
@@ -203,7 +203,7 @@ public interface Expression {
 
         Expression left = buildPrimitiveAST(productContext.primitive(0));
 
-        for (int i = 0; i < productContext.primitive().size();  i++ ) {
+        for (int i = 1; i < productContext.primitive().size();  i++ ) {
             Expression right = buildPrimitiveAST(productContext.primitive(i));
             left = new Product(left, right);
         }
