@@ -68,21 +68,31 @@ public class GrammarRun {
                 // Print the parse tree in LISP-style notation
         System.out.println(sumContext.toStringTree(parser));
 
-        ParseTree tree = parser.sum();
+        // ParseTree tree = parser.sum();
+
+        // display(tree, parser);
         // Display the parse tree graphically
-        JFrame frame = new JFrame("ANTLR Parse Tree");
-        JPanel panel = new JPanel();
-        TreeViewer viewer = new TreeViewer(Arrays.asList(parser.getRuleNames()), tree);
-        viewer.setScale(1.5); // Adjust the scale as needed
-        panel.add(viewer);
-        frame.add(panel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 600); // Set the desired size
-        frame.setVisible(true);
     } catch (Exception e) {
     throw new IllegalArgumentException("Failed to parse expression", e);
     }
-    
-    }
+}
 
+    public static void display(ParseTree tree, Parser parser) {
+        // Create a JFrame to hold the TreeViewer
+        JFrame frame = new JFrame("Parse Tree");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(800, 600);
+    
+        // Create the TreeViewer component
+        TreeViewer viewer = new TreeViewer(Arrays.asList(parser.getRuleNames()), tree);
+        viewer.setScale(1.5); // Adjust the scale as needed
+    
+        // Add the TreeViewer to a JScrollPane for better viewing
+        JScrollPane scrollPane = new JScrollPane(viewer);
+        frame.add(scrollPane);
+    
+        // Display the JFrame
+        frame.setVisible(true);
+    }
+    
 }

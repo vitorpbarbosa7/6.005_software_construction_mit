@@ -2,7 +2,7 @@ grammar Expression;
 import Configuration;
 
 // Sum rule: allows products separated by '+'
-sum: product ('+' product)* EOF;
+sum: product ('+' product)*;
 
 // Product rule: allows primitives separated by '*'
 product: primitive ('*' primitive)*;

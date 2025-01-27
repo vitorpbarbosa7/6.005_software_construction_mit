@@ -1,0 +1,120 @@
+<html>
+
+<!--
+/* Copyright (c) 2016-2017 MIT 6.005/6.031 course staff, all rights reserved.
+ * Redistribution of original or derived work requires permission of course staff.
+ */
+-->
+
+<script>
+var levels = {};
+var dX = 10;
+var dY = 11;
+var oX = 10;
+var oY = 10;
+var uu = undefined;
+function printText(text, level, px){
+	if(!(level in levels)){
+		levels[level] = 0;
+	}
+	var offst = levels[level];
+	if(offst < px - dX*8){
+		offst = px - dX*8;	
+	}
+	var newoffst = offst + dX*2 + text.length*dY/2;	
+	levels[level] = newoffst;
+	for(var i=0; i<level; ++i){
+		if(levels[i] < newoffst){
+			levels[i] = newoffst;	
+		}
+	}
+	var c = document.getElementById("myCanvas");
+	var ctx = c.getContext("2d");
+	ctx.font = ""+ dY + "px Arial";
+	var px = oX + offst;
+	var py = oY + level*dY*5;			
+	
+	ctx.fillText(text,px, py);	
+	return {x:px, y:py};
+}
+
+
+function node(text, child, sibiling){
+	return {text:text, child:child, sibiling:sibiling};	
+}
+
+function nd(text, child, sibiling){
+	return {text:text, child:child, sibiling:sibiling};	
+}
+
+function test(){
+	var n = node("Granpa", node("Father", node("Me", undefined, node("Brother", undefined, undefined) ) , 
+	node("Uncle1", node("Cousin", undefined, undefined) ,node("Uncle2", undefined, undefined) ) , undefined), undefined, undefined);	
+	return n;
+}
+
+function getParameterByName(name, url) {
+//CODEHERE
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+function draw(){
+	levels = {};
+	var program = getParameterByName('code');
+	var n = eval(program);
+	var level = 0;
+	var c = document.getElementById("myCanvas");
+	var ctx = c.getContext("2d");
+	ctx.clearRect(0, 0, c.width, c.height);
+	function recurse(parentpos, nd, lv){
+		var px = 0;
+		if(parentpos != undefined){
+			px = parentpos.x;	
+		}
+		var pos = 	printText(nd.text, lv, px);
+		var mypos = pos;
+		if(parentpos != undefined){
+			ctx.beginPath();	
+			ctx.moveTo(parentpos.x+dX, parentpos.y);
+			ctx.lineTo(pos.x+dX, pos.y-dY);
+			ctx.stroke();
+		}
+		if(nd.child != undefined){
+			recurse(mypos, nd.child, lv+1);
+		}
+		if(nd.sibiling != undefined){
+			recurse(parentpos, nd.sibiling, lv);	
+		}
+	}
+	recurse(undefined, n, 0);
+	var maxofst = 0;
+	var maxlevel = 0;
+	for(var l in levels){
+		if(maxofst < levels[level]){
+			maxofst = levels[level];	
+		}
+		maxlevel++;
+	}
+	if(c.width < maxofst){
+		c.width = maxofst+50;
+		draw();	
+	}
+	if(c.height < maxlevel*dY*5){
+		c.height = 	maxlevel*dY*5 + 50;
+		draw();
+	}
+}
+
+</script>
+<body  onLoad="draw()">
+<canvas id="myCanvas" width="600" height="500" style="border:1px solid #000000;"></canvas>
+</body>
+
+
+</html>
