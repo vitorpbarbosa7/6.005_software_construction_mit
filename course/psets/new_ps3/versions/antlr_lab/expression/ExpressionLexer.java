@@ -1,8 +1,4 @@
 // Generated from Expression.g4 by ANTLR 4.13.2
-
-package expressivo.parser;
-// Do not edit this .java file! Edit the grammar in Expression.g4 and re-run Antlr.
-
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
@@ -80,23 +76,6 @@ public class ExpressionLexer extends Lexer {
 	public Vocabulary getVocabulary() {
 		return VOCABULARY;
 	}
-
-
-	    // This method makes the lexer or parser stop running if it encounters
-	    // invalid input and throw a ParseCancellationException.
-	    public void reportErrorsAsExceptions() {
-	        // To prevent any reports to standard error, add this line:
-	        //removeErrorListeners();
-	        
-	        addErrorListener(new BaseErrorListener() {
-	            public void syntaxError(Recognizer<?, ?> recognizer,
-	                                    Object offendingSymbol,
-	                                    int line, int charPositionInLine,
-	                                    String msg, RecognitionException e) {
-	                throw new ParseCancellationException(msg, e);
-	            }
-	        });
-	    }
 
 
 	public ExpressionLexer(CharStream input) {

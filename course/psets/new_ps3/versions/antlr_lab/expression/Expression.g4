@@ -1,5 +1,4 @@
 grammar Expression;
-import Configuration;
 
 // Sum rule: allows products separated by '+'
 sum: product ('+' product)* EOF;

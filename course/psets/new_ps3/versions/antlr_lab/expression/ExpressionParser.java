@@ -1,8 +1,4 @@
 // Generated from Expression.g4 by ANTLR 4.13.2
-
-package expressivo.parser;
-// Do not edit this .java file! Edit the grammar in Expression.g4 and re-run Antlr.
-
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -86,23 +82,6 @@ public class ExpressionParser extends Parser {
 
 	@Override
 	public ATN getATN() { return _ATN; }
-
-
-	    // This method makes the lexer or parser stop running if it encounters
-	    // invalid input and throw a ParseCancellationException.
-	    public void reportErrorsAsExceptions() {
-	        // To prevent any reports to standard error, add this line:
-	        //removeErrorListeners();
-	        
-	        addErrorListener(new BaseErrorListener() {
-	            public void syntaxError(Recognizer<?, ?> recognizer,
-	                                    Object offendingSymbol,
-	                                    int line, int charPositionInLine,
-	                                    String msg, RecognitionException e) {
-	                throw new ParseCancellationException(msg, e);
-	            }
-	        });
-	    }
 
 	public ExpressionParser(TokenStream input) {
 		super(input);

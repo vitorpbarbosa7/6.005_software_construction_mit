@@ -1,9 +1,5 @@
 // Generated from Expression.g4 by ANTLR 4.13.2
 
-package expressivo.parser;
-// Do not edit this .java file! Edit the grammar in Expression.g4 and re-run Antlr.
-
-
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
